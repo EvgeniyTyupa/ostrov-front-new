@@ -1,0 +1,11 @@
+.main {
+    background-color: #4B5EA3 !important;
+    color: white !important;
+    text-transform: initial;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+.main:hover {
+    background-color: #2c45a0 !important;
+}

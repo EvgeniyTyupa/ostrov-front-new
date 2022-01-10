@@ -1,0 +1,22 @@
+.main {
+    width: 100%;
+}
+.body {
+    display: flex;
+    z-index: 1;
+    margin-top: 30px;
+}
+.content {
+    width: 100%;
+    margin-left: 50px;
+    background-color: white;
+    box-shadow: -1px 0 16px -13px black;
+    box-sizing: border-box;
+    padding: 30px;
+    border-top-left-radius: 8px; 
+}
+.title {
+    border-bottom: 1px solid rgba(128, 128, 128, .1);
+    padding-bottom: 25px;
+    color: #4B5EA3;
+}

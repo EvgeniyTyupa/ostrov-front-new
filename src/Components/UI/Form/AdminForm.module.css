@@ -1,0 +1,72 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
+}
+.row {
+    display: flex;
+    gap: 0 25px;
+}
+.row div {
+    margin: 0;
+}
+.dropzone {
+    color: #4B5EA3 !important;
+    margin-top: 10px;
+}
+.dropzone button {
+    top: 0;
+    right: 0;
+}
+.dropzone svg {
+    color: #4B5EA3 !important;
+    position: relative;
+    top: 1px;
+}
+.dropzoneError {
+    border: 1px solid #d32f2f !important;
+    color: #d32f2f !important;
+    margin-bottom: 5px !important;
+}
+.dropzoneError svg {
+    color: #d32f2f !important;
+    position: relative;
+    top: 1px;
+}
+
+.dropzonePreview div {
+    padding: 8px;
+}
+.imagesLabel {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-family: 'Roboto';
+}
+.submit {
+    background-color: #4B5EA3 !important;
+    color: white !important;
+    height: 40px !important;
+    border-radius: 4px !important;
+    margin-top: 25px !important;
+    width: 150px !important;
+    margin-left: auto !important;
+}
+.submit:hover {
+    background-color: #3a51a3 !important;
+}
+.error {
+    color: #d32f2f !important;
+    font-size: 0.75rem;
+    font-family: 'Roboto';
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+}
+.footer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 40px;
+}

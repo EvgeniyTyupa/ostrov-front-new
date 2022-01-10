@@ -1,0 +1,23 @@
+.main button {
+    padding: 8px !important;
+    border-radius: 50% !important;
+}
+.main button svg {
+    font-size: 20px !important;
+}
+.editBut {
+    background-color: #4B5EA3 !important;
+    color: white !important;
+    margin-right: 5px !important;
+}
+.editBut:hover {
+    background-color: #3d53a3 !important;
+}
+.delBut {
+    background-color: #DD6450 !important;
+    color: white !important;
+    margin-left: 5px !important;
+}
+.delBut:hover {
+    background-color: #d44d35 !important;
+}

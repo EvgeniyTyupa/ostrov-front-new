@@ -1,0 +1,45 @@
+.main {
+    width: 100%;
+}
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(128, 128, 128, .1);
+    padding-bottom: 25px;
+    color: #4B5EA3;
+}
+.header button {
+    color: #4B5EA3;
+}
+.imgPreview {
+    width: 100px;
+    object-fit: cover;
+    height: 80px;
+}
+.tableContainer {
+    max-height: 70vh;
+}
+.tableContainer thead th {
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #4B5EA3;
+    color: white;
+    cursor: pointer;
+}
+.tableContainer thead th:hover {
+    text-decoration: underline;
+}
+.addBut {
+    background-color: #4B5EA3 !important;
+    color: white !important;
+    border-radius: 4px !important;
+    padding: 0 10px !important;
+    height: 55px;
+}
+.topController {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}

@@ -1,0 +1,9 @@
+.main {
+
+}
+.text {
+    margin-left: 5px;
+}
+.text:hover {
+    text-decoration: underline;
+}
