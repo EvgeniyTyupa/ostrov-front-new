@@ -54,7 +54,7 @@ export const itemsApi = {
         }
     },
     deleteItem(itemId) {
-        return instance.delete(`${baseURL}/item/${itemId}`)
+        return instance.delete(`/item/${itemId}`)
         .then(response => response.data)
     }
 }
@@ -76,6 +76,18 @@ export const categoryApi = {
 export const tagApi = {
     getTags(pageNumber, pageSize, searchBy, from, searchingValue) {
         return instance.get(`/tag?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+        .then(response => response.data)
+    },
+    addTag(data) {
+        return instance.post(`/tag`, data)
+        .then(response => response.data)
+    },
+    editTag(tagId, data) {
+        return instance.patch(`/tag/${tagId}`, data)
+        .then(response => response.data)
+    },
+    deleteTag(tagId) {
+        return instance.delete(`/tag/${tagId}`)
         .then(response => response.data)
     }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import classes from './AdminItems.module.css'
+import classes from '../AdminView.module.css'
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
 import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch';
@@ -7,6 +7,7 @@ import AdminAddForm from './AdminAddForm';
 import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal'
 import AdminEditForm from './AdminEditForm';
+import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 
 const AdminItems = (props) => {
     const { 
@@ -25,7 +26,9 @@ const AdminItems = (props) => {
         searchValue,
         setSearchValue,
         createItem,
-        deleteItem
+        deleteItem,
+        serverResponse,
+        serverError
     } = props
 
     const rows = [
@@ -87,6 +90,7 @@ const AdminItems = (props) => {
 
     return (
         <div className={classes.main}>
+            {(serverError || serverResponse) && <ServerResponse/> }
             {isOpenAddModal && 
                 <AdminAddForm 
                     onClose={handleAddModal} 

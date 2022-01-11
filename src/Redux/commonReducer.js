@@ -1,9 +1,11 @@
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
 const SET_SERVER_RESPONSE = 'SET_SERVER_RESPONSE'
+const SET_SERVER_ERROR = 'SET_SERVER_ERROR' 
 
 let initialState = {
     isFetching: false,
-    serverResponse: null
+    serverResponse: "asdasd",
+    serverError: null
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -13,6 +15,9 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_SERVER_RESPONSE: {
             return { ...state, serverResponse: action.serverResponse }
+        }
+        case SET_SERVER_ERROR: {
+            return { ...state, serverError: action.serverError }
         }
         default: 
             return state
@@ -24,6 +29,9 @@ export const setIsFetching = (isFetching) => ({
 })
 export const setServerResponse = (serverResponse) => ({
     type: SET_SERVER_RESPONSE, serverResponse
+})
+export const setServerError = (serverError) => ({
+    type: SET_SERVER_ERROR, serverError
 })
 
 

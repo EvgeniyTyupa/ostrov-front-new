@@ -22,11 +22,13 @@ const AdminItemsContainer = (props) => {
         getAllCategories,
         getTags,
         createItem,
-        deleteItem
+        deleteItem,
+        serverError,
+        serverResponse
     } = props
 
     const [pageSize, setPageSize] = useState(20)
-    const [pageNumber, setPageNubmer] = useState(0)
+    const [pageNumber, setPageNumber] = useState(0)
 
     const [searchValue, setSearchValue] = useState("")
 
@@ -37,12 +39,12 @@ const AdminItemsContainer = (props) => {
     }
 
     const handleChangePage = (event, page) => {
-        setPageNubmer(page)
+        setPageNumber(page)
     }
 
     const handlePageSize = (event) => {
         setPageSize(event.target.value)
-        setPageNubmer(0)
+        setPageNumber(0)
     }
 
     useEffect(() => {
@@ -72,6 +74,8 @@ const AdminItemsContainer = (props) => {
                 setSearchValue={setSearchValue}
                 createItem={createItem}
                 deleteItem={deleteItem}
+                serverResponse={serverResponse}
+                serverError={serverError}
             />
             
         </AdminLayout>
@@ -84,7 +88,9 @@ let mapStateToProps = (state) => ({
     total: state.items.total,
     brands: state.brands.brands,
     categories: state.categories.categories,
-    tags: state.tags.tags
+    tags: state.tags.tags,
+    serverResponse: state.common.serverResponse,
+    serverError: state.common.serverError
 })
 
 export default connect(mapStateToProps, {

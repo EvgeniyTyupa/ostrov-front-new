@@ -38,5 +38,32 @@ export const getTags = (pageNumber, pageSize, searchBy, from, searchingValue) =>
         dispatch(setIsFetching(false))
     }
 }
+export const addTag = (data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await tagApi.addTag(data)
+        dispatch(setIsFetching(false))
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+export const editTag = (tagId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await tagApi.editTag(tagId, data)
+        dispatch([setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+export const deleteTag = (tagId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let reponse = await tagApi.deleteTag(tagId)
+        dispatch([setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
 
 export default tagsReducer
