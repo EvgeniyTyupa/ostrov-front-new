@@ -14,6 +14,8 @@ const AdminAddTag = (props) => {
     const onSubmit = (data) => {
         console.log(data)
 
+        addTag(data)
+
         reset({
             name: "",
             name_ua: ""

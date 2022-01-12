@@ -74,7 +74,7 @@ const AdminTags = (props) => {
                         </TableHead>
                         <TableBody>
                             {tags.map(item => (
-                                <TableRow ket={item._id}>
+                                <TableRow key={item._id}>
                                     <TableCell width="50%">{item.name}</TableCell>
                                     <TableCell>
                                         <Checkbox value={item.is_hg}/>

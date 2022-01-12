@@ -6,13 +6,15 @@ import itemsReducer from './itemsReducer';
 import brandsReducer from './brandsReducer';
 import categoryReducer from './categoryReducer';
 import tagsReducer from './tagsReducer';
+import userReducer from './userReducer';
 
 let reducers = combineReducers({
     common: commonReducer,
     items: itemsReducer,
     brands: brandsReducer,
     categories: categoryReducer,
-    tags: tagsReducer
+    tags: tagsReducer,
+    user: userReducer
 })
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleWare, multi))

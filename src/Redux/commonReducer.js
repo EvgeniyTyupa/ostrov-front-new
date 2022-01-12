@@ -4,7 +4,7 @@ const SET_SERVER_ERROR = 'SET_SERVER_ERROR'
 
 let initialState = {
     isFetching: false,
-    serverResponse: "asdasd",
+    serverResponse: null,
     serverError: null
 }
 

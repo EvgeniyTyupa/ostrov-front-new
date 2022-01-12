@@ -1,4 +1,4 @@
-import { setIsFetching } from "./commonReducer"
+import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
 import { tagApi } from "../Api/api"
 
 const SET_TAGS_DATA = 'SET_TAGS_DATA'
@@ -42,16 +42,18 @@ export const addTag = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await tagApi.addTag(data)
-        dispatch(setIsFetching(false))
+        console.log(data)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
-        dispatch(setIsFetching(false))
+        console.log(err.response)
+        dispatch([setServerError(err.response.data.mes), setIsFetching(false)])
     }
 }
 export const editTag = (tagId, data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await tagApi.editTag(tagId, data)
-        dispatch([setIsFetching(false)])
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

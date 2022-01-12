@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { addTag, deleteTag, editTag, getTags } from '../../../Redux/tagsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
@@ -50,6 +50,21 @@ const AdminTagsContainer = (props) => {
         setPageSize(event.target.value)
         setPageNumber(0)
     }
+
+    const handleAddTag = (data) => {
+        addTag(data)
+        if(serverResponse){
+            const newTags = [...tags]
+            console.log(newTags.length, pageSize)
+            if(newTags.length === pageSize) {
+                newTags.splice(newTags.length - 2, 1)
+            }
+        }
+    }
+    
+    useEffect(() => {
+        getTags(pageNumber + 1, pageSize, "", "", "")
+    }, [pageSize, pageNumber])
 
     return (
         <AdminLayout>

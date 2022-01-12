@@ -14,3 +14,7 @@
 .submit {
     margin-top: 10px !important;
 }
+.errorBlock {
+    width: 100%;
+    text-align: center;
+}

@@ -14,6 +14,17 @@ instance.interceptors.request.use(
     }
 );
 
+export const userApi = {
+    login(data) {
+        return instance.post(`/auth/login`, data)
+        .then(response => response.data)
+    },
+    getProfile() {
+        return instance.get(`/auth/me`)
+        .then(response => response.data)
+    }
+}
+
 export const itemsApi = {
     getItems(pageNumber, pageSize, searchBy, from, searchingValue) {
         return instance.get(`/item?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
