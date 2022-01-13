@@ -5,17 +5,13 @@ import { me } from '../../Redux/userReducer';
 import Preloader from './Preloader/Preloader';
 
 const AdminRoute = ({ isAuth, user, isStartData, me, isFetching, ...rest }) => {
-    
-    useEffect(() => {
-        console.log(user)
-    }, [user])
 
     useEffect(() => {
         !isStartData && me()
     }, [])
 
     return (isFetching && !user) ? <Preloader/> :
-    (isAuth && user.adminLevel > 0 ) ? <Outlet/> : <Navigate to="/admin_login" />
+    (isAuth && user && user.adminLevel > 0 ) ? <Outlet/> : <Navigate to="/admin_login" />
 }
 
 let mapStateToProps = (state) => ({

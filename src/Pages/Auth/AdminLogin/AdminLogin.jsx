@@ -43,9 +43,7 @@ const AdminLogin = (props) => {
     }
 
     useEffect(() => {
-        if(isAuth) {
-            localStorage.usertoken && navigate('/admin')
-        }
+        localStorage.usertoken && navigate('/admin')
     }, [isAuth])
 
     return (

@@ -61,9 +61,10 @@ export const me = () => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await userApi.getProfile()
-        dispatch([setUserData(response), setIsAuth(true), setIsStartData(true), setIsFetching(false)])
+        dispatch([setUserData(response), setIsAuth(true), setIsStartData(true)])
     } catch(err) {
         localStorage.usertoken = ""
+    }finally {
         dispatch(setIsFetching(false))
     }
 }
