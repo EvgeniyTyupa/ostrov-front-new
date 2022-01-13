@@ -6,6 +6,7 @@ import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
 import AdminAddTag from './AdminAddTag';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
+import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 
 const AdminTags = (props) => {
     const {
@@ -27,7 +28,8 @@ const AdminTags = (props) => {
         handleRemove,
         handleEdit,
         serverError,
-        serverResponse
+        serverResponse,
+        currentItem
     } = props
 
     const rows = [
@@ -55,6 +57,14 @@ const AdminTags = (props) => {
                 <AdminAddTag
                     onClose={handleAddModal}
                     addTag={addTag}
+                />
+            }
+            {openRemove && 
+                <AdminDeleteModal
+                    onRemove={handleRemove}
+                    item={currentItem}
+                    deleteItem={deleteTag}
+                    onClose={handleRemove}
                 />
             }
             <div className={classes.header}>

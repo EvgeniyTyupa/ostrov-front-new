@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { addTag, deleteTag, editTag, getTags } from '../../../Redux/tagsReducer'
+import { addTag, deleteTag, editTag, getTags, setNewTag, setTagsData } from '../../../Redux/tagsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminTags from './AdminTags'
@@ -14,7 +14,10 @@ const AdminTagsContainer = (props) => {
         editTag,
         deleteTag,
         serverResponse,
-        serverError
+        serverError,
+        newTag,
+        setNewTag,
+        setTagsData
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -51,17 +54,33 @@ const AdminTagsContainer = (props) => {
         setPageNumber(0)
     }
 
-    const handleAddTag = (data) => {
-        addTag(data)
-        if(serverResponse){
-            const newTags = [...tags]
-            console.log(newTags.length, pageSize)
-            if(newTags.length === pageSize) {
-                newTags.splice(newTags.length - 2, 1)
-            }
-        }
+    const handleAddTag = async (data) => {
+        await addTag(data)
+        // const newTags = [...tags]
+        // if(newTags.length === pageSize){
+        //     newTags.splice(newTags.length - 1, 1)
+        // }
+        // console.log(newTag)
+        // newTags.push(newTag)
+        // console.log(newTags)
+        // setTagsData(newTags)
+        // setNewTag(null)
     }
-    
+
+    const handleDelete = async (tagId) => {
+        await deleteTag(tagId)
+        .then(response => {
+            const newTags = [...tags]
+            newTags.forEach((item, index) => {
+                if(item._id === tagId) {
+                    newTags.splice(index, 1)
+                }
+            })
+            setTagsData(newTags)
+            setOpenRemove(false)
+        })
+    }
+
     useEffect(() => {
         getTags(pageNumber + 1, pageSize, "", "", "")
     }, [pageSize, pageNumber])
@@ -72,9 +91,9 @@ const AdminTagsContainer = (props) => {
             <AdminTags
                 tags={tags}
                 getTags={getTags}
-                addTag={addTag}
+                addTag={handleAddTag}
                 editTag={editTag}
-                deleteTag={deleteTag}
+                deleteTag={handleDelete}
                 pageSize={pageSize}
                 pageNumber={pageNumber}
                 handleChangePage={handleChangePage}
@@ -89,6 +108,7 @@ const AdminTagsContainer = (props) => {
                 handleEdit={handleEdit}
                 serverError={serverError}
                 serverResponse={serverResponse}
+                currentItem={currentItem}
             />
         </AdminLayout>
     )
@@ -98,12 +118,15 @@ let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
     tags: state.tags.tags,
     serverResponse: state.common.serverResponse,
-    serverError: state.common.serverError
+    serverError: state.common.serverError,
+    newTag: state.tags.newTag
 })
 
 export default connect(mapStateToProps, {
     getTags,
     addTag,
     deleteTag,
-    editTag
+    editTag,
+    setNewTag,
+    setTagsData
 })(AdminTagsContainer)
