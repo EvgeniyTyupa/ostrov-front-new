@@ -8,6 +8,7 @@ import DashboardContainer from './Components/Admin/Dashboard/DashboardContainer'
 import AdminItemsContainer from './Components/Admin/Items/AdminItemsContainer';
 import AdminTagsContainer from './Components/Admin/Tags/AdminTagsContainer';
 import AdminRoute from './Components/Common/AdminRoute';
+import AdminBrandsContainer from './Components/Admin/Brands/AdminBrandsContainer';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
               <Route path="" element={<DashboardContainer/>} />
               <Route path="items" element={<AdminItemsContainer/>} />
               <Route path="tags" element={<AdminTagsContainer/>} />
+              <Route path="brands" element={<AdminBrandsContainer/>} />
             </Route>
           </Routes>
         </div>

@@ -10,6 +10,19 @@
     box-shadow: 0px 2px 16px -13px black;
     z-index: 2;
 }
+.main span {
+    font-family: 'Roboto' !important;
+}
 .logo {
     width: 120px;
+}
+.userContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4B5EA2
+}
+.userContainer svg {
+    font-size: 24px;
+    color: #4B5EA2
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from '../AdminView.module.css'
 import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch'
-import { Button, Checkbox, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
 import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
 import AdminAddTag from './AdminAddTag';

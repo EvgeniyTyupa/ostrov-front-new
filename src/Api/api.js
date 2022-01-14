@@ -31,7 +31,7 @@ export const itemsApi = {
         .then(response => response.data)
     },
     createItem(data) {
-        const newFormData = new FormData();
+        const newFormData = new FormData()
 
         for(const [key, value] of Object.entries(data)){
             if(key === "images") {
@@ -73,6 +73,39 @@ export const itemsApi = {
 export const brandApi = {
     getBrands(pageNumber, pageSize, searchBy, from, searchingValue) {
         return instance.get(`/brand?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+        .then(response => response.data)
+    },
+    addBrand(data) {
+        const newFormData = new FormData()
+        newFormData.append('name', data.name)
+        newFormData.append('image', data.image, data.image.name)
+
+        return axios.post(`${baseURL}/brand`, newFormData, {
+            headers:{
+                'Content-Type' : 'multipart/form-data',
+                'Authorization' : `Bearer ${localStorage.usertoken}`
+            }
+        })
+        .then(resposne => resposne.data);
+    },
+    editBrand(brandId, data) {
+        const newFormData = new FormData()
+        if(data.name){
+            newFormData.append('name', data.name)
+        }
+        if(data.image) {
+            newFormData.append('image', data.image, data.image.name)
+        }
+        return axios.patch(`${baseURL}/brand/${brandId}`, newFormData, {
+            headers:{
+                'Content-Type' : 'multipart/form-data',
+                'Authorization' : `Bearer ${localStorage.usertoken}`
+            }
+        })
+        .then(resposne => resposne.data);
+    },
+    deleteBrand(brandId) {
+        return instance.delete(`/brand/${brandId}`)
         .then(response => response.data)
     }
 }

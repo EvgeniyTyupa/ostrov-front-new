@@ -1,5 +1,5 @@
 import { brandApi } from "../Api/api"
-import { setIsFetching } from "./commonReducer"
+import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
 
 const SET_BRANDS_DATA = 'SET_BRANDS_DATA'
 const SET_TOTAL_BRANDS = 'SET_TOTAL_BRANDS'
@@ -36,6 +36,33 @@ export const getBrands = (pageNumber, pageSize, searchBy, from, searchingValue) 
         dispatch([setBrandsData(brands.brands), setTotalBrands(brands.total), setIsFetching(false)])
     }catch(err){
         dispatch(setIsFetching(false))
+    }
+}
+export const addBrand = (data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await brandApi.addBrand(data)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+export const editBrand = (brandId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await brandApi.editBrand(brandId, data)
+        dispatch([setServerResponse(response.message, setIsFetching(false))])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+export const deleteBrand = (brandId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await brandApi.deleteBrand(brandId)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }
 }
 
