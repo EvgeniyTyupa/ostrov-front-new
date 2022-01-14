@@ -1,19 +1,30 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAdminSidebar } from '../../../../Hooks/useAdminSidebar'
 import classes from './AdminSidebar.module.css'
 import Styled from 'styled-components'
 import { useState } from 'react'
 import { Button } from '@mui/material'
-import { BiCollapse, BiExitFullscreen } from 'react-icons/bi';
+import { connect } from 'react-redux'
+import { BiCollapse, BiExitFullscreen, BiLogOut } from 'react-icons/bi';
+import { logout } from '../../../../Redux/userReducer'
 
-const AdminSidebar = () => {
+const AdminSidebar = (props) => {
+    const { logout } = props
+
+    const navigate = useNavigate()
+
     const items = useAdminSidebar()
 
     const [isCollapse, setIsCollapse] = useState(false)
 
     const handleCollapse = () => {
         setIsCollapse(!isCollapse)
+    }
+
+    const handleLogout = () => {
+        logout()
+        navigate('/admin_login')
     }
 
     return (
@@ -28,6 +39,15 @@ const AdminSidebar = () => {
                     </div>
                 </Button>
             ))}
+            <Button onClick={handleLogout}>
+                {!isCollapse && 
+                    <div>
+                        <BiLogOut/>
+                        <span>Выход</span>
+                    </div>
+                }
+                {isCollapse && <BiLogOut/>}
+            </Button>
             <Button onClick={handleCollapse}>
                 {!isCollapse && (
                     <div>
@@ -61,4 +81,10 @@ const Main = Styled.div`
     }
 `
 
-export default AdminSidebar
+let mapStateToProps = (state) => ({
+
+})
+
+export default connect(mapStateToProps, {
+    logout
+})(AdminSidebar)

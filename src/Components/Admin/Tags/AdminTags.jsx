@@ -7,6 +7,7 @@ import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminContr
 import AdminAddTag from './AdminAddTag';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
+import AdminEditTag from './AdminEditTag';
 
 const AdminTags = (props) => {
     const {
@@ -29,7 +30,8 @@ const AdminTags = (props) => {
         handleEdit,
         serverError,
         serverResponse,
-        currentItem
+        currentItem,
+        total
     } = props
 
     const rows = [
@@ -57,6 +59,14 @@ const AdminTags = (props) => {
                 <AdminAddTag
                     onClose={handleAddModal}
                     addTag={addTag}
+                />
+            }
+            {openEdit && 
+                <AdminEditTag
+                    onClose={handleEdit}
+                    item={currentItem}
+                    editTag={editTag}
+                    onEdit={handleEdit}
                 />
             }
             {openRemove && 
@@ -101,6 +111,15 @@ const AdminTags = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 20, 50]}
+                    component={"div"}
+                    rowsPerPage={pageSize}
+                    page={pageNumber}
+                    count={total}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handlePageSize}
+                />
             </div>
         </div>
     )

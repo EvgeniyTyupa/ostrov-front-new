@@ -1,27 +1,34 @@
-import React from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import React, { useEffect } from 'react'
 import classes from '../../UI/Form/AdminForm.module.css'
+import { Controller, useForm } from 'react-hook-form'
+import AdminInput from '../../UI/Form/AdminInput'
 import Field from '../../UI/Form/Field/Field'
 import Modal from '../../UI/Modal/Modal'
-import AdminInput from '../../UI/Form/AdminInput'
 import { Button } from '@mui/material'
 
-const AdminAddTag = (props) => {
-    const { onClose, addTag } = props
-
+const AdminEditTag = (props) => {
+    const { onClose, editTag, item } = props
+    
     const { handleSubmit, control, reset } = useForm()
 
     const onSubmit = (data) => {
-        addTag(data)
-
-        reset({
-            name: "",
-            name_ua: ""
-        })
+        console.log(data)
+        editTag(item._id, data)
     }
 
+    const handleClose = () => {
+        onClose(null)
+    }
+
+    useEffect(() => {
+        reset({
+            name: item.name || "",
+            name_ua: item.name_ua || ""
+        })
+    }, [])
+
     return (
-        <Modal title="Новый тег" onClose={onClose}>
+        <Modal title={`Редактировать ${item.name}`} onClose={handleClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
                 <Field className={classes.row}>
                     <Controller
@@ -61,4 +68,4 @@ const AdminAddTag = (props) => {
     )
 }
 
-export default AdminAddTag
+export default AdminEditTag

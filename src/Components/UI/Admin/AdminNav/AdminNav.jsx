@@ -2,16 +2,23 @@ import React from 'react'
 import classes from './AdminNav.module.css'
 
 import logo from '../../../../Assets/logo.png'
+import { connect } from 'react-redux'
 
-const AdminNav = () => {
+const AdminNav = (props) => {
+    const { user } = props
+
     return (
         <div className={classes.main}>
             <img src={logo} alt="logo" className={classes.logo}/>
             <div>
-                <span>Name</span>
+                <span>{user.email}</span>
             </div>
         </div>
     )
 }
 
-export default AdminNav
+let mapStateToProps = (state) => ({
+    user: state.user.user
+})
+
+export default connect(mapStateToProps, {})(AdminNav)

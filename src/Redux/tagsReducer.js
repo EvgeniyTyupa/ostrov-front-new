@@ -7,6 +7,7 @@ const SET_NEW_TAG = 'SET_NEW_TAG'
 
 let initialState = {
     tags: [],
+    total: 0,
     newTag: null,
     total: 0
 }
@@ -21,6 +22,9 @@ const tagsReducer = (state = initialState, action) => {
         }
         case SET_NEW_TAG: {
             return { ...state, newTag: action.newTag }
+        }
+        case SET_TOTAL_TAGS: {
+            return { ...state, total: action.total }
         }
         default:
             return state
@@ -51,7 +55,7 @@ export const addTag = (data) => async (dispatch) => {
     try {
         let response = await tagApi.addTag(data)
         console.log(response.tag)
-        dispatch([setNewTag(response.tag), setServerResponse(response.message), setIsFetching(false)])
+        dispatch([setNewTag(response.tag), setTotalTags(20), setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
         console.log(err.response)
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])

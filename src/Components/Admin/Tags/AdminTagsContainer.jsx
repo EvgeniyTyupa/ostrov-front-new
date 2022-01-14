@@ -17,7 +17,8 @@ const AdminTagsContainer = (props) => {
         serverError,
         newTag,
         setNewTag,
-        setTagsData
+        setTagsData,
+        total
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -69,7 +70,7 @@ const AdminTagsContainer = (props) => {
 
     const handleDelete = async (tagId) => {
         await deleteTag(tagId)
-        .then(response => {
+        .then(() => {
             const newTags = [...tags]
             newTags.forEach((item, index) => {
                 if(item._id === tagId) {
@@ -78,6 +79,21 @@ const AdminTagsContainer = (props) => {
             })
             setTagsData(newTags)
             setOpenRemove(false)
+        })
+    }
+
+    const handleEditTag = async (tagId, data) => {
+        await editTag(tagId, data)
+        .then(() => {
+            let newTags = [...tags]
+            newTags.forEach((item, index) => {
+                if(item._id === tagId){
+                    let updateItem = { ...newTags[index] }
+                    Object.assign(updateItem, item)
+                    newTags[index] = updateItem
+                }
+            })
+            setTagsData(newTags)
         })
     }
 
@@ -92,7 +108,7 @@ const AdminTagsContainer = (props) => {
                 tags={tags}
                 getTags={getTags}
                 addTag={handleAddTag}
-                editTag={editTag}
+                editTag={handleEditTag}
                 deleteTag={handleDelete}
                 pageSize={pageSize}
                 pageNumber={pageNumber}
@@ -109,6 +125,7 @@ const AdminTagsContainer = (props) => {
                 serverError={serverError}
                 serverResponse={serverResponse}
                 currentItem={currentItem}
+                total={total}
             />
         </AdminLayout>
     )
@@ -119,7 +136,8 @@ let mapStateToProps = (state) => ({
     tags: state.tags.tags,
     serverResponse: state.common.serverResponse,
     serverError: state.common.serverError,
-    newTag: state.tags.newTag
+    newTag: state.tags.newTag,
+    total: state.tags.total
 })
 
 export default connect(mapStateToProps, {
