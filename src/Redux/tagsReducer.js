@@ -4,10 +4,12 @@ import { tagApi } from "../Api/api"
 const SET_TAGS_DATA = 'SET_TAGS_DATA'
 const SET_TOTAL_TAGS = 'SET_TOTAL_TAGS' 
 const SET_NEW_TAG = 'SET_NEW_TAG'
+const SET_TOTAL_IS_HG = 'SET_TOTAL_IS_HG'
 
 let initialState = {
     tags: [],
     total: 0,
+    totalIsHg: 0,
     newTag: null,
     total: 0
 }
@@ -26,6 +28,9 @@ const tagsReducer = (state = initialState, action) => {
         case SET_TOTAL_TAGS: {
             return { ...state, total: action.total }
         }
+        case SET_TOTAL_IS_HG: {
+            return { ...state, totalIsHg: action.totalIsHg }
+        }
         default:
             return state
     }
@@ -40,12 +45,15 @@ export const setTotalTags = (total) => ({
 export const setNewTag = (newTag) => ({
     type: SET_NEW_TAG, newTag
 })
+export const setTotalIsHg = (totalIsHg) => ({
+    type: SET_TOTAL_IS_HG, totalIsHg
+})
 
 export const getTags = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let tags = await tagApi.getTags(pageNumber, pageSize, searchBy, from, searchingValue)
-        dispatch([setTagsData(tags.tags), setTotalTags(tags.total), setIsFetching(false)])
+        dispatch([setTagsData(tags.tags), setTotalTags(tags.total), setTotalIsHg(tags.totalIsHg), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

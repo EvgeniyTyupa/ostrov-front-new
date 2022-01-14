@@ -8,6 +8,7 @@ import AdminAddTag from './AdminAddTag';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminEditTag from './AdminEditTag';
+import CustomCheckbox from '../../UI/Form/Checkbox';
 
 const AdminTags = (props) => {
     const {
@@ -31,7 +32,8 @@ const AdminTags = (props) => {
         serverError,
         serverResponse,
         currentItem,
-        total
+        total,
+        totalIsHg
     } = props
 
     const rows = [
@@ -97,7 +99,11 @@ const AdminTags = (props) => {
                                 <TableRow key={item._id}>
                                     <TableCell width="50%">{item.name}</TableCell>
                                     <TableCell>
-                                        <Checkbox value={item.is_hg}/>
+                                        <CustomCheckbox checked={item.is_hg} 
+                                        disabled={(!item.is_hg && totalIsHg === 5)}
+                                        onChange={
+                                            () => editTag(item._id, { is_hg: !item.is_hg })
+                                        }/>
                                     </TableCell>
                                     <TableCell width={120}>
                                         <AdminControllButtons 

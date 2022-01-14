@@ -14,6 +14,7 @@
     align-items: center;
     height: 60px;
     color: #4B5EA2;
+    font-weight: 600;
 }
 .main svg {
     font-size: 20px;

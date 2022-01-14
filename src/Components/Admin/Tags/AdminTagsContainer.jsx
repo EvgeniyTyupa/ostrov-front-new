@@ -18,7 +18,8 @@ const AdminTagsContainer = (props) => {
         newTag,
         setNewTag,
         setTagsData,
-        total
+        total,
+        totalIsHg
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -57,6 +58,8 @@ const AdminTagsContainer = (props) => {
 
     const handleAddTag = async (data) => {
         await addTag(data)
+        await getTags(pageNumber + 1, pageSize, "", "", "")
+        handleAddModal()
         // const newTags = [...tags]
         // if(newTags.length === pageSize){
         //     newTags.splice(newTags.length - 1, 1)
@@ -70,31 +73,22 @@ const AdminTagsContainer = (props) => {
 
     const handleDelete = async (tagId) => {
         await deleteTag(tagId)
-        .then(() => {
-            const newTags = [...tags]
-            newTags.forEach((item, index) => {
-                if(item._id === tagId) {
-                    newTags.splice(index, 1)
-                }
-            })
-            setTagsData(newTags)
-            setOpenRemove(false)
-        })
+        await getTags(pageNumber + 1, pageSize, "", "", "")
+        // .then(() => {
+        //     const newTags = [...tags]
+        //     newTags.forEach((item, index) => {
+        //         if(item._id === tagId) {
+        //             newTags.splice(index, 1)
+        //         }
+        //     })
+        //     setTagsData(newTags)
+        // })
+        setOpenRemove(false)
     }
 
     const handleEditTag = async (tagId, data) => {
         await editTag(tagId, data)
-        .then(() => {
-            let newTags = [...tags]
-            newTags.forEach((item, index) => {
-                if(item._id === tagId){
-                    let updateItem = { ...newTags[index] }
-                    Object.assign(updateItem, item)
-                    newTags[index] = updateItem
-                }
-            })
-            setTagsData(newTags)
-        })
+        await getTags(pageNumber + 1, pageSize, "", "", "")
     }
 
     useEffect(() => {
@@ -126,6 +120,7 @@ const AdminTagsContainer = (props) => {
                 serverResponse={serverResponse}
                 currentItem={currentItem}
                 total={total}
+                totalIsHg={totalIsHg}
             />
         </AdminLayout>
     )
@@ -137,7 +132,8 @@ let mapStateToProps = (state) => ({
     serverResponse: state.common.serverResponse,
     serverError: state.common.serverError,
     newTag: state.tags.newTag,
-    total: state.tags.total
+    total: state.tags.total,
+    totalIsHg: state.tags.totalIsHg
 })
 
 export default connect(mapStateToProps, {
