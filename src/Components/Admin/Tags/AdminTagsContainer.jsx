@@ -58,18 +58,19 @@ const AdminTagsContainer = (props) => {
 
     const handleAddTag = async (data) => {
         await addTag(data)
-        await getTags(pageNumber + 1, pageSize, "", "", "")
         handleAddModal()
-        // const newTags = [...tags]
-        // if(newTags.length === pageSize){
-        //     newTags.splice(newTags.length - 1, 1)
-        // }
-        // console.log(newTag)
-        // newTags.push(newTag)
-        // console.log(newTags)
-        // setTagsData(newTags)
-        // setNewTag(null)
     }
+
+    useEffect(() => {
+        if(newTag){
+            const newTags = [...tags]
+            newTags.push(newTag)
+            setTagsData(newTags)
+            setNewTag(null)
+        }
+    }, [newTag])
+
+    console.log("out" ,newTag)
 
     const handleDelete = async (tagId) => {
         await deleteTag(tagId)
