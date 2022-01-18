@@ -1,33 +1,29 @@
-import React, { useEffect } from 'react'
-import classes from '../../UI/Form/AdminForm.module.css'
-import { Controller, useForm } from 'react-hook-form'
-import AdminInput from '../../UI/Form/AdminInput'
-import Field from '../../UI/Form/Field/Field'
+import React from 'react'
 import Modal from '../../UI/Modal/Modal'
+import { useForm, Controller } from 'react-hook-form'
+import classes from '../../UI/Form/AdminForm.module.css'
+import Field from '../../UI/Form/Field/Field'
+import AdminInput from '../../UI/Form/AdminInput'
 import { Button } from '@mui/material'
+import { DropzoneArea } from 'material-ui-dropzone'
+import { cx } from '../../../Utils/classnames'
 
-const AdminEditTag = (props) => {
-    const { onClose, editTag, item } = props
-    
+const AdminAddBrand = (props) => {
+    const { onClose, addBrand } = props
+
     const { handleSubmit, control, reset } = useForm()
 
     const onSubmit = (data) => {
-        editTag(item._id, data)
-    }
+        addBrand(data)
 
-    const handleClose = () => {
-        onClose(null)
-    }
-
-    useEffect(() => {
         reset({
-            name: item.name || "",
-            name_ua: item.name_ua || ""
+            name: "",
+            image: null
         })
-    }, [])
+    }
 
     return (
-        <Modal title={`Редактировать ${item.name}`} onClose={handleClose}>
+        <Modal title="Новый бренд" onClose={onClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
                 <Field className={classes.row}>
                     <Controller
@@ -46,28 +42,30 @@ const AdminEditTag = (props) => {
                     />
                 </Field>
                 <Field>
+                    <label className={classes.imagesLabel}>Изображение</label>
                     <Controller
-                        name="name_ua"
+                        name="image"
                         control={control}
-                        defaultValue=""
                         rules={{ required: "Обязательное поле!" }}
+                        defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                error={error}
-                                label="Название УКР"  
-                            />
+                            <>
+                                <DropzoneArea
+                                    onChange={onChange}
+                                    filesLimit={1}
+                                    classes={null}
+                                    dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
+                                    previewGridClasses={classes.dropzonePreview}
+                                />
+                                {error && <span className={classes.error}>{error.message}</span>}
+                            </>
                         )}
                     />
                 </Field>
-                <div className={classes.footer}>
-                    <Button type='submit'>Обновить</Button>
-                    <Button onClick={handleClose}>Отмена</Button>
-                </div>
+                <Button className={classes.submit} type='submit'>Добавить</Button>
             </form>
         </Modal>
     )
 }
 
-export default AdminEditTag
+export default AdminAddBrand

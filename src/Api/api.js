@@ -78,7 +78,7 @@ export const brandApi = {
     addBrand(data) {
         const newFormData = new FormData()
         newFormData.append('name', data.name)
-        newFormData.append('image', data.image, data.image.name)
+        newFormData.append('image', data.image[0])
 
         return axios.post(`${baseURL}/brand`, newFormData, {
             headers:{
@@ -89,6 +89,7 @@ export const brandApi = {
         .then(resposne => resposne.data);
     },
     editBrand(brandId, data) {
+        console.log(data)
         const newFormData = new FormData()
         if(data.name){
             newFormData.append('name', data.name)
@@ -113,6 +114,18 @@ export const brandApi = {
 export const categoryApi = {
     getAllCategories(pageNumber, pageSize, searchBy, from, searchingValue) {
         return instance.get(`/category/all?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+        .then(response => response.data)
+    },
+    addCategory(data) {
+        return instance.post(`/category`, data)
+        .then(response => response.data)
+    },
+    editCategory(categoryId, data) {
+        return instance.patch(`/category/${categoryId}`, data)
+        .then(response => response.data)
+    },
+    deleteCategory(categoryId) {
+        return instance.delete(`/category/${categoryId}`)
         .then(response => response.data)
     }
 }

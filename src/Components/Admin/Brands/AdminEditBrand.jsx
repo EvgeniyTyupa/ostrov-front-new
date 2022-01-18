@@ -1,18 +1,20 @@
 import React, { useEffect } from 'react'
-import classes from '../../UI/Form/AdminForm.module.css'
-import { Controller, useForm } from 'react-hook-form'
-import AdminInput from '../../UI/Form/AdminInput'
-import Field from '../../UI/Form/Field/Field'
 import Modal from '../../UI/Modal/Modal'
+import { useForm, Controller } from 'react-hook-form'
+import classes from '../../UI/Form/AdminForm.module.css'
+import Field from '../../UI/Form/Field/Field'
+import AdminInput from '../../UI/Form/AdminInput'
 import { Button } from '@mui/material'
+import { DropzoneArea } from 'material-ui-dropzone'
+import { cx } from '../../../Utils/classnames'
 
-const AdminEditTag = (props) => {
-    const { onClose, editTag, item } = props
-    
+const AdminEditBrand = (props) => {
+    const { onClose, editBrand, item } = props
+
     const { handleSubmit, control, reset } = useForm()
 
     const onSubmit = (data) => {
-        editTag(item._id, data)
+        editBrand(item._id, data)
     }
 
     const handleClose = () => {
@@ -22,7 +24,7 @@ const AdminEditTag = (props) => {
     useEffect(() => {
         reset({
             name: item.name || "",
-            name_ua: item.name_ua || ""
+            image: item.image || null
         })
     }, [])
 
@@ -46,18 +48,24 @@ const AdminEditTag = (props) => {
                     />
                 </Field>
                 <Field>
+                    <label className={classes.imagesLabel}>Изображение</label>
                     <Controller
-                        name="name_ua"
+                        name="image"
                         control={control}
-                        defaultValue=""
                         rules={{ required: "Обязательное поле!" }}
+                        defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                error={error}
-                                label="Название УКР"  
-                            />
+                            <>
+                                <DropzoneArea
+                                    onChange={onChange}
+                                    initialFiles={[value]}
+                                    filesLimit={1}
+                                    classes={null}
+                                    dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
+                                    // previewGridClasses={classes.dropzonePreview}
+                                />
+                                {error && <span className={classes.error}>{error.message}</span>}
+                            </>
                         )}
                     />
                 </Field>
@@ -70,4 +78,4 @@ const AdminEditTag = (props) => {
     )
 }
 
-export default AdminEditTag
+export default AdminEditBrand

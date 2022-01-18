@@ -9,6 +9,7 @@ import AdminItemsContainer from './Components/Admin/Items/AdminItemsContainer';
 import AdminTagsContainer from './Components/Admin/Tags/AdminTagsContainer';
 import AdminRoute from './Components/Common/AdminRoute';
 import AdminBrandsContainer from './Components/Admin/Brands/AdminBrandsContainer';
+import AdminCategoriesContainer from './Components/Admin/Categories/AdminCategoriesContainer';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
               <Route path="items" element={<AdminItemsContainer/>} />
               <Route path="tags" element={<AdminTagsContainer/>} />
               <Route path="brands" element={<AdminBrandsContainer/>} />
+              <Route path="categories" element={<AdminCategoriesContainer/>} />
             </Route>
           </Routes>
         </div>

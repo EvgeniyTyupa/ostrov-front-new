@@ -4,6 +4,10 @@ import classes from '../AdminView.module.css'
 import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
+import AdminAddBrand from './AdminAddBrand';
+import ServerResponse from '../../UI/ServerResponse/ServerResponse';
+import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
+import AdminEditBrand from './AdminEditBrand';
 
 const AdminBrands = (props) => {
     const { 
@@ -21,6 +25,13 @@ const AdminBrands = (props) => {
         handleEdit,
         total,
         currentItem,
+        addBrand,
+        editBrand,
+        deleteBrand,
+        serverError,
+        serverResponse,
+        openEdit,
+        openRemove,
     } = props
 
     const rows = [
@@ -43,6 +54,29 @@ const AdminBrands = (props) => {
 
     return (
         <div className={classes.main}>
+            {(serverResponse || serverError) && <ServerResponse/>}
+            {isOpenAddModal &&
+                <AdminAddBrand
+                    onClose={handleAddModal}
+                    addBrand={addBrand}
+                />
+            }
+            {openEdit &&
+                <AdminEditBrand
+                    onClose={handleEdit}
+                    item={currentItem}
+                    editBrand={editBrand}
+                    onEdit={handleEdit}
+                />
+            }
+            {openRemove && 
+                <AdminDeleteModal
+                    onRemove={handleRemove}
+                    item={currentItem}
+                    deleteItem={deleteBrand}
+                    onClose={handleRemove}
+                />
+            }
             <div className={classes.header}>
                 <h2>Бренды</h2>
                 <div className={classes.topController}>

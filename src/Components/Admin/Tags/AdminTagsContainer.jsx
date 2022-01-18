@@ -61,36 +61,38 @@ const AdminTagsContainer = (props) => {
         handleAddModal()
     }
 
-    useEffect(() => {
-        if(newTag){
+    const handleDelete = (tagId) => {
+        deleteTag(tagId).then(() => {
             const newTags = [...tags]
-            newTags.push(newTag)
+            newTags.forEach((item, index) => {
+                if(item._id === tagId) {
+                    newTags.splice(index, 1)
+                }
+            }) 
+            setOpenRemove(false)
             setTagsData(newTags)
-            setNewTag(null)
-        }
-    }, [newTag])
-
-    console.log("out" ,newTag)
-
-    const handleDelete = async (tagId) => {
-        await deleteTag(tagId)
-        await getTags(pageNumber + 1, pageSize, "", "", "")
-        // .then(() => {
-        //     const newTags = [...tags]
-        //     newTags.forEach((item, index) => {
-        //         if(item._id === tagId) {
-        //             newTags.splice(index, 1)
-        //         }
-        //     })
-        //     setTagsData(newTags)
-        // })
-        setOpenRemove(false)
+        })
     }
 
     const handleEditTag = async (tagId, data) => {
         await editTag(tagId, data)
-        await getTags(pageNumber + 1, pageSize, "", "", "")
     }
+
+    useEffect(() => {
+        if(newTag){
+            const newTags = [...tags]
+            let pushIndex = newTags.length
+            newTags.forEach((item, index) => {
+                if(item._id === newTag._id) {
+                    newTags.splice(index, 1)
+                    pushIndex = index
+                }
+            })
+            newTags.splice(pushIndex, 0, newTag)
+            setTagsData(newTags)
+            setNewTag(null)
+        }
+    }, [newTag])
 
     useEffect(() => {
         getTags(pageNumber + 1, pageSize, "", "", "")

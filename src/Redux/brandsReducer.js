@@ -3,9 +3,11 @@ import { setIsFetching, setServerError, setServerResponse } from "./commonReduce
 
 const SET_BRANDS_DATA = 'SET_BRANDS_DATA'
 const SET_TOTAL_BRANDS = 'SET_TOTAL_BRANDS'
+const SET_NEW_BRAND = 'SET_NEW_BRAND'
 
 let initialState = {
     brands: [],
+    newBrand: null,
     total: 0
 }
 
@@ -17,6 +19,9 @@ const brandsReducer = (state = initialState, action) => {
         case SET_TOTAL_BRANDS: {
             return { ...state, total: action.total }
         }
+        case SET_NEW_BRAND: {
+            return { ...state, newBrand: action.newBrand }
+        }
         default: 
             return state
     }
@@ -27,6 +32,9 @@ export const setBrandsData = (brands) => ({
 })
 export const setTotalBrands = (total) => ({
     type: SET_TOTAL_BRANDS, total
+})
+export const setNewBrand = (newBrand) => ({
+    type: SET_NEW_BRAND, newBrand
 })
 
 export const getBrands = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
@@ -42,7 +50,7 @@ export const addBrand = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await brandApi.addBrand(data)
-        dispatch([setServerResponse(response.message), setIsFetching(false)])
+        dispatch([setNewBrand(response.brand), setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }

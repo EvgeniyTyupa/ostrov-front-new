@@ -62,7 +62,6 @@ export const addTag = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await tagApi.addTag(data)
-        console.log(response.tag)
         dispatch([setNewTag(response.tag), setTotalTags(20), setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
         console.log(err.response)
@@ -73,9 +72,9 @@ export const editTag = (tagId, data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await tagApi.editTag(tagId, data)
-        dispatch([setServerResponse(response.message), setIsFetching(false)])
+        dispatch([setNewTag(response.tag), setTotalIsHg(response.totalIsHg), setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
-        dispatch(setIsFetching(false))
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }
 }
 export const deleteTag = (tagId) => async (dispatch) => {
