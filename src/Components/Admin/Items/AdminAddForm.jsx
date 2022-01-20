@@ -53,10 +53,6 @@ const AdminAddForm = (props) => {
         })
     }
 
-    useEffect(() => {
-        localStorage.usertoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgyYTcwNGEyNDY3NGQ4MzExMDM2OWQiLCJhZG1pbkxldmVsIjoyLCJpYXQiOjE2NDA4MzQ5MTMsImV4cCI6MTY0MDgzODUxM30.UflIfIDMsu1HZtq-G_h3C3a6vJGKL_dM63iCeQFMsUI"
-    }, [])
-
     return (
         <Modal title={"Новый товар"} onClose={onClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
