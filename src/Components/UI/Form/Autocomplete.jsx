@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CustomAutocomplete = (props) => {
-    const { items, onChange, label, multiple = false, error, setValue, name, value } = props
+    const { items, onChange, label, multiple = false, error, setValue, name, value, defaultValue = null } = props
 
     const material = useStyles()
 
@@ -32,15 +32,17 @@ const CustomAutocomplete = (props) => {
         <Autocomplete
             disablePortal
             options={items}
+            value={value}
             getOptionLabel={option => option.name}
             onChange={(event, newValue) => {
                 setValue(name, newValue)
             }}
             multiple={multiple}
-            // filterSelectedOptions
+            filterSelectedOptions
             limitTags={10}
             isOptionEqualToValue={(option, value) => option._id === value._id}
             style={{ width: "100%" }}
+            defaultValue={defaultValue}
             renderInput={(params) => <TextField {...params} classes={material} label={label} error={!!error} helperText={error ? error.message : null} />}
         />
     )

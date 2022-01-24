@@ -7,6 +7,7 @@ import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminContr
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminAddCategory from './AdminAddCategory';
+import AdminEditCategory from './AdminEditCategory';
 
 const AdminCategories = (props) => {
     const {
@@ -31,6 +32,8 @@ const AdminCategories = (props) => {
         isOpenAddModal,
         openEdit,
         openRemove,
+        getAllCategoriesForSelect,
+        allCategories
     } = props
 
     const rows = [
@@ -58,10 +61,20 @@ const AdminCategories = (props) => {
                 <AdminAddCategory
                     onClose={handleAddModal}
                     addCategory={addCategory}
-                    categories={categories}
+                    getAllCategoriesForSelect={getAllCategoriesForSelect}
+                    allCategories={allCategories}
                 />
             }
-
+            {openEdit && 
+                <AdminEditCategory
+                    onClose={handleEdit}
+                    item={currentItem}
+                    editCategory={editCategory}
+                    onEdit={handleEdit}
+                    getAllCategoriesForSelect={getAllCategoriesForSelect}
+                    allCategories={allCategories}
+                />
+            }
             {openRemove && 
                 <AdminDeleteModal
                     onRemove={handleRemove}

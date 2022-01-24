@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from '../../UI/Form/AdminForm.module.css'
 import Field from '../../UI/Form/Field/Field'
 import Modal from '../../UI/Modal/Modal'
@@ -7,33 +7,42 @@ import { Button } from '@mui/material'
 import { useForm, Controller } from 'react-hook-form'
 import CustomAutocomplete from '../../UI/Form/Autocomplete'
 
-const AdminAddCategory = (props) => {
-    const { onClose, addCategory, allCategories, getAllCategoriesForSelect } = props
+const AdminEditCategory = (props) => {
+    const { onClose, editCategory, allCategories, item, getAllCategoriesForSelect } = props
 
-    const { handleSubmit, control, reset, setValue } = useForm()
+    const { handleSubmit, control, reset, setValue, getValues } = useForm()
 
-    const onSubmit = (data) => {   
+    const handleClose = () => {
+        onClose(null)
+    }
+
+    const onSubmit = (data) => {    
         if(data.p_id) {
             data.p_id = data.p_id._id
         }else {
             data.p_id = 0
-        }
-        addCategory(data)
-
-        reset({
-            name: "",
-            name_ua: "",
-            code: "",
-            p_id: null
-        })
+        }    
+        console.log(data)
+        // addCategory(data)
     }
 
     useEffect(() => {
         getAllCategoriesForSelect()
     }, [])
 
+    useEffect(() => {
+        if(allCategories){
+            reset({
+                name: item.name || "",
+                name_ua: item.name_ua || "",
+                code: item.code || "",
+                p_id: allCategories.find((elem) => elem._id == item.p_id) || 0
+            })
+        }
+    }, [allCategories])
+
     return (
-        <Modal title="Новая категория" onClose={onClose}>
+        <Modal title={`Редактировать ${item.name}`} onClose={handleClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
                 <Field className={classes.row}>
                     <Field>
@@ -89,15 +98,16 @@ const AdminAddCategory = (props) => {
                 <Controller
                     name="p_id"
                     control={control}
-                    defaultValue={null}
+                    defaultValue={item.p_id}
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <CustomAutocomplete
                             value={value}
                             onChange={onChange}
-                            items={allCategories}
+                            items={allCategories.filter(elem => elem._id != item._id)}
                             label="Родительская категория"
                             setValue={setValue}
                             name={"p_id"}
+                            defaultValue={getValues().p_id}
                         />
                     )}
                 />
@@ -107,4 +117,4 @@ const AdminAddCategory = (props) => {
     )
 }
 
-export default AdminAddCategory
+export default AdminEditCategory

@@ -112,6 +112,10 @@ export const brandApi = {
 }
 
 export const categoryApi = {
+    getAllCategoriesForSelect(){
+        return instance.get(`/category/select`)
+        .then(response => response.data)
+    },
     getAllCategories(pageNumber, pageSize, searchBy, from, searchingValue) {
         return instance.get(`/category/all?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)

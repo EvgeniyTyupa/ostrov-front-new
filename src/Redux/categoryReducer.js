@@ -4,9 +4,11 @@ import { setIsFetching, setServerError, setServerResponse } from "./commonReduce
 const SET_CATEGORIES_DATA = 'SET_CATEGORIES_DATA'
 const SET_TOTAL_CATEGORIES = 'SET_TOTAL_CATEGORIES' 
 const SET_NEW_CATEGORY = 'SET_NEW_CATEGORY' 
+const SET_ALL_CATEGORIES = 'SET_ALL_CATEGORIES'
 
 let initialState = {
     categories: [],
+    allCategories: [],
     newCategory: null,
     total: 0
 }
@@ -22,6 +24,9 @@ const categoryReducer = (state = initialState, action) => {
         case SET_NEW_CATEGORY: {
             return { ...state, newCategory: action.newCategory }
         }
+        case SET_ALL_CATEGORIES: {
+            return { ...state, allCategories: action.allCategories }
+        }
         default:
             return state
     }
@@ -36,13 +41,26 @@ export const setTotalCategories = (total) => ({
 export const setNewCategory = (newCategory) => ({
     type: SET_NEW_CATEGORY, newCategory
 })
+export const setAllCategories = (allCategories) => ({
+    type: SET_ALL_CATEGORIES, allCategories
+})
 
 export const getAllCategories = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let categories = await categoryApi.getAllCategories(pageNumber, pageSize, searchBy, from, searchingValue)
-        dispatch([ setCategoriesData(categories.categories), setTotalCategories(categories.total), setIsFetching(false) ])
+        dispatch([setCategoriesData(categories.categories), setTotalCategories(categories.total), setIsFetching(false) ])
     }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getAllCategoriesForSelect = () => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {   
+        let categories = await categoryApi.getAllCategoriesForSelect()
+        dispatch([setAllCategories(categories.categories), setIsFetching(false)])
+    }catch(err){
         dispatch(setIsFetching(false))
     }
 }

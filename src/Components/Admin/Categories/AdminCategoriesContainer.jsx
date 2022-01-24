@@ -2,7 +2,7 @@ import { connect } from "react-redux"
 import Preloader from "../../Common/Preloader/Preloader"
 import AdminCategories from "./AdminCategories"
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
-import { addCategory, deleteCategory, editCategory, getAllCategories, setCategoriesData } from "../../../Redux/categoryReducer"
+import { addCategory, deleteCategory, editCategory, getAllCategories, getAllCategoriesForSelect, setCategoriesData, setNewCategory } from "../../../Redux/categoryReducer"
 import { useState } from "react"
 import { useEffect } from "react"
 
@@ -15,8 +15,13 @@ const AdminCategoriesContainer = (props) => {
         editCategory,
         deleteCategory,
         total,
+        newCategory,
         serverResponse,
         serverError,
+        setCategoriesData,
+        setNewCategory,
+        getAllCategoriesForSelect,
+        allCategories
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -76,6 +81,22 @@ const AdminCategoriesContainer = (props) => {
     }
 
     useEffect(() => {
+        if(newCategory){
+            const newCategories = [...categories]
+            let pushIndex = newCategories.length
+            newCategories.forEach((item, index) => {
+                if(item._id === newCategory._id) {
+                    newCategories.splice(index, 1)
+                    pushIndex = index
+                }
+            })
+            newCategories.splice(pushIndex, 0, newCategory)
+            setCategoriesData(newCategories)
+            setNewCategory(null)
+        }
+    }, [newCategory])
+
+    useEffect(() => {
         getAllCategories(pageNumber + 1, pageSize, "", "", "")
     }, [pageSize, pageNumber])
 
@@ -102,6 +123,8 @@ const AdminCategoriesContainer = (props) => {
                 addCategory={handleAddCategory}
                 editCategory={handleEditCategory}
                 deleteCategory={handleDeleteCategory}
+                getAllCategoriesForSelect={getAllCategoriesForSelect}
+                allCategories={allCategories}
             />
         </AdminLayout>
     )
@@ -114,11 +137,15 @@ let mapStateToProps = (state) => ({
     newCategory: state.categories.newCategory,
     serverResponse: state.common.serverResponse,
     serverError: state.common.serverError,
+    allCategories: state.categories.allCategories
 })
 
 export default connect(mapStateToProps, {
     getAllCategories,
     addCategory,
     editCategory,
-    deleteCategory
+    deleteCategory,
+    setCategoriesData,
+    setNewCategory,
+    getAllCategoriesForSelect
 })(AdminCategoriesContainer)
