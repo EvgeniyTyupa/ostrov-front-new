@@ -78,7 +78,7 @@ export const brandApi = {
     addBrand(data) {
         const newFormData = new FormData()
         newFormData.append('name', data.name)
-        newFormData.append('image', data.image[0])
+        newFormData.append('image', data.image[0], data.image[0].name)
 
         return axios.post(`${baseURL}/brand`, newFormData, {
             headers:{
@@ -95,7 +95,7 @@ export const brandApi = {
             newFormData.append('name', data.name)
         }
         if(data.image) {
-            newFormData.append('image', data.image, data.image.name)
+            newFormData.append('image', data.image[0], data.image[0].name)
         }
         return axios.patch(`${baseURL}/brand/${brandId}`, newFormData, {
             headers:{

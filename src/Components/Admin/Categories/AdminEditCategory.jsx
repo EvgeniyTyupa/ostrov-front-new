@@ -22,8 +22,8 @@ const AdminEditCategory = (props) => {
         }else {
             data.p_id = 0
         }    
-        console.log(data)
-        // addCategory(data)
+        // console.log(data)
+        editCategory(item._id, data)
     }
 
     useEffect(() => {

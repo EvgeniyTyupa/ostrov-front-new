@@ -125,6 +125,8 @@ const AdminCategoriesContainer = (props) => {
                 deleteCategory={handleDeleteCategory}
                 getAllCategoriesForSelect={getAllCategoriesForSelect}
                 allCategories={allCategories}
+                serverResponse={serverResponse}
+                serverError={serverError}
             />
         </AdminLayout>
     )

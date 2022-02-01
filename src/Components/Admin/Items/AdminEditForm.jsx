@@ -210,12 +210,14 @@ const AdminEditForm = (props) => {
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <>
+                                {console.log(value)}
                                 <DropzoneArea
                                     onChange={onChange}
+                                    initialFiles={value}
                                     filesLimit={9}
                                     classes={null}
                                     dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
-                                    previewGridClasses={classes.dropzonePreview}
+                                    // previewGridClasses={classes.dropzonePreview}
                                 />
                                 {error && <span className={classes.error}>{error.message}</span>}
                             </>
@@ -399,7 +401,7 @@ const AdminEditForm = (props) => {
                     <Controller
                         name="category"
                         control={control}
-                        defaultValue=""
+                        defaultValue={null}
                         rules={{ required: "Обязательное поле!" }}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <CustomAutocomplete
@@ -418,7 +420,7 @@ const AdminEditForm = (props) => {
                     <Controller
                         name="tags"
                         control={control}
-                        defaultValue=""
+                        defaultValue={[]}
                         rules={{ required: "Обязательное поле!" }}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <CustomAutocomplete

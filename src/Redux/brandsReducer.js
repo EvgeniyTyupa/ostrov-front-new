@@ -59,7 +59,7 @@ export const editBrand = (brandId, data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await brandApi.editBrand(brandId, data)
-        dispatch([setServerResponse(response.message, setIsFetching(false))])
+        dispatch([setNewBrand(response.brand), setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }

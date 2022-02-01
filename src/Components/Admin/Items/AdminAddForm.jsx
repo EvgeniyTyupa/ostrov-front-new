@@ -236,7 +236,7 @@ const AdminAddForm = (props) => {
                 <Controller
                     name="brand"
                     control={control}
-                    defaultValue=""
+                    defaultValue={null}
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <CustomAutocomplete
                             value={value}
@@ -394,7 +394,7 @@ const AdminAddForm = (props) => {
                     <Controller
                         name="category"
                         control={control}
-                        defaultValue=""
+                        defaultValue={null}
                         rules={{ required: "Обязательное поле!" }}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <CustomAutocomplete
@@ -413,7 +413,7 @@ const AdminAddForm = (props) => {
                     <Controller
                         name="tags"
                         control={control}
-                        defaultValue=""
+                        defaultValue={[]}
                         rules={{ required: "Обязательное поле!" }}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <CustomAutocomplete

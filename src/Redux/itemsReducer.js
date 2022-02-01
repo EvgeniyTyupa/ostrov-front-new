@@ -1,11 +1,13 @@
 import { itemsApi } from "../Api/api"
-import { setIsFetching, setServerResponse } from "./commonReducer"
+import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
 
 const SET_ITEMS_DATA = 'SET_ITEMS_DATA'
 const SET_TOTAL_ITEMS = 'SET_TOTAL_ITEMS' 
+const SET_NEW_ITEM = 'SET_NEW_ITEM' 
 
 let initialState = {
     items: [],
+    newItem: null,
     total: 0
 }
 
@@ -17,6 +19,9 @@ const itemsReducer = (state = initialState, action) => {
         case SET_TOTAL_ITEMS: {
             return { ...state, total: action.total }
         }
+        case SET_NEW_ITEM: {
+            return { ...state, newItem: action.newItem }
+        }
         default:
             return state
     }
@@ -27,6 +32,9 @@ export const setItemsData = (items) => ({
 })
 export const setTotalData = (total) => ({
     type: SET_TOTAL_ITEMS, total
+})
+export const setNewItem = (newItem) => ({
+    type: SET_NEW_ITEM, newItem
 })
 
 export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
@@ -43,9 +51,9 @@ export const createItem = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await itemsApi.createItem(data)
-        dispatch([setServerResponse(response.message), setIsFetching(false)])
+        dispatch([setNewItem(response.item), setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
-        dispatch(setIsFetching(false))
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }
 }
 
@@ -55,7 +63,7 @@ export const deleteItem = (itemId) => async (dispatch) => {
         let response = await itemsApi.deleteItem(itemId)
         dispatch([setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
-        dispatch(setIsFetching(false))
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }
 }
 
