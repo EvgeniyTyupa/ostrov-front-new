@@ -37,7 +37,7 @@ const AdminLogin = (props) => {
         login(data)
 
         reset({
-            email: "",
+            email: data.email,
             password: ""
         })
     }
