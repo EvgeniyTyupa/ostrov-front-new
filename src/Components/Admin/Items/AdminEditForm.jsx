@@ -17,7 +17,7 @@ import { AGES, GENDERS } from '../../../Utils/constants'
 import { useEffect } from 'react'
 
 const AdminEditForm = (props) => {
-    const { item, brands, categories, tags, onClose } = props
+    const { item, brands, categories, tags, onClose, editItem, } = props
 
     const { handleSubmit, control, reset, setValue } = useForm()
 
@@ -33,7 +33,7 @@ const AdminEditForm = (props) => {
             cost_price: item.cost_price || "",
             description: item.description || "",
             description_ua: item.description_ua || "",
-            images: item.images || [],
+            images: item.images || null,
             video_link: item.video_link || "",
             brand: item.brand || "",
             country: item.country || "",
@@ -51,7 +51,12 @@ const AdminEditForm = (props) => {
     }, [])
 
     const onSubmit = (data) => {
+        data.brand = data.brand._id
+        data.category = data.category._id
+        data.tags = data.tags.map(item => item._id)
 
+        // editItem(item._id, data)
+        console.log(data)
     }
 
     const handleClose = () => {
@@ -59,7 +64,7 @@ const AdminEditForm = (props) => {
     }
 
     return (
-        <Modal title={"Новый товар"} onClose={handleClose}>
+        <Modal title={`Редактировать ${item.name}`} onClose={handleClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
                 <Field className={classes.row}>
                     <Field>
@@ -201,7 +206,7 @@ const AdminEditForm = (props) => {
                         )}
                     />
                 </Field>
-                <Field>
+                <div>
                     <label className={classes.imagesLabel}>Картинки (1 титульная)</label>
                     <Controller
                         name="images"
@@ -213,7 +218,8 @@ const AdminEditForm = (props) => {
                                 {console.log(value)}
                                 <DropzoneArea
                                     onChange={onChange}
-                                    initialFiles={value}
+                                    initialFiles={[value]}
+                                    acceptedFiles={['image/*']}
                                     filesLimit={9}
                                     classes={null}
                                     dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
@@ -223,7 +229,7 @@ const AdminEditForm = (props) => {
                             </>
                         )}
                     />
-                </Field>
+                </div>
                 <Field>
                     <Controller
                         name="video_link"

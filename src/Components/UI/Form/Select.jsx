@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiFormHelperText-root.Mui-error': {
             margin: 0,
             marginTop: 5,
+        },
+        '& .MuiList-root .MuiList-padding .MuiMenu-list': {
+            display: "flex",
+            flexDirection: "column"
         }
     }
 }));

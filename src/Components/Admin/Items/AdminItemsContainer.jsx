@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { getBrands } from '../../../Redux/brandsReducer';
 import { getAllCategories } from '../../../Redux/categoryReducer';
-import { createItem, deleteItem, getItems } from '../../../Redux/itemsReducer';
+import { createItem, deleteItem, getItems, setItemsData, setNewItem, updateItem } from '../../../Redux/itemsReducer';
 import { getTags } from '../../../Redux/tagsReducer';
 import Preloader from '../../Common/Preloader/Preloader';
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
@@ -23,8 +23,11 @@ const AdminItemsContainer = (props) => {
         getTags,
         createItem,
         deleteItem,
+        updateItem,
         serverError,
-        serverResponse
+        serverResponse,
+        setItemsData,
+        newItem
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -33,6 +36,20 @@ const AdminItemsContainer = (props) => {
     const [searchValue, setSearchValue] = useState("")
 
     const [isOpenAddModal, setIsOpenAddModal] = useState(false)
+    const [openEdit, setOpenEdit] = useState(false)
+    const [openRemove, setOpenRemove] = useState(false)
+
+    const [currentItem, setCurrentItem] = useState(null)
+
+    const handleEdit = (item) => {
+        setCurrentItem(item)
+        setOpenEdit(!openEdit)
+    }
+
+    const handleRemove = (item) => {
+        setCurrentItem(item)
+        setOpenRemove(!openRemove)
+    }
 
     const handleAddModal = () => {
         setIsOpenAddModal(!isOpenAddModal)
@@ -46,6 +63,44 @@ const AdminItemsContainer = (props) => {
         setPageSize(event.target.value)
         setPageNumber(0)
     }
+
+    const handleAddItem = async (data) => {
+        await createItem(data)
+        handleAddModal()
+    }
+
+    const handleEditItem = async (itemId, data) => {
+        await updateItem(itemId, data)
+    }
+
+    const handleDeleteItem = (itemId) => {
+        deleteItem(itemId).then(() => {
+            const newItems = [...items]
+            newItems.forEach((item, index) => {
+                if(item._id === itemId) {
+                    newItems.splice(index, 1)
+                }
+            })
+            setOpenRemove(false)
+            setItemsData(newItems)
+        })
+    }
+
+    useEffect(() => {
+        if(newItem){
+            const newItems = [...items]
+            let pushIndex = newItems.length
+            newItems.forEach((item, index) => {
+                if(item._id === newItem._id) {
+                    newItems.splice(index, 1)
+                    pushIndex = index
+                }
+            })
+            newItems.splice(pushIndex, 0, newItem)
+            setItemsData(newItems)
+            setNewItem(null)
+        }
+    }, [newItem])
 
     useEffect(() => {
         getItems(pageNumber + 1, pageSize, "", "", "")
@@ -69,15 +124,21 @@ const AdminItemsContainer = (props) => {
                 handleAddModal={handleAddModal}
                 handleChangePage={handleChangePage}
                 handlePageSize={handlePageSize}
+                handleRemove={handleRemove}
+                handleEdit={handleEdit}
+                openEdit={openEdit}
+                openRemove={openRemove}
+                currentItem={currentItem}
                 getItems={getItems}
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}
-                createItem={createItem}
-                deleteItem={deleteItem}
+                createItem={handleAddItem}
+                deleteItem={handleDeleteItem}
+                editItem={handleEditItem}
                 serverResponse={serverResponse}
                 serverError={serverError}
+                updateItem={updateItem}
             />
-            
         </AdminLayout>
     )
 }
@@ -90,7 +151,8 @@ let mapStateToProps = (state) => ({
     categories: state.categories.categories,
     tags: state.tags.tags,
     serverResponse: state.common.serverResponse,
-    serverError: state.common.serverError
+    serverError: state.common.serverError,
+    newItem: state.items.newItem
 })
 
 export default connect(mapStateToProps, {
@@ -99,5 +161,8 @@ export default connect(mapStateToProps, {
     getAllCategories,
     getTags,
     createItem,
-    deleteItem
+    deleteItem,
+    updateItem,
+    setItemsData,
+    setNewItem
 })(AdminItemsContainer)

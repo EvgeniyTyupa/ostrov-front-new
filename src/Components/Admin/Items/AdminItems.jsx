@@ -27,8 +27,14 @@ const AdminItems = (props) => {
         setSearchValue,
         createItem,
         deleteItem,
+        updateItem,
         serverResponse,
-        serverError
+        serverError,
+        openEdit,
+        handleEdit,
+        currentItem,
+        openRemove,
+        handleRemove,
     } = props
 
     const rows = [
@@ -74,20 +80,6 @@ const AdminItems = (props) => {
         },
     ]
 
-    const [openEdit, setOpenEdit] = useState(false)
-    const [openRemove, setOpenRemove] = useState(false)
-    const [currentItem, setCurrentItem] = useState(null)
-
-    const handleEdit = (item) => {
-        setCurrentItem(item)
-        setOpenEdit(!openEdit)
-    }
-
-    const handleRemove = (item) => {
-        setCurrentItem(item)
-        setOpenRemove(!openRemove)
-    }
-
     return (
         <div className={classes.main}>
             {(serverError || serverResponse) && <ServerResponse/> }
@@ -103,7 +95,9 @@ const AdminItems = (props) => {
             {openEdit && 
                 <AdminEditForm
                     onClose={handleEdit}
+                    onEdit={handleEdit}
                     brands={brands}
+                    editItem={updateItem}
                     categories={categories}
                     tags={tags}
                     item={currentItem}

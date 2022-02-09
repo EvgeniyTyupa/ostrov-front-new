@@ -4,3 +4,24 @@
     background-image: url("./Assets/main_bg.jpg");
     background-attachment: fixed;
 }
+.MuiGrid-grid-xs-4 {
+    max-width: 100px !important;
+}
+.MuiGrid-spacing-xs-8 {
+    width: 100% !important;
+    margin: 0 !important;
+    gap: 20px;
+    padding: 20px;
+}
+.MuiGrid-spacing-xs-8 > .MuiGrid-item {
+    padding: 0 !important;
+}
+.MuiList-root {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 10px 20px !important;
+}
+.MuiList-root li {
+    width: 100% !important;
+}

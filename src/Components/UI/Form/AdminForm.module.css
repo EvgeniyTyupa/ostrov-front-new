@@ -24,6 +24,12 @@
     position: relative;
     top: 1px;
 }
+.dropzone div > div {
+    flex-basis: inherit;
+}
+.dropzone div > div {
+    width: 100%;
+}
 .dropzoneError {
     border: 1px solid #d32f2f !important;
     color: #d32f2f !important;

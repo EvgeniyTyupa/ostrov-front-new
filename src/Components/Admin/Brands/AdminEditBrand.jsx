@@ -47,7 +47,7 @@ const AdminEditBrand = (props) => {
                         )}
                     />
                 </Field>
-                <Field>
+                <div>
                     <label className={classes.imagesLabel}>Изображение</label>
                     <Controller
                         name="image"
@@ -61,6 +61,7 @@ const AdminEditBrand = (props) => {
                                     initialFiles={[value]}
                                     filesLimit={1}
                                     classes={null}
+                                    acceptedFiles={['image/*']}
                                     dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
                                     // previewGridClasses={classes.dropzonePreview}
                                 />
@@ -68,7 +69,7 @@ const AdminEditBrand = (props) => {
                             </>
                         )}
                     />
-                </Field>
+                </div>
                 <div className={classes.footer}>
                     <Button type='submit'>Обновить</Button>
                     <Button onClick={handleClose}>Отмена</Button>

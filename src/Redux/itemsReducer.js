@@ -57,6 +57,16 @@ export const createItem = (data) => async (dispatch) => {
     }
 }
 
+export const updateItem = (itemId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await itemsApi.updateItem(itemId, data)
+        dispatch([setNewItem(response.item), setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+
 export const deleteItem = (itemId) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {

@@ -43,7 +43,7 @@ export const itemsApi = {
             }
         }
 
-        return axios.post(`${baseURL}/item`, newFormData,{
+        return axios.post(`${baseURL}/item`, newFormData, {
             headers:{
                 'Content-Type' : 'multipart/form-data',
                 'Authorization' : `Bearer ${localStorage.usertoken}`
@@ -51,7 +51,7 @@ export const itemsApi = {
         })
         .then(resposne => resposne.data);
     },
-    updateItem(data) {
+    updateItem(itemId, data) {
         const newFormData = new FormData()
 
         for(const [key, value] of Object.entries(data)){
@@ -63,6 +63,14 @@ export const itemsApi = {
                 newFormData.append(key, value)
             }
         }
+
+        return axios.patch(`${baseURL}/item/${itemId}`, newFormData, {
+            headers:{
+                'Content-Type' : 'multipart/form-data',
+                'Authorization' : `Bearer ${localStorage.usertoken}`
+            }
+        })
+        .then(resposne => resposne.data);
     },
     deleteItem(itemId) {
         return instance.delete(`/item/${itemId}`)
