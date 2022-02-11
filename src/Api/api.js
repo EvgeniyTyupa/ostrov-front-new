@@ -31,6 +31,8 @@ export const itemsApi = {
         .then(response => response.data)
     },
     createItem(data) {
+
+        console.log(data)
         const newFormData = new FormData()
 
         for(const [key, value] of Object.entries(data)){
@@ -38,7 +40,11 @@ export const itemsApi = {
                 value.forEach(i => {
                     newFormData.append("images[]", i)
                 })
-            }else {
+            } else if(key === "tags") {
+                value.forEach(i => {
+                    newFormData.append("tags", i)
+                })  
+            } else {
                 newFormData.append(key, value)
             }
         }
@@ -157,6 +163,13 @@ export const tagApi = {
     },
     deleteTag(tagId) {
         return instance.delete(`/tag/${tagId}`)
+        .then(response => response.data)
+    }
+}
+
+export const newsApi = {
+    getNews(pageNumber, pageSize, searchBy, from, searchingValue) {
+        return instance.get(`/post?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)
     }
 }

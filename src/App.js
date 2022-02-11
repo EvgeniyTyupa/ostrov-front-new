@@ -10,6 +10,7 @@ import AdminTagsContainer from './Components/Admin/Tags/AdminTagsContainer';
 import AdminRoute from './Components/Common/AdminRoute';
 import AdminBrandsContainer from './Components/Admin/Brands/AdminBrandsContainer';
 import AdminCategoriesContainer from './Components/Admin/Categories/AdminCategoriesContainer';
+import AdminNewsContainer from './Components/Admin/News/AdminNewsContainer';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="tags" element={<AdminTagsContainer/>} />
               <Route path="brands" element={<AdminBrandsContainer/>} />
               <Route path="categories" element={<AdminCategoriesContainer/>} />
+              <Route path="posts" element={<AdminNewsContainer/>} />
             </Route>
           </Routes>
         </div>

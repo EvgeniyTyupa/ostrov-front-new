@@ -66,7 +66,6 @@ const AdminItemsContainer = (props) => {
 
     const handleAddItem = async (data) => {
         await createItem(data)
-        handleAddModal()
     }
 
     const handleEditItem = async (itemId, data) => {
@@ -107,7 +106,13 @@ const AdminItemsContainer = (props) => {
         getBrands(pageNumber + 1, pageSize, "", "", "")
         getAllCategories(pageNumber + 1, pageSize, "", "", "")
         getTags(pageNumber + 1, pageSize, "", "", "")
-    }, [pageSize, pageNumber])
+    }, [newItem, pageSize, pageNumber])
+
+    useEffect(() => {
+        if(serverResponse){
+            setIsOpenAddModal(false)
+        }
+    }, [serverResponse])
 
     return (
         <AdminLayout>

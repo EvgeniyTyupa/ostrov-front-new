@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from '../../UI/Form/AdminForm.module.css'
 import { Controller, useForm } from 'react-hook-form'
 import AdminInput from '../../UI/Form/AdminInput'
@@ -16,8 +16,9 @@ import CustomSelect from '../../UI/Form/Select'
 import { AGES, GENDERS } from '../../../Utils/constants'
 import { useEffect } from 'react'
 
+
 const AdminEditForm = (props) => {
-    const { item, brands, categories, tags, onClose, editItem, } = props
+    const { item, brands, categories, tags, onClose, editItem } = props
 
     const { handleSubmit, control, reset, setValue } = useForm()
 
@@ -207,7 +208,7 @@ const AdminEditForm = (props) => {
                     />
                 </Field>
                 <div>
-                    <label className={classes.imagesLabel}>Картинки (1 титульная)</label>
+                    
                     <Controller
                         name="images"
                         control={control}
@@ -215,7 +216,7 @@ const AdminEditForm = (props) => {
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <>
-                                {console.log(value)}
+                                
                                 <DropzoneArea
                                     onChange={onChange}
                                     initialFiles={[value]}

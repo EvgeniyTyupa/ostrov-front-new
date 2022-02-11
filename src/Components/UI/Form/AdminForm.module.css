@@ -16,8 +16,8 @@
     margin-top: 10px;
 }
 .dropzone button {
-    top: 0;
-    right: 0;
+    top: -30px;
+    right: -30px;
 }
 .dropzone svg {
     color: #4B5EA3 !important;
