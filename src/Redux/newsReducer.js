@@ -41,7 +41,7 @@ export const getNews = (pageNumber, pageSize, searchBy, from, searchingValue) =>
     dispatch(setIsFetching(true))
     try {
         let response = await newsApi.getNews(pageNumber, pageSize, searchBy, from, searchingValue)
-        dispatch([setNewsData(response.news), setTotalData(response.total), setIsFetching(false)])
+        dispatch([setNewsData(response.posts), setTotalData(response.total), setIsFetching(false)])
     }catch(err) {
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }
