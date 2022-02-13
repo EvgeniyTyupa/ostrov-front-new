@@ -196,7 +196,6 @@ const AdminAddForm = (props) => {
                     />
                 </Field>
                 <div>
-                    <label className={classes.imagesLabel}>Картинки (1 титульная)</label>
                     <Controller
                         name="images"
                         control={control}
