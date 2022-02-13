@@ -8,10 +8,8 @@ import { FaBarcode, FaCode, FaDollarSign } from 'react-icons/fa';
 import { GrStorage } from 'react-icons/gr';
 import { GiWeight } from 'react-icons/gi';
 import { BsYoutube } from 'react-icons/bs';
-import { DropzoneArea } from 'material-ui-dropzone'
 import CustomAutocomplete from '../../UI/Form/Autocomplete'
 import { Button, MenuItem } from '@mui/material'
-import { cx } from '../../../Utils/classnames'
 import CustomSelect from '../../UI/Form/Select'
 import { AGES, GENDERS } from '../../../Utils/constants'
 import { useEffect } from 'react'
@@ -35,7 +33,7 @@ const AdminEditForm = (props) => {
             cost_price: item.cost_price || "",
             description: item.description || "",
             description_ua: item.description_ua || "",
-            images: item.images || null,
+            images: item.images || [],
             video_link: item.video_link || "",
             brand: item.brand || "",
             country: item.country || "",

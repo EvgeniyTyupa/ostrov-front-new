@@ -5,8 +5,7 @@ import classes from '../../UI/Form/AdminForm.module.css'
 import Field from '../../UI/Form/Field/Field'
 import AdminInput from '../../UI/Form/AdminInput'
 import { Button } from '@mui/material'
-import { DropzoneArea } from 'material-ui-dropzone'
-import { cx } from '../../../Utils/classnames'
+import DropZone from '../../Common/DropZone/DropZone'
 
 const AdminEditBrand = (props) => {
     const { onClose, editBrand, item } = props
@@ -24,7 +23,7 @@ const AdminEditBrand = (props) => {
     useEffect(() => {
         reset({
             name: item.name || "",
-            image: item.image || null
+            image: [item.image] || []
         })
     }, [])
 
@@ -48,7 +47,6 @@ const AdminEditBrand = (props) => {
                     />
                 </Field>
                 <div>
-                    <label className={classes.imagesLabel}>Изображение</label>
                     <Controller
                         name="image"
                         control={control}
@@ -56,14 +54,10 @@ const AdminEditBrand = (props) => {
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <>
-                                <DropzoneArea
+                                <DropZone
                                     onChange={onChange}
-                                    initialFiles={[value]}
-                                    filesLimit={1}
-                                    classes={null}
-                                    acceptedFiles={['image/*']}
-                                    dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
-                                    // previewGridClasses={classes.dropzonePreview}
+                                    initialFiles={value}
+                                    title="Изображение"
                                 />
                                 {error && <span className={classes.error}>{error.message}</span>}
                             </>

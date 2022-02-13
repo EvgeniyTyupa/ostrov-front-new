@@ -5,8 +5,7 @@ import classes from '../../UI/Form/AdminForm.module.css'
 import Field from '../../UI/Form/Field/Field'
 import AdminInput from '../../UI/Form/AdminInput'
 import { Button } from '@mui/material'
-import { DropzoneArea } from 'material-ui-dropzone'
-import { cx } from '../../../Utils/classnames'
+import DropZone from '../../Common/DropZone/DropZone'
 
 const AdminAddBrand = (props) => {
     const { onClose, addBrand } = props
@@ -18,7 +17,7 @@ const AdminAddBrand = (props) => {
 
         reset({
             name: "",
-            image: null
+            image: []
         })
     }
 
@@ -41,8 +40,7 @@ const AdminAddBrand = (props) => {
                         )}
                     />
                 </Field>
-                <Field>
-                    <label className={classes.imagesLabel}>Изображение</label>
+                <div>
                     <Controller
                         name="image"
                         control={control}
@@ -50,18 +48,16 @@ const AdminAddBrand = (props) => {
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <>
-                                <DropzoneArea
+                                <DropZone
                                     onChange={onChange}
-                                    filesLimit={1}
-                                    classes={null}
-                                    dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
-                                    previewGridClasses={classes.dropzonePreview}
+                                    initialFiles={value}
+                                    title="Изображение"
                                 />
                                 {error && <span className={classes.error}>{error.message}</span>}
                             </>
                         )}
                     />
-                </Field>
+                </div>
                 <Button className={classes.submit} type='submit'>Добавить</Button>
             </form>
         </Modal>

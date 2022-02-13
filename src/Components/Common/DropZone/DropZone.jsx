@@ -134,7 +134,6 @@ const DropZone = (props) => {
             
             initialFiles.forEach((img, index) => {
                 if(typeof img === "string"){
-                    console.log(img)
                     let splited = img.split(".")
                     let fileName = img.split('/')
                     urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
@@ -154,8 +153,6 @@ const DropZone = (props) => {
         }
     }, [initialFiles])
 
-    console.log(images)
-
     return (
         <div className={classes.main}>
             <p>{title}</p>
@@ -172,11 +169,12 @@ const DropZone = (props) => {
                     placeholder='Enter photos'
                     multiple={multiple}
                     id="filephotos"
+                    accept="image/*"
                     onChange={handleFileChange}
                 /> 
                 <label htmlFor='filephotos'>
                     <AiOutlineCloudUpload/>
-                    <span>Drag and Drop</span>
+                    <span>Выберите или перетащите изображения</span>
                 </label>
             </div>
             <div className={classes.preview}>
