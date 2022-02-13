@@ -8,12 +8,11 @@ import { FaBarcode, FaCode, FaDollarSign } from 'react-icons/fa';
 import { GrStorage } from 'react-icons/gr';
 import { GiWeight } from 'react-icons/gi';
 import { BsYoutube } from 'react-icons/bs';
-import { DropzoneArea } from 'material-ui-dropzone'
 import CustomAutocomplete from '../../UI/Form/Autocomplete'
 import { Button, MenuItem } from '@mui/material'
-import { cx } from '../../../Utils/classnames'
 import CustomSelect from '../../UI/Form/Select'
 import { AGES, GENDERS } from '../../../Utils/constants'
+import DropZone from '../../Common/DropZone/DropZone'
 
 const AdminAddForm = (props) => {
     const { onClose, brands, categories, tags, createItem } = props
@@ -205,12 +204,10 @@ const AdminAddForm = (props) => {
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <>
-                                <DropzoneArea
+                                <DropZone
                                     onChange={onChange}
-                                    filesLimit={9}
-                                    classes={null}
-                                    dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
-                                    previewGridClasses={classes.dropzonePreview}
+                                    multiple
+                                    initialFiles={value}
                                 />
                                 {error && <span className={classes.error}>{error.message}</span>}
                             </>
