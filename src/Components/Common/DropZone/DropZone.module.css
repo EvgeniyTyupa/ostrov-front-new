@@ -1,0 +1,70 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto' !important;
+    position: relative;
+}
+.main input {
+    display: none;
+}
+.dropzone {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    border: 1px dashed rgba(128, 128, 128, .5);
+    border-radius: 4px;
+    color: gray;
+    /* transition-duration: .3s; */
+}
+.highlight {
+    border: 1px dashed #4B5EA3;
+    color: #4B5EA3;
+}
+.dropzone:hover {
+    border: 1px dashed #4B5EA3
+}
+.dropzone:hover label {
+    color: #4B5EA3;
+}
+.main label {
+    height: 150px;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main label svg {
+    font-size: 44px;
+}
+.preview {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-width: 100%;
+    width: 100%;
+}
+.preview > div {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+}
+.main p {
+    position: absolute;
+    background-color: white;
+    font-size: 13px;
+    top: -14px;
+    left: 10px;
+    padding: 5px;
+    color: gray;
+    line-height: 1.4375em;
+    letter-spacing: 0.00938em;
+}

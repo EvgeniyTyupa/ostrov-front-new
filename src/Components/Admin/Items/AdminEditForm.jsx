@@ -15,6 +15,7 @@ import { cx } from '../../../Utils/classnames'
 import CustomSelect from '../../UI/Form/Select'
 import { AGES, GENDERS } from '../../../Utils/constants'
 import { useEffect } from 'react'
+import DropZone from '../../Common/DropZone/DropZone'
 
 
 const AdminEditForm = (props) => {
@@ -207,7 +208,7 @@ const AdminEditForm = (props) => {
                         )}
                     />
                 </Field>
-                <div>
+                {/* <div>
                     
                     <Controller
                         name="images"
@@ -225,6 +226,25 @@ const AdminEditForm = (props) => {
                                     classes={null}
                                     dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
                                     // previewGridClasses={classes.dropzonePreview}
+                                />
+                                {error && <span className={classes.error}>{error.message}</span>}
+                            </>
+                        )}
+                    />
+                </div> */}
+                <div>
+                    <Controller
+                        name="images"
+                        control={control}
+                        rules={{ required: "Обязательное поле!" }}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <>
+                                
+                                <DropZone
+                                    onChange={onChange}
+                                    multiple
+                                    initialFiles={value}
                                 />
                                 {error && <span className={classes.error}>{error.message}</span>}
                             </>
