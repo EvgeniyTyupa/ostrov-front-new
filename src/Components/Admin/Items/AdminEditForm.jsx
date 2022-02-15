@@ -206,30 +206,6 @@ const AdminEditForm = (props) => {
                         )}
                     />
                 </Field>
-                {/* <div>
-                    
-                    <Controller
-                        name="images"
-                        control={control}
-                        rules={{ required: "Обязательное поле!" }}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <>
-                                
-                                <DropzoneArea
-                                    onChange={onChange}
-                                    initialFiles={[value]}
-                                    acceptedFiles={['image/*']}
-                                    filesLimit={9}
-                                    classes={null}
-                                    dropzoneClass={cx(classes.dropzone, error ? classes.dropzoneError : undefined)}
-                                    // previewGridClasses={classes.dropzonePreview}
-                                />
-                                {error && <span className={classes.error}>{error.message}</span>}
-                            </>
-                        )}
-                    />
-                </div> */}
                 <div>
                     <Controller
                         name="images"
@@ -237,8 +213,7 @@ const AdminEditForm = (props) => {
                         rules={{ required: "Обязательное поле!" }}
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <>
-                                
+                            <> 
                                 <DropZone
                                     onChange={onChange}
                                     multiple
