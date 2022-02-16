@@ -55,8 +55,8 @@ const AdminEditForm = (props) => {
         data.category = data.category._id
         data.tags = data.tags.map(item => item._id)
 
-        // editItem(item._id, data)
-        console.log(data)
+        editItem(item._id, data)
+        // console.log(data)
     }
 
     const handleClose = () => {
@@ -294,7 +294,7 @@ const AdminEditForm = (props) => {
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <CustomSelect
                                 onChange={onChange}
-                                value={value}
+                                value={Number(value)}
                                 label="Минимальный возраст"  
                                 error={error}
                             >
@@ -310,7 +310,7 @@ const AdminEditForm = (props) => {
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <CustomSelect
                                 onChange={onChange}
-                                value={value}
+                                value={Number(value)}
                                 label="Максимальный возраст"  
                                 error={error}
                             >

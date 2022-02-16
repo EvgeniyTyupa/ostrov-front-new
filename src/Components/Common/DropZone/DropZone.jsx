@@ -27,10 +27,12 @@ const DropZone = (props) => {
         for(let file of files) {
             let reader = new FileReader()
             reader.readAsDataURL(file)
+            const newFileName = file.name.split('.')
+
             reader.addEventListener('load', () => {
                 let fileObj = {
                     id: file.name + new Date().getTime(),
-                    name: file.name,
+                    name: new Date().getTime() + "." + newFileName[1],
                     type: file.type,
                     size: file.size,
                     src: reader.result

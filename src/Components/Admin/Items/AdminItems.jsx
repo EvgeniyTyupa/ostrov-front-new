@@ -8,6 +8,7 @@ import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal'
 import AdminEditForm from './AdminEditForm';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
+import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 
 const AdminItems = (props) => {
     const { 
@@ -126,7 +127,7 @@ const AdminItems = (props) => {
                                 {rows.map(item => <TableTh text={item.text} onSort={getItems} searchByValue={item.searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize} key={item.key}/>)}
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody >
                             {items.map(item => (
                                 <TableRow key={item._id}>
                                     <TableCell width={110}>
@@ -150,6 +151,7 @@ const AdminItems = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                {items.length === 0 && <EmptyData/>}
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 20, 50]}
                     component={"div"}
