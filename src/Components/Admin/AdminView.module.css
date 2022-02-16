@@ -16,7 +16,8 @@
 .imgPreview {
     width: 100px;
     object-fit: cover;
-    height: 80px;
+    height: 100px;
+    border-radius: 4px;
 }
 .tableContainer {
     max-height: 70vh;
