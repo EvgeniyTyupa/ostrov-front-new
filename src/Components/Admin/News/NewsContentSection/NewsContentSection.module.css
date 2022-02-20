@@ -1,0 +1,26 @@
+.main {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto' !important;
+}
+.row {
+    margin: 15px 0;
+}
+.removeContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    color: #4B5EA3;
+    z-index: 1;
+}
+.removeContainer button {
+    color: #4B5EA3;
+}
+.imgContainer {
+    margin-top: 15px;
+}
+.main h4 {
+    color: #4B5EA3;
+}

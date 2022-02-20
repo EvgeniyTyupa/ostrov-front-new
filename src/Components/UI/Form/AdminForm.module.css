@@ -81,3 +81,15 @@
     top: -8px;
     font-size: 14px;
 }
+.newsSchema {
+    width: 100px;
+    height: 100px;
+}
+.addRowContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.addRowContainer button {
+    color: #4B5EA3;
+}

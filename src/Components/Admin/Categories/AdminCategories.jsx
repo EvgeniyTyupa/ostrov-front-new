@@ -8,6 +8,7 @@ import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminAddCategory from './AdminAddCategory';
 import AdminEditCategory from './AdminEditCategory';
+import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 
 const AdminCategories = (props) => {
     const {
@@ -115,6 +116,7 @@ const AdminCategories = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                {categories.length === 0 && <EmptyData/>}
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 20, 50]}
                     component={"div"}

@@ -175,3 +175,10 @@ export const newsApi = {
         .then(response => response.data)
     }
 }
+
+export const actionsApi = {
+    getActions(pageNumber, pageSize, searchBy, from, searchingValue, isActual) {
+        return instance.get(`/action?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&isActual=${isActual}`)
+        .then(response => response.data)
+    }
+}

@@ -11,6 +11,7 @@ import AdminRoute from './Components/Common/AdminRoute';
 import AdminBrandsContainer from './Components/Admin/Brands/AdminBrandsContainer';
 import AdminCategoriesContainer from './Components/Admin/Categories/AdminCategoriesContainer';
 import AdminNewsContainer from './Components/Admin/News/AdminNewsContainer';
+import AdminActionsContainer from './Components/Admin/Actions/AdminActionsContainer';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
               <Route path="brands" element={<AdminBrandsContainer/>} />
               <Route path="categories" element={<AdminCategoriesContainer/>} />
               <Route path="posts" element={<AdminNewsContainer/>} />
+              <Route path="actions" element={<AdminActionsContainer/>} />
             </Route>
           </Routes>
         </div>

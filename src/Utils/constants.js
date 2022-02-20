@@ -16,3 +16,7 @@ export const GENDERS = [
         text: "Для девочек"
     }
 ]
+
+export const NEWS_TYPES = [
+    1, 2
+]

@@ -9,7 +9,9 @@ const DropZone = (props) => {
         multiple = false,
         onChange,
         title = "Изображения",
-        initialFiles = []
+        initialFiles = [],
+        error,
+        id = 0
     } = props
 
     const [images, setImages] = useState([])
@@ -38,7 +40,11 @@ const DropZone = (props) => {
                     src: reader.result
                 }
                 imagesArr.push(fileObj)
-                setImages([...images, ...imagesArr])
+                if(multiple){
+                    setImages([...images, ...imagesArr])
+                }else {
+                    setImages(imagesArr)
+                }
             })
         }
     }
@@ -159,7 +165,7 @@ const DropZone = (props) => {
         <div className={classes.main}>
             <p>{title}</p>
             <div 
-                className={cx(classes.dropzone, isHightLight ? classes.highlight : undefined)}
+                className={cx(classes.dropzone, isHightLight ? classes.highlight : undefined, error ? classes.dropzoneError : undefined)}
                 onDragEnter={handleHighLight}
                 onDragOver={handleHighLight}
                 onDragLeave={handleUndoHighLight}
@@ -170,11 +176,11 @@ const DropZone = (props) => {
                     name="images" 
                     placeholder='Enter photos'
                     multiple={multiple}
-                    id="filephotos"
+                    id={"filephotos" + id}
                     accept="image/*"
                     onChange={handleFileChange}
                 /> 
-                <label htmlFor='filephotos'>
+                <label htmlFor={"filephotos" + id}>
                     <AiOutlineCloudUpload/>
                     <span>Выберите или перетащите изображения</span>
                 </label>
@@ -193,6 +199,7 @@ const DropZone = (props) => {
                     />
                 ))}
             </div>
+            {error && <span className={classes.error}>{error.message}</span>}
         </div>
     )
 }

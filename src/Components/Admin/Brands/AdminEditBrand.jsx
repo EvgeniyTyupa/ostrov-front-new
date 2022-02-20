@@ -58,8 +58,8 @@ const AdminEditBrand = (props) => {
                                     onChange={onChange}
                                     initialFiles={value}
                                     title="Изображение"
+                                    error={error}
                                 />
-                                {error && <span className={classes.error}>{error.message}</span>}
                             </>
                         )}
                     />

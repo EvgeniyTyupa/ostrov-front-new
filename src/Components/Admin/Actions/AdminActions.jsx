@@ -1,56 +1,57 @@
 import React from 'react'
 import classes from '../AdminView.module.css'
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
-import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch';
-import ServerResponse from '../../UI/ServerResponse/ServerResponse';
-import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
-import AdminAddNews from './AdminAddNews';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
+import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
+import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch'
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
+import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
+import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 
-const AdminNews = (props) => {
+const AdminActions = (props) => {
     const {
-        getNews,
-        pageSize,
+        getActions,
         setSearchValue,
         searchValue,
         handleAddModal,
-        isOpenAddModal,
+        actions,
+        pageSize,
         pageNumber,
-        news,
-        total,
         handleChangePage,
-        handlePageSize
+        handlePageSize,
+        handleRemove,
+        handleEdit,
+        total,
     } = props
 
     const rows = [
         {
-            key: 'name',
-            text: "Название",
+            key: "title",
+            text: "Заголовок",
             searchByValue: "title"
         },
         {
-            key: 'date',
-            text: "Дата публикации",
-            searchByValue: "created_at"
+            key: "start",
+            text: "Старт",
+            searchByValue: "start"
+        },
+        {
+            key: "end",
+            text: "Конец",
+            searchByValue: "end"
         },
         {
             key: 'last',
             text: "",
             searchByValue: ""
-        },
+        }
     ]
 
     return (
         <div className={classes.main}>
-            {isOpenAddModal &&
-                <AdminAddNews
-                    onClose={handleAddModal}
-                />
-            }
             <div className={classes.header}>
-                <h2>Новости</h2>
+                <h2>Акции</h2>
                 <div className={classes.topController}>
-                    <AdminSearch onSearch={getNews} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
+                    <AdminSearch onSearch={getActions} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
                     <Button onClick={handleAddModal} className={classes.addBut}>Добавить +</Button>
                 </div>
             </div>
@@ -59,12 +60,15 @@ const AdminNews = (props) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {rows.map(item => <TableTh text={item.text} onSort={getNews} searchByValue={item.searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize} key={item.key}/>)}
+                                {rows.map(item => <TableTh text={item.text} onSort={getActions} searchByValue={item.searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize} key={item.key}/>)}
                             </TableRow>
                         </TableHead>
+                        <TableBody>
+                            
+                        </TableBody>
                     </Table>
                 </TableContainer>
-                {news.length === 0 && <EmptyData/>}
+                {actions.length === 0 && <EmptyData/>}
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 20, 50]}
                     component={"div"}
@@ -77,6 +81,6 @@ const AdminNews = (props) => {
             </div>
         </div>
     )
-}
+} 
 
-export default AdminNews
+export default AdminActions

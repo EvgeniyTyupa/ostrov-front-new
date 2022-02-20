@@ -1,4 +1,4 @@
-import { MdDashboard, MdCategory, MdBrandingWatermark } from 'react-icons/md';
+import { MdDashboard, MdCategory, MdBrandingWatermark, MdEvent } from 'react-icons/md';
 import { FaShoppingBag, FaTags, FaNewspaper } from 'react-icons/fa';
 
 export const useAdminSidebar = () => {
@@ -32,6 +32,11 @@ export const useAdminSidebar = () => {
             title: "Новости",
             icon: <FaNewspaper/>,
             href: "/admin/posts"
+        },
+        {
+            title: "Акции",
+            icon: <MdEvent/>,
+            href: "/admin/actions"
         },
     ]
 

@@ -1,17 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getNews } from '../../../Redux/newsReducer'
+import { getActions } from '../../../Redux/actionsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
-import AdminNews from './AdminNews'
+import AdminActions from './AdminActions'
 
-const AdminNewsContainer = (props) => {
+const AdminActionsContainer = (props) => {
     const {
         isFetching,
-        serverError,
-        serverResponse,
-        getNews,
-        news,
+        getActions,
+        actions,
+        newAction,
         total
     } = props
 
@@ -26,6 +25,10 @@ const AdminNewsContainer = (props) => {
 
     const [currentItem, setCurrentItem] = useState(null)
 
+    const handleAddModal = () => {
+        setIsOpenAddModal(!isOpenAddModal)
+    }
+
     const handleEdit = (item) => {
         setCurrentItem(item)
         setOpenEdit(!openEdit)
@@ -34,10 +37,6 @@ const AdminNewsContainer = (props) => {
     const handleRemove = (item) => {
         setCurrentItem(item)
         setOpenRemove(!openRemove)
-    }
-
-    const handleAddModal = () => {
-        setIsOpenAddModal(!isOpenAddModal)
     }
 
     const handleChangePage = (event, page) => {
@@ -49,24 +48,28 @@ const AdminNewsContainer = (props) => {
         setPageNumber(0)
     }
 
+    useEffect(() => {
+        getActions(pageNumber + 1, pageSize, "", "", "", false)
+    }, [pageSize, pageNumber])
+
+    console.log(actions)
+
     return (
         <AdminLayout>
-            { isFetching && <Preloader/> }
-            <AdminNews
-                serverResponse={serverResponse}
-                serverError={serverError}
+            {isFetching && <Preloader/>}
+            <AdminActions
                 pageSize={pageSize}
+                actions={actions}
                 pageNumber={pageNumber}
-                isOpenAddModal={isOpenAddModal}
-                handleAddModal={handleAddModal}
+                setSearchValue={setSearchValue}
+                searchValue={searchValue}
                 handleChangePage={handleChangePage}
                 handlePageSize={handlePageSize}
+                getActions={getActions}
+                handleAddModal={handleAddModal}
                 handleRemove={handleRemove}
                 handleEdit={handleEdit}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-                getNews={getNews}
-                news={news}
+                isOpenAddModal={isOpenAddModal}
                 total={total}
             />
         </AdminLayout>
@@ -75,12 +78,11 @@ const AdminNewsContainer = (props) => {
 
 let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
-    serverResponse: state.common.serverResponse,
-    serverError: state.common.serverError,
-    news: state.news.news,
-    total: state.news.total
+    actions: state.actions.actions,
+    total: state.actions.total,
+    newAction: state.actions.newAction
 })
 
 export default connect(mapStateToProps, {
-    getNews
-})(AdminNewsContainer)
+    getActions
+})(AdminActionsContainer)

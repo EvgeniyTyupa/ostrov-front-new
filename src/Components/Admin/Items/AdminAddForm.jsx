@@ -207,8 +207,8 @@ const AdminAddForm = (props) => {
                                     onChange={onChange}
                                     multiple
                                     initialFiles={value}
+                                    error={error}
                                 />
-                                {error && <span className={classes.error}>{error.message}</span>}
                             </>
                         )}
                     />

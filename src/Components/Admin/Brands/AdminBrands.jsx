@@ -8,6 +8,7 @@ import AdminAddBrand from './AdminAddBrand';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminEditBrand from './AdminEditBrand';
+import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 
 const AdminBrands = (props) => {
     const { 
@@ -111,6 +112,7 @@ const AdminBrands = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                {brands.length === 0 && <EmptyData/>}
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 20, 50]}
                     component={"div"}

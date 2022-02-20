@@ -9,6 +9,7 @@ import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminEditTag from './AdminEditTag';
 import CustomCheckbox from '../../UI/Form/Checkbox';
+import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 
 const AdminTags = (props) => {
     const {
@@ -117,6 +118,7 @@ const AdminTags = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                {tags.length === 0 && <EmptyData/>}
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 20, 50]}
                     component={"div"}
