@@ -6,6 +6,7 @@ import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch'
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
+import moment from 'moment'
 
 const AdminActions = (props) => {
     const {
@@ -64,7 +65,20 @@ const AdminActions = (props) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            
+                            {actions.map(item => (
+                                <TableRow key={item._id}>
+                                    <TableCell>{item.title}</TableCell>
+                                    <TableCell>{moment(item.start).format('DD/MM/YYYY')}</TableCell>
+                                    <TableCell>{moment(item.end).format('DD/MM/YYYY')}</TableCell>
+                                    <TableCell width={120}>
+                                        <AdminControllButtons
+                                            item={item}
+                                            onRemove={handleRemove}
+                                            onEdit={handleEdit}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
