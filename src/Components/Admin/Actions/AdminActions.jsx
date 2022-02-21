@@ -7,6 +7,7 @@ import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, 
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import moment from 'moment'
+import CustomCheckbox from '../../UI/Form/Checkbox';
 
 const AdminActions = (props) => {
     const {
@@ -22,6 +23,8 @@ const AdminActions = (props) => {
         handleRemove,
         handleEdit,
         total,
+        isActual,
+        handleIsActual
     } = props
 
     const rows = [
@@ -83,15 +86,24 @@ const AdminActions = (props) => {
                     </Table>
                 </TableContainer>
                 {actions.length === 0 && <EmptyData/>}
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 20, 50]}
-                    component={"div"}
-                    rowsPerPage={pageSize}
-                    page={pageNumber}
-                    count={total}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handlePageSize}
-                />
+                <div className={classes.footerContainer}>
+                    <div className={classes.isActualContainer}>
+                        <CustomCheckbox 
+                            label="Показывать только актуальные" 
+                            checked={isActual} 
+                            onChange={handleIsActual}
+                        />
+                    </div>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 20, 50]}
+                        component={"div"}
+                        rowsPerPage={pageSize}
+                        page={pageNumber}
+                        count={total}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handlePageSize}
+                    />
+                </div>
             </div>
         </div>
     )

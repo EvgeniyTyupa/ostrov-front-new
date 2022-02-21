@@ -25,6 +25,12 @@ const AdminActionsContainer = (props) => {
 
     const [currentItem, setCurrentItem] = useState(null)
 
+    const [isActual, setIsActual] = useState(false)
+
+    const handleIsActual = () => {
+        setIsActual(!isActual)
+    }
+ 
     const handleAddModal = () => {
         setIsOpenAddModal(!isOpenAddModal)
     }
@@ -49,8 +55,8 @@ const AdminActionsContainer = (props) => {
     }
 
     useEffect(() => {
-        getActions(pageNumber + 1, pageSize, "", "", "", false)
-    }, [pageSize, pageNumber])
+        getActions(pageNumber + 1, pageSize, "", "", "", isActual)
+    }, [pageSize, pageNumber, isActual])
 
     console.log(actions)
 
@@ -71,6 +77,8 @@ const AdminActionsContainer = (props) => {
                 handleEdit={handleEdit}
                 isOpenAddModal={isOpenAddModal}
                 total={total}
+                isActual={isActual}
+                handleIsActual={handleIsActual}
             />
         </AdminLayout>
     )

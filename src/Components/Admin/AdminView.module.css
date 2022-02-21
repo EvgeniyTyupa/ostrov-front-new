@@ -44,3 +44,16 @@
     align-items: center;
     gap: 25px;
 }
+.isActualContainer {
+    width: 100%;
+    display: flex;
+    padding: 10px 0;
+}
+.isActualContainer span {
+    font-size: 14px;
+}
+.footerContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
