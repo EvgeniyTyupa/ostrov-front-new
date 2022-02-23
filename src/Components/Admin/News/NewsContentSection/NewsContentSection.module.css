@@ -17,6 +17,7 @@
 }
 .removeContainer button {
     color: #4B5EA3;
+    text-transform: initial;
 }
 .imgContainer {
     margin-top: 15px;

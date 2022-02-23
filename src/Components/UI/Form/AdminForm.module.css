@@ -92,4 +92,9 @@
 }
 .addRowContainer button {
     color: #4B5EA3;
+    text-transform: initial;
+}
+.addRowContainer svg {
+    font-size: 24px;
+    margin-right: 8px;
 }

@@ -1,6 +1,6 @@
 import { Button, IconButton, MenuItem } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, useFieldArray } from 'react-hook-form'
 import classes from '../../UI/Form/AdminForm.module.css'
 import AdminInput from '../../UI/Form/AdminInput'
 import Field from '../../UI/Form/Field/Field'
@@ -17,35 +17,62 @@ const AdminAddNews = (props) => {
 
     const { handleSubmit, control, reset, setValue, getValues } = useForm()
 
+    const {
+        fields: paragraphsFields,
+        append: paragraphsAppend,
+        remove: paragraphsRemove
+    } = useFieldArray({ control, name: "paragraphs" });
+
+    const {
+        fields: paragraphsUaFields,
+        append: paragraphsUaAppend,
+        remove: paragraphsUaRemove
+    } = useFieldArray({ control, name: "paragraphs_ua" });
+
+    const {
+        fields: imagesFields,
+        append: imagesAppend,
+        remove: imagesRemove
+    } = useFieldArray({ control, name: "images" });
+
     const [newsTypeIndex, setNewsTypeIndex] = useState(1)
 
     const newsChemasImg = [news_schema_1, news_schema_2]
 
-    const [newsSection, setNewsSection] = useState([
-        <NewsContentSection/>
-    ])
-
     const addSection = () => {
-        const newNewsSection = [...newsSection]
-        newNewsSection.push(<NewsContentSection/>)
-        setNewsSection(newNewsSection)
+        paragraphsAppend({ value: "" })
+        paragraphsUaAppend({ value: ""  })
+        imagesAppend({ value: null })
     }
 
     const removeSection = (index) => {
-        if(newsSection.length > 1) {
-            const newNewsSection = [...newsSection]
-            newNewsSection.splice(index, 1)
-            setNewsSection(newNewsSection)
+        if(paragraphsFields.length > 1) {
+            paragraphsRemove(index)
+            paragraphsUaRemove(index)
+            imagesRemove(index)
 
-            const newForm = getValues()
+            // let paragraph = ''
+            // let paragraph_ua
 
-            newForm.paragraphs.splice(index, 1)
-            newForm.paragraphs_ua.splice(index, 1)
-            newForm.images.splice(index, 1)
+            // for(const [key, value] of Object.entries(getValues().paragraphs[index])){
+            //    paragraph += value
+            // }
 
-            reset({
-                ...newForm
-            })
+            // for(const [key, value] of Object.entries(getValues().paragraphs_ua[index])){
+            //     paragraph_ua += value
+            // }
+
+            // const newParagraphs = [...getValues().paragraphs]
+            // newParagraphs.splice(index, 1)
+
+            // const newParagraphsUa = [...getValues().paragraphs_ua]
+            // newParagraphsUa.splice(index, 1)
+
+
+            // setValue(`paragraphs.${index}`, paragraph)
+            // setValue(`paragraphs_ua.${index}`, paragraph_ua)
+
+            console.log(getValues())
         }
     }
 
@@ -62,9 +89,9 @@ const AdminAddNews = (props) => {
             title: "",
             title_ua: "",
             type: newsTypeIndex,
-            paragraphs: [],
-            paragraphs_ua: [],
-            images: []
+            paragraphs: [{ id: 1, value: "" }],
+            paragraphs_ua: [{ id: 1, value: "" }],
+            images: [{ id: 1, value: null }]
         })
     }, [])
 
@@ -117,14 +144,15 @@ const AdminAddNews = (props) => {
                     </div>
                     <img src={newsChemasImg[newsTypeIndex - 1]} alt="schema" className={classes.newsSchema}/>
                 </Field>
-                {newsSection.map((el, index) => (
-                    <NewsContentSection control={control} key={index} index={index} onRemove={removeSection}/>
+                {paragraphsFields.map((el, index) => (
+                    <NewsContentSection control={control} p={el} p_ua={paragraphsFields[index]} img={imagesFields[index]} key={el.id} index={index} onRemove={removeSection}/>
                 ))}
                 
                 <div className={classes.addRowContainer}>
-                    <IconButton onClick={addSection}>
+                    <Button onClick={addSection}>
                         <AiOutlinePlusCircle/>
-                    </IconButton>
+                        <span>Добавить секцию</span>
+                    </Button>
                 </div>
                 <Button className={classes.submit} type='submit'>Добавить</Button>
             </form>
