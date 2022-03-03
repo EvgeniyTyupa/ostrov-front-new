@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { getNews } from '../../../Redux/newsReducer'
+import { addPost, getNews } from '../../../Redux/newsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminNews from './AdminNews'
@@ -58,6 +58,8 @@ const AdminNewsContainer = (props) => {
                 pageSize={pageSize}
                 pageNumber={pageNumber}
                 isOpenAddModal={isOpenAddModal}
+                openEdit={openEdit}
+                openRemove={openRemove}
                 handleAddModal={handleAddModal}
                 handleChangePage={handleChangePage}
                 handlePageSize={handlePageSize}
@@ -65,6 +67,7 @@ const AdminNewsContainer = (props) => {
                 handleEdit={handleEdit}
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}
+                currentItem={currentItem}
                 getNews={getNews}
                 news={news}
                 total={total}
@@ -82,5 +85,6 @@ let mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    getNews
+    getNews,
+    addPost
 })(AdminNewsContainer)

@@ -6,6 +6,7 @@ import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminAddNews from './AdminAddNews';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
+import AdminEditNews from './AdminEditNews';
 
 const AdminNews = (props) => {
     const {
@@ -15,11 +16,16 @@ const AdminNews = (props) => {
         searchValue,
         handleAddModal,
         isOpenAddModal,
+        handleEdit,
+        handleRemove,
+        openEdit,
+        openRemove,
         pageNumber,
         news,
         total,
         handleChangePage,
-        handlePageSize
+        handlePageSize,
+        currentItem
     } = props
 
     const rows = [
@@ -45,6 +51,12 @@ const AdminNews = (props) => {
             {isOpenAddModal &&
                 <AdminAddNews
                     onClose={handleAddModal}
+                />
+            }
+            {openEdit && 
+                <AdminEditNews
+                    onClose={handleEdit}
+                    item={currentItem}
                 />
             }
             <div className={classes.header}>

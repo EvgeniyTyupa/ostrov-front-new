@@ -9,16 +9,14 @@ import { Button } from '@mui/material'
 import Field from '../../../UI/Form/Field/Field'
 
 const NewsContentSection = (props) => {
-    const { control, index, onRemove, p, p_ua, img } = props
-
-    console.log(p, p_ua, img)
+    const { control, index, onRemove } = props
 
     return (
         <div className={classes.main}>
             <h4>Секция {index + 1}</h4>
             <Field className={classes.row}>
                 <Controller
-                    name={`paragraphs.${index}`}
+                    name={`paragraphs.${index}.value`}
                     control={control}
                     defaultValue=""
                     rules={{ required: "Обязательное поле!" }}
@@ -38,7 +36,7 @@ const NewsContentSection = (props) => {
             </Field>
             <Field className={classes.row}>
                 <Controller
-                    name={`paragraphs_ua.${index}`}
+                    name={`paragraphs_ua.${index}.value`}
                     control={control}
                     defaultValue=""
                     rules={{ required: "Обязательное поле!" }}
@@ -56,7 +54,7 @@ const NewsContentSection = (props) => {
             </Field>
             <div className={classes.imgContainer}>
                 <Controller
-                    name={`images.${index}`}
+                    name={`images.${index}.value`}
                     control={control}
                     rules={{ required: "Обязательное поле!" }}
                     defaultValue=""

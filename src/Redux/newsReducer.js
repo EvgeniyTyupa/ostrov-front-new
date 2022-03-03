@@ -1,5 +1,5 @@
 import { newsApi } from "../Api/api"
-import { setIsFetching, setServerError } from "./commonReducer"
+import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
 
 const SET_NEWS_DATA = 'SET_NEWS_DATA'
 const SET_TOTAL_NEWS = 'SET_TOTAL_NEWS'
@@ -42,6 +42,16 @@ export const getNews = (pageNumber, pageSize, searchBy, from, searchingValue) =>
     try {
         let response = await newsApi.getNews(pageNumber, pageSize, searchBy, from, searchingValue)
         dispatch([setNewsData(response.posts), setTotalData(response.total), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+
+export const addPost = (data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await newsApi.addNews(data)
+        dispatch([setNewNews(response.post), setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }

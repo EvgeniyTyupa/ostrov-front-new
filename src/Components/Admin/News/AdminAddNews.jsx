@@ -50,33 +50,15 @@ const AdminAddNews = (props) => {
             paragraphsRemove(index)
             paragraphsUaRemove(index)
             imagesRemove(index)
-
-            // let paragraph = ''
-            // let paragraph_ua
-
-            // for(const [key, value] of Object.entries(getValues().paragraphs[index])){
-            //    paragraph += value
-            // }
-
-            // for(const [key, value] of Object.entries(getValues().paragraphs_ua[index])){
-            //     paragraph_ua += value
-            // }
-
-            // const newParagraphs = [...getValues().paragraphs]
-            // newParagraphs.splice(index, 1)
-
-            // const newParagraphsUa = [...getValues().paragraphs_ua]
-            // newParagraphsUa.splice(index, 1)
-
-
-            // setValue(`paragraphs.${index}`, paragraph)
-            // setValue(`paragraphs_ua.${index}`, paragraph_ua)
-
-            console.log(getValues())
         }
     }
 
     const onSubmit = (data) => {
+        console.log(data)
+        data.paragraphs = data.paragraphs.map(el => el.value)
+        data.paragraphs_ua = data.paragraphs_ua.map(el => el.value)
+        data.images = data.images.map(el => el.value[0])
+
         console.log(data)
     }
 
@@ -145,7 +127,7 @@ const AdminAddNews = (props) => {
                     <img src={newsChemasImg[newsTypeIndex - 1]} alt="schema" className={classes.newsSchema}/>
                 </Field>
                 {paragraphsFields.map((el, index) => (
-                    <NewsContentSection control={control} p={el} p_ua={paragraphsFields[index]} img={imagesFields[index]} key={el.id} index={index} onRemove={removeSection}/>
+                    <NewsContentSection control={control} key={el.id} index={index} onRemove={removeSection}/>
                 ))}
                 
                 <div className={classes.addRowContainer}>

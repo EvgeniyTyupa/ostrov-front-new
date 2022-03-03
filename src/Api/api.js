@@ -173,6 +173,10 @@ export const newsApi = {
     getNews(pageNumber, pageSize, searchBy, from, searchingValue) {
         return instance.get(`/post?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)
+    },
+    addNews(data) {
+        return instance.post(`/post`, data)
+        .then(response => response.data)
     }
 }
 
