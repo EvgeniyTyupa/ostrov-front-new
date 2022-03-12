@@ -7,6 +7,9 @@ import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminAddNews from './AdminAddNews';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 import AdminEditNews from './AdminEditNews';
+import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
+import moment from 'moment'
+import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 
 const AdminNews = (props) => {
     const {
@@ -25,10 +28,17 @@ const AdminNews = (props) => {
         total,
         handleChangePage,
         handlePageSize,
-        currentItem
+        currentItem,
+        handleAddPost,
+        deleteNews
     } = props
 
     const rows = [
+        {
+            key: 'image',
+            text: "Изображение",
+            searchByValue: ""
+        },
         {
             key: 'name',
             text: "Название",
@@ -51,12 +61,21 @@ const AdminNews = (props) => {
             {isOpenAddModal &&
                 <AdminAddNews
                     onClose={handleAddModal}
+                    createNews={handleAddPost}
                 />
             }
             {openEdit && 
                 <AdminEditNews
                     onClose={handleEdit}
                     item={currentItem}
+                />
+            }
+            {openRemove && 
+                <AdminDeleteModal
+                    onRemove={handleRemove}
+                    item={currentItem}
+                    deleteItem={deleteNews}
+                    onClose={handleRemove}
                 />
             }
             <div className={classes.header}>
@@ -74,6 +93,24 @@ const AdminNews = (props) => {
                                 {rows.map(item => <TableTh text={item.text} onSort={getNews} searchByValue={item.searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize} key={item.key}/>)}
                             </TableRow>
                         </TableHead>
+                        <TableBody>
+                            {news.map(item => (
+                                <TableRow key={item._id}>
+                                    <TableCell width={150}>
+                                        <img src={item.images[0]} alt="image" className={classes.imgPreview}/>
+                                    </TableCell>
+                                    <TableCell>{item.title}</TableCell>
+                                    <TableCell width={"20%"}>{moment(item.createdAt).format('DD/MM/YYYY')}</TableCell>
+                                    <TableCell width={120}>
+                                        <AdminControllButtons
+                                            item={item}
+                                            onRemove={handleRemove}
+                                            onEdit={handleEdit}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
                     </Table>
                 </TableContainer>
                 {news.length === 0 && <EmptyData/>}

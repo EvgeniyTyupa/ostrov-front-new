@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { addPost, getNews } from '../../../Redux/newsReducer'
+import { addPost, deleteNews, editNews, getNews, setNewNews, setNewsData } from '../../../Redux/newsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminNews from './AdminNews'
@@ -12,7 +12,13 @@ const AdminNewsContainer = (props) => {
         serverResponse,
         getNews,
         news,
-        total
+        total,
+        addPost,
+        newNews,
+        setNewNews,
+        setNewsData,
+        deleteNews,
+        editNews
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -49,6 +55,48 @@ const AdminNewsContainer = (props) => {
         setPageNumber(0)
     }
 
+    const handleAddPost = async (data) => {
+        await addPost(data)
+        handleAddModal()
+    }
+
+    const handleEditPost = async (newsId, data) => {
+        await editNews(newsId, data)
+    }
+
+    const handleDelete = (newsId) => {
+        deleteNews(newsId).then(() => {
+            const newPosts = [...news]
+            newPosts.forEach((item, index) => {
+                if(item._id = newsId) {
+                    newPosts.splice(index, 1)
+                }
+            })
+            setOpenRemove(false)
+            setNewsData(newPosts)
+        })
+    }
+
+    useEffect(() => {
+        if(newNews){
+            const newPosts = [...news]
+            let pushIndex = newPosts.length
+            newPosts.forEach((item, index) => {
+                if(item._id === newNews._id) {
+                    newPosts.splice(index, 1)
+                    pushIndex = index
+                }
+            })
+            newPosts.splice(pushIndex, 0, newNews)
+            setNewsData(newPosts)
+            setNewNews(null)
+        }
+    }, [newNews])
+
+    useEffect(() => {
+        getNews(pageNumber + 1, pageSize, "", "", "")
+    }, [pageSize, pageNumber])
+
     return (
         <AdminLayout>
             { isFetching && <Preloader/> }
@@ -71,6 +119,8 @@ const AdminNewsContainer = (props) => {
                 getNews={getNews}
                 news={news}
                 total={total}
+                handleAddPost={handleAddPost}
+                deleteNews={handleDelete}
             />
         </AdminLayout>
     )
@@ -81,10 +131,15 @@ let mapStateToProps = (state) => ({
     serverResponse: state.common.serverResponse,
     serverError: state.common.serverError,
     news: state.news.news,
-    total: state.news.total
+    total: state.news.total,
+    newNews: state.news.newNews
 })
 
 export default connect(mapStateToProps, {
     getNews,
-    addPost
+    addPost,
+    setNewsData,
+    setNewNews,
+    deleteNews,
+    editNews
 })(AdminNewsContainer)

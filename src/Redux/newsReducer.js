@@ -57,4 +57,24 @@ export const addPost = (data) => async (dispatch) => {
     }
 }
 
+export const editNews = (newsId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await newsApi.editNews(newsId, data)
+        dispatch([setNewNews(response.post), setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+
+export const deleteNews = (newsId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await newsApi.deleteNews(newsId)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+
 export default newsReducer

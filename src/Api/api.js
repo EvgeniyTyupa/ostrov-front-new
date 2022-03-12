@@ -105,7 +105,6 @@ export const brandApi = {
         .then(resposne => resposne.data);
     },
     editBrand(brandId, data) {
-        console.log(data)
         const newFormData = new FormData()
         if(data.name){
             newFormData.append('name', data.name)
@@ -175,7 +174,65 @@ export const newsApi = {
         .then(response => response.data)
     },
     addNews(data) {
-        return instance.post(`/post`, data)
+        const newFormData = new FormData()
+
+        for(const [key, value] of Object.entries(data)){
+            if(key === "images") {
+                value.forEach(i => {
+                    newFormData.append("images[]", i)
+                })
+            } else if(key === "paragraphs") {
+                value.forEach(i => {
+                    newFormData.append("paragraphs", i)
+                })  
+            } else if(key === "paragraphs_ua") {
+                value.forEach(i => {
+                    newFormData.append("paragraphs_ua", i)
+                })  
+            } else {
+                newFormData.append(key, value)
+            }
+        }
+
+        return axios.post(`${baseURL}/post`, newFormData, {
+            headers:{
+                'Content-Type' : 'multipart/form-data',
+                'Authorization' : `Bearer ${localStorage.usertoken}`
+            }
+        })
+        .then(resposne => resposne.data);
+    },
+    editNews(newsId, data) {
+        const newFormData = new FormData()
+
+        for(const [key, value] of Object.entries(data)){
+            if(key === "images") {
+                value.forEach(i => {
+                    newFormData.append("images[]", i)
+                })
+            } else if(key === "paragraphs") {
+                value.forEach(i => {
+                    newFormData.append("paragraphs", i)
+                })  
+            } else if(key === "paragraphs_ua") {
+                value.forEach(i => {
+                    newFormData.append("paragraphs_ua", i)
+                })  
+            } else {
+                newFormData.append(key, value)
+            }
+        }
+
+        return axios.patch(`${baseURL}/post/${newsId}`, newFormData, {
+            headers:{
+                'Content-Type' : 'multipart/form-data',
+                'Authorization' : `Bearer ${localStorage.usertoken}`
+            }
+        })
+        .then(resposne => resposne.data);
+    },
+    deleteNews(newsId) {
+        return instance.delete(`/post/${newsId}`)
         .then(response => response.data)
     }
 }

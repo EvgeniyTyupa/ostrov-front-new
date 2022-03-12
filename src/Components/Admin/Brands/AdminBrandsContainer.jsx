@@ -82,7 +82,7 @@ const AdminBrandsContainer = (props) => {
     useEffect(() => {
         if(newBrand){
             const newBrands = [...brands]
-            let pushIndex = newBrand.length
+            let pushIndex = newBrands.length
             newBrands.forEach((item, index) => {
                 if(item._id === newBrand._id){
                     newBrands.splice(index, 1)

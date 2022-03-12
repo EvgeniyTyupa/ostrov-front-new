@@ -60,6 +60,7 @@ const AdminAddNews = (props) => {
         data.images = data.images.map(el => el.value[0])
 
         console.log(data)
+        createNews(data)
     }
 
     useEffect(() => {
