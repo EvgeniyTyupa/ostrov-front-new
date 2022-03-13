@@ -5,7 +5,6 @@ import { useForm, Controller, useFieldArray } from 'react-hook-form'
 import Field from '../../UI/Form/Field/Field'
 import AdminInput from '../../UI/Form/AdminInput'
 import { Button, MenuItem } from '@mui/material'
-import DropZone from '../../Common/DropZone/DropZone'
 import { useEffect } from 'react'
 import CustomSelect from '../../UI/Form/Select'
 import { NEWS_TYPES } from '../../../Utils/constants'
@@ -15,7 +14,7 @@ import NewsContentSection from './NewsContentSection/NewsContentSection'
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 const AdminEditNews = (props) => {
-    const { onClose, item } = props
+    const { onClose, item, onEdit } = props
     const { handleSubmit, control, reset, getValues, setValue } = useForm()
 
     const [newsTypeIndex, setNewsTypeIndex] = useState(item.type)
@@ -41,7 +40,11 @@ const AdminEditNews = (props) => {
     } = useFieldArray({ control, name: "images" });
 
     const onSubmit = (data) => {
-        console.log(data)
+        data.paragraphs = data.paragraphs.map(el => el.value)
+        data.paragraphs_ua = data.paragraphs_ua.map(el => el.value)
+        data.images = data.images.map(el => el.value[0])
+
+        onEdit(item._id, data)
     }
 
     const handleClose = () => {
@@ -76,10 +79,11 @@ const AdminEditNews = (props) => {
             paragraphs_ua: item.paragraphs_ua.map((el, index) => (
                 { id: index, value: el }
             )),
+            images: item.images.map((el, index) => (
+                { id: index, value: el }
+            ))
         })
     }, [])
-
-    console.log(getValues())
 
     return (
         <Modal title={`Редактировать ${item.title}`} onClose={handleClose}>

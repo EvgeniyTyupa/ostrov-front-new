@@ -30,15 +30,11 @@ const AdminNews = (props) => {
         handlePageSize,
         currentItem,
         handleAddPost,
-        deleteNews
+        deleteNews, 
+        editNews
     } = props
 
     const rows = [
-        {
-            key: 'image',
-            text: "Изображение",
-            searchByValue: ""
-        },
         {
             key: 'name',
             text: "Название",
@@ -68,6 +64,7 @@ const AdminNews = (props) => {
                 <AdminEditNews
                     onClose={handleEdit}
                     item={currentItem}
+                    onEdit={editNews}
                 />
             }
             {openRemove && 
@@ -96,11 +93,8 @@ const AdminNews = (props) => {
                         <TableBody>
                             {news.map(item => (
                                 <TableRow key={item._id}>
-                                    <TableCell width={150}>
-                                        <img src={item.images[0]} alt="image" className={classes.imgPreview}/>
-                                    </TableCell>
                                     <TableCell>{item.title}</TableCell>
-                                    <TableCell width={"20%"}>{moment(item.createdAt).format('DD/MM/YYYY')}</TableCell>
+                                    <TableCell width={"25%"}>{moment(item.createdAt).format('DD/MM/YYYY')}</TableCell>
                                     <TableCell width={120}>
                                         <AdminControllButtons
                                             item={item}

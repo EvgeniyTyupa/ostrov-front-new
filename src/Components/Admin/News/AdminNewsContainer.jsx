@@ -121,6 +121,7 @@ const AdminNewsContainer = (props) => {
                 total={total}
                 handleAddPost={handleAddPost}
                 deleteNews={handleDelete}
+                editNews={handleEditPost}
             />
         </AdminLayout>
     )

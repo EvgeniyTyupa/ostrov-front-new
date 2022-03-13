@@ -26,7 +26,7 @@ const NewsContentSection = (props) => {
                                 onChange={onChange}
                                 multiline={true}
                                 rows={6}
-                                value={value.value}
+                                value={value}
                                 error={error}
                                 label="Текст"  
                             />
@@ -45,7 +45,7 @@ const NewsContentSection = (props) => {
                             onChange={onChange}
                             multiline={true}
                             rows={6}
-                            value={value.value}
+                            value={value}
                             error={error}
                             label="Текст (УКР)"  
                         />
@@ -65,6 +65,7 @@ const NewsContentSection = (props) => {
                                 error={error}
                                 title="Изображение"
                                 id={index}
+                                initialFiles={[value]}
                             />
                         </>
                     )}

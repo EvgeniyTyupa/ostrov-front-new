@@ -54,12 +54,10 @@ const AdminAddNews = (props) => {
     }
 
     const onSubmit = (data) => {
-        console.log(data)
         data.paragraphs = data.paragraphs.map(el => el.value)
         data.paragraphs_ua = data.paragraphs_ua.map(el => el.value)
         data.images = data.images.map(el => el.value[0])
 
-        console.log(data)
         createNews(data)
     }
 
