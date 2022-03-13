@@ -8,6 +8,7 @@ import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminContr
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import moment from 'moment'
 import CustomCheckbox from '../../UI/Form/Checkbox';
+import AdminAddAction from './AdminAddAction';
 
 const AdminActions = (props) => {
     const {
@@ -24,7 +25,8 @@ const AdminActions = (props) => {
         handleEdit,
         total,
         isActual,
-        handleIsActual
+        handleIsActual,
+        isOpenAddModal
     } = props
 
     const rows = [
@@ -52,6 +54,12 @@ const AdminActions = (props) => {
 
     return (
         <div className={classes.main}>
+            {isOpenAddModal && 
+                <AdminAddAction
+                    onClose={handleAddModal}
+                    
+                />
+            }
             <div className={classes.header}>
                 <h2>Акции</h2>
                 <div className={classes.topController}>

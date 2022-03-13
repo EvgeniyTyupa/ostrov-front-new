@@ -8,11 +8,15 @@ import store from './Redux/reduxStore';
 import { Provider } from "react-redux";
 import { Suspense } from 'react';
 import Preloader from './Components/Common/Preloader/Preloader';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateAdapter from '@mui/lab/AdapterMoment';
 
 ReactDOM.render(
   <Provider store={store}>
     <Suspense fallback={<Preloader/>}>
-      <App/>
+      <LocalizationProvider dateAdapter={DateAdapter}>
+        <App/>
+      </LocalizationProvider>
     </Suspense>
   </Provider>, document.getElementById('root')
 );
