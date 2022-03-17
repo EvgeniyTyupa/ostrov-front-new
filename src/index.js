@@ -10,11 +10,12 @@ import { Suspense } from 'react';
 import Preloader from './Components/Common/Preloader/Preloader';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateAdapter from '@mui/lab/AdapterMoment';
+import "moment/locale/ru";
 
 ReactDOM.render(
   <Provider store={store}>
     <Suspense fallback={<Preloader/>}>
-      <LocalizationProvider dateAdapter={DateAdapter}>
+      <LocalizationProvider dateAdapter={DateAdapter} locale={'ru'}>
         <App/>
       </LocalizationProvider>
     </Suspense>

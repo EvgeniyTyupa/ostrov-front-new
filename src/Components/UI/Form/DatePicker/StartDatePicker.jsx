@@ -2,6 +2,7 @@ import React from 'react'
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import { TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles'
+import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -23,10 +24,23 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const DatePicker = (props) => {
-    const { type = 'single', label, value, onChange, error = null } = props
+const StartDatePicker = (props) => {
+    const { 
+        type = 'single', 
+        label, 
+        value, 
+        onChange, 
+        error = null,
+        maxDate,
+        setMinDate
+    } = props
 
     const material = useStyles()
+
+    const handleChange = (e) => {
+        onChange(e)
+        setMinDate(e)
+    }
 
     return (
         <>
@@ -37,7 +51,8 @@ const DatePicker = (props) => {
                     inputFormat="DD/MM/yyyy"
                     disablePast
                     value={value}
-                    onChange={onChange}
+                    onChange={handleChange}
+                    maxDate={maxDate}
                     renderInput={(params) => <TextField {...params} error={!!error} classes={material}/>}
                 />
             }
@@ -45,4 +60,4 @@ const DatePicker = (props) => {
     )
 }
 
-export default DatePicker
+export default StartDatePicker

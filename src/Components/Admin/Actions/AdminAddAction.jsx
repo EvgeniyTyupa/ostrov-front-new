@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from '../../UI/Form/AdminForm.module.css'
 import Field from '../../UI/Form/Field/Field'
 import AdminInput from '../../UI/Form/AdminInput'
@@ -6,12 +6,17 @@ import { Button } from '@mui/material'
 import DropZone from '../../Common/DropZone/DropZone'
 import Modal from '../../UI/Modal/Modal'
 import { useForm, Controller } from 'react-hook-form'
-import DatePicker from '../../UI/Form/DatePicker'
+import moment from 'moment'
+import StartDatePicker from '../../UI/Form/DatePicker/StartDatePicker'
+import EndDatePicker from '../../UI/Form/DatePicker/EndDatePicker'
 
 const AdminAddAction = (props) => {
     const { onClose, addAction } = props
 
     const { handleSubmit, control, reset } = useForm()
+
+    const [minDate, setMinDate] = useState(null)
+    const [maxDate, setMaxDate] = useState(null)
 
     const onSubmit = (data) => {
         console.log(data)
@@ -97,11 +102,13 @@ const AdminAddAction = (props) => {
                         rules={{ required: "Обязательное поле!" }}
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <DatePicker
+                            <StartDatePicker
                                 value={value}
                                 onChange={onChange}
                                 label="Старт"
                                 error={error}
+                                setMinDate={setMinDate}
+                                maxDate={maxDate}
                             />
                         )}
                     />
@@ -111,11 +118,13 @@ const AdminAddAction = (props) => {
                         rules={{ required: "Обязательное поле!" }}
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <DatePicker
+                            <EndDatePicker
                                 value={value}
                                 onChange={onChange}
                                 label="Конец"
                                 error={error}
+                                minDate={minDate}
+                                setMaxDate={setMaxDate}
                             />
                         )}
                     />
