@@ -26,7 +26,9 @@ const AdminActions = (props) => {
         total,
         isActual,
         handleIsActual,
-        isOpenAddModal
+        isOpenAddModal,
+        getItems,
+        items
     } = props
 
     const rows = [
@@ -57,7 +59,8 @@ const AdminActions = (props) => {
             {isOpenAddModal && 
                 <AdminAddAction
                     onClose={handleAddModal}
-                    
+                    getItems={getItems}
+                    items={items}
                 />
             }
             <div className={classes.header}>

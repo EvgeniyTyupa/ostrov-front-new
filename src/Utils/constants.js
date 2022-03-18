@@ -20,3 +20,23 @@ export const GENDERS = [
 export const NEWS_TYPES = [
     1, 2
 ]
+
+export const DISCOUNT_TYPES = {
+    percent: 'Проценты %',
+    fixed: 'Фиксировання цена'
+}
+
+export const KIND_OF_ACTION = [
+    {
+        value: 'brand',
+        label: 'Бренд'
+    },
+    {
+        value: 'category',
+        label: 'Категория'
+    },
+    {
+        value: 'custom',
+        label: 'Отдельные товары'
+    }
+]

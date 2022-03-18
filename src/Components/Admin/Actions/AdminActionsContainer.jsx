@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getActions } from '../../../Redux/actionsReducer'
+import { getItems } from '../../../Redux/itemsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminActions from './AdminActions'
@@ -11,7 +12,9 @@ const AdminActionsContainer = (props) => {
         getActions,
         actions,
         newAction,
-        total
+        total,
+        items,
+        getItems
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -79,6 +82,8 @@ const AdminActionsContainer = (props) => {
                 total={total}
                 isActual={isActual}
                 handleIsActual={handleIsActual}
+                items={items}
+                getItems={getItems}
             />
         </AdminLayout>
     )
@@ -88,9 +93,11 @@ let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
     actions: state.actions.actions,
     total: state.actions.total,
-    newAction: state.actions.newAction
+    newAction: state.actions.newAction,
+    items: state.items.items
 })
 
 export default connect(mapStateToProps, {
-    getActions
+    getActions,
+    getItems
 })(AdminActionsContainer)
