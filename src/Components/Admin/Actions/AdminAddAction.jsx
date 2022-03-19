@@ -13,9 +13,18 @@ import { DISCOUNT_TYPES, KIND_OF_ACTION } from '../../../Utils/constants'
 import CustomSelect from '../../UI/Form/Select'
 import CustomCheckbox from '../../UI/Form/Checkbox'
 import CustomAutocomplete from '../../UI/Form/Autocomplete'
+import MultiAdminSearch from '../../UI/Admin/Table/Search/MultiAdminSearch'
 
 const AdminAddAction = (props) => {
-    const { onClose, addAction, getItems, items } = props
+    const { 
+        onClose, 
+        addAction, 
+        items,
+        getItems, 
+        getCategories,
+        getBrands,
+        getTags
+    } = props
 
     const { handleSubmit, control, reset, setValue } = useForm()
 
@@ -23,8 +32,11 @@ const AdminAddAction = (props) => {
     const [maxDate, setMaxDate] = useState(null)
 
     const [discountType, setDiscountType] = useState(DISCOUNT_TYPES.percent)
+    const [kindOfAction, setKindOfAction] = useState(KIND_OF_ACTION[0].value)
 
     const [isHavingGift, setIsHavingGift] = useState(false)
+
+    const [actionTypeName, setActionTypeName] = useState("brands_id")
 
     const handleIsHavingGift = () => {
         setIsHavingGift(!isHavingGift)
@@ -33,6 +45,12 @@ const AdminAddAction = (props) => {
     const onSubmit = (data) => {
         console.log(data)
     }
+
+    useEffect(() => {
+        if(!isHavingGift){
+            setValue('gift', null)
+        }
+    }, [isHavingGift])
 
     useEffect(() => {
         reset({
@@ -46,6 +64,18 @@ const AdminAddAction = (props) => {
             kind_of_action: KIND_OF_ACTION[0].value
         })
     }, [])
+
+    useEffect(() => {
+        if(kindOfAction === KIND_OF_ACTION[0].value) {
+            setActionTypeName("brands_id")
+        } else if(kindOfAction === KIND_OF_ACTION[1].value) {
+            setActionTypeName("categories_id")
+        } else if(kindOfAction === KIND_OF_ACTION[2].value) {
+            setActionTypeName("tags_id")
+        } else {
+            setActionTypeName("items_id")
+        }
+    }, [kindOfAction])
 
     return (
         <Modal title="Новая акция" onClose={onClose}>
@@ -178,7 +208,9 @@ const AdminAddAction = (props) => {
                                 onChange={onChange}
                                 value={value}
                                 error={error}
-                                label="Скидка"  
+                                label="Размер скидки"
+                                regex="number"
+                                placeholder="В цифрах"
                             />
                         )}
                     />
@@ -191,12 +223,12 @@ const AdminAddAction = (props) => {
                     />
                     {isHavingGift &&
                         <Controller
-                            name="gifts"
+                            name="gift"
                             control={control}
                             defaultValue={[]}
                             rules={{ required: "Обязательное поле!" }}
                             render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <CustomAutocomplete
+                                <MultiAdminSearch
                                     value={value}
                                     onChange={onChange}
                                     items={items}
@@ -204,7 +236,8 @@ const AdminAddAction = (props) => {
                                     label="Имя товара"
                                     error={error}
                                     setValue={setValue}
-                                    name={"gifts"}
+                                    name={"gift"}
+                                    onSearch={getItems}
                                 />
                             )}
                         />
@@ -217,7 +250,10 @@ const AdminAddAction = (props) => {
                     rules={{ required: "Обязательное поле!" }}
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <CustomSelect
-                            onChange={onChange}
+                            onChange={e => {
+                                onChange(e.target.value)
+                                setKindOfAction(e.target.value)
+                            }}
                             value={value}
                             label="Акция на:"
                             error={error}
@@ -226,6 +262,30 @@ const AdminAddAction = (props) => {
                                 <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
                             ))}
                         </CustomSelect>
+                    )}
+                />
+                <Controller
+                    name={actionTypeName}
+                    control={control}
+                    defaultValue={[]}
+                    rules={{ required: "Обязательное поле!" }}
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <MultiAdminSearch
+                            value={value}
+                            onChange={onChange}
+                            items={items}
+                            multiple={true}
+                            label="Имя товара"
+                            error={error}
+                            setValue={setValue}
+                            name={actionTypeName}
+                            onSearch={
+                                kindOfAction === KIND_OF_ACTION[0].value && getBrands ||
+                                kindOfAction === KIND_OF_ACTION[1].value && getCategories ||
+                                kindOfAction === KIND_OF_ACTION[2].value && getTags ||
+                                kindOfAction === KIND_OF_ACTION[3].value && getItems 
+                            }
+                        />
                     )}
                 />
             </form>

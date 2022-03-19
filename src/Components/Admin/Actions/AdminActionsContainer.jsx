@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getActions } from '../../../Redux/actionsReducer'
+import { getBrands } from '../../../Redux/brandsReducer'
+import { getAllCategoriesForSelect } from '../../../Redux/categoryReducer'
 import { getItems } from '../../../Redux/itemsReducer'
+import { getTags } from '../../../Redux/tagsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminActions from './AdminActions'
@@ -14,7 +17,13 @@ const AdminActionsContainer = (props) => {
         newAction,
         total,
         items,
-        getItems
+        categories,
+        brands,
+        tags,
+        getItems,
+        getAllCategoriesForSelect,
+        getBrands,
+        getTags
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -83,7 +92,13 @@ const AdminActionsContainer = (props) => {
                 isActual={isActual}
                 handleIsActual={handleIsActual}
                 items={items}
+                brands={brands}
+                categories={categories}
+                tags={tags}
                 getItems={getItems}
+                getAllCategoriesForSelect={getAllCategoriesForSelect}
+                getBrands={getBrands}
+                getTags={getTags}
             />
         </AdminLayout>
     )
@@ -94,10 +109,16 @@ let mapStateToProps = (state) => ({
     actions: state.actions.actions,
     total: state.actions.total,
     newAction: state.actions.newAction,
-    items: state.items.items
+    items: state.items.items,
+    brands: state.brands.brands,
+    categories: state.categories.allCategories,
+    tags: state.tags.tags
 })
 
 export default connect(mapStateToProps, {
     getActions,
-    getItems
+    getItems,
+    getTags,
+    getBrands,
+    getAllCategoriesForSelect
 })(AdminActionsContainer)

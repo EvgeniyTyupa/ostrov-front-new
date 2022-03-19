@@ -28,7 +28,13 @@ const AdminActions = (props) => {
         handleIsActual,
         isOpenAddModal,
         getItems,
-        items
+        items,
+        categories,
+        brands,
+        tags,
+        getAllCategoriesForSelect,
+        getBrands,
+        getTags
     } = props
 
     const rows = [
@@ -61,6 +67,12 @@ const AdminActions = (props) => {
                     onClose={handleAddModal}
                     getItems={getItems}
                     items={items}
+                    categories={categories}
+                    brands={brands}
+                    tags={tags}
+                    getCategories={getAllCategoriesForSelect}
+                    getBrands={getBrands}
+                    getTags={getTags}
                 />
             }
             <div className={classes.header}>

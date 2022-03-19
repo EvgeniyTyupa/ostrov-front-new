@@ -29,11 +29,15 @@ export const DISCOUNT_TYPES = {
 export const KIND_OF_ACTION = [
     {
         value: 'brand',
-        label: 'Бренд'
+        label: 'Бренды'
     },
     {
         value: 'category',
-        label: 'Категория'
+        label: 'Товары в категориях'
+    },
+    {
+        value: 'tag',
+        label: 'Товары с тегом'
     },
     {
         value: 'custom',

@@ -35,10 +35,21 @@ const AdminInput = (props) => {
         endAdornment = false,
         startAdornment = false,
         startAdornmentIcon = null,
-        endAdornmentIcon = null
+        endAdornmentIcon = null,
+        regex = null,
+        placeholder = ""
     } = props
 
     const material = useStyles()
+
+    const handleChange = (e) => {
+        if(regex === "number") {
+            const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+            onChange(onlyNums)
+        }else {
+            onChange(e.target.value)
+        }
+    }
 
     return (
         <TextField
@@ -47,7 +58,8 @@ const AdminInput = (props) => {
             classes={material}
             label={label}
             variant={variant}
-            onChange={onChange}
+            onChange={handleChange}
+            placeholder={placeholder}
             value={value}
             autoComplete="off"
             type={type}
