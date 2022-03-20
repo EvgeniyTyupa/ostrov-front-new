@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { addAction, deleteAction, editAction, getActions } from '../../../Redux/actionsReducer'
+import { addAction, deleteAction, editAction, getActions, setActionsData, setNewAction } from '../../../Redux/actionsReducer'
 import { getBrands } from '../../../Redux/brandsReducer'
 import { getAllCategoriesForSelect } from '../../../Redux/categoryReducer'
 import { getItems } from '../../../Redux/itemsReducer'
@@ -26,7 +26,11 @@ const AdminActionsContainer = (props) => {
         getTags,
         addAction,
         editAction,
-        deleteAction
+        deleteAction,
+        setActionsData,
+        setNewAction,
+        serverError,
+        serverResponse
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -69,6 +73,44 @@ const AdminActionsContainer = (props) => {
         setPageNumber(0)
     }
 
+    const handleAddAction = async (data) => {
+        await addAction(data)
+        handleAddModal()
+    }
+
+    const handleEditAction = async (actionId, data) => {
+        await editAction(actionId, data)
+    }
+
+    const handleDelete = (actionId) => {
+        deleteAction(actionId).then(() => {
+            const newActions = [...actions]
+            newActions.forEach((item, index) => {
+                if(item._id == actionId) {
+                    newActions.splice(index, 1)
+                }
+            })
+            setOpenRemove(false)
+            setActionsData(newActions)
+        })
+    }
+
+    useEffect(() => {
+        if(newAction) {
+            const newActions = [...actions]
+            let pushIndex = newActions.length
+            newActions.forEach((item, index) => {
+                if(item._id === newAction._id) {
+                    newAction.splice(index, 1)
+                    pushIndex = index
+                }
+            })
+            newActions.splice(pushIndex, 0, newAction)
+            setActionsData(newActions)
+            setNewAction(null)
+        }
+    }, [newAction])
+
     useEffect(() => {
         getActions(pageNumber + 1, pageSize, "", "", "", isActual)
     }, [pageSize, pageNumber, isActual])
@@ -102,6 +144,11 @@ const AdminActionsContainer = (props) => {
                 getAllCategoriesForSelect={getAllCategoriesForSelect}
                 getBrands={getBrands}
                 getTags={getTags}
+                addAction={handleAddAction}
+                editAction={handleEditAction}
+                deleteAction={handleDelete}
+                serverError={serverError}
+                serverResponse={serverResponse}
             />
         </AdminLayout>
     )
@@ -115,7 +162,9 @@ let mapStateToProps = (state) => ({
     items: state.items.items,
     brands: state.brands.brands,
     categories: state.categories.allCategories,
-    tags: state.tags.tags
+    tags: state.tags.tags,
+    serverResponse: state.common.serverResponse,
+    serverError: state.common.serverError,
 })
 
 export default connect(mapStateToProps, {
@@ -126,5 +175,7 @@ export default connect(mapStateToProps, {
     getAllCategoriesForSelect,
     addAction,
     editAction,
-    deleteAction
+    deleteAction,
+    setActionsData,
+    setNewAction
 })(AdminActionsContainer)

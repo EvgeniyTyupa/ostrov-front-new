@@ -12,7 +12,6 @@ import EndDatePicker from '../../UI/Form/DatePicker/EndDatePicker'
 import { ACTION_KONDITIONS, DISCOUNT_TYPES, KIND_OF_ACTION } from '../../../Utils/constants'
 import CustomSelect from '../../UI/Form/Select'
 import CustomCheckbox from '../../UI/Form/Checkbox'
-import CustomAutocomplete from '../../UI/Form/Autocomplete'
 import MultiAdminSearch from '../../UI/Admin/Table/Search/MultiAdminSearch'
 import { FaMoneyBillAlt, FaShoppingBasket } from 'react-icons/fa';
 
@@ -56,6 +55,8 @@ const AdminAddAction = (props) => {
         data.start = new Date(data.start)
         data.end = new Date(data.end)
         console.log(data)
+
+        addAction(data)
     }
 
     useEffect(() => {
@@ -85,15 +86,27 @@ const AdminAddAction = (props) => {
         if(kindOfAction === KIND_OF_ACTION[0].value) {
             setActionTypeName("brands_id")
             getBrands(1, 1000, "", "", "", false)
+            setValue("items_id", [])
+            setValue("tags_id", [])
+            setValue("categories_id", [])
         } else if(kindOfAction === KIND_OF_ACTION[1].value) {
             setActionTypeName("categories_id")
             getCategories(1, 1000, "", "", "", false)
+            setValue("items_id", [])
+            setValue("tags_id", [])
+            setValue("brands_id", [])
         } else if(kindOfAction === KIND_OF_ACTION[2].value) {
             setActionTypeName("tags_id")
             getTags(1, 1000, "", "", "", false)
+            setValue("items_id", [])
+            setValue("brands_id", [])
+            setValue("categories_id", [])
         } else {
             setActionTypeName("items_id")
             getItems(1, 1000, "", "", "", false)
+            setValue("brands_id", [])
+            setValue("tags_id", [])
+            setValue("categories_id", [])
         }
     }, [kindOfAction])
 
@@ -308,11 +321,13 @@ const AdminAddAction = (props) => {
                     />
                 </div>
                 <div>
-                    <CustomCheckbox
-                        label="Подарок"
-                        checked={isHavingGift}
-                        onChange={handleIsHavingGift}
-                    />
+                    <div style={{ paddingLeft: "10px", boxSizing: "border-box" }}>
+                        <CustomCheckbox
+                            label="Подарок"
+                            checked={isHavingGift}
+                            onChange={handleIsHavingGift}
+                        />
+                    </div>
                     {isHavingGift &&
                         <div style={{ marginTop: "10px" }}>
                             <Controller

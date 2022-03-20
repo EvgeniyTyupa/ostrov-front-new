@@ -14,7 +14,7 @@ const Preloader = () => {
     }, [])
 
     return (
-        <OverflowLayout>
+        <OverflowLayout zIndex={11}>
             <img 
                 src={preloader} 
                 alt="preloader" 

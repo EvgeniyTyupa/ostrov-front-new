@@ -5,14 +5,14 @@ import Aos from 'aos'
 import 'aos/dist/aos.css'
 
 const OverflowLayout = (props) => {
-    const { children } = props
+    const { zIndex = 10, children } = props
 
     useEffect(() => {
         Aos.init({duration: 1000})
     }, [])
 
     return (
-        <div className={classes.main} data-aos="fade" data-aos-duration="300">
+        <div className={classes.main} style={{ zIndex: zIndex }} data-aos="fade" data-aos-duration="300">
             {children}            
         </div>
     )

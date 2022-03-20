@@ -34,7 +34,12 @@ const AdminActions = (props) => {
         tags,
         getAllCategoriesForSelect,
         getBrands,
-        getTags
+        getTags,
+        serverError,
+        serverResponse,
+        addAction,
+        editAction,
+        deleteAction
     } = props
 
     const rows = [
@@ -62,6 +67,7 @@ const AdminActions = (props) => {
 
     return (
         <div className={classes.main}>
+            {(serverResponse || serverError) && <ServerResponse/>}
             {isOpenAddModal && 
                 <AdminAddAction
                     onClose={handleAddModal}
@@ -73,6 +79,7 @@ const AdminActions = (props) => {
                     getCategories={getAllCategoriesForSelect}
                     getBrands={getBrands}
                     getTags={getTags}
+                    addAction={addAction}
                 />
             }
             <div className={classes.header}>
