@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getActions } from '../../../Redux/actionsReducer'
+import { addAction, deleteAction, editAction, getActions } from '../../../Redux/actionsReducer'
 import { getBrands } from '../../../Redux/brandsReducer'
 import { getAllCategoriesForSelect } from '../../../Redux/categoryReducer'
 import { getItems } from '../../../Redux/itemsReducer'
@@ -23,7 +23,10 @@ const AdminActionsContainer = (props) => {
         getItems,
         getAllCategoriesForSelect,
         getBrands,
-        getTags
+        getTags,
+        addAction,
+        editAction,
+        deleteAction
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -120,5 +123,8 @@ export default connect(mapStateToProps, {
     getItems,
     getTags,
     getBrands,
-    getAllCategoriesForSelect
+    getAllCategoriesForSelect,
+    addAction,
+    editAction,
+    deleteAction
 })(AdminActionsContainer)

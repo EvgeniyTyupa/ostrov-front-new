@@ -241,5 +241,91 @@ export const actionsApi = {
     getActions(pageNumber, pageSize, searchBy, from, searchingValue, isActual) {
         return instance.get(`/action?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&isActual=${isActual}`)
         .then(response => response.data)
+    },
+    addAction(data) {
+        const newFormData = new FormData()
+
+        for(const [key, value] of Object.entries(data)){
+            if(key === "image") {
+                value.forEach(i => {
+                    newFormData.append("image[]", i)
+                })
+            } else if(key === "image_mobile") {
+                value.forEach(i => {
+                    newFormData.append("image_mobile[]", i)
+                })  
+            } else if(key === "brands_id" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("brands_id", i)
+                })  
+            } else if(key === "categories_id" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("categories_id", i)
+                })  
+            } else if(key === "tags_id" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("tags_id", i)
+                })  
+            } else if(key === "items_id" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("items_id", i)
+                })  
+            } else {
+                newFormData.append(key, value)
+            }
+        }
+
+        return axios.patch(`${baseURL}/action`, newFormData, {
+            headers:{
+                'Content-Type' : 'multipart/form-data',
+                'Authorization' : `Bearer ${localStorage.usertoken}`
+            }
+        })
+        .then(resposne => resposne.data);
+    },
+    editAction(actionId, data) {
+        const newFormData = new FormData()
+
+        for(const [key, value] of Object.entries(data)){
+            if(key === "image") {
+                value.forEach(i => {
+                    newFormData.append("image[]", i)
+                })
+            } else if(key === "image_mobile") {
+                value.forEach(i => {
+                    newFormData.append("image_mobile[]", i)
+                })  
+            } else if(key === "brands_id" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("brands_id", i)
+                })  
+            } else if(key === "categories_id" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("categories_id", i)
+                })  
+            } else if(key === "tags_id" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("tags_id", i)
+                })  
+            } else if(key === "items_id" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("items_id", i)
+                })  
+            } else {
+                newFormData.append(key, value)
+            }
+        }
+
+        return axios.patch(`${baseURL}/action/${actionId}`, newFormData, {
+            headers:{
+                'Content-Type' : 'multipart/form-data',
+                'Authorization' : `Bearer ${localStorage.usertoken}`
+            }
+        })
+        .then(resposne => resposne.data);
+    },
+    deleteAction(actionId) {
+        return instance.delete(`/action/${actionId}`)
+        .then(response => response.data)
     }
 }

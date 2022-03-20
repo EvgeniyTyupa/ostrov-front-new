@@ -1,5 +1,5 @@
 import { actionsApi } from "../Api/api"
-import { setIsFetching } from "./commonReducer"
+import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
 
 const SET_ACTIONS_DATA = 'SET_ACTIONS_DATA'
 const SET_TOTAL_ACTIONS = 'SET_TOTAL_ACTIONS'
@@ -44,6 +44,36 @@ export const getActions = (pageNumber, pageSize, searchBy, from, searchingValue,
         dispatch([setActionsData(response.actions), setTotalActions(response.total), setIsFetching(false)])
     }catch(err) {
         dispatch([setIsFetching(false)])
+    }
+}
+
+export const addAction = (data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await actionsApi.addAction(data)
+        dispatch([setNewAction(response.action), setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+
+export const editAction = (actionId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await actionsApi.editAction(actionId, data)
+        dispatch([setNewAction(response.action), setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+
+export const deleteAction = (actionId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await actionsApi.deleteAction(actionId)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
     }
 }
 

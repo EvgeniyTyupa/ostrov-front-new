@@ -48,12 +48,19 @@ const AdminAddAction = (props) => {
     }
 
     const onSubmit = (data) => {
+        data.brands_id = data.brands_id.length > 0 ? data.brands_id.map(item => item._id) : null
+        data.categories_id = data.categories_id.length > 0 ? data.categories_id.map(item => item._id) : null
+        data.tags_id = data.tags_id.length > 0 ? data.tags.map(item => item._id) : null
+        data.items_id = data.items_id.length > 0 ? data.items_id.map(item => item._id) : null
+
+        data.start = new Date(data.start)
+        data.end = new Date(data.end)
         console.log(data)
     }
 
     useEffect(() => {
         if(!isHavingGift){
-            setValue('gift', null)
+            setValue('gift', [])
         }
     }, [isHavingGift])
 
@@ -70,7 +77,7 @@ const AdminAddAction = (props) => {
             brands_id: [],
             categories_id: [],
             items_id: [],
-            tags_id: []
+            tags_id: [],
         })
     }, [])
 
@@ -93,10 +100,13 @@ const AdminAddAction = (props) => {
     useEffect(() => {
         if(actionCondition === ACTION_KONDITIONS[2].value) {
             setValue("from_sum_in_bill", 0)
+            setValue("from_items_count", null)
         } else if(actionCondition === ACTION_KONDITIONS[0].value) {
             setValue("from_sum_in_bill", 1)
+            setValue("from_items_count", null)
         } else {
             setValue("from_items_count", 1)
+            setValue("from_sum_in_bill", null)
         }
     }, [actionCondition])
 
@@ -150,6 +160,7 @@ const AdminAddAction = (props) => {
                                     initialFiles={value}
                                     title="Изображение 16х9"
                                     error={error}
+                                    id={0}
                                 />
                             </>
                         )}
@@ -168,6 +179,7 @@ const AdminAddAction = (props) => {
                                     initialFiles={value}
                                     title="Изображение 9х16 (для моб. устройств)"
                                     error={error}
+                                    id={1}
                                 />
                             </>
                         )}
@@ -259,40 +271,42 @@ const AdminAddAction = (props) => {
                         </CustomSelect>
                     )}
                 />
-                <Controller
-                    name={actionTypeName}
-                    control={control}
-                    defaultValue={[]}
-                    rules={{ required: "Обязательное поле!" }}
-                    render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <MultiAdminSearch
-                            value={value}
-                            onChange={onChange}
-                            items={
-                                kindOfAction === KIND_OF_ACTION[0].value && brands ||
-                                kindOfAction === KIND_OF_ACTION[1].value && categories ||
-                                kindOfAction === KIND_OF_ACTION[2].value && tags ||
-                                kindOfAction === KIND_OF_ACTION[3].value && items 
-                            }
-                            multiple={true}
-                            label={
-                                kindOfAction === KIND_OF_ACTION[0].value && "Название бренда" ||
-                                kindOfAction === KIND_OF_ACTION[1].value && "Имя категории" ||
-                                kindOfAction === KIND_OF_ACTION[2].value && "Имя тега" ||
-                                kindOfAction === KIND_OF_ACTION[3].value && "Имя товара" 
-                            }
-                            error={error}
-                            setValue={setValue}
-                            name={actionTypeName}
-                            onSearch={
-                                kindOfAction === KIND_OF_ACTION[0].value && getBrands ||
-                                kindOfAction === KIND_OF_ACTION[1].value && getCategories ||
-                                kindOfAction === KIND_OF_ACTION[2].value && getTags ||
-                                kindOfAction === KIND_OF_ACTION[3].value && getItems 
-                            }
-                        />
-                    )}
-                />
+                <div style={{ marginTop: "10px" }}>
+                    <Controller
+                        name={actionTypeName}
+                        control={control}
+                        defaultValue={[]}
+                        rules={{ required: "Обязательное поле!" }}
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <MultiAdminSearch
+                                value={value}
+                                onChange={onChange}
+                                items={
+                                    kindOfAction === KIND_OF_ACTION[0].value && brands ||
+                                    kindOfAction === KIND_OF_ACTION[1].value && categories ||
+                                    kindOfAction === KIND_OF_ACTION[2].value && tags ||
+                                    kindOfAction === KIND_OF_ACTION[3].value && items 
+                                }
+                                multiple={true}
+                                label={
+                                    kindOfAction === KIND_OF_ACTION[0].value && "Название бренда" ||
+                                    kindOfAction === KIND_OF_ACTION[1].value && "Имя категории" ||
+                                    kindOfAction === KIND_OF_ACTION[2].value && "Имя тега" ||
+                                    kindOfAction === KIND_OF_ACTION[3].value && "Имя товара" 
+                                }
+                                error={error}
+                                setValue={setValue}
+                                name={actionTypeName}
+                                onSearch={
+                                    kindOfAction === KIND_OF_ACTION[0].value && getBrands ||
+                                    kindOfAction === KIND_OF_ACTION[1].value && getCategories ||
+                                    kindOfAction === KIND_OF_ACTION[2].value && getTags ||
+                                    kindOfAction === KIND_OF_ACTION[3].value && getItems 
+                                }
+                            />
+                        )}
+                    />
+                </div>
                 <div>
                     <CustomCheckbox
                         label="Подарок"
@@ -300,25 +314,27 @@ const AdminAddAction = (props) => {
                         onChange={handleIsHavingGift}
                     />
                     {isHavingGift &&
-                        <Controller
-                            name="gift"
-                            control={control}
-                            defaultValue={[]}
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <MultiAdminSearch
-                                    value={value}
-                                    onChange={onChange}
-                                    items={items}
-                                    multiple={true}
-                                    label="Имя товара"
-                                    error={error}
-                                    setValue={setValue}
-                                    name={"gift"}
-                                    onSearch={getItems}
-                                />
-                            )}
-                        />
+                        <div style={{ marginTop: "10px" }}>
+                            <Controller
+                                name="gift"
+                                control={control}
+                                defaultValue={[]}
+                                rules={{ required: "Обязательное поле!" }}
+                                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                    <MultiAdminSearch
+                                        value={value}
+                                        onChange={onChange}
+                                        items={items}
+                                        multiple={true}
+                                        label="Имя товара"
+                                        error={error}
+                                        setValue={setValue}
+                                        name={"gift"}
+                                        onSearch={getItems}
+                                    />
+                                )}
+                            />
+                        </div>
                     }
                 </div>
                 <Field className={classes.row}>
@@ -352,6 +368,7 @@ const AdminAddAction = (props) => {
                         />
                     </Field>
                 </Field>
+                <Button className={classes.submit} type='submit'>Добавить</Button>
             </form>
         </Modal>
     )
