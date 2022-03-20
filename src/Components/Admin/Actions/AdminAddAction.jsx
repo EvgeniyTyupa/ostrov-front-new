@@ -9,17 +9,21 @@ import { useForm, Controller } from 'react-hook-form'
 import moment from 'moment'
 import StartDatePicker from '../../UI/Form/DatePicker/StartDatePicker'
 import EndDatePicker from '../../UI/Form/DatePicker/EndDatePicker'
-import { DISCOUNT_TYPES, KIND_OF_ACTION } from '../../../Utils/constants'
+import { ACTION_KONDITIONS, DISCOUNT_TYPES, KIND_OF_ACTION } from '../../../Utils/constants'
 import CustomSelect from '../../UI/Form/Select'
 import CustomCheckbox from '../../UI/Form/Checkbox'
 import CustomAutocomplete from '../../UI/Form/Autocomplete'
 import MultiAdminSearch from '../../UI/Admin/Table/Search/MultiAdminSearch'
+import { FaMoneyBillAlt, FaShoppingBasket } from 'react-icons/fa';
 
 const AdminAddAction = (props) => {
     const { 
         onClose, 
         addAction, 
         items,
+        tags,
+        brands,
+        categories,
         getItems, 
         getCategories,
         getBrands,
@@ -33,6 +37,7 @@ const AdminAddAction = (props) => {
 
     const [discountType, setDiscountType] = useState(DISCOUNT_TYPES.percent)
     const [kindOfAction, setKindOfAction] = useState(KIND_OF_ACTION[0].value)
+    const [actionCondition, setActionCondition] = useState(ACTION_KONDITIONS[2].value)
 
     const [isHavingGift, setIsHavingGift] = useState(false)
 
@@ -61,21 +66,39 @@ const AdminAddAction = (props) => {
             start: moment(),
             end: null,
             gift: [],
-            kind_of_action: KIND_OF_ACTION[0].value
+            kind_of_action: KIND_OF_ACTION[0].value,
+            brands_id: [],
+            categories_id: [],
+            items_id: [],
+            tags_id: []
         })
     }, [])
 
     useEffect(() => {
         if(kindOfAction === KIND_OF_ACTION[0].value) {
             setActionTypeName("brands_id")
+            getBrands(1, 1000, "", "", "", false)
         } else if(kindOfAction === KIND_OF_ACTION[1].value) {
             setActionTypeName("categories_id")
+            getCategories(1, 1000, "", "", "", false)
         } else if(kindOfAction === KIND_OF_ACTION[2].value) {
             setActionTypeName("tags_id")
+            getTags(1, 1000, "", "", "", false)
         } else {
             setActionTypeName("items_id")
+            getItems(1, 1000, "", "", "", false)
         }
     }, [kindOfAction])
+
+    useEffect(() => {
+        if(actionCondition === ACTION_KONDITIONS[2].value) {
+            setValue("from_sum_in_bill", 0)
+        } else if(actionCondition === ACTION_KONDITIONS[0].value) {
+            setValue("from_sum_in_bill", 1)
+        } else {
+            setValue("from_items_count", 1)
+        }
+    }, [actionCondition])
 
     return (
         <Modal title="Новая акция" onClose={onClose}>
@@ -215,34 +238,6 @@ const AdminAddAction = (props) => {
                         )}
                     />
                 </Field>
-                <div>
-                    <CustomCheckbox
-                        label="Подарок"
-                        checked={isHavingGift}
-                        onChange={handleIsHavingGift}
-                    />
-                    {isHavingGift &&
-                        <Controller
-                            name="gift"
-                            control={control}
-                            defaultValue={[]}
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <MultiAdminSearch
-                                    value={value}
-                                    onChange={onChange}
-                                    items={items}
-                                    multiple={true}
-                                    label="Имя товара"
-                                    error={error}
-                                    setValue={setValue}
-                                    name={"gift"}
-                                    onSearch={getItems}
-                                />
-                            )}
-                        />
-                    }
-                </div>
                 <Controller
                     name='kind_of_action'
                     control={control}
@@ -273,9 +268,19 @@ const AdminAddAction = (props) => {
                         <MultiAdminSearch
                             value={value}
                             onChange={onChange}
-                            items={items}
+                            items={
+                                kindOfAction === KIND_OF_ACTION[0].value && brands ||
+                                kindOfAction === KIND_OF_ACTION[1].value && categories ||
+                                kindOfAction === KIND_OF_ACTION[2].value && tags ||
+                                kindOfAction === KIND_OF_ACTION[3].value && items 
+                            }
                             multiple={true}
-                            label="Имя товара"
+                            label={
+                                kindOfAction === KIND_OF_ACTION[0].value && "Название бренда" ||
+                                kindOfAction === KIND_OF_ACTION[1].value && "Имя категории" ||
+                                kindOfAction === KIND_OF_ACTION[2].value && "Имя тега" ||
+                                kindOfAction === KIND_OF_ACTION[3].value && "Имя товара" 
+                            }
                             error={error}
                             setValue={setValue}
                             name={actionTypeName}
@@ -288,6 +293,65 @@ const AdminAddAction = (props) => {
                         />
                     )}
                 />
+                <div>
+                    <CustomCheckbox
+                        label="Подарок"
+                        checked={isHavingGift}
+                        onChange={handleIsHavingGift}
+                    />
+                    {isHavingGift &&
+                        <Controller
+                            name="gift"
+                            control={control}
+                            defaultValue={[]}
+                            rules={{ required: "Обязательное поле!" }}
+                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                <MultiAdminSearch
+                                    value={value}
+                                    onChange={onChange}
+                                    items={items}
+                                    multiple={true}
+                                    label="Имя товара"
+                                    error={error}
+                                    setValue={setValue}
+                                    name={"gift"}
+                                    onSearch={getItems}
+                                />
+                            )}
+                        />
+                    }
+                </div>
+                <Field className={classes.row}>
+                    <CustomSelect
+                        onChange={e => setActionCondition(e.target.value)}
+                        value={actionCondition}
+                        label="Условия акции:"
+                    >
+                        {ACTION_KONDITIONS.map(item => (
+                            <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+                        ))}
+                    </CustomSelect>  
+                    <Field>
+                        <Controller
+                            name={actionCondition === ACTION_KONDITIONS[1].value ? "from_items_count" : "from_sum_in_bill"}
+                            control={control}
+                            defaultValue=""
+                            rules={{ required: "Обязательное поле!" }}
+                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                <AdminInput
+                                    onChange={onChange}
+                                    value={value}
+                                    error={error}
+                                    regex="number"
+                                    startAdornment={true}
+                                    startAdornmentIcon={actionCondition === ACTION_KONDITIONS[1].value ? <FaShoppingBasket/> : <FaMoneyBillAlt/>}
+                                    disabled={actionCondition === ACTION_KONDITIONS[2].value}
+                                    label={actionCondition === ACTION_KONDITIONS[1].value ? "Кол-во товаров" : "Укажите стартовую сумму в чеке"} 
+                                />
+                            )}
+                        />
+                    </Field>
+                </Field>
             </form>
         </Modal>
     )

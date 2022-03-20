@@ -44,3 +44,18 @@ export const KIND_OF_ACTION = [
         label: 'Отдельные товары'
     }
 ]
+
+export const ACTION_KONDITIONS = [
+    {
+        value: 'sum',
+        label: "От определенной суммы в чеке"
+    },
+    {
+        value: "count",
+        label: "От определенного кол-ва товаров в корзине"
+    },
+    {
+        value: "none",
+        label: "Без условий"
+    }
+]

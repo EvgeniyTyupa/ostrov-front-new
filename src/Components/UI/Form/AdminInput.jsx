@@ -37,7 +37,8 @@ const AdminInput = (props) => {
         startAdornmentIcon = null,
         endAdornmentIcon = null,
         regex = null,
-        placeholder = ""
+        placeholder = "",
+        disabled = false
     } = props
 
     const material = useStyles()
@@ -63,6 +64,7 @@ const AdminInput = (props) => {
             value={value}
             autoComplete="off"
             type={type}
+            disabled={disabled}
             multiline={multiline}
             rows={rows}
             InputProps={{
