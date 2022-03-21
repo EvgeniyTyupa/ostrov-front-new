@@ -248,11 +248,11 @@ export const actionsApi = {
         for(const [key, value] of Object.entries(data)){
             if(key === "image") {
                 value.forEach(i => {
-                    newFormData.append("image[]", i)
+                    newFormData.append("image", i)
                 })
             } else if(key === "image_mobile") {
                 value.forEach(i => {
-                    newFormData.append("image_mobile[]", i)
+                    newFormData.append("image_mobile", i)
                 })  
             } else if(key === "brands_id" && Array.isArray(value)) {
                 value.forEach(i => {
@@ -270,12 +270,16 @@ export const actionsApi = {
                 value.forEach(i => {
                     newFormData.append("items_id", i)
                 })  
+            } else if(key === "gift" && Array.isArray(value)) {
+                value.forEach(i => {
+                    newFormData.append("gift", i)
+                })  
             } else {
                 newFormData.append(key, value)
             }
         }
 
-        return axios.patch(`${baseURL}/action`, newFormData, {
+        return axios.post(`${baseURL}/action`, newFormData, {
             headers:{
                 'Content-Type' : 'multipart/form-data',
                 'Authorization' : `Bearer ${localStorage.usertoken}`

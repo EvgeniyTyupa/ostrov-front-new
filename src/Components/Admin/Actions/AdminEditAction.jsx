@@ -15,116 +15,7 @@ import CustomCheckbox from '../../UI/Form/Checkbox'
 import MultiAdminSearch from '../../UI/Admin/Table/Search/MultiAdminSearch'
 import { FaMoneyBillAlt, FaShoppingBasket } from 'react-icons/fa';
 
-const AdminAddAction = (props) => {
-    const { 
-        onClose, 
-        addAction, 
-        items,
-        tags,
-        brands,
-        categories,
-        getItems, 
-        getCategories,
-        getBrands,
-        getTags
-    } = props
-
-    const { handleSubmit, control, reset, setValue } = useForm()
-
-    const [minDate, setMinDate] = useState(null)
-    const [maxDate, setMaxDate] = useState(null)
-
-    const [discountType, setDiscountType] = useState(DISCOUNT_TYPES.percent)
-    const [kindOfAction, setKindOfAction] = useState(KIND_OF_ACTION[0].value)
-    const [actionCondition, setActionCondition] = useState(ACTION_KONDITIONS[2].value)
-
-    const [isHavingGift, setIsHavingGift] = useState(false)
-
-    const [actionTypeName, setActionTypeName] = useState("brands_id")
-
-    const handleIsHavingGift = () => {
-        setIsHavingGift(!isHavingGift)
-    }
-
-    const onSubmit = (data) => {
-        data.brands_id = data.brands_id.length > 0 ? data.brands_id.map(item => item._id) : null
-        data.categories_id = data.categories_id.length > 0 ? data.categories_id.map(item => item._id) : null
-        data.tags_id = data.tags_id.length > 0 ? data.tags.map(item => item._id) : null
-        data.items_id = data.items_id.length > 0 ? data.items_id.map(item => item._id) : null
-
-        data.gift = data.gift.length > 0 ? data.gift.map(item => item._id) : null
-
-        data.start = new Date(data.start)
-        data.end = new Date(data.end)
-        console.log(data)
-
-        addAction(data)
-    }
-
-    useEffect(() => {
-        if(!isHavingGift){
-            setValue('gift', [])
-        }
-    }, [isHavingGift])
-
-    useEffect(() => {
-        reset({
-            title: "",
-            title_ua: "",
-            image: [],
-            image_mobile: [],
-            start: moment(),
-            end: null,
-            gift: [],
-            kind_of_action: KIND_OF_ACTION[0].value,
-            brands_id: [],
-            categories_id: [],
-            items_id: [],
-            tags_id: [],
-        })
-    }, [])
-
-    useEffect(() => {
-        if(kindOfAction === KIND_OF_ACTION[0].value) {
-            setActionTypeName("brands_id")
-            getBrands(1, 1000, "", "", "", false)
-            setValue("items_id", [])
-            setValue("tags_id", [])
-            setValue("categories_id", [])
-        } else if(kindOfAction === KIND_OF_ACTION[1].value) {
-            setActionTypeName("categories_id")
-            getCategories(1, 1000, "", "", "", false)
-            setValue("items_id", [])
-            setValue("tags_id", [])
-            setValue("brands_id", [])
-        } else if(kindOfAction === KIND_OF_ACTION[2].value) {
-            setActionTypeName("tags_id")
-            getTags(1, 1000, "", "", "", false)
-            setValue("items_id", [])
-            setValue("brands_id", [])
-            setValue("categories_id", [])
-        } else {
-            setActionTypeName("items_id")
-            getItems(1, 1000, "", "", "", false)
-            setValue("brands_id", [])
-            setValue("tags_id", [])
-            setValue("categories_id", [])
-        }
-    }, [kindOfAction])
-
-    useEffect(() => {
-        if(actionCondition === ACTION_KONDITIONS[2].value) {
-            setValue("from_sum_in_bill", 0)
-            setValue("from_items_count", null)
-        } else if(actionCondition === ACTION_KONDITIONS[0].value) {
-            setValue("from_sum_in_bill", 1)
-            setValue("from_items_count", null)
-        } else {
-            setValue("from_items_count", 1)
-            setValue("from_sum_in_bill", null)
-        }
-    }, [actionCondition])
-
+const AdminEditAction = (props) => {
     return (
         <Modal title="Новая акция" onClose={onClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
@@ -391,4 +282,4 @@ const AdminAddAction = (props) => {
     )
 }
 
-export default AdminAddAction
+export default AdminEditAction

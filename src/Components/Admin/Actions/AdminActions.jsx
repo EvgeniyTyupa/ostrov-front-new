@@ -9,6 +9,7 @@ import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import moment from 'moment'
 import CustomCheckbox from '../../UI/Form/Checkbox';
 import AdminAddAction from './AdminAddAction';
+import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 
 const AdminActions = (props) => {
     const {
@@ -39,7 +40,10 @@ const AdminActions = (props) => {
         serverResponse,
         addAction,
         editAction,
-        deleteAction
+        deleteAction,
+        openRemove,
+        openEdit,
+        currentItem
     } = props
 
     const rows = [
@@ -80,6 +84,14 @@ const AdminActions = (props) => {
                     getBrands={getBrands}
                     getTags={getTags}
                     addAction={addAction}
+                />
+            }
+            {openRemove &&
+                <AdminDeleteModal
+                    onRemove={handleRemove}
+                    item={currentItem}
+                    deleteItem={deleteAction}
+                    onClose={handleRemove}
                 />
             }
             <div className={classes.header}>

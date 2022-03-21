@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { addAction, deleteAction, editAction, getActions, setActionsData, setNewAction } from '../../../Redux/actionsReducer'
+import { addAction, deleteAction, editAction, getActions, setActionsData, setNewAction, setTotalActions } from '../../../Redux/actionsReducer'
 import { getBrands } from '../../../Redux/brandsReducer'
 import { getAllCategoriesForSelect } from '../../../Redux/categoryReducer'
 import { getItems } from '../../../Redux/itemsReducer'
@@ -30,7 +30,8 @@ const AdminActionsContainer = (props) => {
         setActionsData,
         setNewAction,
         serverError,
-        serverResponse
+        serverResponse,
+        setTotalActions
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -92,6 +93,7 @@ const AdminActionsContainer = (props) => {
             })
             setOpenRemove(false)
             setActionsData(newActions)
+            setTotalActions(total - 1)
         })
     }
 
@@ -99,15 +101,22 @@ const AdminActionsContainer = (props) => {
         if(newAction) {
             const newActions = [...actions]
             let pushIndex = newActions.length
+            
+            let isUpdate = false
+
             newActions.forEach((item, index) => {
                 if(item._id === newAction._id) {
                     newAction.splice(index, 1)
                     pushIndex = index
+                    isUpdate = true
                 }
             })
             newActions.splice(pushIndex, 0, newAction)
             setActionsData(newActions)
             setNewAction(null)
+            if(!isUpdate) {
+                setTotalActions(total + 1)
+            }
         }
     }, [newAction])
 
@@ -149,6 +158,9 @@ const AdminActionsContainer = (props) => {
                 deleteAction={handleDelete}
                 serverError={serverError}
                 serverResponse={serverResponse}
+                openRemove={openRemove}
+                openEdit={openEdit}
+                currentItem={currentItem}
             />
         </AdminLayout>
     )
@@ -177,5 +189,6 @@ export default connect(mapStateToProps, {
     editAction,
     deleteAction,
     setActionsData,
-    setNewAction
+    setNewAction,
+    setTotalActions
 })(AdminActionsContainer)
