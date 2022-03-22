@@ -24,4 +24,5 @@
     width: 100%;
     height: 484px;
     object-fit: cover;
+    cursor: pointer;
 }

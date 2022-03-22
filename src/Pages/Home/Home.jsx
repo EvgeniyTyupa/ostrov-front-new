@@ -19,7 +19,11 @@ const Home = (props) => {
                     <div className={classes.actionSlider}>
                         <CustomSlider>
                             {actions.map(item => (
-                                <img src={item.image} alt="action" className={classes.actionImg}/>
+                                <img 
+                                    src={item.image} 
+                                    alt="action" 
+                                    className={classes.actionImg}
+                                />
                             ))}
                         </CustomSlider>
                     </div>
