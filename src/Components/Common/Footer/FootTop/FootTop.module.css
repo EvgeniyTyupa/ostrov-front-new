@@ -1,0 +1,57 @@
+.main {
+    width: 100%;
+    height: 212px;
+    background-color: #9DC8CF;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.submitBut {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 25px !important;
+    border-bottom-right-radius: 25px !important;
+    height: 47px !important;
+    background-color: #37395C !important;
+    color: white !important;
+    width: 50px !important;
+    font-size: 26px !important;
+}
+.submitBut:hover {
+    background-color: #2e305e !important;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form form {
+    max-width: 296px;
+    width: 100%;
+    position: relative;
+}
+.form p {
+    margin-bottom: 25px;
+    font-weight: 700;
+    font-size: 14px;
+    color: white;
+}
+.error {
+    position: absolute;
+    color: #37395C;
+    font-size: 12px;
+    margin-left: 15px;
+    bottom: -18px;
+    left: 5px;
+}
+
+.boy {
+    position: relative;
+    top: -35%;
+    width: 220px;
+}
+.girl {
+    position: relative;
+    top: -35%;
+    width: 180px;
+}

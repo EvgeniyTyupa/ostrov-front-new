@@ -1,0 +1,34 @@
+.main {
+    width: 100%;
+    background-color: white;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logoContainer {
+    width: 281px;
+}
+.logo {
+    width: 150px;
+}
+.content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.phoneNumber {
+    color: #2B629C;
+    font-weight: 700;
+    font-size: 20px;
+    text-decoration: none;
+}
+.phoneNumber:hover {
+    text-decoration: underline;
+}

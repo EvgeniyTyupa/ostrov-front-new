@@ -12,12 +12,15 @@ import AdminBrandsContainer from './Components/Admin/Brands/AdminBrandsContainer
 import AdminCategoriesContainer from './Components/Admin/Categories/AdminCategoriesContainer';
 import AdminNewsContainer from './Components/Admin/News/AdminNewsContainer';
 import AdminActionsContainer from './Components/Admin/Actions/AdminActionsContainer';
+import Navbar from './Components/Common/Navbar/Navbar';
+import Footer from './Components/Common/Footer/Footer';
 
 const App = () => {
   return (
     <Router>
       <HttpsRedirect>
         <div className='main'>
+          {!window.location.pathname.includes("admin") && <Navbar/>}
           <Routes>
             <Route path="/admin_login" element={<AdminLogin />} />
 
@@ -33,6 +36,11 @@ const App = () => {
               <Route path="actions" element={<AdminActionsContainer/>} />
             </Route>
           </Routes>
+          {!window.location.pathname.includes("admin") && (
+            <div className='footer'>
+              <Footer/>
+            </div>
+          )}
         </div>
       </HttpsRedirect>
     </Router>

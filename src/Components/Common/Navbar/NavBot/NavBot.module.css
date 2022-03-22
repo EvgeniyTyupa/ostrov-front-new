@@ -1,0 +1,38 @@
+.main {
+    width: 100%;
+    background-color: #4B5EA3;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.catalogContainer {
+    width: 281px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+.catalogContainer p {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    margin-left: 12px;
+}
+.links {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+.links a {
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+}

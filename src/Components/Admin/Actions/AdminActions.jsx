@@ -10,6 +10,7 @@ import moment from 'moment'
 import CustomCheckbox from '../../UI/Form/Checkbox';
 import AdminAddAction from './AdminAddAction';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
+import AdminEditAction from './AdminEditAction';
 
 const AdminActions = (props) => {
     const {
@@ -84,6 +85,21 @@ const AdminActions = (props) => {
                     getBrands={getBrands}
                     getTags={getTags}
                     addAction={addAction}
+                />
+            }
+            {openEdit &&
+                <AdminEditAction
+                    onClose={handleEdit}
+                    getItems={getItems}
+                    items={items}
+                    categories={categories}
+                    brands={brands}
+                    tags={tags}
+                    getCategories={getAllCategoriesForSelect}
+                    getBrands={getBrands}
+                    getTags={getTags}
+                    editAction={editAction}
+                    item={currentItem}
                 />
             }
             {openRemove &&

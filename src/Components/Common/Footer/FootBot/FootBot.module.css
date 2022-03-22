@@ -1,0 +1,67 @@
+.main {
+    background-color: #37395C;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 318px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.top {
+    display: flex;
+    padding: 40px 0px;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.navBlock {
+    display: flex;
+    flex-direction: column;
+}
+.navBlock h4 {
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 13px;
+}
+.navBlock a {
+    font-weight: 400;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+.navBlock span {
+    font-weight: 400;
+    font-size: 14px;
+    color: white;
+    margin-bottom: 10px;
+}
+.navBlock a:hover {
+    text-decoration: underline;
+}
+.infoBlock .navBlock a {
+    font-size: 12px;
+}
+.infoBlock .navBlock + .navBlock {
+    margin-top: 20px;
+    font-size: 14px;
+}
+.bot {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+.bot a {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: white;
+    text-decoration: none;
+}
+.bot a:hover {
+    text-decoration: underline;
+}
