@@ -15,6 +15,9 @@ import AdminActionsContainer from './Components/Admin/Actions/AdminActionsContai
 import Navbar from './Components/Common/Navbar/Navbar';
 import Footer from './Components/Common/Footer/Footer';
 
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 const App = () => {
   return (
     <Router>
