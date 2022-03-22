@@ -24,7 +24,7 @@
     margin-left: 12px;
 }
 .links {
-    width: 100%;
+    width: calc(100% - 281px);
     display: flex;
     align-items: center;
     gap: 22px;

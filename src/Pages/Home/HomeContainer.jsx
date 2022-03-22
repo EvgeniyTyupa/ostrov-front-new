@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Preloader from '../../Components/Common/Preloader/Preloader'
+import { getActions } from '../../Redux/actionsReducer'
 import Home from './Home'
 
 const HomeContainer = (props) => {
     const {
         categories,
-        isFetching
+        isFetching,
+        getActions,
+        actions
     } = props
+
+    console.log(actions)
+
+    useEffect(() => {
+        getActions(1, 1, "", "", "", false)
+    }, [])
 
     return (
         <>
@@ -15,6 +24,7 @@ const HomeContainer = (props) => {
             :
                 <Home 
                     categories={categories}
+                    actions={actions}
                 />
             }
         </>
@@ -23,9 +33,10 @@ const HomeContainer = (props) => {
 
 let mapStateToProps = (state) => ({
     categories: state.categories.categories,
-    isFetching: state.common.isFetching
+    isFetching: state.common.isFetching,
+    actions: state.actions.actions
 })
 
 export default connect(mapStateToProps, {
-
+    getActions
 })(HomeContainer)
