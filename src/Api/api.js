@@ -139,6 +139,10 @@ export const categoryApi = {
         return instance.get(`/category/all?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)
     },
+    getParentsCategories(categoryId) {
+        return instance.get(`/category/parents/${categoryId}`)
+        .then(response => response.data)
+    },
     addCategory(data) {
         return instance.post(`/category`, data)
         .then(response => response.data)

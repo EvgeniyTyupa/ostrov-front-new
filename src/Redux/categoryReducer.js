@@ -5,11 +5,13 @@ const SET_CATEGORIES_DATA = 'SET_CATEGORIES_DATA'
 const SET_TOTAL_CATEGORIES = 'SET_TOTAL_CATEGORIES' 
 const SET_NEW_CATEGORY = 'SET_NEW_CATEGORY' 
 const SET_ALL_CATEGORIES = 'SET_ALL_CATEGORIES'
+const SET_CATEGORIES_WITH_PARENTS = 'SET_CATEGORIES_WITH_PARENTS'
 
 let initialState = {
     categories: [],
     allCategories: [],
     newCategory: null,
+    categoriesWithParents: [],
     total: 0
 }
 
@@ -26,6 +28,9 @@ const categoryReducer = (state = initialState, action) => {
         }
         case SET_ALL_CATEGORIES: {
             return { ...state, allCategories: action.allCategories }
+        }
+        case SET_CATEGORIES_WITH_PARENTS: {
+            return { ...state, categoriesWithParents: action.categoriesWithParents }
         }
         default:
             return state
@@ -44,6 +49,9 @@ export const setNewCategory = (newCategory) => ({
 export const setAllCategories = (allCategories) => ({
     type: SET_ALL_CATEGORIES, allCategories
 })
+export const setCategoriesWithParents = (categoriesWithParents) => ({
+    type: SET_CATEGORIES_WITH_PARENTS, categoriesWithParents
+})
 
 export const getAllCategories = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
     dispatch(setIsFetching(true))
@@ -61,6 +69,16 @@ export const getAllCategoriesForSelect = () => async (dispatch) => {
         let categories = await categoryApi.getAllCategoriesForSelect()
         dispatch([setAllCategories(categories.categories), setIsFetching(false)])
     }catch(err){
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getCategoriesWithParents = (categoryId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await categoryApi.getParentsCategories(categoryId)
+        dispatch([setCategoriesWithParents(response.categories), setIsFetching(false)])
+    }catch(err) {
         dispatch(setIsFetching(false))
     }
 }

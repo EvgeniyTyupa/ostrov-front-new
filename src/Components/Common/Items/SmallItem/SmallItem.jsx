@@ -20,7 +20,9 @@ const SmallItem = (props) => {
     const navigate = useNavigate()
 
     const handleClick = () => {
-        navigate(`item/${item.name}`)
+        let itemName = currentLanguage === "ru" ? item.name : item.name_ua
+
+        navigate(`item/${itemName}`)
     }
     
     useEffect(() => {

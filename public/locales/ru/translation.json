@@ -35,7 +35,8 @@
             "workingTitle": "Обработка заказов",
             "workDays": "Пн-Пт:",
             "relDays": "Сб-Вс:"
-        }
+        },
+        "breadcrumbMain": "Главная"
     },
     "common": {
         "search": "Поиск",

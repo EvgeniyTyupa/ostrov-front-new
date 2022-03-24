@@ -4,7 +4,7 @@ const SET_SERVER_ERROR = 'SET_SERVER_ERROR'
 const SET_CURRENT_LANGUAGE = 'SET_CURRENT_LANGUAGE'
 
 let initialState = {
-    isFetching: false,
+    isFetching: true,
     serverResponse: null,
     serverError: null,
     currentLanguage: "ru"

@@ -1,0 +1,23 @@
+.main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 13px;
+    padding-top: 24px;
+    padding-bottom: 18px;
+}
+.main {
+    font-weight: 400;
+    font-size: 14px;
+    color: #37395C
+}
+.main a {
+    font-weight: 400;
+    font-size: 14px;
+    color: #37395C;
+    text-decoration: none;
+}
+.main a:hover {
+    text-decoration: underline;
+}

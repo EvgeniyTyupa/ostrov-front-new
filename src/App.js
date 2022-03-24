@@ -18,6 +18,7 @@ import Footer from './Components/Common/Footer/Footer';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import ItemContainer from './Pages/Item/ItemContainer';
+import NotFound from './Pages/NotFound/NofFound';
 
 const App = () => {
   return (
@@ -40,6 +41,8 @@ const App = () => {
               <Route path="posts" element={<AdminNewsContainer/>} />
               <Route path="actions" element={<AdminActionsContainer/>} />
             </Route>
+
+            <Route path='*' element={<NotFound />} />
           </Routes>
           {!window.location.pathname.includes("admin") && (
             <div className='footer'>
