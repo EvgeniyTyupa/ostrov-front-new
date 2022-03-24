@@ -1,5 +1,8 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import CategoriesList from '../../Components/Common/CategoriesList/CategoriesList'
+import HgTags from '../../Components/Common/Items/HgTags/HgTags'
+import SmallItemsList from '../../Components/Common/Items/SmallItemsList/SmallItemsList'
 import CustomSlider from '../../Components/Common/Slider/CustomSlider'
 import MaxWidthContainer from '../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../Components/UI/Container/PaddingContainer/PaddingContainer'
@@ -8,8 +11,12 @@ import classes from './Home.module.css'
 const Home = (props) => {
     const { 
         categories,
-        actions
+        actions,
+        items,
+        hgTags
     } = props
+
+    const { t } = useTranslation()
 
     return (
         <PaddingContainer className={classes.main}>
@@ -22,11 +29,18 @@ const Home = (props) => {
                                 <img 
                                     src={item.image} 
                                     alt="action" 
+                                    key={item._id}
                                     className={classes.actionImg}
                                 />
                             ))}
                         </CustomSlider>
                     </div>
+                </div>
+                <div className={classes.popular}>
+                    <SmallItemsList items={items} title={t("items.itemsListTitle")} href="/items?filter=popular"/>
+                </div>
+                <div className={classes.tags}>
+                    <HgTags tags={hgTags}/>
                 </div>
             </MaxWidthContainer>
         </PaddingContainer>

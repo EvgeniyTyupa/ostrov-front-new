@@ -4,11 +4,13 @@ import { setIsFetching, setServerError, setServerResponse } from "./commonReduce
 const SET_ITEMS_DATA = 'SET_ITEMS_DATA'
 const SET_TOTAL_ITEMS = 'SET_TOTAL_ITEMS' 
 const SET_NEW_ITEM = 'SET_NEW_ITEM' 
+const SET_CURRENT_ITEM = 'SET_CURRENT_ITEM'
 
 let initialState = {
     items: [],
     newItem: null,
-    total: 0
+    total: 0,
+    currentItem: null,
 }
 
 const itemsReducer = (state = initialState, action) => {
@@ -21,6 +23,9 @@ const itemsReducer = (state = initialState, action) => {
         }
         case SET_NEW_ITEM: {
             return { ...state, newItem: action.newItem }
+        }
+        case SET_CURRENT_ITEM: {
+            return { ...state, currentItem: action.currentItem }
         }
         default:
             return state
@@ -36,6 +41,9 @@ export const setTotalData = (total) => ({
 export const setNewItem = (newItem) => ({
     type: SET_NEW_ITEM, newItem
 })
+export const setCurrentItem = (currentItem) => ({
+    type: SET_CURRENT_ITEM, currentItem
+})
 
 export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
     dispatch(setIsFetching(true));
@@ -44,6 +52,16 @@ export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue) =
         dispatch([setItemsData(items.items), setTotalData(items.total), setIsFetching(false)])
     }catch(err){
         dispatch(setIsFetching(false));
+    }
+}
+
+export const getItem = (itemId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try{
+        let response = await itemsApi.getItem(itemId)
+        dispatch([setCurrentItem(response.item), setIsFetching(false)])
+    }catch(err){
+        dispatch(setIsFetching(false))
     }
 }
 

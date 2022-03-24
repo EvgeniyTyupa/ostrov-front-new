@@ -1,0 +1,25 @@
+.main {
+    width: 18%;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 150px;
+    cursor: pointer;
+    transition-duration: .3s;
+}
+.main:hover {
+    transform: scale(1.05);
+}
+.block0 {
+    background-color: #9DC8CF;
+}
+.block1 {
+    background-color: #4B5EA2;
+}
+.block2 {
+    background-color: #E86589;
+}

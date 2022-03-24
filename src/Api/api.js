@@ -30,6 +30,10 @@ export const itemsApi = {
         return instance.get(`/item?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)
     },
+    getItem(itemId){
+        return instance.get(`/item/${itemId}`)
+        .then(response => response.data)
+    },
     createItem(data) {
         const newFormData = new FormData()
 

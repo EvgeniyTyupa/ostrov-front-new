@@ -26,3 +26,13 @@
     object-fit: cover;
     cursor: pointer;
 }
+
+/* POPULAR */
+.popular {
+    margin-top: 56px;
+}
+
+/* TAGS */
+.tags {
+    margin-top: 100px;
+}

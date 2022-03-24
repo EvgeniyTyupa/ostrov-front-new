@@ -1,3 +1,11 @@
 .main {
     width: 100%;
 }
+.slideBut {
+    background-color: white !important;
+    color: #4B5EA2 !important;
+    font-size: 26px;
+}
+.slider div::before {
+    display: none;
+}

@@ -5,9 +5,11 @@ const SET_TAGS_DATA = 'SET_TAGS_DATA'
 const SET_TOTAL_TAGS = 'SET_TOTAL_TAGS' 
 const SET_NEW_TAG = 'SET_NEW_TAG'
 const SET_TOTAL_IS_HG = 'SET_TOTAL_IS_HG'
+const SET_HG_TAGS = 'SET_HG_TAGS'
 
 let initialState = {
     tags: [],
+    hgTags: [],
     total: 0,
     totalIsHg: 0,
     newTag: null,
@@ -31,6 +33,9 @@ const tagsReducer = (state = initialState, action) => {
         case SET_TOTAL_IS_HG: {
             return { ...state, totalIsHg: action.totalIsHg }
         }
+        case SET_HG_TAGS: {
+            return { ...state, hgTags: action.hgTags }
+        }
         default:
             return state
     }
@@ -47,6 +52,9 @@ export const setNewTag = (newTag) => ({
 })
 export const setTotalIsHg = (totalIsHg) => ({
     type: SET_TOTAL_IS_HG, totalIsHg
+})
+export const setHgTags = (hgTags) => ({
+    type: SET_HG_TAGS, hgTags
 })
 
 export const getTags = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
@@ -82,6 +90,15 @@ export const deleteTag = (tagId) => async (dispatch) => {
     try {
         let response = await tagApi.deleteTag(tagId)
         dispatch([setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+export const getHgTags = () => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await tagApi.getTags(1, 5, "is_hg", "", "")
+        dispatch([setHgTags(response.tags), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

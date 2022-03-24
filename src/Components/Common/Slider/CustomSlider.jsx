@@ -2,38 +2,60 @@ import { IconButton } from '@mui/material';
 import React from 'react'
 import Slider from "react-slick";
 import classes from './Slider.module.css'
-import { BsFillArrowRightCircleFill, BsFillArrowLeftCircleFill } from 'react-icons/bs';
+import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
     return (
-        <IconButton
+        <div
             className={className}
-            style={{ ...style, display: "block", padding: 0 }}
-            onClick={onClick}
+            style={{ 
+                ...style, 
+                display: "block", 
+                padding: 0,
+                zIndex: 5,
+                right: "5%",
+                top: "48%"
+            }}
         >
-            <BsFillArrowRightCircleFill/>
-        </IconButton>
+            <IconButton
+                onClick={onClick}
+                className={classes.slideBut}
+            >
+                <FiArrowRight/>
+            </IconButton>
+        </div>
     );
 }
   
 function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
-        <IconButton
+        <div 
             className={className}
-            style={{ ...style, display: "block", padding: 0 }}
-            onClick={onClick}
+            style={{ 
+                ...style, 
+                display: "block", 
+                padding: 0,
+                zIndex: 5,
+                left: "3%",
+                top: "48%"
+            }}
         >
-            <BsFillArrowLeftCircleFill/>
-        </IconButton>
+            <IconButton
+                onClick={onClick}
+                className={classes.slideBut}
+            >
+                <FiArrowLeft/>
+            </IconButton>
+        </div>
     );
 }
 
 const CustomSlider = (props) => {
     const { 
         children,
-        dots = true,
+        dots = false,
         infinite = true,
         speed = 500,
         slidesToShow = 1,
@@ -53,7 +75,8 @@ const CustomSlider = (props) => {
         arrows: true,
         draggable: true,
         nextArrow: <SampleNextArrow/>,
-        prevArrow: <SamplePrevArrow/>
+        prevArrow: <SamplePrevArrow/>,
+        className: classes.slider
     };
 
     return(

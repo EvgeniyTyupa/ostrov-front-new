@@ -16,10 +16,10 @@ const FootBot = (props) => {
             <MaxWidthContainer className={classes.container}>
                 <div className={classes.top}>
                     {navigationItems.map(item => (
-                        <div className={classes.navBlock}>
+                        <div className={classes.navBlock} key={item.title}>
                             <h4>{item.title}</h4>
                             {item.items.map(el => (
-                                <NavLink to={el.href}>{el.title}</NavLink>
+                                <NavLink to={el.href} key={el.title}>{el.title}</NavLink>
                             ))}
                         </div>
                     ))}

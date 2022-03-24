@@ -17,6 +17,7 @@ import Footer from './Components/Common/Footer/Footer';
 
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import ItemContainer from './Pages/Item/ItemContainer';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/admin_login" element={<AdminLogin />} />
 
             <Route path="/" element={<HomeContainer />} />
+            <Route exact path="/item/:name" element={<ItemContainer/>}/>
 
             <Route path="admin" element={<AdminRoute/>}>
               <Route path="" element={<DashboardContainer/>} />
