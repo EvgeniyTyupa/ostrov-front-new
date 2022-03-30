@@ -15,7 +15,7 @@ const Breadcrumbs = (props) => {
                 <NavLink to="/">{t("navigation.breadcrumbMain")}</NavLink>
                 <span>&gt;</span>
             </div>
-            {items.map(el => (
+            {items && items.map(el => (
                 <div className={classes.block} key={el.href}>
                     <NavLink to={el.href}>{el.title}</NavLink>
                     <span>&gt;</span>

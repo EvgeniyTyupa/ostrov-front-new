@@ -1,0 +1,10 @@
+.main {
+    width: 220px;
+    cursor: pointer;
+    /* margin-right: 15px; */
+    object-fit: cover;
+    transition-duration: .3s;
+}
+.main:hover {
+    transform: scale(1.05);
+}

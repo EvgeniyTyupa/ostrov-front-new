@@ -21,20 +21,21 @@ import ItemContainer from './Pages/Item/ItemContainer';
 import NotFound from './Pages/NotFound/NofFound';
 import { connect } from 'react-redux';
 import LoginModal from './Components/Auth/LoginModal';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { me } from './Redux/userReducer';
 import ServerResponse from './Components/UI/ServerResponse/ServerResponse';
 import star1 from './Assets/star1.svg'
 import star2 from './Assets/star2.svg'
+import Contacts from './Pages/Contacts/Contacts';
 
 const App = (props) => {
   const { 
-      isOpenLogin,
-      isStartData, 
-      me,
-      serverError,
-      serverResponse
-    } = props
+    isOpenLogin,
+    isStartData, 
+    me,
+    serverError,
+    serverResponse
+  } = props
 
   useEffect(() => {
     if(localStorage.usertoken && !isStartData) {
@@ -54,6 +55,7 @@ const App = (props) => {
 
             <Route path="/" element={<HomeContainer />} />
             <Route exact path="/item/:name" element={<ItemContainer/>}/>
+            <Route exac path="/contacts" element={<Contacts/>}/>
 
             <Route path="admin" element={<AdminRoute/>}>
               <Route path="" element={<DashboardContainer/>} />
@@ -68,7 +70,7 @@ const App = (props) => {
             <Route path='*' element={<NotFound />} />
           </Routes>
           {!window.location.pathname.includes("admin") && <img src={star1} alt="star" className='star1'/>}
-          {!window.location.pathname.includes("admin") && <img src={star2} alt="stars" className='star2'/>}
+          {(!window.location.pathname.includes("admin") && !window.location.pathname.includes("contacts")) && <img src={star2} alt="stars" className='star2'/>}
           {!window.location.pathname.includes("admin") && (
             <div className='footer'>
               <Footer/>

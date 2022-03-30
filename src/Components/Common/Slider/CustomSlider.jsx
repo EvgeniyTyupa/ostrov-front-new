@@ -5,7 +5,7 @@ import classes from './Slider.module.css'
 import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 
 function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
+    const { className, style, onClick, type } = props;
     return (
         <div
             className={className}
@@ -14,7 +14,7 @@ function SampleNextArrow(props) {
                 display: "block", 
                 padding: 0,
                 zIndex: 5,
-                right: "5%",
+                right: type === "items" ? 0 : "5%",
                 top: "48%"
             }}
         >
@@ -29,7 +29,7 @@ function SampleNextArrow(props) {
 }
   
 function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
+    const { className, style, onClick, type } = props;
     return (
         <div 
             className={className}
@@ -38,7 +38,7 @@ function SamplePrevArrow(props) {
                 display: "block", 
                 padding: 0,
                 zIndex: 5,
-                left: "3%",
+                left:  type === "items" ? "-20px" : "3%",
                 top: "48%"
             }}
         >
@@ -62,7 +62,8 @@ const CustomSlider = (props) => {
         slidesToScroll = 1,
         autoplay = true,
         vertical = false,
-        verticalSwiping = false
+        verticalSwiping = false,
+        type = "items"
     } = props
 
     const settings = {
@@ -78,8 +79,8 @@ const CustomSlider = (props) => {
         draggable: true,
         vertical: vertical,
         verticalSwiping: verticalSwiping,
-        nextArrow: <SampleNextArrow/>,
-        prevArrow: <SamplePrevArrow/>,
+        nextArrow: <SampleNextArrow type={type}/>,
+        prevArrow: <SamplePrevArrow type={type}/>,
         className: classes.slider
     };
 

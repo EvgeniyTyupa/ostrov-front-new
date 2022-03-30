@@ -5,6 +5,7 @@
     align-items: center;
     margin-bottom: 50px;
     z-index: 1;
+    position: relative;
 }
 .container {
     width: 100%;
@@ -46,4 +47,40 @@
 }
 .news {
     margin-top: 77px;
+}
+.brands {
+    margin-top: 105px;
+}
+.brands h4 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #3B3F61;
+    text-transform: uppercase;
+}
+.brandsSlider {
+    width: 100%;
+    margin-top: 30px;
+}
+.brandsSlider > div > div > div > div > div > div {
+    width: 20% !important;
+}
+.about {
+    margin-top: 100px;
+    padding: 0 30px;
+    box-sizing: border-box;
+    margin-bottom: 100px;
+}
+.about h4 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #3B3F61;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+.sunImg {
+    left: -100px;
+    bottom: 170px;
+    position: absolute;
 }

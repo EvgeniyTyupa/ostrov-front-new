@@ -10,6 +10,8 @@ import ToySelector from '../../Components/Common/ToySelector/ToySelector'
 import MaxWidthContainer from '../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../Components/UI/Container/PaddingContainer/PaddingContainer'
 import classes from './Home.module.css'
+import BrandItem from '../../Components/Common/Brands/BrandItem'
+import sun_img from '../../Assets/sun.svg'
 
 const Home = (props) => {
     const { 
@@ -17,6 +19,7 @@ const Home = (props) => {
         actions,
         items,
         news,
+        brands,
         hgTags
     } = props
 
@@ -28,7 +31,7 @@ const Home = (props) => {
                 <div className={classes.top}>
                     <CategoriesList categories={categories}/>
                     <div className={classes.actionSlider}>
-                        <CustomSlider>
+                        <CustomSlider type="action">
                             {actions.map(item => (
                                 <img 
                                     src={item.image} 
@@ -65,7 +68,20 @@ const Home = (props) => {
                         slidesToShow={news.length > 3 ? 4 : news.length}
                     />
                 </div>
+                <div className={classes.brands}>
+                    <h4>{t("brands.title")}</h4>
+                    <div className={classes.brandsSlider}>
+                        <CustomSlider slidesToShow={brands.length > 4 ? 5 : brands.length}>
+                            {brands.map(el => <BrandItem key={el._id} item={el}/>)}
+                        </CustomSlider>
+                    </div>
+                </div>
+                <div className={classes.about}>
+                    <h4>{t("about.title")}</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus urna nunc, scelerisque sed mi eu, fermentum placerat nulla. Vivamus at facilisis turpis. Sed vulputate tincidunt neque vitae faucibus. Donec rhoncus justo odio, eu hendrerit metus gravida id. Maecenas fermentum, lacus ut sollicitudin sodales, orci eros dignissim lectus, in condimentum sem elit ac leo. Donec at massa id ex malesuada porttitor finibus ut urna. Morbi gravida quis est in maximus. Ut in fermentum eros, eget lobortis orci. Donec id sodales elit. Integer sodales dapibus leo sed ultrices. Cras imperdiet lectus est, non lobortis sem vestibulum id.</p>
+                </div>
             </MaxWidthContainer>
+            <img src={sun_img} alt="sun" className={classes.sunImg}/>
         </PaddingContainer>
     )
 }

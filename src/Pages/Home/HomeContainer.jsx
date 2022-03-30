@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { getActions } from '../../Redux/actionsReducer'
+import { getBrands } from '../../Redux/brandsReducer'
 import { getItems } from '../../Redux/itemsReducer'
 import { getNews } from '../../Redux/newsReducer'
 import { getHgTags } from '../../Redux/tagsReducer'
@@ -18,7 +19,9 @@ const HomeContainer = (props) => {
         hgTags,
         getHgTags,
         getNews,
-        news
+        news,
+        getBrands,
+        brands
     } = props
 
     console.log("asd", news)
@@ -27,6 +30,7 @@ const HomeContainer = (props) => {
         getActions(1, 100, "", "", "", true)
         getItems(1, 15, "rating", -1, "")
         getNews(1, 8, "", "", "")
+        getBrands(1, 400, "", "", "")
         getHgTags()
     }, [])
 
@@ -39,6 +43,7 @@ const HomeContainer = (props) => {
                     actions={actions}
                     items={items}
                     news={news}
+                    brands={brands}
                     hgTags={hgTags}
                 />
             }
@@ -52,12 +57,14 @@ let mapStateToProps = (state) => ({
     actions: state.actions.actions,
     items: state.items.items,
     hgTags: state.tags.hgTags,
-    news: state.news.news
+    news: state.news.news,
+    brands: state.brands.brands
 })
 
 export default connect(mapStateToProps, {
     getActions,
     getItems,
     getHgTags,
-    getNews
+    getNews,
+    getBrands
 })(HomeContainer)

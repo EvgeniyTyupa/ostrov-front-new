@@ -15,7 +15,7 @@ const InstaBlock = (props) => {
             <div className={classes.info}>
                 <p>{t("insta")}</p>
                 <Button className={classes.button}>
-                    <a href='' target={"_blank"} rel="noopener noreferrer">
+                    <a href='https://instagram.com/ostrovok_detstva_zp' target={"_blank"} rel="noopener noreferrer">
                         <BsInstagram/>
                         <span>{t("actions.subscribe")}</span>
                     </a>
