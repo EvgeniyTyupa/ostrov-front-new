@@ -9,6 +9,7 @@ import tagsReducer from './tagsReducer';
 import userReducer from './userReducer';
 import newsReducer from './newsReducer';
 import actionsReducer from './actionsReducer';
+import commentsReducer from './commentsReducer';
 
 let reducers = combineReducers({
     common: commonReducer,
@@ -18,7 +19,8 @@ let reducers = combineReducers({
     tags: tagsReducer,
     user: userReducer,
     news: newsReducer,
-    actions: actionsReducer
+    actions: actionsReducer,
+    comments: commentsReducer
 })
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleWare, multi))

@@ -1,0 +1,13 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+    margin-top: 15px;
+}
+.submit {
+    margin-top: 10px !important;
+}
+.modal {
+    width: 30%;
+}

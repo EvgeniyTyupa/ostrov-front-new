@@ -1,0 +1,43 @@
+.main {
+    width: 278px;
+}
+.img {
+    width: 100%;
+    height: 221px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition-duration: .3s;
+}
+.main .img:hover {
+    border: 1px solid #4B5EA3;
+}
+.main .info p:hover {
+    text-decoration: underline;
+}
+.info {
+    margin-top: 9px;
+}
+.info p {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #3B3F61;
+    cursor: pointer;
+    width: fit-content;
+}
+.info p::first-letter {
+    text-transform: capitalize;
+}
+.date {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    color: #4B5EA3;
+}
+.date span {
+    margin-left: 12px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+}

@@ -1,8 +1,8 @@
+import React, { Children } from 'react'
+import Slider from 'react-slick'
+import classes from './CustomVerticalSlider.module.css'
+import { FiArrowDown, FiArrowUp } from 'react-icons/fi';
 import { IconButton } from '@mui/material';
-import React from 'react'
-import Slider from "react-slick";
-import classes from './Slider.module.css'
-import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -14,15 +14,15 @@ function SampleNextArrow(props) {
                 display: "block", 
                 padding: 0,
                 zIndex: 5,
-                right: "5%",
-                top: "48%"
+                left: "35%",
+                top: "96%"
             }}
         >
             <IconButton
                 onClick={onClick}
                 className={classes.slideBut}
             >
-                <FiArrowRight/>
+                <FiArrowDown/>
             </IconButton>
         </div>
     );
@@ -38,21 +38,21 @@ function SamplePrevArrow(props) {
                 display: "block", 
                 padding: 0,
                 zIndex: 5,
-                left: "3%",
-                top: "48%"
+                left: "35%",
+                top: "0"
             }}
         >
             <IconButton
                 onClick={onClick}
                 className={classes.slideBut}
             >
-                <FiArrowLeft/>
+                <FiArrowUp/>
             </IconButton>
         </div>
     );
 }
 
-const CustomSlider = (props) => {
+const CustomVerticalSlider = (props) => {
     const { 
         children,
         dots = false,
@@ -61,8 +61,6 @@ const CustomSlider = (props) => {
         slidesToShow = 1,
         slidesToScroll = 1,
         autoplay = true,
-        vertical = false,
-        verticalSwiping = false
     } = props
 
     const settings = {
@@ -76,14 +74,14 @@ const CustomSlider = (props) => {
         adaptiveHeight: true,
         arrows: true,
         draggable: true,
-        vertical: vertical,
-        verticalSwiping: verticalSwiping,
+        vertical: true,
+        verticalSwiping: true,
         nextArrow: <SampleNextArrow/>,
         prevArrow: <SamplePrevArrow/>,
         className: classes.slider
     };
 
-    return(
+    return (
         <div className={classes.main}>
             <Slider {...settings}>
                 {children}
@@ -92,4 +90,4 @@ const CustomSlider = (props) => {
     )
 }
 
-export default CustomSlider
+export default CustomVerticalSlider

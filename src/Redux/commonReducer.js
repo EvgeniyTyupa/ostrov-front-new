@@ -2,12 +2,16 @@ const SET_IS_FETCHING = 'SET_IS_FETCHING'
 const SET_SERVER_RESPONSE = 'SET_SERVER_RESPONSE'
 const SET_SERVER_ERROR = 'SET_SERVER_ERROR' 
 const SET_CURRENT_LANGUAGE = 'SET_CURRENT_LANGUAGE'
+const SET_IS_OPEN_LOGIN = 'SET_IS_OPEN_LOGIN'
+const SET_IS_OPEN_REGISTER = 'SET_IS_OPEN_REGISTER'
 
 let initialState = {
     isFetching: true,
     serverResponse: null,
     serverError: null,
-    currentLanguage: "ru"
+    currentLanguage: "ru",
+    isOpenLogin: false,
+    isOpenRegister: false
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -23,6 +27,12 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_CURRENT_LANGUAGE: {
             return { ...state, currentLanguage: action.currentLanguage }
+        }
+        case SET_IS_OPEN_LOGIN: {
+            return { ...state, isOpenLogin: action.isOpenLogin }
+        }
+        case SET_IS_OPEN_REGISTER: {
+            return { ...state, isOpenRegister: action.isOpenRegister }
         }
         default: 
             return state
@@ -40,6 +50,12 @@ export const setServerError = (serverError) => ({
 })
 export const setCurrentLanguage = (currentLanguage) => ({
     type: SET_CURRENT_LANGUAGE, currentLanguage
+})
+export const setIsOpenLogin = (isOpenLogin) => ({
+    type: SET_IS_OPEN_LOGIN, isOpenLogin
+})
+export const setIsOpenRegister = (isOpenRegister) => ({
+    type: SET_IS_OPEN_REGISTER, isOpenRegister
 })
 
 export default commonReducer

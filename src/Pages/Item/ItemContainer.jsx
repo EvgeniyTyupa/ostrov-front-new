@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { getCategoriesWithParents } from '../../Redux/categoryReducer'
-import { getItem } from '../../Redux/itemsReducer'
+import { getComments } from '../../Redux/commentsReducer'
+import { getItem, getSame } from '../../Redux/itemsReducer'
 import Item from './Item'
 
 const ItemContainer = (props) => {
@@ -13,31 +14,71 @@ const ItemContainer = (props) => {
         getItem,
         currentLanguage,
         getCategoriesWithParents,
-        categoriesWithParents
+        categoriesWithParents,
+        getSame,
+        sameItems,
+        getComments,
+        comments,
+        totalComments,
+        newComment
     } = props
 
     const { name } = useParams()
 
-    console.log(currentItem)
+    const [currentImage, setCurrentImage] = useState(null)
+    const [isFullDesc, setIsFullDesc] = useState(false)
+
+    const [pageSize, setPageSize] = useState(20)
+    const [pageNumber, setPageNumber] = useState(0)
+
+    const handleChangePage = (page) => {
+        setPageNumber(page)
+    }
+
+    const handlePageSize = (event) => {
+        setPageSize(event.target.value)
+        setPageNumber(0)
+    }
+
+    const handleFullText = () => {
+        setIsFullDesc(!isFullDesc)
+    }
 
     useEffect(() => {
         getItem(name)
-    }, [])
+    }, [name])
 
     useEffect(() => {
-        if(currentItem && currentItem[0].category) {
-            getCategoriesWithParents(currentItem[0].category._id)
+        if(currentItem && currentItem.category) {
+            getCategoriesWithParents(currentItem.category._id)
+        }
+        if(currentItem && currentItem.tags) {
+            getSame(currentItem.tags, currentItem._id)
+        }
+        if(currentItem) {
+            setCurrentImage(currentItem.images[0])
+            getComments(currentItem._id, pageNumber + 1, pageSize)
         }
     }, [currentItem])
 
     return (
         <>
-            {isFetching ? <Preloader/> :
-                <Item 
-                    item={currentItem[0]}
-                    currentLanguage={currentLanguage}
-                    categoriesWithParents={categoriesWithParents}
-                />
+            {!currentItem ? <Preloader/> :
+                <>
+                    {isFetching ? <Preloader/> :
+                    <Item 
+                        item={currentItem}
+                        currentLanguage={currentLanguage}
+                        categoriesWithParents={categoriesWithParents}
+                        currentImage={currentImage}
+                        setCurrentImage={setCurrentImage}
+                        isFullDesc={isFullDesc}
+                        handleFullText={handleFullText}
+                        sameItems={sameItems}
+                        comments={comments}
+                        totalComments={totalComments}
+                    />}
+                </>
             }
         </>
     )
@@ -47,10 +88,16 @@ let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
     currentItem: state.items.currentItem,
     currentLanguage: state.common.currentLanguage,
-    categoriesWithParents: state.categories.categoriesWithParents
+    categoriesWithParents: state.categories.categoriesWithParents,
+    sameItems: state.items.items,
+    comments: state.comments.comments,
+    totalComments: state.comments.total,
+    newComment: state.comments.newComment
 })
 
 export default connect(mapStateToProps, {
     getItem,
-    getCategoriesWithParents
+    getCategoriesWithParents,
+    getSame,
+    getComments
 })(ItemContainer)

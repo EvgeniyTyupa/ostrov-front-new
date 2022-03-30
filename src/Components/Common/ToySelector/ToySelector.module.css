@@ -1,0 +1,15 @@
+.main {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 435px;
+}
+.children {
+    width: 50%;
+    object-fit: cover;
+}
+.side {
+    width: 50%;
+    background-color: #E86589;
+    height: 100%;
+}

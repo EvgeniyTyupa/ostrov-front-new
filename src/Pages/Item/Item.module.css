@@ -1,9 +1,304 @@
+.mainContainer {
+    width: 100%;
+    z-index: 1;
+}
 .main {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .container {
     display: flex;
     flex-direction: column;
+}
+.itemName {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    color: #37395C;
+}
+.itemName::first-letter {
+    text-transform: capitalize;
+}
+
+/* CONTENT */
+.content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    margin-top: 30px;
+    margin-bottom: 56px;
+}
+.images, .info {
+    width: 100%;
+}
+.images {
+    display: flex;
+    justify-content: space-between;
+}
+.slider {
+    width: 110px;
+    height: 456px;
+}
+.smallImage {
+    width: 110px !important;
+    height: 103px;
+    border: 1px solid transparent;
+    transition-duration: .3s;
+    object-fit: cover;
+    cursor: pointer;
+    opacity: .7;
+}
+.smallImage:hover {
+    border: 1px solid #4B5EA2;
+}
+.activeImg {
+    opacity: 1;
+    border: 1px solid #4B5EA2;
+}
+.currentImage {
+    width: calc(100% - 110px);
+    height: 456px;
+    object-fit: cover;
+    margin-left: 25px;
+}
+
+/* INFO */
+.info {
+    display: flex;
+    flex-direction: column;
+}
+.ratingCodeBlock {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ratingCodeBlock span {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #37395C;
+    text-transform: uppercase;
+}
+.priceBlock {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 21px;
+}
+.price {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #4B5EA2;
+}
+.buyBut {
+    font-family: 'Montserrat' !important;
+    width: 110px !important;
+    border-radius: 15px !important;
+    background-color: #9DC8CF !important;
+    border: 1px solid #9DC8CF !important;
+    color: white !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    height: 32px !important;
+}
+.buyBut:hover {
+    background-color: #77b2bb !important;
+}
+.actionBlock {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+.delivery {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 35px;
+}
+.deliveryTitle {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #4B5EA2;
+    margin-bottom: 32px;
+}
+.deliveryPoints {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.deliveryPoint {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.deliveryPoint h4 {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: #D56886;
+}
+.deliveryPoint p {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #2B629C;
+}
+.modalButtons {
+    width: 100%;
+    display: flex;
+    gap: 120px;
+    margin-top: auto;
+}
+.modalButtons button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #4B5EA2;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: 'Montserrat';
+}
+
+/* DESCRIPTION */
+.descriptionBlock {
+    width: 100%;
+    background: #E86589;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 120px;
+}
+.descriptionContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 0;
+    padding-bottom: 70px;
+    color: white;
+}
+.leftDescription {
+    width: 55%;
+    position: relative;
+}
+.descriptionContainer h4 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+.leftDescription p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 26px;
+}
+.rightDescription {
+    width: 38%;
+}
+.infoContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 26px;
+    gap: 23px;
+}
+.infoPoint {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+.descText {
+    max-height: 220px;
+    overflow: hidden;
+    transition-duration: .3s;
+}
+.fullDescText {
+    max-height: 450px
+}
+.leftDescription button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0;
+    font-family: 'Montserrat';
+    margin-top: 25px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.leftDescription button:hover {
+    text-decoration: underline;
+}
+.hidingBlock {
+    background: rgb(232,101,137);
+    background: linear-gradient(180deg, rgba(232,101,137,0) 0%, rgba(232,101,137,1) 100%);
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    bottom: 30px;
+}
+
+.same {
+    width: 100%;
+}
+
+/* REVIEWS */
+.comments {
+    width: 100%;
+    margin-top: 105px;
+    margin-bottom: 131px;
+}
+.comments h4 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #3B3F61;
+}
+.commentsHeader {
+    display: flex;
+    align-items: center;
+}
+.commentsHeader span {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: #37395C;
+    margin-left: 14px;
+}
+.reviews {
+    margin-top: 45px;
+    display: flex;
+    flex-direction: column;
+    gap: 45px;
+}
+.emptyReview {
+    display: flex;
+    align-items: center;
+    color: #37395C;
+}
+.emptyDesc {
+    color: #37395C;
+}
+.form {
+    margin-top: 25px;
 }

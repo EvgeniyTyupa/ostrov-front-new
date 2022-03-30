@@ -5,7 +5,26 @@
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 .footer {
     margin-top: auto;
+}
+
+.slick-list {
+    height: 100% !important;
+    padding-right: 1px !important;
+}
+
+.star1 {
+    bottom: 585px;
+    position: absolute;
+    left: 25px;
+    z-index: 0;
+}
+.star2 {
+    bottom: 625px;
+    position: absolute;
+    right: 0px;
+    z-index: 0;
 }

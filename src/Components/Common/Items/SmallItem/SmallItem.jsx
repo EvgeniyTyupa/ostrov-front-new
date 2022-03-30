@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom'
 const SmallItem = (props) => {
     const { item, currentLanguage } = props
 
-    console.log(item)
+    // console.log(item)
 
     const { t } = useTranslation()
 
@@ -19,10 +19,12 @@ const SmallItem = (props) => {
 
     const navigate = useNavigate()
 
+    const rating = item.rating * 20
+
     const handleClick = () => {
         let itemName = currentLanguage === "ru" ? item.name : item.name_ua
 
-        navigate(`item/${itemName}`)
+        navigate(`/item/${itemName}`)
     }
     
     useEffect(() => {
@@ -41,7 +43,7 @@ const SmallItem = (props) => {
                         currentLanguage === "ru" ? item.name
                         : item.name_ua   
                     }</p>
-                    <Rating size={"22px"} ratingValue={item.rating} readonly/>
+                    <Rating size={"22px"} ratingValue={rating} readonly/>
                 </div>
                 <div className={classes.price}>
                     <p>{item.price} грн</p>

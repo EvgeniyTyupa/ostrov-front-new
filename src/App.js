@@ -19,13 +19,36 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ItemContainer from './Pages/Item/ItemContainer';
 import NotFound from './Pages/NotFound/NofFound';
+import { connect } from 'react-redux';
+import LoginModal from './Components/Auth/LoginModal';
+import { useEffect } from 'react';
+import { me } from './Redux/userReducer';
+import ServerResponse from './Components/UI/ServerResponse/ServerResponse';
+import star1 from './Assets/star1.svg'
+import star2 from './Assets/star2.svg'
 
-const App = () => {
+const App = (props) => {
+  const { 
+      isOpenLogin,
+      isStartData, 
+      me,
+      serverError,
+      serverResponse
+    } = props
+
+  useEffect(() => {
+    if(localStorage.usertoken && !isStartData) {
+      me()
+    }
+  }, [localStorage.usertoken])
+
   return (
     <Router>
       <HttpsRedirect>
         <div className='main'>
           {!window.location.pathname.includes("admin") && <Navbar/>}
+          {isOpenLogin && <LoginModal/>}
+          {(serverError || serverResponse) && <ServerResponse/>}
           <Routes>
             <Route path="/admin_login" element={<AdminLogin />} />
 
@@ -44,6 +67,8 @@ const App = () => {
 
             <Route path='*' element={<NotFound />} />
           </Routes>
+          {!window.location.pathname.includes("admin") && <img src={star1} alt="star" className='star1'/>}
+          {!window.location.pathname.includes("admin") && <img src={star2} alt="stars" className='star2'/>}
           {!window.location.pathname.includes("admin") && (
             <div className='footer'>
               <Footer/>
@@ -55,4 +80,13 @@ const App = () => {
   )
 }
 
-export default App;
+let mapStateToProps = (state) => ({
+  isOpenLogin: state.common.isOpenLogin,
+  isStartData: state.user.isStartData,
+  serverResponse: state.common.serverResponse,
+  serverError: state.common.serverError
+})
+
+export default connect(mapStateToProps, {
+  me
+})(App);

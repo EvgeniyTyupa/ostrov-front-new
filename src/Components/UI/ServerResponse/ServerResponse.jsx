@@ -55,8 +55,8 @@ const ServerResponse = (props) => {
                 </IconButton>
             </div>
             <div className={classes.body}>
-                {serverResponse && <p>Item {serverResponse}</p>}
-                {serverError && <p>Item {serverError}</p>}
+                {serverResponse && <p>{serverResponse}</p>}
+                {serverError && <p>{serverError}</p>}
             </div>
         </div>
     )

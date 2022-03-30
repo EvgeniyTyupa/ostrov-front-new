@@ -1,9 +1,22 @@
 import React, { useState } from 'react'
-import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Divider, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import { FiUser } from 'react-icons/fi';
+import { MdLogout } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { setIsOpenLogin, setIsOpenRegister } from '../../../../../../Redux/commonReducer';
+import classes from './AccountMenu.module.css'
+import { logout } from '../../../../../../Redux/userReducer';
 
 const AccountMenu = (props) => {
+    const { 
+        isAuth, 
+        setIsOpenLogin, 
+        setIsOpenRegister, 
+        logout, 
+        user 
+    } = props
+
     const { t } = useTranslation()
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -15,6 +28,14 @@ const AccountMenu = (props) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleOpenLogin = () => {
+        setIsOpenLogin(true)
+    }
+
+    const handleOpenRegister = () => {
+        setIsOpenRegister(true)
+    }
 
     return (
         <React.Fragment>
@@ -57,13 +78,38 @@ const AccountMenu = (props) => {
                     },
                   }}
             >
-                <MenuItem>
-                    
-                    Logout
-                </MenuItem>
+                {isAuth ? 
+                    <div>
+                        <MenuItem>
+                            <p>{t("auth.profile")}</p>
+                        </MenuItem>
+                        <Divider/>
+                        <MenuItem onClick={logout}>
+                            <MdLogout/>
+                            <p style={{ marginLeft: "8px" }}>{t("auth.logout")}</p>
+                        </MenuItem>
+                    </div> :
+                    <div>
+                        <MenuItem onClick={handleOpenLogin}>
+                            <p className={classes.menuItem}>{t("auth.login")}</p>
+                        </MenuItem>
+                        <MenuItem onClick={handleOpenRegister}>
+                            <p className={classes.menuItem}>{t("auth.register")}</p>
+                        </MenuItem>
+                    </div>
+                }
             </Menu>
         </React.Fragment>
     )
 }
 
-export default AccountMenu
+let mapStateToProps = (state) => ({
+    isAuth: state.user.isAuth,
+    user: state.user.user
+})
+
+export default connect(mapStateToProps, {
+    setIsOpenLogin,
+    setIsOpenRegister,
+    logout
+})(AccountMenu)

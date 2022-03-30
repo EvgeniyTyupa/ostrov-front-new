@@ -6,9 +6,12 @@
     color: #4B5EA2 !important;
     font-size: 26px;
 }
+.slider {
+    height: 456px !important;
+}
 .slider div::before {
     display: none;
 }
-/* .slider > div > div > div {
-    width: 20% !important;
-} */
+.slider > div {
+    width: 115px;
+}

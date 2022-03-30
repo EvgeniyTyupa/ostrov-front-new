@@ -1,0 +1,63 @@
+.main {
+    width: 100%;
+}
+.review {
+    width: 100%;
+}
+.review form {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.review form div {
+    width: 100%;
+}
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.rating label {
+    position: relative;
+    top: -2px;
+}
+.container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.submit, .switchButt {
+    color: #37395C !important;
+    text-transform: initial !important;
+    font-family: 'Montserrat' !important;
+}
+.switchButt {
+    padding: 0;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 16px;
+}
+.auth {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: tomato;
+    padding-top: 25px;
+}
+.auth button {
+    outline: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    color: tomato;
+    font-family: 'Montserrat';
+    background-color: transparent;
+    font-size: 16px;
+    padding: 0;
+    padding-left: 2px;
+}

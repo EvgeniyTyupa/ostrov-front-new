@@ -59,8 +59,18 @@ export const getItem = (itemId) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try{
         let response = await itemsApi.getItem(itemId)
-        dispatch([setCurrentItem(response.item), setIsFetching(false)])
+        dispatch([setCurrentItem(response.item[0]), setIsFetching(false)])
     }catch(err){
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getSame = (tagsId, itemId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await itemsApi.getSame(tagsId, itemId)
+        dispatch([setItemsData(response.items), setIsFetching(false)])
+    }catch(err) {
         dispatch(setIsFetching(false))
     }
 }

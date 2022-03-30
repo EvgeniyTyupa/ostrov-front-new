@@ -34,6 +34,10 @@ export const itemsApi = {
         return instance.get(`/item/${itemId}`)
         .then(response => response.data)
     },
+    getSame(tagsId, itemId){
+        return instance.post('/item/same', { tagsId, itemId })
+        .then(response => response.data)
+    },
     createItem(data) {
         const newFormData = new FormData()
 
@@ -338,6 +342,17 @@ export const actionsApi = {
     },
     deleteAction(actionId) {
         return instance.delete(`/action/${actionId}`)
+        .then(response => response.data)
+    }
+}
+
+export const reviewsApi = {
+    getReviews(itemId, pageNumber, pageSize){
+        return instance.get(`/comment/${itemId}?limit=${pageSize}&count=${pageNumber}`)
+        .then(response => response.data)
+    },
+    addReview(data){
+        return instance.post(`/comment`, data)
         .then(response => response.data)
     }
 }

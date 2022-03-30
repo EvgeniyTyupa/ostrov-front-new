@@ -1,5 +1,5 @@
 import { userApi } from "../Api/api"
-import { setIsFetching, setServerError } from "./commonReducer"
+import { setIsFetching, setIsOpenLogin, setServerError } from "./commonReducer"
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_IS_AUTH = 'SET_IS_AUTH'
@@ -42,7 +42,7 @@ export const login = (data) => async (dispatch) => {
     try {
         let response = await userApi.login(data)
         localStorage.usertoken = response.token
-        dispatch([setIsAuth(true), setServerError(null), setIsFetching(false)])
+        dispatch([setIsAuth(true), setServerError(null), setIsFetching(false), setIsOpenLogin(false)])
     }catch(err) {
         switch(err.response.status) {
             case 404: {
