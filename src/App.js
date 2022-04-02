@@ -27,6 +27,7 @@ import ServerResponse from './Components/UI/ServerResponse/ServerResponse';
 import star1 from './Assets/star1.svg'
 import star2 from './Assets/star2.svg'
 import Contacts from './Pages/Contacts/Contacts';
+import CatalogContainer from './Pages/Catalog/CatalogContainer';
 
 const App = (props) => {
   const { 
@@ -55,7 +56,8 @@ const App = (props) => {
 
             <Route path="/" element={<HomeContainer />} />
             <Route exact path="/item/:name" element={<ItemContainer/>}/>
-            <Route exac path="/contacts" element={<Contacts/>}/>
+            <Route exact path="/contacts" element={<Contacts/>}/>
+            <Route exact path="/catalog" element={<CatalogContainer/>}/>
 
             <Route path="admin" element={<AdminRoute/>}>
               <Route path="" element={<DashboardContainer/>} />

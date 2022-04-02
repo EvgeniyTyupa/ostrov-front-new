@@ -1,0 +1,31 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 100px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3%;
+    row-gap: 65px;
+    margin-top: 20px;
+    min-height: 60vh;
+}
+.empty {
+    text-align: center;
+    font-size: 16px;
+    color: #37395C;
+}

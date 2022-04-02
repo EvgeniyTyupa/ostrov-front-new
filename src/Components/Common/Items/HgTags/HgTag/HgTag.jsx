@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { cx } from '../../../../../Utils/classnames'
 import classes from './HgTag.module.css'
 
@@ -11,6 +12,8 @@ const HgTag = (props) => {
     } = props
 
     const [blockIndex, setBlockIndex] = useState(0)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if(index === 0) {
@@ -27,7 +30,7 @@ const HgTag = (props) => {
     }, [])
 
     const handleClick = () => {
-        console.log(tag)
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=tags&from=asc&searchValue=${tag._id}`)
     }
 
     return (

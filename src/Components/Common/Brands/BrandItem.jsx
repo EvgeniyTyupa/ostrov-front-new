@@ -1,11 +1,14 @@
 import React from 'react'
 import classes from './BrandItem.module.css'
+import { useNavigate } from 'react-router-dom'
 
 const BrandItem = (props) => {
     const { item } = props
 
+    const navigate = useNavigate()
+
     const onClick = () => {
-        console.log(item.name)
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=brand&from=asc&searchValue=${item._id}`)
     }
 
     return (

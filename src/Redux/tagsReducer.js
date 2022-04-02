@@ -1,4 +1,4 @@
-import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
+import { setCurrentFilterItem, setIsFetching, setServerError, setServerResponse } from "./commonReducer"
 import { tagApi } from "../Api/api"
 
 const SET_TAGS_DATA = 'SET_TAGS_DATA'
@@ -97,8 +97,18 @@ export const deleteTag = (tagId) => async (dispatch) => {
 export const getHgTags = () => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await tagApi.getTags(1, 5, "is_hg", "", "")
+        let response = await tagApi.getHgTags()
         dispatch([setHgTags(response.tags), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getTag = (tagId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await tagApi.getTag(tagId)
+        dispatch([setCurrentFilterItem(response.tag), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

@@ -26,3 +26,9 @@
     align-items: center;
     gap: 13px;
 }
+.block a::first-letter {
+    text-transform: capitalize;
+}
+.main p::first-letter {
+    text-transform: capitalize;
+}

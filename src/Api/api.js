@@ -38,6 +38,10 @@ export const itemsApi = {
         return instance.post('/item/same', { tagsId, itemId })
         .then(response => response.data)
     },
+    getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue){
+        return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+        .then(response => response.data)
+    },
     createItem(data) {
         const newFormData = new FormData()
 
@@ -99,6 +103,10 @@ export const brandApi = {
         return instance.get(`/brand?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)
     },
+    getBrand(brandId) {
+        return instance.get(`/brand/${brandId}`)
+        .then(response => response.data)
+    },
     addBrand(data) {
         const newFormData = new FormData()
         newFormData.append('name', data.name)
@@ -147,6 +155,10 @@ export const categoryApi = {
         return instance.get(`/category/parents/${categoryId}`)
         .then(response => response.data)
     },
+    getMainCategoriesWithChildren(){
+        return instance.get('/category/main')
+        .then(response => response.data)
+    },
     addCategory(data) {
         return instance.post(`/category`, data)
         .then(response => response.data)
@@ -164,6 +176,14 @@ export const categoryApi = {
 export const tagApi = {
     getTags(pageNumber, pageSize, searchBy, from, searchingValue) {
         return instance.get(`/tag?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+        .then(response => response.data)
+    },
+    getHgTags() {
+        return instance.get('/tag/hg')
+        .then(response => response.data)
+    },
+    getTag(id) {
+        return instance.get(`/tag/${id}`)
         .then(response => response.data)
     },
     addTag(data) {

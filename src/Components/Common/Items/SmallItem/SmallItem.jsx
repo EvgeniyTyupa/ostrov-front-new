@@ -34,9 +34,9 @@ const SmallItem = (props) => {
     }, [])
 
     return (
-        <div className={classes.main}>
+        <div className={classes.main}  onClick={handleClick}>
             {isNew && <Baige type="new"/>}
-            <img src={item.images[0]} onClick={handleClick} alt="image" className={classes.image}/>
+            <img src={item.images[0]} alt="image" className={classes.image}/>
             <div className={classes.info}>
                 <div className={classes.left}>
                     <p>{

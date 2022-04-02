@@ -31,7 +31,7 @@ const Item = (props) => {
     
     let breadcrumbsItems = categoriesWithParents.map(el => {
         return {
-            href: el.code,
+            href: `/catalog?pageNumber=1&pageSize=25&searchBy=category&from=asc&searchValue=${el._id}`,
             title: currentLanguage === "ru" ? el.name : el.name_ua
         }
     })

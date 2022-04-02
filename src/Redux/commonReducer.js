@@ -4,6 +4,7 @@ const SET_SERVER_ERROR = 'SET_SERVER_ERROR'
 const SET_CURRENT_LANGUAGE = 'SET_CURRENT_LANGUAGE'
 const SET_IS_OPEN_LOGIN = 'SET_IS_OPEN_LOGIN'
 const SET_IS_OPEN_REGISTER = 'SET_IS_OPEN_REGISTER'
+const SET_CURRENT_FILTER_ITEM = 'SET_CURRENT_FILTER_ITEM'
 
 let initialState = {
     isFetching: true,
@@ -11,7 +12,8 @@ let initialState = {
     serverError: null,
     currentLanguage: "ru",
     isOpenLogin: false,
-    isOpenRegister: false
+    isOpenRegister: false,
+    currentFilterItem: null
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -33,6 +35,9 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_IS_OPEN_REGISTER: {
             return { ...state, isOpenRegister: action.isOpenRegister }
+        }
+        case SET_CURRENT_FILTER_ITEM: {
+            return { ...state, currentFilterItem: action.currentFilterItem }
         }
         default: 
             return state
@@ -56,6 +61,9 @@ export const setIsOpenLogin = (isOpenLogin) => ({
 })
 export const setIsOpenRegister = (isOpenRegister) => ({
     type: SET_IS_OPEN_REGISTER, isOpenRegister
+})
+export const setCurrentFilterItem = (currentFilterItem) => ({
+    type: SET_CURRENT_FILTER_ITEM, currentFilterItem
 })
 
 export default commonReducer

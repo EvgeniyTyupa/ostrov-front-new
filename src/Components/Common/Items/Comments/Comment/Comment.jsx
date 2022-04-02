@@ -8,8 +8,6 @@ const Comment = (props) => {
     
     const rating = item.rating * 20
 
-    console.log(item)
-
     return (
         <div className={classes.main}>
             <div className={classes.header}>

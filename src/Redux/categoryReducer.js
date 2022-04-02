@@ -1,17 +1,19 @@
 import { categoryApi } from "../Api/api"
-import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
+import { setCurrentFilterItem, setIsFetching, setServerError, setServerResponse } from "./commonReducer"
 
 const SET_CATEGORIES_DATA = 'SET_CATEGORIES_DATA'
 const SET_TOTAL_CATEGORIES = 'SET_TOTAL_CATEGORIES' 
 const SET_NEW_CATEGORY = 'SET_NEW_CATEGORY' 
 const SET_ALL_CATEGORIES = 'SET_ALL_CATEGORIES'
 const SET_CATEGORIES_WITH_PARENTS = 'SET_CATEGORIES_WITH_PARENTS'
+const SET_MAIN_CATEGORIES = 'SET_MAIN_CATEGORIES'
 
 let initialState = {
     categories: [],
     allCategories: [],
     newCategory: null,
     categoriesWithParents: [],
+    mainCategoriesWithChildren: [],
     total: 0
 }
 
@@ -32,6 +34,9 @@ const categoryReducer = (state = initialState, action) => {
         case SET_CATEGORIES_WITH_PARENTS: {
             return { ...state, categoriesWithParents: action.categoriesWithParents }
         }
+        case SET_MAIN_CATEGORIES : {
+            return { ...state, mainCategoriesWithChildren: action.mainCategoriesWithChildren }
+        }
         default:
             return state
     }
@@ -51,6 +56,9 @@ export const setAllCategories = (allCategories) => ({
 })
 export const setCategoriesWithParents = (categoriesWithParents) => ({
     type: SET_CATEGORIES_WITH_PARENTS, categoriesWithParents
+})
+export const setMainCategoriesWithChildren = (mainCategoriesWithChildren) => ({
+    type: SET_MAIN_CATEGORIES, mainCategoriesWithChildren
 })
 
 export const getAllCategories = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
@@ -77,7 +85,18 @@ export const getCategoriesWithParents = (categoryId) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await categoryApi.getParentsCategories(categoryId)
-        dispatch([setCategoriesWithParents(response.categories), setIsFetching(false)])
+        console.log(response.categories)
+        dispatch([setCategoriesWithParents(response.categories), setCurrentFilterItem(response.categories[response.categories.length - 1]), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getMainCategoriesWithChildren = () => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await categoryApi.getMainCategoriesWithChildren()
+        dispatch([setMainCategoriesWithChildren(response.categories), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

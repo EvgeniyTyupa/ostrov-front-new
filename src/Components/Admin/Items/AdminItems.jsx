@@ -137,8 +137,8 @@ const AdminItems = (props) => {
                                     <TableCell>{item.articule}</TableCell>
                                     <TableCell>{item.code}</TableCell>
                                     <TableCell>{item.price}</TableCell>
-                                    <TableCell>{item.brand.name}</TableCell>
-                                    <TableCell>{item.category.name}</TableCell>
+                                    <TableCell>{item.brand && item.brand.name}</TableCell>
+                                    <TableCell>{item.category && item.category.name}</TableCell>
                                     <TableCell width={120}>
                                        <AdminControllButtons 
                                             item={item} 

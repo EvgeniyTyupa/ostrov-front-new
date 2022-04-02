@@ -105,4 +105,14 @@ export const deleteItem = (itemId) => async (dispatch) => {
     }
 }
 
+export const getByBrandCategoryTag = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
+    dispatch(setIsFetching(true));
+    try{
+        let items = await itemsApi.getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue)
+        dispatch([setItemsData(items.items), setTotalData(items.total), setIsFetching(false)])
+    }catch(err){
+        dispatch(setIsFetching(false));
+    }
+}
+
 export default itemsReducer

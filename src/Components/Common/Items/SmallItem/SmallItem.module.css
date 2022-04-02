@@ -3,17 +3,23 @@
     flex-direction: column;
     width: 224px;
     position: relative;
+    transition-duration: .3s;
+    padding: 15px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    height: fit-content;
 }
-.main:hover .image {
-    border: 1px solid #3B3F61
+.main:hover {
+    background-color: white;
+    border: 1px solid #9DC8CF;
 }
 .image {
     width: 100%;
     height: 180px;
     object-fit: cover;
-    border: 1px solid transparent;
     transition-duration: .3s;
-    cursor: pointer;
 }
 .info {
     width: 100%;
@@ -42,7 +48,7 @@
 }
 .buyBut {
     font-family: 'Montserrat' !important;
-    width: 47% !important;
+    width: 55% !important;
     border-radius: 15px !important;
     background-color: transparent !important;
     border: 1px solid #9DC8CF !important;

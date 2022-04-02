@@ -1,5 +1,5 @@
 import { brandApi } from "../Api/api"
-import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
+import { setCurrentFilterItem, setIsFetching, setServerError, setServerResponse } from "./commonReducer"
 
 const SET_BRANDS_DATA = 'SET_BRANDS_DATA'
 const SET_TOTAL_BRANDS = 'SET_TOTAL_BRANDS'
@@ -43,6 +43,15 @@ export const getBrands = (pageNumber, pageSize, searchBy, from, searchingValue) 
         let brands = await brandApi.getBrands(pageNumber, pageSize, searchBy, from, searchingValue)
         dispatch([setBrandsData(brands.brands), setTotalBrands(brands.total), setIsFetching(false)])
     }catch(err){
+        dispatch(setIsFetching(false))
+    }
+}
+export const getBrand = (brandId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await brandApi.getBrand(brandId)
+        dispatch([setCurrentFilterItem(response.brand), setIsFetching(false)])
+    }catch(err) {
         dispatch(setIsFetching(false))
     }
 }

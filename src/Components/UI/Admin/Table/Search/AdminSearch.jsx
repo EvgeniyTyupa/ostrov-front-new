@@ -8,8 +8,8 @@ const AdminSearch = (props) => {
 
     const debouncedSearchTerm = useDebounce(searchValue, 500);
 
-    const handleValue = (e) => {
-        setSearchValue(e.target.value)
+    const handleValue = (value) => {
+        setSearchValue(value)
     } 
 
     useEffect(() => {
