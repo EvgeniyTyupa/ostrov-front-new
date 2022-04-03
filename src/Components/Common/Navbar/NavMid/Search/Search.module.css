@@ -1,6 +1,8 @@
 .main {
     max-width: 380px;
     width: 100%;
+    position: relative;
+    z-index: 8;
 }
 .searchBut {
     border-top-left-radius: 0 !important;

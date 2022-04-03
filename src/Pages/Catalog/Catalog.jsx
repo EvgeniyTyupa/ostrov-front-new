@@ -19,8 +19,6 @@ const Catalog = (props) => {
 
     const { t } = useTranslation()
 
-    console.log(activeBreadcrumb)
-
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
@@ -32,11 +30,13 @@ const Catalog = (props) => {
                     {items.map(el => <SmallItem key={el._id} item={el}/>)}
                     {items.length === 0 && <p className={classes.empty}>{t("catalog.empty")} 🥲</p>}
                 </div>
-                <CustomPagination
-                    pageNumber={pageNumber}
-                    pageSize={pageSize}
-                    total={total}
-                />
+                {items.length > 0 &&
+                    <CustomPagination
+                        pageNumber={pageNumber}
+                        pageSize={pageSize}
+                        total={total}
+                    />
+                }
             </MaxWidthContainer>
         </PaddingContainer>
     )

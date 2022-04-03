@@ -1,16 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './Search.module.css'
 import { Button, InputAdornment, TextField } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { ImSearch } from 'react-icons/im';
 import { useTranslation } from 'react-i18next';
+import { connect } from 'react-redux'
+import DropdownMenu from './DropdownMenu/DropdownMenu';
+import useDebounce from '../../../../../Utils/debounce';
+import { searchItems, setSearchingItems } from '../../../../../Redux/itemsReducer';
 
 const useStyles = makeStyles((theme) => ({
     root:{
         background: "white",
         width: "100%",
+        zIndex: 2,
+        borderRadius: "25px",
         '& input': {
-            fontSize: "14px"
+            fontSize: "14px",
+            fontFamily: "Montserrat"
         },
         '& input::placeholder': {
             color: "#9DC8CF"
@@ -45,15 +52,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search = (props) => {
+    const { items, searchItems, setSearchingItems, currentLanguage } = props
+
     const [searchValue, setSearchValue] = useState("")
 
     const material = useStyles()
 
     const { t } = useTranslation()
 
+    const debouncedSearchTerm = useDebounce(searchValue, 500)
+
+    const [isShowDropdown, setIsShowDropdown] = useState(false)
+
+    const handleIsShowDropdown = () => {
+        setIsShowDropdown(!isShowDropdown)
+    }
+
+    useEffect(() => {
+        if(debouncedSearchTerm && searchValue.length > 2) {
+            searchItems(searchValue)
+        }
+    }, [debouncedSearchTerm])
+
+    useEffect(() => {
+        if(searchValue.length === 0) {
+            setSearchingItems([])
+        }
+    }, [searchValue])
+
     return (
         <div className={classes.main}>
             <TextField 
+                onFocus={handleIsShowDropdown}
+                onBlur={handleIsShowDropdown}
                 onChange={e => setSearchValue(e.target.value)}
                 value={searchValue}
                 classes={material}
@@ -68,8 +99,21 @@ const Search = (props) => {
                     )
                 }}
             />
+            <DropdownMenu 
+                items={items} 
+                active={isShowDropdown}
+                currentLanguage={currentLanguage}
+            />
         </div>
     )
 }
 
-export default Search
+let mapStateToProps = (state) => ({
+    items: state.items.searchingItems,
+    currentLanguage: state.common.currentLanguage
+})
+
+export default connect(mapStateToProps, {
+    searchItems,
+    setSearchingItems
+})(Search)

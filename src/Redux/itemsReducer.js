@@ -5,9 +5,11 @@ const SET_ITEMS_DATA = 'SET_ITEMS_DATA'
 const SET_TOTAL_ITEMS = 'SET_TOTAL_ITEMS' 
 const SET_NEW_ITEM = 'SET_NEW_ITEM' 
 const SET_CURRENT_ITEM = 'SET_CURRENT_ITEM'
+const SET_SEARCHING_ITEMS = 'SET_SEARCHING_ITEMS'
 
 let initialState = {
     items: [],
+    searchingItems: [],
     newItem: null,
     total: 0,
     currentItem: null,
@@ -27,6 +29,9 @@ const itemsReducer = (state = initialState, action) => {
         case SET_CURRENT_ITEM: {
             return { ...state, currentItem: action.currentItem }
         }
+        case SET_SEARCHING_ITEMS: {
+            return { ...state, searchingItems: action.searchingItems }
+        }
         default:
             return state
     }
@@ -44,6 +49,9 @@ export const setNewItem = (newItem) => ({
 export const setCurrentItem = (currentItem) => ({
     type: SET_CURRENT_ITEM, currentItem
 })
+export const setSearchingItems = (searchingItems) => ({
+    type: SET_SEARCHING_ITEMS, searchingItems
+})
 
 export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
     dispatch(setIsFetching(true));
@@ -52,6 +60,16 @@ export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue) =
         dispatch([setItemsData(items.items), setTotalData(items.total), setIsFetching(false)])
     }catch(err){
         dispatch(setIsFetching(false));
+    }
+}
+
+export const searchItems = (searchingValue) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await itemsApi.getItems(1, 25, "", "", searchingValue)
+        dispatch([setSearchingItems(response.items), setTotalData(response.total), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
     }
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useLocation, useSearchParams } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { getByBrandCategoryTag } from '../../Redux/itemsReducer'
 import { getTag } from '../../Redux/tagsReducer'
@@ -25,6 +25,8 @@ const CatalogContainer = (props) => {
     } = props
 
     const { pathname } = useLocation()
+
+    const navigate = useNavigate()
 
     // console.log(pathname)
 
@@ -74,6 +76,8 @@ const CatalogContainer = (props) => {
                 break
             }
         }
+
+        navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=${searchBy}&from=${from}&searchValue=${searchValue}`)
     }, [searchValue, searchBy, pageNumber, pageSize, from])
 
     useEffect(() => {
