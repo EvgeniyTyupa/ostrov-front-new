@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import Baige from './Baige/Baige'
 import { useNavigate } from 'react-router-dom'
+import { priceParser } from '../../../../Utils/priceParser'
 
 const SmallItem = (props) => {
     const { item, currentLanguage } = props
@@ -26,6 +27,8 @@ const SmallItem = (props) => {
 
         navigate(`/item/${itemName}`)
     }
+
+    let price = priceParser(item.price)
     
     useEffect(() => {
         if(moment(item.created_at).diff(moment(), 'days') >= -30) {
@@ -46,7 +49,7 @@ const SmallItem = (props) => {
                     <Rating size={"22px"} ratingValue={rating} readonly/>
                 </div>
                 <div className={classes.price}>
-                    <p>{item.price} грн</p>
+                    <p>{price} грн</p>
                 </div>
             </div>
             <Button

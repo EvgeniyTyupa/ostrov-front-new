@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
         },
         '& .MuiOutlinedInput-root': {
             borderRadius: 0,
-            borderRadius: "4px"
+            borderRadius: "4px",
+            backgroundColor: "white"
         },
         '& .MuiFormHelperText-root.Mui-error': {
             margin: 0,
@@ -32,7 +33,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CustomSelect = (props) => {
-    const { value, onChange, label, error, children } = props
+    const { 
+        value, 
+        onChange, 
+        label, 
+        error, 
+        children, 
+        variant = "outlined"
+    } = props
 
     const material = useStyles()
 
@@ -42,6 +50,7 @@ const CustomSelect = (props) => {
             label={label}
             autoComplete="off"
             error={!!error}
+            variant={variant}
             helperText={error ? error.message : null}
             onChange={onChange}
             select  

@@ -8,6 +8,7 @@ import Catalog from './Catalog'
 import { setCurrentFilterItem } from '../../Redux/commonReducer'
 import { getCategoriesWithParents } from '../../Redux/categoryReducer'
 import { getBrand } from '../../Redux/brandsReducer'
+import { useTranslation } from 'react-i18next'
 
 const CatalogContainer = (props) => {
     const { 
@@ -28,6 +29,8 @@ const CatalogContainer = (props) => {
 
     const navigate = useNavigate()
 
+    const { t } = useTranslation()
+
     // console.log(pathname)
 
     const [searchParams] = useSearchParams()
@@ -38,19 +41,33 @@ const CatalogContainer = (props) => {
     const [searchBy, setSearchBy] = useState("")
     const [from, setFrom] = useState("")
 
+    const [filter, setFilter] = useState("popular")
+
     const [searchValue, setSearchValue] = useState("")
 
     const [activeBreadcrumb, setActiveBreadcrumb] = useState("")
     const [breadcrumbsItems, setBreadcrumbsItems] = useState(null)
 
-
-    const handleChangePage = (event, page) => {
-        setPageNumber(page)
-    }
-
     const handlePageSize = (event) => {
         setPageSize(event.target.value)
-        setPageNumber(0)
+        setPageNumber(1)
+    }
+
+    const handleFilter = (e) => {
+        let value = e.target.value
+        if(value === "price_high"){
+            setFrom("asc")
+            setFilter("price_high")
+        }else if(value === "price_low"){
+            setFrom("desc")
+            setFilter("price_low")
+        }else if(value === "created_at"){
+            setFrom("desc")
+            setFilter("created_at")
+        }else {
+            setFilter(value)
+            setFrom("asc")
+        }
     }
 
     useEffect(() => {
@@ -68,17 +85,17 @@ const CatalogContainer = (props) => {
                 break
             }
             case "popular": {
-                setSearchBy("popular")
+                setActiveBreadcrumb(t("catalog.popular"))
                 break
             }
             default: {
-                setSearchBy("")
+                
                 break
             }
         }
-
-        navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=${searchBy}&from=${from}&searchValue=${searchValue}`)
-    }, [searchValue, searchBy, pageNumber, pageSize, from])
+        console.log('asd')
+        navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=${searchBy}&from=${from}&searchValue=${searchValue}&filter=${filter}`)
+    }, [searchValue, searchBy, pageNumber, pageSize, from, filter])
 
     useEffect(() => {
         if(currentFilterItem){
@@ -118,8 +135,8 @@ const CatalogContainer = (props) => {
     // console.log(pageNumber, pageSize, searchBy, from, searchValue)
 
     useEffect(() => {
-        getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue)
-    }, [searchBy, searchValue, from, pageSize, pageNumber])
+        getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter)
+    }, [searchBy, searchValue, from, pageSize, pageNumber, filter])
 
     useEffect(() => {
         return () => {
@@ -137,6 +154,10 @@ const CatalogContainer = (props) => {
                     pageSize={pageSize}
                     pageNumber={pageNumber}
                     total={total}
+                    setPageNumber={setPageNumber}
+                    setPageSize={handlePageSize}
+                    filter={filter}
+                    setFilter={handleFilter}
                 />
             }
         </>

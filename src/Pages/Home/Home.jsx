@@ -47,7 +47,7 @@ const Home = (props) => {
                     <SmallItemsList 
                         items={items} 
                         title={t("items.itemsListTitle")} 
-                        href="/items?filter=popular"
+                        href={`/catalog?pageNumber=1&pageSize=25&searchBy=popular&from=asc`}
                         slidesToShow={items.length > 4 ? 5 : items.length}
                     />
                 </div>

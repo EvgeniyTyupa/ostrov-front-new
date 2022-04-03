@@ -3,4 +3,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+}
+.pageSize {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    gap: 8px;
+}
+.pageSize div {
+    font-family: 'Montserrat' !important;
+    font-weight: 700 !important;
+    color: #4B5EA3;
+    font-size: 14px;
+}
+.pageSize div > div::before {
+    border-bottom: none !important;
+}
+.pageSize label {
+    font-size: 14px;
+    color: #37395C;
 }

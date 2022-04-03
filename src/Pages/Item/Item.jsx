@@ -12,6 +12,7 @@ import { FiHeart } from 'react-icons/fi';
 import SmallItemsList from '../../Components/Common/Items/SmallItemsList/SmallItemsList'
 import CommentForm from '../../Components/Common/Items/Comments/CommentForm/CommentForm'
 import Comment from '../../Components/Common/Items/Comments/Comment/Comment'
+import { priceParser } from '../../Utils/priceParser'
 
 const Item = (props) => {
     const {
@@ -40,7 +41,7 @@ const Item = (props) => {
 
     const rating = item.rating * 20
 
-    console.log(item)
+    let price = priceParser(item.price)
 
     return (
         <div className={classes.mainContainer}>
@@ -71,7 +72,7 @@ const Item = (props) => {
                                 <span>{t("items.code")} {item.code}</span>
                             </div>
                             <div className={classes.priceBlock}>
-                                <p className={classes.price}>{item.price} грн.</p>
+                                <p className={classes.price}>{price} грн.</p>
                             </div>
                             <div className={classes.actionBlock}>
                                 <Button

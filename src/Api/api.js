@@ -38,8 +38,8 @@ export const itemsApi = {
         return instance.post('/item/same', { tagsId, itemId })
         .then(response => response.data)
     },
-    getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue){
-        return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+    getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue, filter){
+        return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filter}`)
         .then(response => response.data)
     },
     createItem(data) {

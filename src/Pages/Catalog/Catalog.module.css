@@ -23,9 +23,29 @@
     row-gap: 65px;
     margin-top: 20px;
     min-height: 60vh;
+    margin-bottom: 45px;
 }
 .empty {
     text-align: center;
     font-size: 16px;
+    color: #37395C;
+}
+.sort {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat' !important;
+}
+.sort div {
+    font-family: 'Montserrat' !important;
+    font-weight: 700 !important;
+    color: #4B5EA3;
+    font-size: 14px;
+}
+.sort div > div::before {
+    border-bottom: none !important;
+}
+.sort label {
+    font-size: 14px;
     color: #37395C;
 }

@@ -123,10 +123,10 @@ export const deleteItem = (itemId) => async (dispatch) => {
     }
 }
 
-export const getByBrandCategoryTag = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
+export const getByBrandCategoryTag = (pageNumber, pageSize, searchBy, from, searchingValue, filter) => async (dispatch) => {
     dispatch(setIsFetching(true));
     try{
-        let items = await itemsApi.getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue)
+        let items = await itemsApi.getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue, filter)
         dispatch([setItemsData(items.items), setTotalData(items.total), setIsFetching(false)])
     }catch(err){
         dispatch(setIsFetching(false));
