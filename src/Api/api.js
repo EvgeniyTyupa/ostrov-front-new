@@ -42,8 +42,8 @@ export const itemsApi = {
         return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filter}`)
         .then(response => response.data)
     },
-    globalSearch(searchValue) {
-        return instance.get(`/item/search/${searchValue}`)
+    globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter) {
+        return instance.get(`/item/search/${searchValue}?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&filter=${filter}`)
         .then(response => response.data)
     },
     createItem(data) {

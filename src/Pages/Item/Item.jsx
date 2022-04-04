@@ -45,6 +45,8 @@ const Item = (props) => {
 
     let price = priceParser(item.price)
 
+    console.log(breadcrumbsItems, currentItemName)
+
     return (
         <div className={classes.mainContainer}>
             <PaddingContainer className={classes.main}>

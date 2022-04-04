@@ -26,7 +26,11 @@ const DropdownMenu = (props) => {
                 cx(
                     classes.main, 
                     active ? classes.active : undefined, 
-                    items.length > 0 ? classes.filled : undefined
+                    (items.length > 0 ||
+                     brands.length > 0 ||
+                     tags.length > 0 ||
+                     categories.length > 0
+                    ) ? classes.filled : undefined
                 )
             }
         >
@@ -87,13 +91,15 @@ const DropdownMenu = (props) => {
                     </div>    
                 }
             </div>
-            {total > items.length && <NavLink to={`/catalog?pageNumber=1&pageSize=25&searchBy=tags&from=asc&searchValue=${searchValue}`}>{t("catalog.search.more")}</NavLink>}
             {(items.length === 0 && 
               brands.length === 0 &&
               categories.length === 0 &&
               tags.length === 0  
-            ) && 
-            <p className={classes.empty}>{t("catalog.empty")}...</p>}
+            ) ?
+                <p className={classes.empty}>{t("catalog.empty")}...</p>
+            :
+                (total > items.length && <NavLink to={`/catalog?pageNumber=1&pageSize=25&searchBy=name&from=asc&searchValue=${searchValue}`}>{t("catalog.search.more")}</NavLink>)
+            }
         </div>
     )
 }

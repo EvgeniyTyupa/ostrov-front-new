@@ -12,6 +12,8 @@ import { cx } from '../../../../../Utils/classnames';
 import { setSearchingBrands } from '../../../../../Redux/brandsReducer';
 import { setSearchingCategories } from '../../../../../Redux/categoryReducer';
 import { setSearchingTags } from '../../../../../Redux/tagsReducer';
+import { Controller, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -70,9 +72,13 @@ const Search = (props) => {
         total
     } = props
 
+    const { handleSubmit, control, reset, setValue } = useForm()
+
     const [searchValue, setSearchValue] = useState("")
 
     const material = useStyles()
+
+    const navigate = useNavigate()
 
     const { t } = useTranslation()
 
@@ -84,9 +90,15 @@ const Search = (props) => {
         setIsShowDropdown(!isShowDropdown)
     }
 
+    const onSubmit = (data) => {
+        if(data.searchValue.length > 2) {
+            navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=name&from=asc&searchValue=${data.searchValue}`)
+        }
+    }
+
     useEffect(() => {
         if(debouncedSearchTerm && searchValue.length > 2) {
-           globalSearch(searchValue)
+           globalSearch(1, 25, "", "", searchValue, "popular")
         }
     }, [debouncedSearchTerm])
 
@@ -101,23 +113,34 @@ const Search = (props) => {
 
     return (
         <div className={cx(classes.main, isShowDropdown ? classes.active : undefined)}>
-            <form>
-                <TextField 
-                    onFocus={handleIsShowDropdown}
-                    onBlur={handleIsShowDropdown}
-                    onChange={e => setSearchValue(e.target.value)}
-                    value={searchValue}
-                    classes={material}
-                    placeholder={`${t("common.search")}...`}
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position='end'>
-                                <Button className={classes.searchBut} type="submit">
-                                    <ImSearch/>
-                                </Button>
-                            </InputAdornment>
-                        )
-                    }}
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Controller
+                    name="searchValue"
+                    control={control}
+                    rules={{ required: "Обязательное поле!" }}
+                    defaultValue=""
+                    render={({ field: { onChange, value }, fieldState: { error } }) => (
+                        <TextField 
+                            onFocus={handleIsShowDropdown}
+                            onBlur={handleIsShowDropdown}
+                            onChange={e => {
+                                setValue("searchValue", e.target.value)
+                                setSearchValue(e.target.value)
+                            }}
+                            value={value}
+                            classes={material}
+                            placeholder={`${t("common.search")}...`}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position='end'>
+                                        <Button className={classes.searchBut} type="submit">
+                                            <ImSearch/>
+                                        </Button>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
+                    )}
                 />
             </form>
             <DropdownMenu 

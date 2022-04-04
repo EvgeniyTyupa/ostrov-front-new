@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
-import { getByBrandCategoryTag } from '../../Redux/itemsReducer'
+import { getByBrandCategoryTag, globalSearchCatalog } from '../../Redux/itemsReducer'
 import { getTag } from '../../Redux/tagsReducer'
 import Catalog from './Catalog'
 import { setCurrentFilterItem } from '../../Redux/commonReducer'
@@ -22,16 +22,13 @@ const CatalogContainer = (props) => {
         setCurrentFilterItem,
         getCategoriesWithParents,
         categoriesWithParents,
-        total
+        total,
+        globalSearchCatalog
     } = props
-
-    const { pathname } = useLocation()
 
     const navigate = useNavigate()
 
     const { t } = useTranslation()
-
-    // console.log(pathname)
 
     const [searchParams] = useSearchParams()
 
@@ -88,12 +85,10 @@ const CatalogContainer = (props) => {
                 setActiveBreadcrumb(t("catalog.popular"))
                 break
             }
-            default: {
-                
-                break
+            case "name": {
+                setActiveBreadcrumb(t("catalog.search.search"))
             }
         }
-        console.log('asd')
         navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=${searchBy}&from=${from}&searchValue=${searchValue}&filter=${filter}`)
     }, [searchValue, searchBy, pageNumber, pageSize, from, filter])
 
@@ -135,7 +130,12 @@ const CatalogContainer = (props) => {
     // console.log(pageNumber, pageSize, searchBy, from, searchValue)
 
     useEffect(() => {
-        getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter)
+        if(searchBy === "name") {
+            globalSearchCatalog(pageNumber, pageSize, "", from, searchValue, filter.includes("price") ? "price" : filter)
+            setBreadcrumbsItems(null)
+        }else {
+            getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter)
+        }
     }, [searchBy, searchValue, from, pageSize, pageNumber, filter])
 
     useEffect(() => {
@@ -179,5 +179,6 @@ export default connect(mapStateToProps, {
     setCurrentFilterItem,
     getBrand,
     getCategoriesWithParents,
-    setCurrentFilterItem
+    setCurrentFilterItem,
+    globalSearchCatalog
 })(CatalogContainer)

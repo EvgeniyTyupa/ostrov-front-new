@@ -66,10 +66,24 @@ export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue) =
     }
 }
 
-export const globalSearch = (searchingValue) => async (dispatch) => {
+export const globalSearchCatalog = (pageNumber, pageSize, searchBy, from, searchValue, filter) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await itemsApi.globalSearch(searchingValue)
+        let response = await itemsApi.globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter)
+        dispatch([
+            setItemsData(response.items),
+            setTotalData(response.total), 
+            setIsFetching(false)
+        ])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const globalSearch = (pageNumber, pageSize, searchBy, from, searchValue, filter) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await itemsApi.globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter)
         dispatch([
             setSearchingItems(response.items), 
             setSearchingBrands(response.brands),
