@@ -15,7 +15,7 @@ function SampleNextArrow(props) {
                 padding: 0,
                 zIndex: 5,
                 left: "35%",
-                top: "96%"
+                top: "97%"
             }}
         >
             <IconButton
@@ -39,7 +39,7 @@ function SamplePrevArrow(props) {
                 padding: 0,
                 zIndex: 5,
                 left: "35%",
-                top: "0"
+                top: "-10px"
             }}
         >
             <IconButton

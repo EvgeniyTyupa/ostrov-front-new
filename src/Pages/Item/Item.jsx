@@ -13,6 +13,7 @@ import SmallItemsList from '../../Components/Common/Items/SmallItemsList/SmallIt
 import CommentForm from '../../Components/Common/Items/Comments/CommentForm/CommentForm'
 import Comment from '../../Components/Common/Items/Comments/Comment/Comment'
 import { priceParser } from '../../Utils/priceParser'
+import { discountParser } from '../../Utils/discountParser'
 
 const Item = (props) => {
     const {
@@ -26,6 +27,7 @@ const Item = (props) => {
         sameItems,
         comments,
         totalComments,
+        discount
     } = props
 
     let currentItemName = currentLanguage === "ru" ? item.name : item.name_ua
@@ -52,7 +54,7 @@ const Item = (props) => {
                     <div className={classes.content}>
                         <div className={classes.images}>
                             <div className={classes.slider}>
-                                <CustomVerticalSlider slidesToShow={item.images > 3 ? 4 : item.images.length} vertical={true}>
+                                <CustomVerticalSlider slidesToShow={item.images.length > 3 ? 4 : item.images.length} vertical={true}>
                                     {item.images.map(el => (
                                         <img 
                                             src={el} 
@@ -72,7 +74,10 @@ const Item = (props) => {
                                 <span>{t("items.code")} {item.code}</span>
                             </div>
                             <div className={classes.priceBlock}>
-                                <p className={classes.price}>{price} грн.</p>
+                                {(item.in_action && item.from_sum_in_bill === 0 && !item.from_items_count) && 
+                                    <p className={classes.discount}>{discount} грн.</p>
+                                }
+                                <p className={cx(classes.price, (item.in_action && (item.from_sum_in_bill === 0 && !item.from_items_count)) ? classes.inAction : undefined)}>{price} грн.</p>
                             </div>
                             <div className={classes.actionBlock}>
                                 <Button

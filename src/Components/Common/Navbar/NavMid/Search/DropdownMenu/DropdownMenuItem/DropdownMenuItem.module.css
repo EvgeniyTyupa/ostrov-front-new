@@ -8,7 +8,10 @@
     cursor: pointer;
 }
 .main:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(247, 247, 247);
+}
+.last {
+    border-bottom: none;
 }
 .img {
     width: 50px;
@@ -18,16 +21,40 @@
 .info {
     margin-left: 8px;
     display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
     height: 100%;
+    width: 100%;
 }
 .name {
-    font-size: 12px;
+    font-size: 14px;
     color: #37395C;
     font-weight: 500;
 }
 .name::first-letter {
     text-transform: capitalize;
+}
+.brand {
+    color: gray;
+    font-size: 12px;
+}
+.names {
+    display: flex;
+    flex-direction: column;
+}
+.price {
+    font-size: 14px;
+    color: #F04899;
+    font-weight: 700;
+}
+.inAction {
+    text-decoration: line-through;
+    font-size: 12px !important;
+    color: #3B3F61 !important
+}
+.discount {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 29px;
+    color: #E86589;
 }

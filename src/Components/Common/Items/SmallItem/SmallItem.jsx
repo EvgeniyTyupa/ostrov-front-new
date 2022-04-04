@@ -8,6 +8,8 @@ import moment from 'moment'
 import Baige from './Baige/Baige'
 import { useNavigate } from 'react-router-dom'
 import { priceParser } from '../../../../Utils/priceParser'
+import { discountParser } from '../../../../Utils/discountParser'
+import { cx } from '../../../../Utils/classnames'
 
 const SmallItem = (props) => {
     const { item, currentLanguage } = props
@@ -17,6 +19,7 @@ const SmallItem = (props) => {
     const { t } = useTranslation()
 
     const [isNew, setIsNew] = useState(false)
+    const [discount, setDiscount] = useState(null)
 
     const navigate = useNavigate()
 
@@ -30,6 +33,12 @@ const SmallItem = (props) => {
 
     let price = priceParser(item.price)
     
+    useEffect(() => {
+        if(item && item.in_action) {
+            setDiscount(discountParser(item.price, item.discount))
+        }
+    }, [item])
+
     useEffect(() => {
         if(moment(item.created_at).diff(moment(), 'days') >= -30) {
             setIsNew(true)
@@ -49,7 +58,10 @@ const SmallItem = (props) => {
                     <Rating size={"22px"} ratingValue={rating} readonly/>
                 </div>
                 <div className={classes.price}>
-                    <p>{price} грн</p>
+                    {(item.in_action && item.from_sum_in_bill === 0 && !item.from_items_count) && 
+                        <p className={classes.discount}>{discount} грн</p>
+                    }
+                    <p className={cx(classes.price, (item.in_action && (item.from_sum_in_bill === 0 && !item.from_items_count)) ? classes.inAction : undefined)}>{price} грн</p>
                 </div>
             </div>
             <Button

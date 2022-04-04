@@ -49,10 +49,11 @@ const AdminAddAction = (props) => {
     const onSubmit = (data) => {
         data.brands_id = data.brands_id.length > 0 ? data.brands_id.map(item => item._id) : null
         data.categories_id = data.categories_id.length > 0 ? data.categories_id.map(item => item._id) : null
-        data.tags_id = data.tags_id.length > 0 ? data.tags.map(item => item._id) : null
+        data.tags_id = data.tags_id.length > 0 ? data.tags_id.map(item => item._id) : null
         data.items_id = data.items_id.length > 0 ? data.items_id.map(item => item._id) : null
 
         data.gift = data.gift.length > 0 ? data.gift.map(item => item._id) : null
+        data.discount = discountType === DISCOUNT_TYPES.percent ? data.discount + "%" : data.discount
 
         data.start = new Date(data.start)
         data.end = new Date(data.end)

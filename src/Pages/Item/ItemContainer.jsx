@@ -5,6 +5,7 @@ import Preloader from '../../Components/Common/Preloader/Preloader'
 import { getCategoriesWithParents } from '../../Redux/categoryReducer'
 import { getComments } from '../../Redux/commentsReducer'
 import { getItem, getSame } from '../../Redux/itemsReducer'
+import { discountParser } from '../../Utils/discountParser'
 import Item from './Item'
 
 const ItemContainer = (props) => {
@@ -31,6 +32,8 @@ const ItemContainer = (props) => {
     const [pageSize, setPageSize] = useState(20)
     const [pageNumber, setPageNumber] = useState(0)
 
+    const [discount, setDiscount] = useState(null)
+
     const handleChangePage = (page) => {
         setPageNumber(page)
     }
@@ -47,6 +50,12 @@ const ItemContainer = (props) => {
     useEffect(() => {
         getItem(name)
     }, [name])
+
+    useEffect(() => {
+        if(currentItem && currentItem.in_action) {
+            setDiscount(discountParser(currentItem.price, currentItem.discount))
+        }
+    }, [currentItem])
 
     useEffect(() => {
         if(currentItem && currentItem.category) {
@@ -77,6 +86,7 @@ const ItemContainer = (props) => {
                         sameItems={sameItems}
                         comments={comments}
                         totalComments={totalComments}
+                        discount={discount}
                     />}
                 </>
             }

@@ -56,6 +56,6 @@ export const ACTION_KONDITIONS = [
     },
     {
         value: "none",
-        label: "Без условий"
-    }
+        label: "На каждый товар"
+    },
 ]

@@ -44,6 +44,11 @@
 .left p::first-letter {
     text-transform: capitalize;
 }
+.price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 .price p {
     color: #E86589;
     font-weight: 700;
@@ -52,6 +57,17 @@
     overflow: hidden; 
     white-space: nowrap;
     width: 100%;
+}
+.inAction {
+    text-decoration: line-through;
+    font-size: 12px !important;
+    color: #3B3F61 !important;
+    margin-top: 2px;
+}
+.discount {
+    font-weight: 700;
+    font-size: 14px;
+    color: #E86589;
 }
 .buyBut {
     font-family: 'Montserrat' !important;

@@ -85,7 +85,6 @@ export const getCategoriesWithParents = (categoryId) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await categoryApi.getParentsCategories(categoryId)
-        console.log(response.categories)
         dispatch([setCategoriesWithParents(response.categories), setCurrentFilterItem(response.categories[response.categories.length - 1]), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))

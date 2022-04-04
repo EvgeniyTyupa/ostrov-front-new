@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import useDebounce from '../../../../../Utils/debounce';
 import { searchItems, setSearchingItems } from '../../../../../Redux/itemsReducer';
+import { cx } from '../../../../../Utils/classnames';
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -81,7 +82,7 @@ const Search = (props) => {
     }, [searchValue])
 
     return (
-        <div className={classes.main}>
+        <div className={cx(classes.main, isShowDropdown ? classes.active : undefined)}>
             <TextField 
                 onFocus={handleIsShowDropdown}
                 onBlur={handleIsShowDropdown}

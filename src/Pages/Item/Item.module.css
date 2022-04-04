@@ -85,15 +85,24 @@
 }
 .priceBlock {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 25px;
     margin-top: 21px;
 }
 .price {
     font-weight: 700;
     font-size: 24px;
-    line-height: 29px;
     color: #4B5EA2;
+    position: relative;
+}
+.inAction {
+    text-decoration: line-through;
+    font-size: 20px;
+}
+.discount {
+    font-weight: 700;
+    font-size: 24px;
+    color: #E86589;
 }
 .buyBut {
     font-family: 'Montserrat' !important;

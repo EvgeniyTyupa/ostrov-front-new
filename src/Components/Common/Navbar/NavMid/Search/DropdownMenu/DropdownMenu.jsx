@@ -20,7 +20,7 @@ const DropdownMenu = (props) => {
             }
         >
             {items.length > 0 ? 
-                items.map(el => <DropdownMenuItem item={el} currentLanguage={currentLanguage}/>) :
+                items.map((el, index) => <DropdownMenuItem item={el} currentLanguage={currentLanguage} isLast={index === items.length - 1}/>) :
                 <p className={classes.empty}>{t("catalog.empty")}...</p>
             }
         </div>
