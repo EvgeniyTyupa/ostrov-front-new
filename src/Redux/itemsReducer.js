@@ -1,5 +1,8 @@
 import { itemsApi } from "../Api/api"
+import { setSearchingBrands } from "./brandsReducer"
+import { setSearchingCategories } from "./categoryReducer"
 import { setIsFetching, setServerError, setServerResponse } from "./commonReducer"
+import { setSearchingTags } from "./tagsReducer"
 
 const SET_ITEMS_DATA = 'SET_ITEMS_DATA'
 const SET_TOTAL_ITEMS = 'SET_TOTAL_ITEMS' 
@@ -63,11 +66,18 @@ export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue) =
     }
 }
 
-export const searchItems = (searchingValue) => async (dispatch) => {
+export const globalSearch = (searchingValue) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await itemsApi.getItems(1, 25, "", "", searchingValue)
-        dispatch([setSearchingItems(response.items), setTotalData(response.total), setIsFetching(false)])
+        let response = await itemsApi.globalSearch(searchingValue)
+        dispatch([
+            setSearchingItems(response.items), 
+            setSearchingBrands(response.brands),
+            setSearchingCategories(response.categories),
+            setSearchingTags(response.tags),
+            setTotalData(response.total), 
+            setIsFetching(false)
+        ])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

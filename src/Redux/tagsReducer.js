@@ -6,6 +6,7 @@ const SET_TOTAL_TAGS = 'SET_TOTAL_TAGS'
 const SET_NEW_TAG = 'SET_NEW_TAG'
 const SET_TOTAL_IS_HG = 'SET_TOTAL_IS_HG'
 const SET_HG_TAGS = 'SET_HG_TAGS'
+const SET_SEARCHING_TAGS = 'SET_SEARCHING_TAGS'
 
 let initialState = {
     tags: [],
@@ -13,7 +14,8 @@ let initialState = {
     total: 0,
     totalIsHg: 0,
     newTag: null,
-    total: 0
+    total: 0,
+    searchingTags: []
 }
 
 const tagsReducer = (state = initialState, action) => {
@@ -36,6 +38,9 @@ const tagsReducer = (state = initialState, action) => {
         case SET_HG_TAGS: {
             return { ...state, hgTags: action.hgTags }
         }
+        case SET_SEARCHING_TAGS: {
+            return { ...state, searchingTags: action.searchingTags }
+        }
         default:
             return state
     }
@@ -55,6 +60,9 @@ export const setTotalIsHg = (totalIsHg) => ({
 })
 export const setHgTags = (hgTags) => ({
     type: SET_HG_TAGS, hgTags
+})
+export const setSearchingTags = (searchingTags) => ({
+    type: SET_SEARCHING_TAGS, searchingTags
 })
 
 export const getTags = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {

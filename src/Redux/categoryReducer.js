@@ -7,6 +7,7 @@ const SET_NEW_CATEGORY = 'SET_NEW_CATEGORY'
 const SET_ALL_CATEGORIES = 'SET_ALL_CATEGORIES'
 const SET_CATEGORIES_WITH_PARENTS = 'SET_CATEGORIES_WITH_PARENTS'
 const SET_MAIN_CATEGORIES = 'SET_MAIN_CATEGORIES'
+const SET_SEARCHING_CATEGORIES = 'SET_SEARCHING_CATEGORIES'
 
 let initialState = {
     categories: [],
@@ -14,6 +15,7 @@ let initialState = {
     newCategory: null,
     categoriesWithParents: [],
     mainCategoriesWithChildren: [],
+    searchingCategories: [],
     total: 0
 }
 
@@ -37,6 +39,9 @@ const categoryReducer = (state = initialState, action) => {
         case SET_MAIN_CATEGORIES : {
             return { ...state, mainCategoriesWithChildren: action.mainCategoriesWithChildren }
         }
+        case SET_SEARCHING_CATEGORIES: {
+            return { ...state, searchingCategories: action.searchingCategories }
+        }
         default:
             return state
     }
@@ -59,6 +64,9 @@ export const setCategoriesWithParents = (categoriesWithParents) => ({
 })
 export const setMainCategoriesWithChildren = (mainCategoriesWithChildren) => ({
     type: SET_MAIN_CATEGORIES, mainCategoriesWithChildren
+})
+export const setSearchingCategories = (searchingCategories) => ({
+    type: SET_SEARCHING_CATEGORIES, searchingCategories
 })
 
 export const getAllCategories = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {

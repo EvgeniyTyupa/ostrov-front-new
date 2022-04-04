@@ -31,8 +31,8 @@ const DropdownMenuItem = (props) => {
             <img src={item.images[0]} alt={item.name} className={classes.img}/>
             <div className={classes.info}>
                 <div className={classes.names}>
-                    {item.brand && <span className={classes.brand}>{item.brand.name}</span>}
                     <p className={classes.name}>{currentLanguage === "ru" ? item.name : item.name_ua}</p>
+                    {item.brand && <span className={classes.brand}>{item.brand.name}</span>}
                 </div>
                 <div className={classes.priceBlock}>
                     {(item.in_action && item.from_sum_in_bill === 0 && !item.from_items_count) && 

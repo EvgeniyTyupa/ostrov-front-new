@@ -1,0 +1,13 @@
+.main {
+    width: fit-content;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    line-break: anywhere;
+}
+.main p::first-letter {
+    text-transform: capitalize;
+}
+.main:hover {
+    text-decoration: underline;
+}

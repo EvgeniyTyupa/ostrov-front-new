@@ -4,10 +4,12 @@ import { setCurrentFilterItem, setIsFetching, setServerError, setServerResponse 
 const SET_BRANDS_DATA = 'SET_BRANDS_DATA'
 const SET_TOTAL_BRANDS = 'SET_TOTAL_BRANDS'
 const SET_NEW_BRAND = 'SET_NEW_BRAND'
+const SET_SEARCHING_BRAND = 'SET_SEARCHING_BRAND'
 
 let initialState = {
     brands: [],
     newBrand: null,
+    searchingBrands: [],
     total: 0
 }
 
@@ -22,6 +24,9 @@ const brandsReducer = (state = initialState, action) => {
         case SET_NEW_BRAND: {
             return { ...state, newBrand: action.newBrand }
         }
+        case SET_SEARCHING_BRAND: {
+            return { ...state, searchingBrands: action.searchingBrands }
+        }
         default: 
             return state
     }
@@ -35,6 +40,9 @@ export const setTotalBrands = (total) => ({
 })
 export const setNewBrand = (newBrand) => ({
     type: SET_NEW_BRAND, newBrand
+})
+export const setSearchingBrands = (searchingBrands) => ({
+    type: SET_SEARCHING_BRAND, searchingBrands
 })
 
 export const getBrands = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {

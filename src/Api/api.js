@@ -42,6 +42,10 @@ export const itemsApi = {
         return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filter}`)
         .then(response => response.data)
     },
+    globalSearch(searchValue) {
+        return instance.get(`/item/search/${searchValue}`)
+        .then(response => response.data)
+    },
     createItem(data) {
         const newFormData = new FormData()
 

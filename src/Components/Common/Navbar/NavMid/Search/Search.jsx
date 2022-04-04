@@ -7,8 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux'
 import DropdownMenu from './DropdownMenu/DropdownMenu';
 import useDebounce from '../../../../../Utils/debounce';
-import { searchItems, setSearchingItems } from '../../../../../Redux/itemsReducer';
+import { globalSearch, setSearchingItems } from '../../../../../Redux/itemsReducer';
 import { cx } from '../../../../../Utils/classnames';
+import { setSearchingBrands } from '../../../../../Redux/brandsReducer';
+import { setSearchingCategories } from '../../../../../Redux/categoryReducer';
+import { setSearchingTags } from '../../../../../Redux/tagsReducer';
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -53,7 +56,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search = (props) => {
-    const { items, searchItems, setSearchingItems, currentLanguage } = props
+    const { 
+        globalSearch,
+        items, 
+        brands,
+        categories,
+        tags,
+        setSearchingItems, 
+        setSearchingBrands,
+        setSearchingCategories,
+        setSearchingTags,
+        currentLanguage,
+        total
+    } = props
 
     const [searchValue, setSearchValue] = useState("")
 
@@ -71,39 +86,49 @@ const Search = (props) => {
 
     useEffect(() => {
         if(debouncedSearchTerm && searchValue.length > 2) {
-            searchItems(searchValue)
+           globalSearch(searchValue)
         }
     }, [debouncedSearchTerm])
 
     useEffect(() => {
         if(searchValue.length === 0) {
             setSearchingItems([])
+            setSearchingBrands([])
+            setSearchingCategories([])
+            setSearchingTags([])
         }
     }, [searchValue])
 
     return (
         <div className={cx(classes.main, isShowDropdown ? classes.active : undefined)}>
-            <TextField 
-                onFocus={handleIsShowDropdown}
-                onBlur={handleIsShowDropdown}
-                onChange={e => setSearchValue(e.target.value)}
-                value={searchValue}
-                classes={material}
-                placeholder={`${t("common.search")}...`}
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment position='end'>
-                            <Button className={classes.searchBut}>
-                                <ImSearch/>
-                            </Button>
-                        </InputAdornment>
-                    )
-                }}
-            />
+            <form>
+                <TextField 
+                    onFocus={handleIsShowDropdown}
+                    onBlur={handleIsShowDropdown}
+                    onChange={e => setSearchValue(e.target.value)}
+                    value={searchValue}
+                    classes={material}
+                    placeholder={`${t("common.search")}...`}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <Button className={classes.searchBut} type="submit">
+                                    <ImSearch/>
+                                </Button>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+            </form>
             <DropdownMenu 
                 items={items} 
+                brands={brands}
+                categories={categories}
+                tags={tags}
                 active={isShowDropdown}
                 currentLanguage={currentLanguage}
+                total={total}
+                searchValue={searchValue}
             />
         </div>
     )
@@ -111,10 +136,17 @@ const Search = (props) => {
 
 let mapStateToProps = (state) => ({
     items: state.items.searchingItems,
-    currentLanguage: state.common.currentLanguage
+    brands: state.brands.searchingBrands,
+    tags: state.tags.searchingTags,
+    categories: state.categories.searchingCategories,
+    currentLanguage: state.common.currentLanguage,
+    total: state.items.total
 })
 
 export default connect(mapStateToProps, {
-    searchItems,
-    setSearchingItems
+    globalSearch,
+    setSearchingItems,
+    setSearchingBrands,
+    setSearchingCategories,
+    setSearchingTags
 })(Search)
