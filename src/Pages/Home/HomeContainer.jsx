@@ -6,7 +6,7 @@ import { getBrands } from '../../Redux/brandsReducer'
 import { getMainCategoriesWithChildren } from '../../Redux/categoryReducer'
 import { getItems } from '../../Redux/itemsReducer'
 import { getNews } from '../../Redux/newsReducer'
-import { getHgTags } from '../../Redux/tagsReducer'
+import { getHgTags, getTags } from '../../Redux/tagsReducer'
 import Home from './Home'
 
 const HomeContainer = (props) => {
@@ -24,7 +24,10 @@ const HomeContainer = (props) => {
         getBrands,
         brands,
         getMainCategoriesWithChildren,
-        mainCategoriesWithChildren
+        mainCategoriesWithChildren,
+        getTags,
+        tags,
+        currentLanguage
     } = props
 
     useEffect(() => {
@@ -34,6 +37,7 @@ const HomeContainer = (props) => {
         getNews(1, 8, "", "", "")
         getBrands(1, 400, "", "", "")
         getHgTags()
+        getTags(1, 500, "", "", "")
     }, [])
 
     return (
@@ -47,6 +51,8 @@ const HomeContainer = (props) => {
                     news={news}
                     brands={brands}
                     hgTags={hgTags}
+                    tags={tags}
+                    currentLanguage={currentLanguage}
                 />
             }
         </>
@@ -54,11 +60,13 @@ const HomeContainer = (props) => {
 }
 
 let mapStateToProps = (state) => ({
+    currentLanguage: state.common.currentLanguage,
     categories: state.categories.categories,
     isFetching: state.common.isFetching,
     actions: state.actions.actions,
     items: state.items.items,
     hgTags: state.tags.hgTags,
+    tags: state.tags.tags,
     news: state.news.news,
     brands: state.brands.brands,
     mainCategoriesWithChildren: state.categories.mainCategoriesWithChildren
@@ -70,5 +78,6 @@ export default connect(mapStateToProps, {
     getHgTags,
     getNews,
     getBrands,
-    getMainCategoriesWithChildren
+    getMainCategoriesWithChildren,
+    getTags
 })(HomeContainer)

@@ -111,6 +111,7 @@ const Search = (props) => {
         }
     }, [searchValue])
 
+
     return (
         <div className={cx(classes.main, isShowDropdown ? classes.active : undefined)}>
             <form onSubmit={handleSubmit(onSubmit)}>

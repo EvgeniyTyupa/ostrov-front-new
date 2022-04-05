@@ -1,13 +1,13 @@
 .main {
     position: absolute;
     width: 100%;
-    bottom: -100px;
+    bottom: -20px;
     padding-top: 50px;
     padding-bottom: 10px;
     border: 1px solid #9DC8CF;
     height: 0;
     transition-duration: .3s;
-    z-index: 1;
+    z-index: -1;
     background-color: white;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
@@ -61,6 +61,7 @@
     opacity: 1;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
+    z-index: 1;
 }
 .filled {
     padding-top: 40px;

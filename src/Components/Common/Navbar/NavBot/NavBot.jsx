@@ -19,7 +19,7 @@ const NavBot = (props) => {
                 <div className={classes.links}>
                     <NavLink to="/#brands">{t("navigation.brands")}</NavLink>
                     <NavLink to="/actions">{t("navigation.actions")}</NavLink>
-                    <NavLink to="/#by_age">{t("navigation.byAge")}</NavLink>
+                    <NavLink to="/#selector">{t("navigation.byAge")}</NavLink>
                     <NavLink to="/#best">{t("navigation.best")}</NavLink>
                     <NavLink to="/blog">{t("navigation.blog")}</NavLink>
                     <NavLink to="/#news">{t("navigation.news")}</NavLink>

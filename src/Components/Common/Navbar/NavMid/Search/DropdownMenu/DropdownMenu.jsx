@@ -20,19 +20,24 @@ const DropdownMenu = (props) => {
 
     const { t } = useTranslation()
 
+    const onClick = (e) => {
+        e.preventDefault()
+    }
+
     return (
         <div 
             className={
                 cx(
                     classes.main, 
                     active ? classes.active : undefined, 
-                    (items.length > 0 ||
+                    ((items.length > 0 ||
                      brands.length > 0 ||
                      tags.length > 0 ||
                      categories.length > 0
-                    ) ? classes.filled : undefined
+                    ) && active) ? classes.filled : undefined,
                 )
             }
+            onClick={onClick}
         >
             <div className={classes.container}>
                 {(brands.length > 0 || categories.length > 0 || tags.length > 0) &&

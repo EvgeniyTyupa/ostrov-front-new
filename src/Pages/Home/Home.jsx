@@ -20,7 +20,9 @@ const Home = (props) => {
         items,
         news,
         brands,
-        hgTags
+        hgTags,
+        tags,
+        currentLanguge
     } = props
 
     const { t } = useTranslation()
@@ -54,8 +56,8 @@ const Home = (props) => {
                 <div className={classes.tags}>
                     <HgTags tags={hgTags}/>
                 </div>
-                <div className={classes.selector}>
-                    <ToySelector/>
+                <div className={classes.selector} id="selector">
+                    <ToySelector tags={tags} currentLanguge={currentLanguge}/>
                 </div>
                 <div className={classes.insta}>
                     <InstaBlock/>

@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    height: 435px;
+    height: 500px;
 }
 .children {
     width: 50%;
@@ -12,4 +12,49 @@
     width: 50%;
     background-color: #E86589;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 35px 6% 45px 6%;
+    box-sizing: border-box;
+    color: white;
+}
+.side h3 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+.priceRange {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.blockTitle {
+    margin-top: 13px;
+    margin-bottom: 16px;
+    font-weight: 500;
+    font-size: 14px;
+}
+.priceInputs {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.priceInputs div {
+    width: 100%;
+}
+.submit {
+    width: 100%;
+    height: 50px;
+    background-color: #4B5EA2 !important;
+    color: white;
+    margin-top: 24px !important;
+    border-radius: 0 !important;
+    font-family: 'Montserrat' !important;
+    font-weight: 700;
+}
+.submit:hover {
+    background-color: #42528d !important;
 }
