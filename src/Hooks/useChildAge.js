@@ -5,6 +5,10 @@ export const useChildAge = () => {
 
     const items = [
         {
+            value: [-1, -1],
+            text: t("selector.ages.none")
+        },
+        {
             value: [0, 0],
             text: t("selector.ages.0")
         },

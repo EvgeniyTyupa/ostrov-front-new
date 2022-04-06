@@ -99,8 +99,8 @@ const ToySelector = (props) => {
 
     const nonTag = {
         _id: "none",
-        name: "Любая",
-        name_ua: "Будь-яка"
+        name: t("selector.any"),
+        name_ua: t("selector.any")
     }
 
     newTags.push(nonTag)
@@ -118,7 +118,7 @@ const ToySelector = (props) => {
     }
 
     const onSubmit = (data) => {
-        console.log(data)
+        data.tag = data.tag._id
     }
 
     useEffect(() => {
@@ -127,7 +127,7 @@ const ToySelector = (props) => {
             maxPrice: 16000,
             minAge: 0,
             maxAge: 0,
-            tags: nonTag
+            tag: nonTag
         })
     }, [])
 
@@ -189,25 +189,35 @@ const ToySelector = (props) => {
                         classes={material}
                         value={ageRange[0]}
                         onChange={(e) => {
-                            const value = e.target.value
+                            const value = Number(e.target.value)
                             switch(value){
                                 case 0: {
                                     handleAgeRange([0, 0])
+                                    break
                                 }
                                 case 1: {
                                     handleAgeRange([1, 2])
+                                    break
                                 }
                                 case 3: {
                                     handleAgeRange([3, 5])
+                                    break
                                 }
                                 case 6: {
                                     handleAgeRange([6, 9])
+                                    break
                                 }
                                 case 10: {
                                     handleAgeRange([10, 12])
+                                    break
                                 }
                                 case 13: {
                                     handleAgeRange([13, 17])
+                                    break
+                                }
+                                default: {
+                                    handleAgeRange([-1, -1])
+                                    break
                                 }
                             }
                         }}
@@ -218,7 +228,7 @@ const ToySelector = (props) => {
                     </TextField>
                     <h4 className={classes.blockTitle}>{t("selector.tag")}</h4>
                     <Controller
-                        name="tags"
+                        name="tag"
                         control={control}
                         defaultValue={[]}
                         rules={{ required: t("errors.required") }}
@@ -239,7 +249,7 @@ const ToySelector = (props) => {
                             />
                         )}
                     />
-                    <Button className={classes.submit}>{t("selector.submit")}</Button>
+                    <Button className={classes.submit} type="submit">{t("selector.submit")}</Button>
                 </form>
             </div>
         </div>
