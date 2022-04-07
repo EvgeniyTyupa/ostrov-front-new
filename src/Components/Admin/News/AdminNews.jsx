@@ -10,6 +10,7 @@ import AdminEditNews from './AdminEditNews';
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
 import moment from 'moment'
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
+import CustomCheckbox from '../../UI/Form/Checkbox';
 
 const AdminNews = (props) => {
     const {
@@ -31,7 +32,8 @@ const AdminNews = (props) => {
         currentItem,
         handleAddPost,
         deleteNews, 
-        editNews
+        editNews,
+        setViewOnMain
     } = props
 
     const rows = [
@@ -39,6 +41,11 @@ const AdminNews = (props) => {
             key: 'name',
             text: "Название",
             searchByValue: "title"
+        },
+        {
+            key: "viewOnMain",
+            text: "Показывать новость в актуальном",
+            searchByValue: "viewOnMain"
         },
         {
             key: 'date',
@@ -94,6 +101,13 @@ const AdminNews = (props) => {
                             {news.map(item => (
                                 <TableRow key={item._id}>
                                     <TableCell>{item.title}</TableCell>
+                                    <TableCell>
+                                        <CustomCheckbox checked={item.viewOnMain} 
+                                            onChange={
+                                                () => setViewOnMain(item._id)
+                                            }
+                                        />
+                                    </TableCell>
                                     <TableCell width={"25%"}>{moment(item.createdAt).format('DD/MM/YYYY')}</TableCell>
                                     <TableCell width={120}>
                                         <AdminControllButtons

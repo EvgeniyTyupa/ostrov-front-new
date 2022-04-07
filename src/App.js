@@ -28,6 +28,8 @@ import star1 from './Assets/star1.svg'
 import star2 from './Assets/star2.svg'
 import Contacts from './Pages/Contacts/Contacts';
 import CatalogContainer from './Pages/Catalog/CatalogContainer';
+import NewsContainer from './Pages/News/NewsContainer';
+import PostContainer from './Pages/News/Post/PostContainer';
 
 const App = (props) => {
   const { 
@@ -58,6 +60,8 @@ const App = (props) => {
             <Route exact path="/item/:name" element={<ItemContainer/>}/>
             <Route exact path="/contacts" element={<Contacts/>}/>
             <Route exact path="/catalog" element={<CatalogContainer/>}/>
+            <Route exact path="/blog" element={<NewsContainer/>}/>
+            <Route exact path="/blog/:title" element={<PostContainer/>}/>
 
             <Route path="admin" element={<AdminRoute/>}>
               <Route path="" element={<DashboardContainer/>} />

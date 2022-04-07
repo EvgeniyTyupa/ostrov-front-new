@@ -43,6 +43,8 @@ const AdminEditNews = (props) => {
         data.paragraphs = data.paragraphs.map(el => el.value)
         data.paragraphs_ua = data.paragraphs_ua.map(el => el.value)
         data.images = data.images.map(el => el.value[0])
+        data.title = data.title.trim()
+        data.title_ua = data.title_ua.trim()
 
         onEdit(item._id, data)
     }

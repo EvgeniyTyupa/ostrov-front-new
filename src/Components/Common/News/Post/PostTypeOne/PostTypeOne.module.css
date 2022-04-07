@@ -1,0 +1,59 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    z-index: 5;
+}
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4B5EA3;
+}
+.date span {
+    font-size: 14px;
+    font-weight: 700;
+}
+.block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.main h4 {
+    font-weight: 700;
+    font-size: 20px;
+    color: #4B5EA3;
+}
+.main h4::first-letter {
+    text-transform: capitalize;
+}
+.imageBlock {
+    width: 100%;
+}
+.imageBlock img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 450px;
+}
+.blockText {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+.text {
+    font-size: 14px;
+    color: #37395C;
+}
+.text::first-letter {
+    text-transform: capitalize;
+}

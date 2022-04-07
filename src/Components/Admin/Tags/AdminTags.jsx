@@ -101,10 +101,11 @@ const AdminTags = (props) => {
                                     <TableCell width="50%">{item.name}</TableCell>
                                     <TableCell>
                                         <CustomCheckbox checked={item.is_hg} 
-                                        disabled={(!item.is_hg && totalIsHg === 5)}
-                                        onChange={
-                                            () => editTag(item._id, { is_hg: !item.is_hg })
-                                        }/>
+                                            disabled={(!item.is_hg && totalIsHg === 5)}
+                                            onChange={
+                                                () => editTag(item._id, { is_hg: !item.is_hg })
+                                            }
+                                        />
                                     </TableCell>
                                     <TableCell width={120}>
                                         <AdminControllButtons 

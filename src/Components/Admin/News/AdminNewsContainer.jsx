@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { addPost, deleteNews, editNews, getNews, setNewNews, setNewsData } from '../../../Redux/newsReducer'
+import { addPost, deleteNews, editNews, getNews, setNewNews, setNewsData, setViewOnMain } from '../../../Redux/newsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminNews from './AdminNews'
@@ -18,7 +18,8 @@ const AdminNewsContainer = (props) => {
         setNewNews,
         setNewsData,
         deleteNews,
-        editNews
+        editNews,
+        setViewOnMain
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -122,6 +123,7 @@ const AdminNewsContainer = (props) => {
                 handleAddPost={handleAddPost}
                 deleteNews={handleDelete}
                 editNews={handleEditPost}
+                setViewOnMain={setViewOnMain}
             />
         </AdminLayout>
     )
@@ -142,5 +144,6 @@ export default connect(mapStateToProps, {
     setNewsData,
     setNewNews,
     deleteNews,
-    editNews
+    editNews,
+    setViewOnMain
 })(AdminNewsContainer)

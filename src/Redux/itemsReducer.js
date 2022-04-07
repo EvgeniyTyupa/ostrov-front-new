@@ -97,6 +97,16 @@ export const globalSearch = (pageNumber, pageSize, searchBy, from, searchValue, 
     }
 }
 
+export const selectItems = (pageNumber, pageSize, filter, from, minAge, maxAge, minPrice, maxPrice, tag) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await itemsApi.selectItems(pageNumber, pageSize, filter, from, minAge, maxAge, minPrice, maxPrice, tag)
+        dispatch([setItemsData(response.items), setTotalData(response.total), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
 export const getItem = (itemId) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try{

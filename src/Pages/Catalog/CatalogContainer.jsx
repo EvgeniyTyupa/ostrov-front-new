@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
-import { getByBrandCategoryTag, globalSearchCatalog } from '../../Redux/itemsReducer'
+import { getByBrandCategoryTag, globalSearchCatalog, selectItems } from '../../Redux/itemsReducer'
 import { getTag } from '../../Redux/tagsReducer'
 import Catalog from './Catalog'
 import { setCurrentFilterItem } from '../../Redux/commonReducer'
@@ -23,7 +23,8 @@ const CatalogContainer = (props) => {
         getCategoriesWithParents,
         categoriesWithParents,
         total,
-        globalSearchCatalog
+        globalSearchCatalog,
+        selectItems
     } = props
 
     const navigate = useNavigate()
@@ -41,6 +42,9 @@ const CatalogContainer = (props) => {
     const [filter, setFilter] = useState("popular")
 
     const [searchValue, setSearchValue] = useState("")
+
+    const [ageRange, setAgeRange] = useState([0, 17])
+    const [priceRange, setPriceRange] = useState([0, 16000])
 
     const [activeBreadcrumb, setActiveBreadcrumb] = useState("")
     const [breadcrumbsItems, setBreadcrumbsItems] = useState(null)
@@ -88,8 +92,16 @@ const CatalogContainer = (props) => {
             case "name": {
                 setActiveBreadcrumb(t("catalog.search.search"))
             }
+            case "selector": {
+                setActiveBreadcrumb(t("catalog.selector"))
+            }
         }
-        navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=${searchBy}&from=${from}&searchValue=${searchValue}&filter=${filter}`)
+        if(searchBy != "selector") {
+            navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=${searchBy}&from=${from}&searchValue=${searchValue}&filter=${filter}`)
+        }else {
+            console.log(ageRange, priceRange)
+            navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=selector&from=${from}&minAge=${ageRange[0]}&maxAge=${ageRange[1]}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}&tag=${searchValue === "none" ? "" : searchValue}`)
+        }
     }, [searchValue, searchBy, pageNumber, pageSize, from, filter])
 
     useEffect(() => {
@@ -125,6 +137,11 @@ const CatalogContainer = (props) => {
         if(searchParams.get('searchBy')) setSearchBy(searchParams.get('searchBy'))
         if(searchParams.get('from')) setFrom(searchParams.get('from'))
         if(searchParams.get('searchValue')) setSearchValue(searchParams.get('searchValue'))
+        if(searchParams.get('tag')) setSearchValue(searchParams.get('tag'))
+        if(searchParams.get('minAge')) setAgeRange([searchParams.get('minAge'), searchParams.get('maxAge')])
+        if(searchParams.get('maxAge')) setAgeRange([searchParams.get('minAge'), searchParams.get('maxAge')])
+        if(searchParams.get('minPrice')) setPriceRange([searchParams.get('minPrice'), searchParams.get('minPrice')])
+        if(searchParams.get('maxPrice')) setPriceRange([searchParams.get('minPrice'), searchParams.get('maxPrice')])
     }, [searchParams])
 
     // console.log(pageNumber, pageSize, searchBy, from, searchValue)
@@ -133,7 +150,9 @@ const CatalogContainer = (props) => {
         if(searchBy === "name") {
             globalSearchCatalog(pageNumber, pageSize, "", from, searchValue, filter.includes("price") ? "price" : filter)
             setBreadcrumbsItems(null)
-        }else {
+        } else if(searchBy === "selector") {
+            selectItems(pageNumber, pageSize, filter, from, ageRange[0], ageRange[1], priceRange[0], priceRange[1], searchValue === "none" ? "" : searchValue)
+        } else {
             getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter)
         }
     }, [searchBy, searchValue, from, pageSize, pageNumber, filter])
@@ -180,5 +199,6 @@ export default connect(mapStateToProps, {
     getBrand,
     getCategoriesWithParents,
     setCurrentFilterItem,
-    globalSearchCatalog
+    globalSearchCatalog,
+    selectItems
 })(CatalogContainer)

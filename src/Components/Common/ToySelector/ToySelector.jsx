@@ -8,7 +8,7 @@ import { styled } from '@mui/material/styles';
 import { useForm, Controller } from 'react-hook-form'
 import { makeStyles } from '@mui/styles'
 import { useChildAge } from '../../../Hooks/useChildAge';
-import CustomSelect from '../../UI/Form/Select';
+import { useNavigate } from 'react-router-dom';
 
 const PrettoSlider = styled(Slider)({
     color: '#9DC8CF',
@@ -90,6 +90,8 @@ const ToySelector = (props) => {
 
     const material = useStyles()
 
+    const navigate = useNavigate()
+
     const [priceRange, setPriceRange] = useState([0, 16000])
     const [ageRange, setAgeRange] = useState([0, 0])
 
@@ -119,6 +121,10 @@ const ToySelector = (props) => {
 
     const onSubmit = (data) => {
         data.tag = data.tag._id
+
+        console.log(data)
+
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=selector&from=asc&minAge=${data.minAge === -1 ? 0 : data.minAge}&maxAge=${data.maxAge === -1 ? 17 : data.maxAge}&minPrice=${data.minPrice}&maxPrice=${data.maxPrice}&tag=${data.tag}`)
     }
 
     useEffect(() => {
@@ -239,7 +245,7 @@ const ToySelector = (props) => {
                                 value={value}
                                 getOptionLabel={option => currentLanguage === "ru" ? option.name : option.name_ua}
                                 onChange={(event, newValue) => {
-                                    setValue("tags", newValue)
+                                    setValue("tag", newValue)
                                 }}
                                 filterSelectedOptions
                                 limitTags={10}

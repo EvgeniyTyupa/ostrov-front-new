@@ -46,6 +46,10 @@ export const itemsApi = {
         return instance.get(`/item/search/${searchValue}?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&filter=${filter}`)
         .then(response => response.data)
     },
+    selectItems(pageNumber, pageSize, filter, from, minAge, maxAge, minPrice, maxPrice, tag) {
+        return instance.get(`/item/selector/search?limit=${pageSize}&count=${pageNumber}&filter=${filter}&from=${from}&minAge=${minAge}&maxAge=${maxAge}&minPrice=${minPrice}&maxPrice=${maxPrice}&tag=${tag}`)
+        .then(response => response.data)
+    },
     createItem(data) {
         const newFormData = new FormData()
 
@@ -209,6 +213,10 @@ export const newsApi = {
         return instance.get(`/post?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)
     },
+    getPost(title){
+        return instance.get(`/post/${title}`)
+        .then(response => response.data)
+    },
     addNews(data) {
         const newFormData = new FormData()
 
@@ -237,6 +245,10 @@ export const newsApi = {
             }
         })
         .then(resposne => resposne.data);
+    },
+    setViewOnMain(postId) {
+        return instance.patch(`/post/viewOnMain/${postId}`)
+        .then(response => response.data)
     },
     editNews(newsId, data) {
         const newFormData = new FormData()

@@ -1,0 +1,60 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4B5EA3;
+}
+.date span {
+    font-size: 14px;
+    font-weight: 700;
+}
+.block {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+.notEven {
+    flex-direction: row-reverse;
+}
+.main h4 {
+    font-weight: 700;
+    font-size: 20px;
+    color: #4B5EA3;
+}
+.main h4::first-letter {
+    text-transform: capitalize;
+}
+.imageBlock {
+    width: 50%;
+}
+.imageBlock img {
+    width: 100%;
+    object-fit: cover;
+}
+.blockText {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+}
+.text {
+    font-size: 14px;
+    color: #37395C;
+}
+.text::first-letter {
+    text-transform: capitalize;
+}
