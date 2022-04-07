@@ -5,11 +5,13 @@ const SET_NEWS_DATA = 'SET_NEWS_DATA'
 const SET_TOTAL_NEWS = 'SET_TOTAL_NEWS'
 const SET_NEWS_ITEM = 'SET_NEWS_ITEM'
 const SET_CURRENT_POST = 'SET_CURRENT_POST'
+const SET_VIEW_ON_MAIN_POSTS = 'SET_VIEW_ON_MAIN_POSTS'
 
 let initialState = {
     news: [],
     newNews: null,
     currentPost: {},
+    viewOnMainPosts: [],
     total: 0
 }
 
@@ -26,6 +28,9 @@ const newsReducer = (state = initialState, action) => {
         }
         case SET_CURRENT_POST: {
             return { ...state, currentPost: action.currentPost }
+        }
+        case SET_VIEW_ON_MAIN_POSTS: {
+            return { ...state, viewOnMainPosts: action.viewOnMainPosts }
         }
         default: 
             return state
@@ -44,6 +49,9 @@ export const setNewNews = (newNews) => ({
 export const setCurrentPost = (currentPost) => ({
     type: SET_CURRENT_POST, currentPost
 })
+export const setViewOnMainPosts = (viewOnMainPosts) => ({
+    type: SET_VIEW_ON_MAIN_POSTS, viewOnMainPosts
+})
 
 export const getNews = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
     dispatch(setIsFetching(true))
@@ -60,6 +68,16 @@ export const getPost = (title) => async (dispatch) => {
     try {
         let response = await newsApi.getPost(title)
         dispatch([setCurrentPost(response.post), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getViewOnMainPosts = () => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await newsApi.getViewOnMainPosts()
+        dispatch([setViewOnMainPosts(response.posts), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

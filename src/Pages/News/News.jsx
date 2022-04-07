@@ -2,12 +2,20 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../Components/Common/Breadcrumbs/Breadcrumbs'
 import NewsSmallItem from '../../Components/Common/News/NewsSmallItem/NewsSmallItem'
+import CustomPagination from '../../Components/Common/Pagination/Pagination'
 import MaxWidthContainer from '../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../Components/UI/Container/PaddingContainer/PaddingContainer'
 import classes from './News.module.css'
 
 const News = (props) => {
-    const { news } = props
+    const { 
+        news,
+        currentPage,
+        setCurrentPage,
+        pageSize,
+        setPageSize,
+        total
+    } = props
 
     const { t } = useTranslation()
 
@@ -20,6 +28,14 @@ const News = (props) => {
                         <NewsSmallItem key={el._id} item={el}/>
                     ))}
                 </div>
+                <CustomPagination
+                    currentPage={currentPage}
+                    pageSize={pageSize}
+                    total={total}
+                    setCurrentPage={setCurrentPage}
+                    setPageSize={setPageSize}
+                    sizes={[8, 16, 24, 64]}
+                />
             </MaxWidthContainer>
         </PaddingContainer>
     )

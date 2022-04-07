@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { getNews } from '../../Redux/newsReducer'
@@ -8,18 +8,31 @@ const NewsContainer = (props) => {
     const { 
         isFetching,
         getNews,
-        news
+        news,
+        total
     } = props
 
+    const [pageSize, setPageSize] = useState(16)
+    const [currentPage, setCurrentPage] = useState(1)
+
+    const handlePageSize = (e) => {
+        setPageSize(e.target.value)
+    }
+
     useEffect(() => {
-        getNews(1, 12, "", "", "")
-    }, [])
+        getNews(currentPage, pageSize, "", "", "")
+    }, [pageSize, currentPage])
 
     return (
         <>
             {isFetching ? <Preloader/> :
                 <News
                     news={news}
+                    currentPage={currentPage}
+                    pageSize={pageSize}
+                    setCurrentPage={setCurrentPage}
+                    setPageSize={handlePageSize}
+                    total={total}
                 />
             }
         </>
@@ -28,7 +41,8 @@ const NewsContainer = (props) => {
 
 let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
-    news: state.news.news
+    news: state.news.news,
+    total: state.news.total
 })
 
 export default connect(mapStateToProps, {

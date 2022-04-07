@@ -30,7 +30,8 @@ const CustomPagination = (props) => {
         total, 
         pageSize, 
         setCurrentPage,
-        setPageSize
+        setPageSize,
+        sizes = [10, 25, 50, 100]
     } = props
 
     const [count, setCount] = useState(Math.ceil(total / pageSize))
@@ -52,10 +53,9 @@ const CustomPagination = (props) => {
             <div className={classes.pageSize}>
                 <label>{t("catalog.pageSize")}:</label>
                 <CustomSelect variant="standard" onChange={setPageSize} value={pageSize}>
-                    <MenuItem value={1}>10</MenuItem>
-                    <MenuItem value={25}>25</MenuItem>
-                    <MenuItem value={50}>50</MenuItem>
-                    <MenuItem value={100}>100</MenuItem>
+                    {sizes.map(el => (
+                        <MenuItem value={el} key={el}>{el}</MenuItem>
+                    ))}
                 </CustomSelect>
             </div>
             <Pagination 

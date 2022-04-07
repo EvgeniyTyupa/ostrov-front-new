@@ -246,6 +246,10 @@ export const newsApi = {
         })
         .then(resposne => resposne.data);
     },
+    getViewOnMainPosts() {
+        return instance.get('/post/get/viewOnMain')
+        .then(response => response.data)
+    },
     setViewOnMain(postId) {
         return instance.patch(`/post/viewOnMain/${postId}`)
         .then(response => response.data)

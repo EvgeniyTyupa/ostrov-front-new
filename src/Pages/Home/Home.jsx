@@ -12,6 +12,8 @@ import PaddingContainer from '../../Components/UI/Container/PaddingContainer/Pad
 import classes from './Home.module.css'
 import BrandItem from '../../Components/Common/Brands/BrandItem'
 import sun_img from '../../Assets/sun.svg'
+import { shuffle } from '../../Utils/shuffle'
+import MainSlide from '../../Components/Common/MainSlide/MainSlide'
 
 const Home = (props) => {
     const { 
@@ -22,10 +24,13 @@ const Home = (props) => {
         brands,
         hgTags,
         tags,
-        currentLanguge
+        currentLanguge,
+        viewOnMainPosts
     } = props
 
     const { t } = useTranslation()
+
+    let slides = [...actions]
 
     return (
         <PaddingContainer className={classes.main}>
@@ -34,13 +39,8 @@ const Home = (props) => {
                     <CategoriesList categories={categories}/>
                     <div className={classes.actionSlider}>
                         <CustomSlider type="action">
-                            {actions.map(item => (
-                                <img 
-                                    src={item.image} 
-                                    alt="action" 
-                                    key={item._id}
-                                    className={classes.actionImg}
-                                />
+                            {shuffle(slides.concat(viewOnMainPosts)).map(item => (
+                                <MainSlide item={item} key={item._id} currentLanguge={currentLanguge}/>
                             ))}
                         </CustomSlider>
                     </div>
