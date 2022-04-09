@@ -4,10 +4,12 @@ import { setIsFetching, setServerError, setServerResponse } from "./commonReduce
 const SET_ACTIONS_DATA = 'SET_ACTIONS_DATA'
 const SET_TOTAL_ACTIONS = 'SET_TOTAL_ACTIONS'
 const SET_NEW_ACTION = 'SET_NEW_ACTION'
+const SET_CURRENT_ACTION = 'SET_CURRENT_ACTION'
 
 let initialState = {
     actions: [],
     newAction: null,
+    currentAction: null,
     total: 0
 }
 
@@ -21,6 +23,9 @@ const actionsReducer = (state = initialState, action) => {
         }
         case SET_NEW_ACTION: {
             return { ...state, newAction: action.newAction }
+        }
+        case SET_CURRENT_ACTION: {
+            return { ...state, currentAction: action.currentAction }
         }
         default: 
             return state
@@ -36,6 +41,9 @@ export const setTotalActions = (total) => ({
 export const setNewAction = (newAction) => ({
     type: SET_NEW_ACTION, newAction
 })
+export const setCurrentAction = (currentAction) => ({
+    type: SET_CURRENT_ACTION, currentAction
+})
 
 export const getActions = (pageNumber, pageSize, searchBy, from, searchingValue, isActual) => async (dispatch) => {
     dispatch(setIsFetching(true))
@@ -44,6 +52,16 @@ export const getActions = (pageNumber, pageSize, searchBy, from, searchingValue,
         dispatch([setActionsData(response.actions), setTotalActions(response.total), setIsFetching(false)])
     }catch(err) {
         dispatch([setIsFetching(false)])
+    }
+}
+
+export const getAction = (title) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await actionsApi.getAction(title)
+        dispatch([setCurrentAction(response.action), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
     }
 }
 

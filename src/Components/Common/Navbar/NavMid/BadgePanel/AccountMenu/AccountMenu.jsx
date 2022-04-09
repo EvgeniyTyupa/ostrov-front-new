@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { setIsOpenLogin, setIsOpenRegister } from '../../../../../../Redux/commonReducer';
 import classes from './AccountMenu.module.css'
 import { logout } from '../../../../../../Redux/userReducer';
+import { NavLink } from 'react-router-dom';
 
 const AccountMenu = (props) => {
     const { 
@@ -81,12 +82,12 @@ const AccountMenu = (props) => {
                 {isAuth ? 
                     <div>
                         <MenuItem>
-                            <p>{t("auth.profile")}</p>
+                            <NavLink to="/profile" className={classes.menuItem}>{t("auth.profile")}</NavLink>
                         </MenuItem>
                         <Divider/>
-                        <MenuItem onClick={logout}>
+                        <MenuItem onClick={logout} style={{ color: "#4B5EA2" }}>
                             <MdLogout/>
-                            <p style={{ marginLeft: "8px" }}>{t("auth.logout")}</p>
+                            <p style={{ marginLeft: "8px" }} className={classes.menuItem}>{t("auth.logout")}</p>
                         </MenuItem>
                     </div> :
                     <div>

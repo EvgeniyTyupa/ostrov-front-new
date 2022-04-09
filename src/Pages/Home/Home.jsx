@@ -32,6 +32,8 @@ const Home = (props) => {
 
     let slides = [...actions]
 
+    slides = shuffle(slides.concat(viewOnMainPosts))
+
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
@@ -39,7 +41,7 @@ const Home = (props) => {
                     <CategoriesList categories={categories}/>
                     <div className={classes.actionSlider}>
                         <CustomSlider type="action">
-                            {shuffle(slides.concat(viewOnMainPosts)).map(item => (
+                            {slides.map(item => (
                                 <MainSlide item={item} key={item._id} currentLanguge={currentLanguge}/>
                             ))}
                         </CustomSlider>

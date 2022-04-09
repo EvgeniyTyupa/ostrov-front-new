@@ -1,0 +1,25 @@
+.main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.block {
+    background-color: #E86589;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+.block p {
+    font-size: 18px;
+    color: white;
+    font-weight: 700;
+}
+.main span {
+    color: #4B5EA2;
+    font-weight: 700;
+    font-size: 18px;
+}

@@ -71,6 +71,8 @@ const AdminAddAction = (props) => {
         reset({
             title: "",
             title_ua: "",
+            descrption: "",
+            description_ua: "",
             image: [],
             image_mobile: [],
             start: moment(),
@@ -161,6 +163,38 @@ const AdminAddAction = (props) => {
                             )}
                         />
                     </Field>
+                </Field>
+                <Field>
+                    <Controller
+                        name="description"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <AdminInput
+                                onChange={onChange}
+                                value={value}
+                                label="Описание"
+                                multiline={true}
+                                rows={6}
+                            />
+                        )}
+                    />
+                </Field>
+                <Field>
+                    <Controller
+                        name="description_ua"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <AdminInput
+                                onChange={onChange}
+                                value={value}
+                                label="Описание УКР"
+                                multiline={true}
+                                rows={6}
+                            />
+                        )}
+                    />
                 </Field>
                 <div>
                     <Controller

@@ -9,7 +9,7 @@ const MainSlide = (props) => {
 
     const onClick = () => {
         if(item.image) {
-            navigate(`/action/${currentLanguage === "ru" ? item.title : item.title_ua}`)
+            navigate(`/actions/${currentLanguage === "ru" ? item.title : item.title_ua}`)
         }else {
             navigate(`/blog/${currentLanguage === "ru" ? item.title : item.title_ua}`)
         }

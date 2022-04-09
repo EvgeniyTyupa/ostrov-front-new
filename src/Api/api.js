@@ -3,6 +3,8 @@ import * as axios from "axios";
 // const baseURL = 'https://sub.ostrovokdetstva.com/api';
 const baseURL = 'http://localhost:3002/api';
 
+const newPostKey = '4cee2b513b6adbf0ba793123964eb2cc'
+
 const instance = axios.create({
     baseURL: baseURL
 });
@@ -294,6 +296,10 @@ export const actionsApi = {
         return instance.get(`/action?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&isActual=${isActual}`)
         .then(response => response.data)
     },
+    getAction(title) {
+        return instance.get(`/action/${title}`)
+        .then(response => response.data)
+    },
     addAction(data) {
         const newFormData = new FormData()
 
@@ -394,5 +400,40 @@ export const reviewsApi = {
     addReview(data){
         return instance.post(`/comment`, data)
         .then(response => response.data)
+    }
+}
+
+
+export const newPostApi = {
+    getCities(value){
+        const data = {
+            "apiKey": newPostKey,
+            "modelName": "Address",
+            "calledMethod": "searchSettlements",
+            "methodProperties": {
+                "CityName": value,
+                "Limit": "150",
+                "Page": "1"
+            }
+        }
+
+        return axios.post(`https://api.novaposhta.ua/v2.0/json/`, data)
+        .then(resposne => resposne.data);
+    },
+    getWarehouses(city, number) {
+        const data = {
+            "apiKey": newPostKey,
+            "modelName": "Address",
+            "calledMethod": "getWarehouses",
+            "methodProperties": {
+                "CityName": city,
+                "FindByString": `№${number}`,
+                "Limit": "150",
+                "Page": "1"
+            }
+        }
+
+        return axios.post(`https://api.novaposhta.ua/v2.0/json/`, data)
+        .then(resposne => resposne.data);
     }
 }

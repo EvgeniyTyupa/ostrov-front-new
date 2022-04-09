@@ -30,6 +30,11 @@ import Contacts from './Pages/Contacts/Contacts';
 import CatalogContainer from './Pages/Catalog/CatalogContainer';
 import NewsContainer from './Pages/News/NewsContainer';
 import PostContainer from './Pages/News/Post/PostContainer';
+import ActionsContainer from './Pages/Actions/ActionsContainer';
+import ActionContainer from './Pages/Actions/Action/ActionContainer';
+import ProfilePage from './Pages/Profile/Profile';
+import AccountContainer from './Components/Profile/Account/AccountContainer';
+import Settings from './Components/Profile/Settings/Settings';
 
 const App = (props) => {
   const { 
@@ -62,6 +67,13 @@ const App = (props) => {
             <Route exact path="/catalog" element={<CatalogContainer/>}/>
             <Route exact path="/blog" element={<NewsContainer/>}/>
             <Route exact path="/blog/:title" element={<PostContainer/>}/>
+            <Route exact path="/actions" element={<ActionsContainer/>}/>
+            <Route exact path="/actions/:title" element={<ActionContainer/>} />
+
+            <Route exact path="profile" element={<ProfilePage/>}>
+              <Route exact path="" element={<AccountContainer/>}/>
+              <Route exact path="settings" element={<Settings/>}/>
+            </Route>
 
             <Route path="admin" element={<AdminRoute/>}>
               <Route path="" element={<DashboardContainer/>} />

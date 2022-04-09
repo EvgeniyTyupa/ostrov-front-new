@@ -1,0 +1,19 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container img {
+    width: 40%;
+}
+.container h4 {
+    margin-top: 50px;
+    color: #37395C;
+    font-weight: 700;
+}
+.container a {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #4B5EA2;
+}

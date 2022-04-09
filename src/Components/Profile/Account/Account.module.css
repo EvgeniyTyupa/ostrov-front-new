@@ -1,0 +1,38 @@
+.recomendation {
+    font-size: 14px;
+    color: #37395C;
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 8px;
+    display: block;
+    margin-bottom: 22px;
+}
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+    width: 90%;
+    margin-top: 44px;
+}
+.block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+.block h5 {
+    font-weight: 700;
+    font-size: 14px;
+    color: #37395C
+}
+.block p {
+    font-weight: 400;
+    font-size: 14px;
+    color: #37395C
+}
+.block a {
+    font-weight: 400;
+    font-size: 14px;
+    color: #4B5EA3;
+    width: fit-content;
+}

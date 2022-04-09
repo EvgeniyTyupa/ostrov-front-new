@@ -12,6 +12,7 @@ import classes from './Style.module.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminInput from '../UI/Form/AdminInput'
 import { login } from '../../Redux/userReducer'
+import { NavLink } from 'react-router-dom'
 
 const LoginModal = (props) => {
     const { setIsOpenLogin, serverError, login } = props
@@ -74,6 +75,7 @@ const LoginModal = (props) => {
                     <Error text={serverError}/>
                 </div>}
                 <CustomButton type="submit" className={classes.submit}>{t("auth.loginSubmit")}</CustomButton>
+                <NavLink to="/reset_password">{t("form.forgot_pass")}</NavLink>
             </form>
         </Modal>
     )

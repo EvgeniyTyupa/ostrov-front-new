@@ -1,3 +1,5 @@
+import { newPostApi } from "../Api/api"
+
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
 const SET_SERVER_RESPONSE = 'SET_SERVER_RESPONSE'
 const SET_SERVER_ERROR = 'SET_SERVER_ERROR' 
@@ -5,6 +7,8 @@ const SET_CURRENT_LANGUAGE = 'SET_CURRENT_LANGUAGE'
 const SET_IS_OPEN_LOGIN = 'SET_IS_OPEN_LOGIN'
 const SET_IS_OPEN_REGISTER = 'SET_IS_OPEN_REGISTER'
 const SET_CURRENT_FILTER_ITEM = 'SET_CURRENT_FILTER_ITEM'
+const SET_SEARCHING_CITIES = 'SET_SEARCHING_CITIES'
+const SET_NP_WAREHOUSES = 'SET_NP_WAREHOUSES'
 
 let initialState = {
     isFetching: true,
@@ -13,7 +17,9 @@ let initialState = {
     currentLanguage: "ru",
     isOpenLogin: false,
     isOpenRegister: false,
-    currentFilterItem: null
+    currentFilterItem: null,
+    searchingCities: [],
+    npWarehouses: []
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -38,6 +44,12 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_CURRENT_FILTER_ITEM: {
             return { ...state, currentFilterItem: action.currentFilterItem }
+        }
+        case SET_SEARCHING_CITIES: {
+            return { ...state, searchingCities: action.searchingCities }
+        }
+        case SET_NP_WAREHOUSES: {
+            return { ...state, npWarehouses: action.npWarehouses }
         }
         default: 
             return state
@@ -65,5 +77,31 @@ export const setIsOpenRegister = (isOpenRegister) => ({
 export const setCurrentFilterItem = (currentFilterItem) => ({
     type: SET_CURRENT_FILTER_ITEM, currentFilterItem
 })
+export const setSearchingCities = (searchingCities) => ({
+    type: SET_SEARCHING_CITIES, searchingCities
+})
+export const setNpWarehouses = (npWarehouses) => ({
+    type: SET_NP_WAREHOUSES, npWarehouses
+})
+
+export const getCities = (searchValue) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await newPostApi.getCities(searchValue)
+        dispatch([setSearchingCities(response.data[0].Addresses), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getWarehouses = (city, number) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await newPostApi.getWarehouses(city, number)
+        dispatch([setNpWarehouses(response.data), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
 
 export default commonReducer

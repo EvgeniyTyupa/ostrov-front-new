@@ -1,0 +1,39 @@
+.main {
+    width: 100%;
+}
+.info {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    gap: 17px;
+}
+.field {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 22px;
+}
+.field label {
+    width: 150px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #37395C;
+}
+.field p {
+    border-bottom: 1px solid #37395C;
+    width: calc(100% - 172px);
+    font-size: 14px;
+}
+.editBut {
+    background-color: transparent !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    text-transform: initial !important;
+    padding: 0 !important;
+    color: #D56886 !important;
+    font-family: 'Montserrat' !important;
+    margin-top: 29px !important;
+}
+.editBut:hover {
+    text-decoration: underline !important;
+}

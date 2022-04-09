@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Autocomplete, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles'
-import useDebounce from '../../../../../Utils/debounce';
+import useDebounce from '../../../Utils/debounce';
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -19,11 +19,14 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiFormHelperText-root.Mui-error': {
             margin: 0,
             marginTop: 5,
+        },
+        '& .MuiAutocomplete-endAdornment': {
+            width: "fit-content !important"
         }
     }
 }));
 
-const MultiAdminSearch = (props) => {
+const AddressAutocomplete = (props) => {
     const { 
         onSearch, 
         items, 
@@ -32,7 +35,8 @@ const MultiAdminSearch = (props) => {
         setValue, 
         name,
         label,
-        defaultValue
+        defaultValue,
+        city
     } = props
 
     const material = useStyles()
@@ -43,30 +47,33 @@ const MultiAdminSearch = (props) => {
     
     useEffect(() => {
         if(debouncedSearchTerm) {
-            onSearch(1, 1000, "", "", searchValue, false)
+            if(name === "city"){
+                onSearch(searchValue)
+            }else if(name === "warehouse" && city){
+                onSearch(city, searchValue)
+            }
         }
-    }, [debouncedSearchTerm])
+    }, [debouncedSearchTerm, city])
 
     useEffect(() => {
         if(searchValue.length === 0) {
-            onSearch(1, 1000, "", "", "", false)
+           setValue(name, "")
         }
     }, [searchValue])
 
     return (
        <Autocomplete
-            multiple={true}
             disablePortal
             options={items}
             value={value}
-            getOptionLabel={option => option.name}
+            getOptionLabel={option => option.Present ? option.Present : option.Description}
             onChange={(e, newValue) => {
                 setValue(name, newValue)
             }}
             onClose={e => setSearchValue("")}
             filterSelectedOptions
-            limitTags={100}
-            isOptionEqualToValue={(option, value) => option._id === value._id}
+            limitTags={150}
+            // isOptionEqualToValue={(option, value) => option._id === value._id}
             style={{ width: "100%" }}
             defaultValue={defaultValue}
             renderInput={(params) => (
@@ -83,4 +90,4 @@ const MultiAdminSearch = (props) => {
     )
 }
 
-export default MultiAdminSearch
+export default AddressAutocomplete

@@ -72,7 +72,7 @@ export const me = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
     dispatch(setIsFetching(true))
     localStorage.usertoken = ""
-    dispatch([setIsAuth(false), setIsFetching(false)])
+    dispatch([setIsAuth(false), setUserData(null), setIsFetching(false)])
 }
 
 export default userReducer

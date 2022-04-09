@@ -6,6 +6,7 @@ import { getCategoriesWithParents } from '../../Redux/categoryReducer'
 import { getComments } from '../../Redux/commentsReducer'
 import { getItem, getSame } from '../../Redux/itemsReducer'
 import { discountParser } from '../../Utils/discountParser'
+import NotFound from '../NotFound/NofFound'
 import Item from './Item'
 
 const ItemContainer = (props) => {
@@ -72,9 +73,9 @@ const ItemContainer = (props) => {
 
     return (
         <>
-            {!currentItem ? <Preloader/> :
+            {isFetching ? <Preloader/> :
                 <>
-                    {isFetching ? <Preloader/> :
+                    {!currentItem ? <NotFound/> :
                     <Item 
                         item={currentItem}
                         currentLanguage={currentLanguage}

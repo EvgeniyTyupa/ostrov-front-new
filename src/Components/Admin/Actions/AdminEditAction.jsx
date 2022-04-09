@@ -74,6 +74,8 @@ const AdminEditAction = (props) => {
         reset({
             title: item.title || "",
             title_ua: item.title_ua || "",
+            description: item.description || "",
+            description_ua: item.description_ua || "",
             image: [item.image] || [],
             image_mobile: [item.image_mobile] || [],
             start: moment(item.start) || moment(),
@@ -167,6 +169,38 @@ const AdminEditAction = (props) => {
                             )}
                         />
                     </Field>
+                </Field>
+                <Field>
+                    <Controller
+                        name="description"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <AdminInput
+                                onChange={onChange}
+                                value={value}
+                                label="Описание"
+                                multiline={true}
+                                rows={6}
+                            />
+                        )}
+                    />
+                </Field>
+                <Field>
+                    <Controller
+                        name="description_ua"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <AdminInput
+                                onChange={onChange}
+                                value={value}
+                                label="Описание УКР"
+                                multiline={true}
+                                rows={6}
+                            />
+                        )}
+                    />
                 </Field>
                 <div>
                     <Controller

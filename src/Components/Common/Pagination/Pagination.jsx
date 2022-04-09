@@ -1,7 +1,6 @@
-import { IconButton, MenuItem } from '@mui/material'
+import { MenuItem } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import classes from './Pagination.module.css'
-import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 import Pagination from '@mui/material/Pagination';
 import { makeStyles } from '@mui/styles'
 import CustomSelect from '../../UI/Form/Select';

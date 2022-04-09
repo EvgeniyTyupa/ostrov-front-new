@@ -2,28 +2,25 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Preloader from '../../../Components/Common/Preloader/Preloader'
-import { getPost, setCurrentPost } from '../../../Redux/newsReducer'
+import { getAction, setCurrentAction } from '../../../Redux/actionsReducer'
 import NotFound from '../../NotFound/NofFound'
-import Post from './Post'
+import Action from './Action'
 
-const PostContainer = (props) => {
+const ActionContainer = (props) => {
     const { 
         isFetching,
-        getPost,
-        currentPost,
+        currentAction,
         currentLanguage,
-        setCurrentPost
+        getAction
     } = props
 
     const { title } = useParams()
 
     useEffect(() => {
-        getPost(title)
-    }, [])
+        getAction(title)
 
-    useEffect(() => {
         return () => {
-            setCurrentPost({})
+            setCurrentAction(null)
         }
     }, [])
 
@@ -31,9 +28,9 @@ const PostContainer = (props) => {
         <>
             {isFetching ? <Preloader/> :
                 <>
-                    {!currentPost ? <NotFound/> :
-                        <Post 
-                            post={currentPost}
+                    {!currentAction ? <NotFound/> :
+                        <Action
+                            action={currentAction}
                             currentLanguage={currentLanguage}
                         />
                     }
@@ -45,11 +42,10 @@ const PostContainer = (props) => {
 
 let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
-    currentPost: state.news.currentPost,
+    currentAction: state.actions.currentAction,
     currentLanguage: state.common.currentLanguage
 })
 
 export default connect(mapStateToProps, {
-    getPost,
-    setCurrentPost
-})(PostContainer)
+    getAction
+})(ActionContainer)

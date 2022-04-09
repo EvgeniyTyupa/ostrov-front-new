@@ -1,0 +1,60 @@
+.main {
+    width: 100%;
+    margin-bottom: 130px;
+    z-index: 2;
+}
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.menu {
+    width: 281px;
+    padding-top: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.menu a {
+    color: #37395C;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: none;
+}
+.menu a:hover {
+    text-decoration: underline;
+}
+.menu a.active {
+    font-weight: 700;
+}
+.menu a.active:hover {
+    text-decoration: none;
+}
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header h4 {
+    font-weight: 700;
+    font-size: 14px;
+    color: #37395C;
+    text-transform: uppercase;
+}
+.header button {
+    background-color: transparent !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    text-transform: initial !important;
+    padding: 0 !important;
+    color: #4B5EA3 !important;
+    font-family: 'Montserrat' !important;
+}
+.header button:hover {
+    text-decoration: underline;
+}
+.content {
+    width: calc(100% - 281px);
+    padding-top: 22px;
+}
