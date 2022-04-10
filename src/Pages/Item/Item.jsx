@@ -14,6 +14,7 @@ import CommentForm from '../../Components/Common/Items/Comments/CommentForm/Comm
 import Comment from '../../Components/Common/Items/Comments/Comment/Comment'
 import { priceParser } from '../../Utils/priceParser'
 import { discountParser } from '../../Utils/discountParser'
+import NeedAuthModal from '../../Components/Modals/NeedAuthModal/NeedAuthModal'
 
 const Item = (props) => {
     const {
@@ -27,7 +28,12 @@ const Item = (props) => {
         sameItems,
         comments,
         totalComments,
-        discount
+        discount,
+        handleLike,
+        user,
+        isOpenNeedAuthModal,
+        handleOpenAuthModal,
+        isLiked
     } = props
 
     let currentItemName = currentLanguage === "ru" ? item.name : item.name_ua
@@ -47,6 +53,7 @@ const Item = (props) => {
 
     return (
         <div className={classes.mainContainer}>
+            {isOpenNeedAuthModal && <NeedAuthModal onClose={handleOpenAuthModal}/>}
             <PaddingContainer className={classes.main}>
                 <MaxWidthContainer className={classes.container}>
                     <Breadcrumbs items={breadcrumbsItems} active={currentItemName}/>
@@ -85,8 +92,11 @@ const Item = (props) => {
                                 >
                                     {t("actions.buy")}
                                 </Button>
-                                <Tooltip title={t("actions.like")}>
-                                    <IconButton>
+                                <Tooltip title={!isLiked ? t("actions.like") : t('actions.unlike')}>
+                                    <IconButton 
+                                        onClick={handleLike} 
+                                        className={cx(user ? (isLiked ? classes.unlikeBut : classes.likeBut) : classes.likeBut)}
+                                    >
                                         <FiHeart/>
                                     </IconButton>
                                 </Tooltip>

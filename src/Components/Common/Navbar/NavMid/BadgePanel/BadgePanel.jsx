@@ -5,6 +5,7 @@ import { FiHeart, FiShoppingCart } from 'react-icons/fi';
 import { styled } from '@mui/material/styles';
 import AccountMenu from './AccountMenu/AccountMenu';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -16,17 +17,27 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const BadgePanel = (props) => {
+    const { isAuth, user } = props
+
     const { t } = useTranslation()
+
+    const navigate = useNavigate()
+
+    const onClickLike = () => {
+        navigate(`/profile/liked_items`)
+    }
 
     return (
         <div className={classes.main}>
-            <Tooltip title={t("common.likeTooltip")}>
-                <IconButton>
-                    <StyledBadge badgeContent={4} color="secondary">
-                        <FiHeart/>
-                    </StyledBadge>
-                </IconButton>
-            </Tooltip>
+            {isAuth &&
+                <Tooltip title={t("common.likeTooltip")}>
+                    <IconButton onClick={onClickLike}>
+                        <StyledBadge badgeContent={user.liked_items.length} color="secondary">
+                            <FiHeart/>
+                        </StyledBadge>
+                    </IconButton>
+                </Tooltip>
+            }
             <Tooltip title={t("common.cartTooltip")}>
                 <IconButton>
                     <StyledBadge badgeContent={4} color="secondary">

@@ -1,5 +1,5 @@
 import { userApi } from "../Api/api"
-import { setIsFetching, setIsOpenLogin, setServerError } from "./commonReducer"
+import { setIsFetching, setIsOpenLogin, setServerError, setServerResponse } from "./commonReducer"
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_IS_AUTH = 'SET_IS_AUTH'
@@ -73,6 +73,26 @@ export const logout = () => async (dispatch) => {
     dispatch(setIsFetching(true))
     localStorage.usertoken = ""
     dispatch([setIsAuth(false), setUserData(null), setIsFetching(false)])
+}
+
+export const updateProfile = (userId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.updateProfile(userId, data)
+        dispatch([setUserData(response.user), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const changePassword = (userId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.changePassword(userId, data)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
 }
 
 export default userReducer

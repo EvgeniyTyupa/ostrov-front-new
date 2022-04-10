@@ -1,0 +1,72 @@
+.main {
+    width: 48%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid rgba(240, 72, 153, .1);
+    background-color: white;
+    transition-duration: .3s;
+    cursor: pointer;
+    height: fit-content;
+    border-radius: 4px;
+}
+.main:hover {
+    border: 2px solid rgba(240, 72, 153, .5);
+}
+.last {
+    border-bottom: none;
+}
+.img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.info {
+    margin-left: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+.name {
+    font-size: 14px;
+    color: #37395C;
+    font-weight: 500;
+    line-break: anywhere;
+}
+.name::first-letter {
+    text-transform: capitalize;
+}
+.brand {
+    color: gray;
+    font-size: 12px;
+    margin-top: 2px;
+}
+.names {
+    display: flex;
+    flex-direction: column;
+}
+.priceBlock {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 6px;
+}
+.price {
+    font-size: 14px;
+    color: #F04899;
+    font-weight: 700;
+}
+.inAction {
+    text-decoration: line-through;
+    font-size: 12px !important;
+    color: #3B3F61 !important;
+    position: relative;
+}
+.discount {
+    font-weight: 700;
+    font-size: 14px;
+    color: #E86589;
+}

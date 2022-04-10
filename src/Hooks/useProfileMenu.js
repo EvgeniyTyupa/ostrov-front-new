@@ -9,7 +9,7 @@ export const useProfileMenu = () => {
             text: t("profile.menu.account")
         },
         {
-            href: "/profile/liked",
+            href: "/profile/liked_items",
             text: t("profile.menu.liked")
         },
         {

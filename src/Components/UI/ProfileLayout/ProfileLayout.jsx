@@ -22,6 +22,7 @@ const ProfileLayout = (props) => {
                 <div className={classes.menu}>
                     {menuItems.map(el => (
                         <NavLink 
+                            key={el.href}
                             className={({isActive}) => (isActive ? classes.active : '')} 
                             to={el.href}
                             end

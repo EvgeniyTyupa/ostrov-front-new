@@ -35,21 +35,24 @@ import ActionContainer from './Pages/Actions/Action/ActionContainer';
 import ProfilePage from './Pages/Profile/Profile';
 import AccountContainer from './Components/Profile/Account/AccountContainer';
 import Settings from './Components/Profile/Settings/Settings';
+import LikedItems from './Components/Profile/LikedItems/LikedItems';
+import MyOrders from './Components/Profile/MyOrders/MyOrders';
+import ViewedItems from './Components/Profile/ViewedItems/ViewedItems';
 
 const App = (props) => {
   const { 
     isOpenLogin,
-    isStartData, 
     me,
+    isAuth,
     serverError,
     serverResponse
   } = props
 
   useEffect(() => {
-    if(localStorage.usertoken && !isStartData) {
+    if(localStorage.usertoken) {
       me()
     }
-  }, [localStorage.usertoken])
+  }, [localStorage.usertoken, isAuth])
 
   return (
     <Router>
@@ -57,7 +60,7 @@ const App = (props) => {
         <div className='main'>
           {!window.location.pathname.includes("admin") && <Navbar/>}
           {isOpenLogin && <LoginModal/>}
-          {(serverError || serverResponse) && <ServerResponse/>}
+          {serverResponse && <ServerResponse/>}
           <Routes>
             <Route path="/admin_login" element={<AdminLogin />} />
 
@@ -72,6 +75,9 @@ const App = (props) => {
 
             <Route exact path="profile" element={<ProfilePage/>}>
               <Route exact path="" element={<AccountContainer/>}/>
+              <Route exact path="liked_items" element={<LikedItems/>}/>
+              <Route exact path="my_orders" element={<MyOrders/>}/>
+              <Route exact path="viewed_items" element={<ViewedItems/>}/>
               <Route exact path="settings" element={<Settings/>}/>
             </Route>
 
@@ -104,6 +110,7 @@ let mapStateToProps = (state) => ({
   isOpenLogin: state.common.isOpenLogin,
   isStartData: state.user.isStartData,
   serverResponse: state.common.serverResponse,
+  isAuth: state.user.isAuth,
   serverError: state.common.serverError
 })
 

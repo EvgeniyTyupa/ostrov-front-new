@@ -40,7 +40,6 @@ const ServerResponse = (props) => {
         Aos.init({duration: 1000})
     }, [])
 
-
     return (
         <div 
             className={cx(

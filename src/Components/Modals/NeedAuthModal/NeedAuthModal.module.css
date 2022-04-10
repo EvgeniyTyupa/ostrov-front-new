@@ -1,0 +1,25 @@
+.main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.main p {
+    width: fit-content;
+    font-size: 16px;
+    color: #37395C;
+}
+.main button {
+    border: none;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    text-decoration: underline;
+    color: #D56886;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    background-color: transparent;
+    margin-left: 6px;
+}

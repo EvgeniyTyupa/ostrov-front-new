@@ -6,7 +6,7 @@ import classes from './AccountInfo.module.css'
 import AccountInfoForm from './AccountInfoForm/AccountInfoForm'
 
 const AccountInfo = (props) => {
-    const { user } = props
+    const { user, currentLanguage } = props
 
     const { t } = useTranslation()
 
@@ -34,7 +34,13 @@ const AccountInfo = (props) => {
                     </div>
                     <div className={classes.field}>
                         <label>{t("profile.account.address")}</label>
-                        <p>{user.address}</p>
+                        {user.warehouse ?
+                            (currentLanguage === "ru" ? 
+                                <p>{user.warehouse.CityDescriptionRu}, {user.warehouse.DescriptionRu}</p>
+                                : <p>{user.warehouse.CityDescription}, {user.warehouse.Description}</p>
+                            ) :
+                            <p>{user.city && user.city.MainDescription}</p>
+                        }
                     </div>
                 </div>
             }
@@ -44,7 +50,8 @@ const AccountInfo = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    user: state.user.user
+    user: state.user.user,
+    currentLanguage: state.common.currentLanguage
 })
 
 export default connect(mapStateToProps, {})(AccountInfo)

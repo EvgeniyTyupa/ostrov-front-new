@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Autocomplete, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles'
 import useDebounce from '../../../Utils/debounce';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -36,10 +37,15 @@ const AddressAutocomplete = (props) => {
         name,
         label,
         defaultValue,
-        city
+        city,
+        setCurrentValue,
+        placeholder,
+        disabled
     } = props
 
     const material = useStyles()
+
+    const { t } = useTranslation()
 
     const [searchValue, setSearchValue] = useState("")
 
@@ -50,36 +56,42 @@ const AddressAutocomplete = (props) => {
             if(name === "city"){
                 onSearch(searchValue)
             }else if(name === "warehouse" && city){
-                onSearch(city, searchValue)
+                onSearch(city.MainDescription, searchValue)
             }
         }
     }, [debouncedSearchTerm, city])
 
     useEffect(() => {
         if(searchValue.length === 0) {
-           setValue(name, "")
+           setValue(name, null)
         }
     }, [searchValue])
 
     return (
        <Autocomplete
             disablePortal
+            disabled={disabled}
             options={items}
             value={value}
+            noOptionsText={t("catalog.empty")}
             getOptionLabel={option => option.Present ? option.Present : option.Description}
             onChange={(e, newValue) => {
                 setValue(name, newValue)
+                if(name === "city"){
+                    setCurrentValue(newValue)
+                }
             }}
             onClose={e => setSearchValue("")}
             filterSelectedOptions
             limitTags={150}
-            // isOptionEqualToValue={(option, value) => option._id === value._id}
+            isOptionEqualToValue={(option, value) => option.Present ? (option.Present === value.Preset) : (option.MainDescription === value.MainDescription)}
             style={{ width: "100%" }}
             defaultValue={defaultValue}
             renderInput={(params) => (
                 <TextField 
                     {...params} 
-                    classes={material} 
+                    classes={material}
+                    placeholder={placeholder}
                     label={label} 
                     error={!!error} 
                     helperText={error ? error.message : null} 

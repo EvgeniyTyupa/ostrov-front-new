@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InputPassword = (props) => {
-    const { onChange, value, error } = props
+    const { onChange, value, error, label = "Password" } = props
 
     const material = useStyles()
 
@@ -44,7 +44,7 @@ const InputPassword = (props) => {
             error={!!error}
             helperText={error ? error.message : null}
             classes={material}
-            label={"Password"}
+            label={label}
             variant={"outlined"}
             onChange={onChange}
             value={value}

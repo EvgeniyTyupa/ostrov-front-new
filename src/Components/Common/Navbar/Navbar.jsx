@@ -9,20 +9,24 @@ import NavTop from './NavTop/NavTop'
 const Navbar = (props) => {
     const {
         currentLanguage,
-        setCurrentLanguage
+        setCurrentLanguage,
+        isAuth,
+        user
     } = props
 
     return (
         <div className={classes.main}>
             <NavTop currentLanguage={currentLanguage} setCurrentLanguage={setCurrentLanguage}/>
-            <NavMid/>
+            <NavMid isAuth={isAuth} user={user}/>
             <NavBot/>
         </div>
     )
 }
 
 let mapStateToProps = (state) => ({
-    currentLanguage: state.common.currentLanguage
+    currentLanguage: state.common.currentLanguage,
+    isAuth: state.user.isAuth,
+    user: state.user.user
 })
 
 export default connect(mapStateToProps, {
