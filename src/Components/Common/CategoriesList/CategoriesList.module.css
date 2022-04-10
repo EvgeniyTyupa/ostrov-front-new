@@ -5,6 +5,19 @@
     background-color: #9DC8CF;
     padding: 17px 1%;
     box-sizing: border-box;
+    position: relative;
+}
+.childs {
+    position: absolute;
+    width: 50vw;
+    height: 484px;
+    top: 0;
+    right: -50vw;
+    background-color: white;
+    z-index: 15;
+    border: 1px solid red;
+    display: flex;
+    flex-wrap: wrap;
 }
 .mainList {
     position: relative;
@@ -21,6 +34,7 @@
     padding-left: 3%;
     margin-bottom: 17px;
     cursor: pointer;
+    width: fit-content;
 }
 .mainList li:hover {
     text-decoration: underline;

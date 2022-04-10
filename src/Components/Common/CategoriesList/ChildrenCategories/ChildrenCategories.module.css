@@ -1,0 +1,12 @@
+.listContainer {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.listContainer li {
+    cursor: pointer;
+    width: fit-content;
+}
+.listContainer li:hover {
+    text-decoration: underline;
+}
