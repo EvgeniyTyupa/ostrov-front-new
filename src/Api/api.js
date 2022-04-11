@@ -21,6 +21,10 @@ export const userApi = {
         return instance.post(`/auth/login`, data)
         .then(response => response.data)
     },
+    register(data) {
+        return instance.post('/auth/register', data)
+        .then(response => response.data)
+    },
     getProfile() {
         return instance.get(`/auth/me`)
         .then(response => response.data)

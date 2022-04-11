@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { setIsOpenLogin, setIsOpenRegister } from '../../../../../../Redux/commonReducer';
 import classes from './AccountMenu.module.css'
 import { logout } from '../../../../../../Redux/userReducer';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const AccountMenu = (props) => {
     const { 
@@ -19,6 +19,8 @@ const AccountMenu = (props) => {
     } = props
 
     const { t } = useTranslation()
+
+    const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -34,8 +36,8 @@ const AccountMenu = (props) => {
         setIsOpenLogin(true)
     }
 
-    const handleOpenRegister = () => {
-        setIsOpenRegister(true)
+    const onClickRegister = () => {
+        navigate(`/sign_up`)
     }
 
     return (
@@ -94,7 +96,7 @@ const AccountMenu = (props) => {
                         <MenuItem onClick={handleOpenLogin}>
                             <p className={classes.menuItem}>{t("auth.login")}</p>
                         </MenuItem>
-                        <MenuItem onClick={handleOpenRegister}>
+                        <MenuItem onClick={onClickRegister}>
                             <p className={classes.menuItem}>{t("auth.register")}</p>
                         </MenuItem>
                     </div>

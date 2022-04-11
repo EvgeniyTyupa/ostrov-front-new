@@ -21,11 +21,10 @@ import ItemContainer from './Pages/Item/ItemContainer';
 import NotFound from './Pages/NotFound/NofFound';
 import { connect } from 'react-redux';
 import LoginModal from './Components/Auth/LoginModal';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { me } from './Redux/userReducer';
 import ServerResponse from './Components/UI/ServerResponse/ServerResponse';
-import star1 from './Assets/star1.svg'
-import star2 from './Assets/star2.svg'
+
 import Contacts from './Pages/Contacts/Contacts';
 import CatalogContainer from './Pages/Catalog/CatalogContainer';
 import NewsContainer from './Pages/News/NewsContainer';
@@ -38,6 +37,9 @@ import Settings from './Components/Profile/Settings/Settings';
 import LikedItems from './Components/Profile/LikedItems/LikedItems';
 import MyOrders from './Components/Profile/MyOrders/MyOrders';
 import ViewedItems from './Components/Profile/ViewedItems/ViewedItems';
+import Signup from './Pages/Auth/Signup/Signup';
+import StarOne from './Components/UI/Decor/StartOne/StarOne';
+import StarTwo from './Components/UI/Decor/StarTwo/StarTwo';
 
 const App = (props) => {
   const { 
@@ -58,11 +60,12 @@ const App = (props) => {
     <Router>
       <HttpsRedirect>
         <div className='main'>
-          {!window.location.pathname.includes("admin") && <Navbar/>}
+          <Navbar/>
           {isOpenLogin && <LoginModal/>}
           {serverResponse && <ServerResponse/>}
           <Routes>
             <Route path="/admin_login" element={<AdminLogin />} />
+            <Route path="/sign_up" element={<Signup/>}/>
 
             <Route path="/" element={<HomeContainer />} />
             <Route exact path="/item/:name" element={<ItemContainer/>}/>
@@ -93,13 +96,11 @@ const App = (props) => {
 
             <Route path='*' element={<NotFound />} />
           </Routes>
-          {!window.location.pathname.includes("admin") && <img src={star1} alt="star" className='star1'/>}
-          {(!window.location.pathname.includes("admin") && !window.location.pathname.includes("contacts")) && <img src={star2} alt="stars" className='star2'/>}
-          {!window.location.pathname.includes("admin") && (
-            <div className='footer'>
-              <Footer/>
-            </div>
-          )}
+          <StarOne/>
+          <StarTwo/>
+          <div className='footer'>
+            <Footer/>
+          </div>
         </div>
       </HttpsRedirect>
     </Router>

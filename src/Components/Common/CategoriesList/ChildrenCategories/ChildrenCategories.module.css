@@ -1,11 +1,47 @@
-.listContainer {
-    width: 100%;
+.main {
     display: flex;
     flex-wrap: wrap;
+    padding: 25px;
+    box-sizing: border-box;
+    width: 100%;
+    gap: 50px;
+}
+.listContainer {
+    width: 150px
+}
+.listContainer ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
 }
 .listContainer li {
     cursor: pointer;
     width: fit-content;
+    font-weight: 700;
+    color: #4B5EA3;
+    text-transform: uppercase;
+}
+.listContainer li::first-letter {
+    text-transform: capitalize;
+}
+.listContainer ul ul {
+    margin-top: 12px;
+}
+.listContainer ul ul ul {
+    margin-top: 6px;
+}
+.listContainer ul ul li {
+    font-weight: 500;
+    color: #37395C;
+    font-size: 14px;
+    margin-top: 18px;
+    text-transform: initial;
+}
+.listContainer ul ul ul li {
+    font-weight: 300;
+    color: #37395C;
+    font-size: 14px;
+    margin-top: 6px;
 }
 .listContainer li:hover {
     text-decoration: underline;

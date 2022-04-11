@@ -9,9 +9,10 @@ const SET_IS_OPEN_REGISTER = 'SET_IS_OPEN_REGISTER'
 const SET_CURRENT_FILTER_ITEM = 'SET_CURRENT_FILTER_ITEM'
 const SET_SEARCHING_CITIES = 'SET_SEARCHING_CITIES'
 const SET_NP_WAREHOUSES = 'SET_NP_WAREHOUSES'
+const SET_IS_REGISTER_DONE = 'SET_IS_REGISTER_DONE'
 
 let initialState = {
-    isFetching: true,
+    isFetching: false,
     serverResponse: null,
     serverError: null,
     currentLanguage: "ru",
@@ -19,7 +20,8 @@ let initialState = {
     isOpenRegister: false,
     currentFilterItem: null,
     searchingCities: [],
-    npWarehouses: []
+    npWarehouses: [],
+    isRegisterDone: false
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -50,6 +52,9 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_NP_WAREHOUSES: {
             return { ...state, npWarehouses: action.npWarehouses }
+        }
+        case SET_IS_REGISTER_DONE: {
+            return { ...state, isRegisterDone: action.isRegisterDone }
         }
         default: 
             return state
@@ -82,6 +87,9 @@ export const setSearchingCities = (searchingCities) => ({
 })
 export const setNpWarehouses = (npWarehouses) => ({
     type: SET_NP_WAREHOUSES, npWarehouses
+})
+export const setIsRegisterDone = (isRegisterDone) => ({
+    type: SET_IS_REGISTER_DONE, isRegisterDone
 })
 
 export const getCities = (searchValue) => async (dispatch) => {

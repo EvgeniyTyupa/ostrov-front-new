@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import classes from './AuthWindow.module.css'
 
 const AuthWindow = (props) => {
-    const { title, children } = props
+    const { title, children, type = "login" } = props
     
     const { t } = useTranslation()
 
@@ -12,7 +12,7 @@ const AuthWindow = (props) => {
         <div className={classes.main}>
             <h2>{title}</h2>
             {children}
-            <Link to="/reset_password">{t("form.forgot_pass")}</Link>
+            {type === "login" && <Link to="/reset_password">{t("form.forgot_pass")}</Link>}
         </div>
     )
 }

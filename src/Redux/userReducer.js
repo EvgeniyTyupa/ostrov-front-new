@@ -1,5 +1,5 @@
 import { userApi } from "../Api/api"
-import { setIsFetching, setIsOpenLogin, setServerError, setServerResponse } from "./commonReducer"
+import { setIsFetching, setIsOpenLogin, setIsRegisterDone, setServerError, setServerResponse } from "./commonReducer"
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_IS_AUTH = 'SET_IS_AUTH'
@@ -57,6 +57,17 @@ export const login = (data) => async (dispatch) => {
         dispatch([setIsAuth(false), setIsFetching(false)])
     }
 }
+
+export const register = (data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        await userApi.register(data)
+        dispatch([setIsRegisterDone(true), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsRegisterDone(false), setIsFetching(false)])
+    }
+}
+
 export const me = () => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {

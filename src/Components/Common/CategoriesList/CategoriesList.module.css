@@ -5,19 +5,23 @@
     background-color: #9DC8CF;
     padding: 17px 1%;
     box-sizing: border-box;
-    position: relative;
+
+
 }
 .childs {
     position: absolute;
-    width: 50vw;
-    height: 484px;
+    max-width: 50vw;
+    width: 100%;
+    height: fit-content;
     top: 0;
-    right: -50vw;
+    left: 281px;
     background-color: white;
     z-index: 15;
-    border: 1px solid red;
     display: flex;
     flex-wrap: wrap;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 4px 0 8px -3px black;
 }
 .mainList {
     position: relative;

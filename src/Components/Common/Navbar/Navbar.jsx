@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import { setCurrentLanguage } from '../../../Redux/commonReducer'
 import classes from './Navbar.module.css'
 import NavBot from './NavBot/NavBot'
@@ -14,12 +15,17 @@ const Navbar = (props) => {
         user
     } = props
 
+    const { pathname } = useLocation()
+
     return (
-        <div className={classes.main}>
-            <NavTop currentLanguage={currentLanguage} setCurrentLanguage={setCurrentLanguage}/>
-            <NavMid isAuth={isAuth} user={user}/>
-            <NavBot/>
-        </div>
+        <>
+            {(!pathname.includes("admin") && !pathname.includes("/sign_up")) &&
+            <div className={classes.main}>
+                <NavTop currentLanguage={currentLanguage} setCurrentLanguage={setCurrentLanguage}/>
+                <NavMid isAuth={isAuth} user={user}/>
+                <NavBot/>
+            </div>}
+        </>
     )
 }
 
