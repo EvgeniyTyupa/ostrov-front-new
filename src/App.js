@@ -40,6 +40,7 @@ import ViewedItems from './Components/Profile/ViewedItems/ViewedItems';
 import Signup from './Pages/Auth/Signup/Signup';
 import StarOne from './Components/UI/Decor/StartOne/StarOne';
 import StarTwo from './Components/UI/Decor/StarTwo/StarTwo';
+import ActivateContainer from './Pages/Auth/Activate/ActivateContainer';
 
 const App = (props) => {
   const { 
@@ -66,6 +67,7 @@ const App = (props) => {
           <Routes>
             <Route path="/admin_login" element={<AdminLogin />} />
             <Route path="/sign_up" element={<Signup/>}/>
+            <Route path="/activate/:hash" element={<ActivateContainer/>}/>
 
             <Route path="/" element={<HomeContainer />} />
             <Route exact path="/item/:name" element={<ItemContainer/>}/>

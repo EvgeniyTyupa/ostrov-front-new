@@ -1,14 +1,18 @@
 import { userApi } from "../Api/api"
-import { setIsFetching, setIsOpenLogin, setIsRegisterDone, setServerError, setServerResponse } from "./commonReducer"
+import { setIsFetching, setIsOpenLogin, setIsRegisterDone, setServerError, setServerMessage, setServerResponse } from "./commonReducer"
 
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_IS_AUTH = 'SET_IS_AUTH'
 const SET_IS_START_DATA = 'SET_IS_START_DATA'
+const SET_IS_VALID_ACTIVATION_HASH = 'SET_IS_VALID_ACTIVATION_HASH'
+const SET_IS_RECEIVED_HASH_STATUS = 'SET_IS_RECEIVED_HASH_STATUS'
 
 let initialState = {
     user: null,
     isAuth: false,
-    isStartData: false
+    isStartData: false,
+    isValidActivationHash: false,
+    isReceivedHashStatus: false
 }
 
 let userReducer = (state = initialState, action) => {
@@ -21,6 +25,12 @@ let userReducer = (state = initialState, action) => {
         }
         case SET_IS_START_DATA: {
             return { ...state, isStartData: action.isStartData }
+        }
+        case SET_IS_VALID_ACTIVATION_HASH: {
+            return { ...state, isValidActivationHash: action.isValidActivationHash }
+        }
+        case SET_IS_RECEIVED_HASH_STATUS: {
+            return { ...state, isReceivedHashStatus: action.isReceivedHashStatus }
         }
         default:
             return state
@@ -36,6 +46,12 @@ export const setIsAuth = (isAuth) => ({
 export const setIsStartData = (isStartData) => ({
     type: SET_IS_START_DATA, isStartData
 })
+export const setIsValidActivationHash = (isValidActivationHash) => ({
+    type: SET_IS_VALID_ACTIVATION_HASH, isValidActivationHash
+})
+export const setIsReceivedHashStatus = (isReceivedHashStatus) => ({
+    type: SET_IS_RECEIVED_HASH_STATUS, isReceivedHashStatus
+})
 
 export const login = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
@@ -46,7 +62,7 @@ export const login = (data) => async (dispatch) => {
     }catch(err) {
         switch(err.response.status) {
             case 404: {
-                dispatch(setServerError("Неправильный логин или пароль!"))
+                dispatch(setServerError(err.response.data.message))
                 break;
             }
             case 500: {
@@ -61,8 +77,8 @@ export const login = (data) => async (dispatch) => {
 export const register = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        await userApi.register(data)
-        dispatch([setIsRegisterDone(true), setIsFetching(false)])
+        let response = await userApi.register(data)
+        dispatch([setIsRegisterDone(true), setServerMessage(response.message), setIsFetching(false)])
     }catch(err) {
         dispatch([setServerError(err.response.data.message), setIsRegisterDone(false), setIsFetching(false)])
     }
@@ -103,6 +119,19 @@ export const changePassword = (userId, data) => async (dispatch) => {
         dispatch([setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+
+export const activateProfile = (hasg) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.activateProfile(hasg)
+        localStorage.usertoken = response.token
+        dispatch([setIsAuth(true), setServerError(null), setIsValidActivationHash(true)])
+    }catch(err) {
+        dispatch([setIsValidActivationHash(false)])
+    }finally {
+        dispatch([setIsReceivedHashStatus(true), setIsFetching(false)])
     }
 }
 

@@ -1,4 +1,5 @@
 import * as axios from "axios";
+import i18next from "i18next";
 
 // const baseURL = 'https://sub.ostrovokdetstva.com/api';
 const baseURL = 'http://localhost:3002/api';
@@ -12,6 +13,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
     config => {
         config.headers.authorization = `Bearer ${localStorage.usertoken}`;
+        config.headers['Accept-Language'] = i18next.language;
         return config;
     }
 );
@@ -35,6 +37,10 @@ export const userApi = {
     },
     changePassword(userId, data) {
         return instance.post(`/auth/change_password/${userId}`, data)
+        .then(response => response.data)
+    },
+    activateProfile(hash) {
+        return instance.post('/auth/activate', { hash })
         .then(response => response.data)
     }
 }

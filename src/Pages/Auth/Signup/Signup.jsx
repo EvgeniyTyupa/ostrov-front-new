@@ -15,11 +15,21 @@ import girl from '../../../Assets/girl.svg'
 import { connect } from 'react-redux'
 import { register } from '../../../Redux/userReducer'
 import Preloader from '../../../Components/Common/Preloader/Preloader'
-import ServerResponse from '../../../Components/UI/ServerResponse/ServerResponse'
-
+import Error from '../../../Components/UI/Form/Error/Error'
+import { setIsRegisterDone, setServerError, setServerMessage } from '../../../Redux/commonReducer'
+import SomeInfoModal from '../../../Components/Modals/SomeInfoModal/SomeInfoModal'
 
 const Signup = (props) => {
-    const { isFetching, register, serverError, isRegisterDone } = props
+    const { 
+        isFetching, 
+        register, 
+        serverError, 
+        isRegisterDone, 
+        setIsRegisterDone,
+        setServerError,
+        serverMessage,
+        setServerMessage
+    } = props
 
     const { handleSubmit, control, watch } = useForm()
 
@@ -31,15 +41,22 @@ const Signup = (props) => {
         register(data)
     }
 
-    useEffect(() => {
-        if(isRegisterDone){
+    const onCloseInfoModal = () => {
+        setIsRegisterDone(false)
+        navigate(`/`)
+    }
 
+    useEffect(() => {
+        return () => {
+            setServerError(null)
+            setServerMessage(null)
         }
-    }, [isRegisterDone])
+    }, [])
 
     return (
         <div className={classes.container}>
             {isFetching && <Preloader/>}
+            {serverMessage && <SomeInfoModal text={serverMessage} onClose={onCloseInfoModal}/>}
             <div className={classes.main}>
                 <NavLink to="/" className={classes.logo}>
                     <img src={logo} alt="logo" />
@@ -63,17 +80,22 @@ const Signup = (props) => {
                                 }
                             }}
                             render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    error={error}
-                                    label={"Email"}
-                                    startAdornment={true}
-                                    startAdornmentIcon={<AccountCircleIcon/>}
-                                />
+                                <div className={classes.emailContainer}>
+                                    <AdminInput
+                                        onChange={(e) => {
+                                            onChange(e)
+                                            setServerError(null)
+                                        }}
+                                        value={value}
+                                        error={error}
+                                        label={"Email"}
+                                        startAdornment={true}
+                                        startAdornmentIcon={<AccountCircleIcon/>}
+                                    />
+                                    {serverError && <Error text={serverError}/>}
+                                </div>
                             )}
                         />
-                        {serverError && <ServerResponse/>}
                         <Controller
                             name="password"
                             control={control}
@@ -84,7 +106,7 @@ const Signup = (props) => {
                                     message: t("errors.required")
                                 },
                                 validate: {
-                                    value: (value) => value.length < 6 || t("errors.notMatch")
+                                    value: (value) => value.length > 5 || t("errors.passLong")
                                 }
                             }}
                             render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -133,9 +155,13 @@ const Signup = (props) => {
 let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
     serverError: state.common.serverError,
+    serverMessage: state.common.serverMessage,
     isRegisterDone: state.common.isRegisterDone
 })
 
 export default connect(mapStateToProps, {
-
+    register,
+    setServerError,
+    setIsRegisterDone,
+    setServerMessage
 })(Signup)

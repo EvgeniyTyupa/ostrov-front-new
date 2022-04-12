@@ -10,10 +10,12 @@ const SET_CURRENT_FILTER_ITEM = 'SET_CURRENT_FILTER_ITEM'
 const SET_SEARCHING_CITIES = 'SET_SEARCHING_CITIES'
 const SET_NP_WAREHOUSES = 'SET_NP_WAREHOUSES'
 const SET_IS_REGISTER_DONE = 'SET_IS_REGISTER_DONE'
+const SET_SERVER_MESSAGE = 'SET_SERVER_MESSAGE'
 
 let initialState = {
     isFetching: false,
     serverResponse: null,
+    serverMessage: null,
     serverError: null,
     currentLanguage: "ru",
     isOpenLogin: false,
@@ -56,6 +58,9 @@ const commonReducer = (state = initialState, action) => {
         case SET_IS_REGISTER_DONE: {
             return { ...state, isRegisterDone: action.isRegisterDone }
         }
+        case SET_SERVER_MESSAGE: {
+            return { ...state, serverMessage: action.serverMessage }
+        }
         default: 
             return state
     }
@@ -90,6 +95,9 @@ export const setNpWarehouses = (npWarehouses) => ({
 })
 export const setIsRegisterDone = (isRegisterDone) => ({
     type: SET_IS_REGISTER_DONE, isRegisterDone
+})
+export const setServerMessage = (serverMessage) => ({
+    type: SET_SERVER_MESSAGE, serverMessage
 })
 
 export const getCities = (searchValue) => async (dispatch) => {

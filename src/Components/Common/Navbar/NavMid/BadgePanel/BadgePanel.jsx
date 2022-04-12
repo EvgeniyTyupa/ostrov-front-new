@@ -29,7 +29,7 @@ const BadgePanel = (props) => {
 
     return (
         <div className={classes.main}>
-            {isAuth &&
+            {(isAuth && user) &&
                 <Tooltip title={t("common.likeTooltip")}>
                     <IconButton onClick={onClickLike}>
                         <StyledBadge badgeContent={user.liked_items.length} color="secondary">

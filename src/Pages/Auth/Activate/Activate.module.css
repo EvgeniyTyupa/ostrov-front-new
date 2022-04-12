@@ -1,0 +1,20 @@
+.container {
+    width: 100%;
+    text-align: center;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+.container p {
+    font-size: 16px;
+    color: #37395C;
+    font-weight: 700;
+}
+.container a {
+    color: #D56886;
+    font-size: 14px;
+    font-weight: 500;
+}

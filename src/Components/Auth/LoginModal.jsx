@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { setIsOpenLogin } from '../../Redux/commonReducer'
+import { setIsOpenLogin, setServerError } from '../../Redux/commonReducer'
 import CustomButton from '../UI/Button/CustomButton'
 import Error from '../UI/Form/Error/Error'
 import Field from '../UI/Form/Field/Field'
@@ -15,7 +15,7 @@ import { login } from '../../Redux/userReducer'
 import { NavLink } from 'react-router-dom'
 
 const LoginModal = (props) => {
-    const { setIsOpenLogin, serverError, login } = props
+    const { setIsOpenLogin, serverError, login, setServerError } = props
 
     const { t } = useTranslation()
 
@@ -33,6 +33,10 @@ const LoginModal = (props) => {
     const onClose = () => {
         setIsOpenLogin(false)
     }
+
+    useEffect(() => {
+        setServerError(null)
+    }, [])
 
     return (
         <Modal title={t("auth.login")} onClose={onClose} className={classes.modal}>
@@ -87,5 +91,6 @@ let mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     setIsOpenLogin,
-    login
+    login,
+    setServerError
 })(LoginModal)

@@ -12,6 +12,7 @@
     z-index: 100;
     animation: fade .5s ease-in-out;
     -webkit-animation-fill-mode: forwards;
+    width: fit-content;
 }
 .main svg {
     color: white
