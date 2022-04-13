@@ -6,6 +6,9 @@
     gap: 5px;
     margin-top: 15px;
 }
+.form button[type="submit"] {
+    width: 100%;
+}
 .submit {
     margin-top: 10px !important;
     width: 100%;
@@ -14,9 +17,15 @@
     width: 30%;
     border: 3px solid #4B5EA3;
 }
-.modal a {
-    margin-top: 15px;
-    font-size: 12px;
-    color: gray;
-    display: block;
+.forgot {
+    margin-top: 15px !important;
+    font-size: 12px !important;
+    color: gray !important;
+    text-decoration: underline;
+    text-transform: initial !important;
+    font-family: 'Montserrat' !important;
+}
+.message {
+    color: #37395C;
+    margin-top: 8px;
 }

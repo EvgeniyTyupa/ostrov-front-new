@@ -6,7 +6,9 @@
         "passLong": "Минимальная длинна пароля 6 символов"
     },
     "form": {
-        "forgot_pass": "Забыли пароль?"
+        "forgot_pass": "Забыли пароль?",
+        "forgot_pass_title": "Восстановить пароль",
+        "forgot_submit": "Отправить"
     },
     "navigation": {
         "contact": "Контакты",

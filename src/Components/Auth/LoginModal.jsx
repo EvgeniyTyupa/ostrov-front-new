@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { setIsOpenLogin, setServerError } from '../../Redux/commonReducer'
+import { setIsOpenForgotPassModal, setIsOpenLogin, setServerError } from '../../Redux/commonReducer'
 import CustomButton from '../UI/Button/CustomButton'
 import Error from '../UI/Form/Error/Error'
 import Field from '../UI/Form/Field/Field'
@@ -13,9 +13,16 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminInput from '../UI/Form/AdminInput'
 import { login } from '../../Redux/userReducer'
 import { NavLink } from 'react-router-dom'
+import { Button } from '@mui/material'
 
 const LoginModal = (props) => {
-    const { setIsOpenLogin, serverError, login, setServerError } = props
+    const { 
+        setIsOpenLogin, 
+        serverError, 
+        login, 
+        setServerError, 
+        setIsOpenForgotPassModal 
+    } = props
 
     const { t } = useTranslation()
 
@@ -31,6 +38,11 @@ const LoginModal = (props) => {
     }
 
     const onClose = () => {
+        setIsOpenLogin(false)
+    }
+
+    const onForgot = () => {
+        setIsOpenForgotPassModal(true)
         setIsOpenLogin(false)
     }
 
@@ -79,7 +91,7 @@ const LoginModal = (props) => {
                     <Error text={serverError}/>
                 </div>}
                 <CustomButton type="submit" className={classes.submit}>{t("auth.loginSubmit")}</CustomButton>
-                <NavLink to="/reset_password">{t("form.forgot_pass")}</NavLink>
+                <Button onClick={onForgot} className={classes.forgot}>{t("form.forgot_pass")}</Button>
             </form>
         </Modal>
     )
@@ -92,5 +104,6 @@ let mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
     setIsOpenLogin,
     login,
-    setServerError
+    setServerError,
+    setIsOpenForgotPassModal
 })(LoginModal)

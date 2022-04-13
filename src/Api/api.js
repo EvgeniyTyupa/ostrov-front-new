@@ -42,6 +42,14 @@ export const userApi = {
     activateProfile(hash) {
         return instance.post('/auth/activate', { hash })
         .then(response => response.data)
+    },
+    forgotPass(data) {
+        return instance.post('/auth/forgot_pass', data)
+        .then(response => response.data)
+    },
+    validateResetHash(hash) {
+        return instance.post('/auth/validate_reset_hash', { hash })
+        .then(response => response.data)
     }
 }
 

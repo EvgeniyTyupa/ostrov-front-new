@@ -7,7 +7,6 @@ import Activate from './Activate'
 
 const ActivateContainer = (props) => {
     const { 
-        isFetching, 
         activateProfile,
         isValidActivationHash,
         isReceivedHashStatus

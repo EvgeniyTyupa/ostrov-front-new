@@ -29,7 +29,7 @@ const AccountInfoForm = (props) => {
     const [currentCity, setCurrentCity] = useState(user.city || null)
 
     const onSubmit = (data) => {
-        data.phone = "+380" + data.phone
+        data.phone = data.phone ? "+380" + data.phone : ''
         data.city = {
             MainDescription: data.city.MainDescription,
             Present: data.city.Present
@@ -47,17 +47,20 @@ const AccountInfoForm = (props) => {
 
     useEffect(() => {
         reset({
+            ...user,
             first_name: user.first_name || "",
             last_name: user.last_name || "",
             email: user.email || "",
-            phone: user.phone.substring(4) || "",
+            phone: user.phone ? user.phone.substring(4) : "",
             city: user.city || null,
             warehouse: user.warehouse || null
         })
     }, [])
 
     useEffect(() => {
-        getWarehouses(currentCity.MainDescription, "")
+        if(currentCity){
+            getWarehouses(currentCity.MainDescription, "")
+        }
     }, [currentCity])
 
     return (

@@ -1,10 +1,12 @@
 .main {
     background-color: #4B5EA3 !important;
     color: white !important;
-    text-transform: initial;
+    text-transform: initial !important;
+    font-family: 'Montserrat' !important;
+    font-weight: 700 !important;
     height: 50px;
-    font-size: 16px;
-    border-radius: 4px;
+    font-size: 16px !important;
+    border-radius: 4px !important;
 }
 .main:hover {
     background-color: #2c45a0 !important;

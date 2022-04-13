@@ -5,7 +5,12 @@ import Preloader from '../../Components/Common/Preloader/Preloader'
 import { me } from '../../Redux/userReducer'
 
 const ProfilePage = (props) => {
-    const { isFetching, user, me } = props
+    const { 
+        user, 
+        me, 
+        isAuth,
+        isReceiveAuthStatus
+    } = props
 
     useEffect(() => {
         if(!user) {
@@ -13,13 +18,14 @@ const ProfilePage = (props) => {
         }
     }, [])
 
-    return (isFetching && !user) ? <Preloader/> :
-    user ? <Outlet/> : <Navigate to="/" />
+    return !isReceiveAuthStatus ? <Preloader/> :
+    isAuth ? <Outlet/> : <Navigate to="/" />
 }
 
 let mapStateToProps = (state) => ({
-    isFetching: state.common.isFetching,
-    user: state.user.user
+    user: state.user.user,
+    isAuth: state.user.isAuth,
+    isReceiveAuthStatus: state.user.isReceiveAuthStatus
 })
 
 export default connect(mapStateToProps, {

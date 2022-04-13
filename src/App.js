@@ -41,14 +41,15 @@ import Signup from './Pages/Auth/Signup/Signup';
 import StarOne from './Components/UI/Decor/StartOne/StarOne';
 import StarTwo from './Components/UI/Decor/StarTwo/StarTwo';
 import ActivateContainer from './Pages/Auth/Activate/ActivateContainer';
+import ForgotPassModal from './Components/Auth/ForgotPassModal';
+import ResetPasswordContainer from './Pages/Auth/ResetPassword/ResetPasswordContainer';
 
 const App = (props) => {
   const { 
     isOpenLogin,
     me,
     isAuth,
-    serverError,
-    serverResponse
+    isOpenForgotPassModal
   } = props
 
   useEffect(() => {
@@ -63,11 +64,12 @@ const App = (props) => {
         <div className='main'>
           <Navbar/>
           {isOpenLogin && <LoginModal/>}
-          {serverResponse && <ServerResponse/>}
+          {isOpenForgotPassModal && <ForgotPassModal/>}
           <Routes>
             <Route path="/admin_login" element={<AdminLogin />} />
             <Route path="/sign_up" element={<Signup/>}/>
             <Route path="/activate/:hash" element={<ActivateContainer/>}/>
+            <Route path="/reset_pass/:hash" element={<ResetPasswordContainer/>}/>
 
             <Route path="/" element={<HomeContainer />} />
             <Route exact path="/item/:name" element={<ItemContainer/>}/>
@@ -112,9 +114,8 @@ const App = (props) => {
 let mapStateToProps = (state) => ({
   isOpenLogin: state.common.isOpenLogin,
   isStartData: state.user.isStartData,
-  serverResponse: state.common.serverResponse,
   isAuth: state.user.isAuth,
-  serverError: state.common.serverError
+  isOpenForgotPassModal: state.common.isOpenForgotPassModal
 })
 
 export default connect(mapStateToProps, {

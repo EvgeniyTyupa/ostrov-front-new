@@ -10,6 +10,7 @@ import Error from '../../UI/Form/Error/Error'
 import Field from '../../UI/Form/Field/Field'
 import InputPassword from '../../UI/Form/InputPassword'
 import ProfileLayout from '../../UI/ProfileLayout/ProfileLayout'
+import ServerResponse from '../../UI/ServerResponse/ServerResponse'
 import classes from './Settings.module.css'
 
 const Settings = (props) => {
@@ -43,6 +44,7 @@ const Settings = (props) => {
     return (
         <ProfileLayout title={t("profile.menu.settings")}>
             {isFetching && <Preloader/>}
+            {serverResponse && <ServerResponse/>}
             <form onSubmit={handleSubmit(onSubmit)} className={classes.main}>
                 <Field className={classes.field}>
                     <label>{t("profile.settings.old_password")}</label>

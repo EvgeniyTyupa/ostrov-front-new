@@ -139,7 +139,7 @@ const ItemContainer = (props) => {
             setCurrentImage(currentItem.images[0])
             getComments(currentItem._id, pageNumber + 1, pageSize)
         }
-        if(currentItem) {
+        if(currentItem && user) {
             setViewedItemsToLC(currentItem)
         }
     }, [currentItem])

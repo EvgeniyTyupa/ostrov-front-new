@@ -11,6 +11,7 @@ const SET_SEARCHING_CITIES = 'SET_SEARCHING_CITIES'
 const SET_NP_WAREHOUSES = 'SET_NP_WAREHOUSES'
 const SET_IS_REGISTER_DONE = 'SET_IS_REGISTER_DONE'
 const SET_SERVER_MESSAGE = 'SET_SERVER_MESSAGE'
+const SET_IS_OPEN_FORGOT_PASS_MODAL = 'SET_IS_OPEN_FORGOT_PASS_MODAL'
 
 let initialState = {
     isFetching: false,
@@ -23,7 +24,8 @@ let initialState = {
     currentFilterItem: null,
     searchingCities: [],
     npWarehouses: [],
-    isRegisterDone: false
+    isRegisterDone: false,
+    isOpenForgotPassModal: false
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -60,6 +62,9 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_SERVER_MESSAGE: {
             return { ...state, serverMessage: action.serverMessage }
+        }
+        case SET_IS_OPEN_FORGOT_PASS_MODAL: {
+            return { ...state, isOpenForgotPassModal: action.isOpenForgotPassModal }
         }
         default: 
             return state
@@ -98,6 +103,9 @@ export const setIsRegisterDone = (isRegisterDone) => ({
 })
 export const setServerMessage = (serverMessage) => ({
     type: SET_SERVER_MESSAGE, serverMessage
+})
+export const setIsOpenForgotPassModal = (isOpenForgotPassModal) => ({
+    type: SET_IS_OPEN_FORGOT_PASS_MODAL, isOpenForgotPassModal
 })
 
 export const getCities = (searchValue) => async (dispatch) => {

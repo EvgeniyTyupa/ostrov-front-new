@@ -24,14 +24,13 @@ const ViewedItems = (props) => {
         <ProfileLayout title={t("profile.menu.viewed")}>
             <div className={classes.main}>
                 <div className={classes.wrapper}>
-                    {items.reverse().map(el => (
+                    {items ? items.reverse().map(el => (
                         <ViewedItem
                             key={el._id}
                             currentLanguage={currentLanguage}
                             item={el}
                         />
-                    ))}
-                    {items.length === 0 &&
+                    )) :
                         <p className={classes.empty}>{t("profile.viewed_empty")}</p>
                     }
                 </div>
