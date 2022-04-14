@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
+import { setAddToCartResult, setCartItems } from '../../Redux/cartReducer'
 import { getCategoriesWithParents } from '../../Redux/categoryReducer'
 import { getComments } from '../../Redux/commentsReducer'
 import { getItem, getSame } from '../../Redux/itemsReducer'
@@ -27,7 +28,10 @@ const ItemContainer = (props) => {
         newComment,
         isAuth,
         user,
-        updateProfile
+        updateProfile,
+        setCartItems,
+        cartItems,
+        setAddToCartResult
     } = props
 
     const { name } = useParams()
@@ -55,6 +59,30 @@ const ItemContainer = (props) => {
     const handlePageSize = (event) => {
         setPageSize(event.target.value)
         setPageNumber(0)
+    }
+
+    const addToCart = () => {
+        let newItems = [...cartItems]
+
+        let isExist = false
+        let currentItemIndex = null
+
+        newItems.forEach((el, index) => {
+            if(el.item._id === currentItem._id){
+                el.count += 1
+                isExist = true
+                currentItemIndex = index
+            }
+        })
+
+        if(!isExist) {
+            newItems.push({
+                item: currentItem,
+                count: 1
+            })
+        }
+        setCartItems(newItems)
+        setAddToCartResult(newItems[currentItemIndex ? currentItemIndex : newItems.length - 1])
     }
 
     const handleFullText = () => {
@@ -166,6 +194,7 @@ const ItemContainer = (props) => {
                         isLiked={isLiked}
                         isOpenNeedAuthModal={isOpenNeedAuthModal}
                         handleOpenAuthModal={handleOpenAuthModal}
+                        addToCart={addToCart}
                     />}
                 </>
             }
@@ -183,7 +212,8 @@ let mapStateToProps = (state) => ({
     totalComments: state.comments.total,
     newComment: state.comments.newComment,
     isAuth: state.user.isAuth,
-    user: state.user.user
+    user: state.user.user,
+    cartItems: state.cart.items
 })
 
 export default connect(mapStateToProps, {
@@ -191,5 +221,7 @@ export default connect(mapStateToProps, {
     getCategoriesWithParents,
     getSame,
     getComments,
-    updateProfile
+    updateProfile,
+    setCartItems,
+    setAddToCartResult
 })(ItemContainer)

@@ -1,0 +1,76 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 25px;
+    border-top: 1px solid rgba(55, 57, 92, .1);
+    padding: 15px;
+    box-sizing: border-box;
+    justify-content: center;
+}
+.item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.item a {
+    text-decoration: none;
+    color: #37395C;
+}
+.item a:hover {
+    text-decoration: underline;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+.messageTotal {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #37395C;
+    border-bottom: 1px solid rgba(55, 57, 92, .1);
+    padding-bottom: 15px;
+}
+.messageTotal a {
+    text-decoration: none;
+    color: #D56886;
+    font-weight: 700;
+}
+.messageTotal a:hover {
+    text-decoration: underline;
+}
+.messageTotal p {
+    font-weight: 700;
+    font-size: 18px;
+    position: relative;
+    top: 2px;
+    color: #4B5EA3;
+}
+.navigateBut {
+    margin-top: 24px !important;
+    width: fit-content;
+    background-color: #4B5EA3 !important;
+    border-radius: 32px !important;
+    color: white !important;
+    font-family: 'Montserrat' !important;
+    padding: 10px 25px !important;
+}
+.navigateBut:hover {
+    background-color: #42528d !important;
+}

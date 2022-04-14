@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import AccountMenu from './AccountMenu/AccountMenu';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartModal from '../../../ShoppingCart/ShoppingCartModal/ShoppingCartModal';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -38,9 +39,12 @@ const BadgePanel = (props) => {
                     </IconButton>
                 </Tooltip>
             }
-            <Tooltip title={t("common.cartTooltip")}>
+            <Tooltip 
+                title={<ShoppingCartModal/>}
+                classes={{ tooltip: classes.tooltip }}
+            >
                 <IconButton>
-                    <StyledBadge badgeContent={4} color="secondary">
+                    <StyledBadge badgeContent={0} color="secondary">
                         <FiShoppingCart/>
                     </StyledBadge>
                 </IconButton>

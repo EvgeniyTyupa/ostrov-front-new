@@ -11,3 +11,10 @@
     color: #2B629C;
     font-size: 28px;
 }
+.tooltip {
+    padding: 0 !important;
+    max-width: unset !important;
+    font-family: 'Montserrat' !important;
+    font-size: inherit !important;
+    background-color: transparent !important;
+}

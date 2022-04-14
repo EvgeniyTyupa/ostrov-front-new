@@ -33,7 +33,8 @@ const Item = (props) => {
         user,
         isOpenNeedAuthModal,
         handleOpenAuthModal,
-        isLiked
+        isLiked,
+        addToCart
     } = props
 
     let currentItemName = currentLanguage === "ru" ? item.name : item.name_ua
@@ -89,6 +90,7 @@ const Item = (props) => {
                             <div className={classes.actionBlock}>
                                 <Button
                                     className={classes.buyBut}
+                                    onClick={addToCart}
                                 >
                                     {t("actions.buy")}
                                 </Button>

@@ -43,14 +43,41 @@ import StarTwo from './Components/UI/Decor/StarTwo/StarTwo';
 import ActivateContainer from './Pages/Auth/Activate/ActivateContainer';
 import ForgotPassModal from './Components/Auth/ForgotPassModal';
 import ResetPasswordContainer from './Pages/Auth/ResetPassword/ResetPasswordContainer';
+import ShoppingCartResult from './Components/Common/ShoppingCart/ShoppingCartResult/ShoppingCartResult';
+import { setTotalCount, setTotalSum } from './Redux/cartReducer';
+import { discountParser } from './Utils/discountParser';
 
 const App = (props) => {
   const { 
     isOpenLogin,
     me,
     isAuth,
-    isOpenForgotPassModal
+    isOpenForgotPassModal,
+    addToCartResult,
+    cartItems,
+    setTotalCount,
+    setTotalSum,
+    totalSumCart,
+    totalCountCart
   } = props
+
+  useEffect(() => {
+    let newCount = 0
+    let newTotalSum = 0
+
+    cartItems.forEach(el => {
+      newCount += el.count
+      if(el.item.in_action && el.item.from_sum_in_bill === 0 && !el.item.from_items_count) {
+        newTotalSum += Number(discountParser(el.item.price, el.item.discount).replace(/ /g,'')) * el.count
+      }else {
+        newTotalSum += Number(el.item.price) * el.count
+      }
+    })
+    setTotalCount(newCount)
+    setTotalSum(newTotalSum)
+  }, [cartItems])
+
+  // console.log(totalSumCart, totalCountCart)
 
   useEffect(() => {
     if(localStorage.usertoken) {
@@ -65,6 +92,7 @@ const App = (props) => {
           <Navbar/>
           {isOpenLogin && <LoginModal/>}
           {isOpenForgotPassModal && <ForgotPassModal/>}
+          {addToCartResult && <ShoppingCartResult/>}
           <Routes>
             <Route path="/admin_login" element={<AdminLogin />} />
             <Route path="/sign_up" element={<Signup/>}/>
@@ -115,9 +143,15 @@ let mapStateToProps = (state) => ({
   isOpenLogin: state.common.isOpenLogin,
   isStartData: state.user.isStartData,
   isAuth: state.user.isAuth,
-  isOpenForgotPassModal: state.common.isOpenForgotPassModal
+  isOpenForgotPassModal: state.common.isOpenForgotPassModal,
+  addToCartResult: state.cart.addToCartResult,
+  totalCountCart: state.cart.totalCount,
+  totalSumCart: state.cart.totalSum,
+  cartItems: state.cart.items
 })
 
 export default connect(mapStateToProps, {
-  me
+  me,
+  setTotalCount,
+  setTotalSum
 })(App);

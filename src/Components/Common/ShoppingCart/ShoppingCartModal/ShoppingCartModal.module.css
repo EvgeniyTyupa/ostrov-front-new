@@ -1,0 +1,14 @@
+.main {
+    width: 300px;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #E86589;
+    border-radius: 8px;
+}
+.empty {
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+}

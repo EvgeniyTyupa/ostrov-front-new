@@ -1,0 +1,8 @@
+
+.main button {
+    color: #E86589 !important;
+    font-size: 10px !important;
+}
+.main button:disabled {
+    color: gray !important;
+}
