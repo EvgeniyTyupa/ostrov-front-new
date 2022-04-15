@@ -8,7 +8,7 @@ import MaxWidthContainer from '../../../UI/Container/MaxWidthContainer/MaxWidthC
 import BadgePanel from './BadgePanel/BadgePanel'
 
 const NavMid = (props) => {
-    const { isAuth, user } = props
+    const { isAuth, user, totalItemsCart } = props
 
     return (
         <PaddingContainer className={classes.main}>
@@ -21,7 +21,7 @@ const NavMid = (props) => {
                 <div className={classes.content}>
                     <Search/>
                     <a href='tel:123456789' className={classes.phoneNumber}>123456789</a>
-                    <BadgePanel isAuth={isAuth} user={user}/>
+                    <BadgePanel isAuth={isAuth} user={user} totalItemsCart={totalItemsCart}/>
                 </div>
             </MaxWidthContainer>
         </PaddingContainer>

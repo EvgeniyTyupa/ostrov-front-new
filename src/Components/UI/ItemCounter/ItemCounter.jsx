@@ -7,11 +7,12 @@ import classes from './ItemCounter.module.css'
 const useStyles = makeStyles((theme) => ({
     root:{
         background: "white",
-        width: "150px",
+        width: "fit-content",
+        maxWidth: "140px",
         '& input': {
             textAlign: "center",
             fontFamily: "Montserrat",
-            fontSize: "14px",
+            fontSize: "12px",
         },
         '& label.Mui-focused': {
             color: 'rgba(55, 57, 92, .2)'
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         '& .MuiOutlinedInput-root': {
             borderRadius: "32px",
             textAlign: "center !important",
-            height: "34px",
+            height: "30px",
             // border: '1px solid rgba(55, 57, 92, .2)'
         },
         '& .MuiFormHelperText-root.Mui-error': {
@@ -39,18 +40,28 @@ const useStyles = makeStyles((theme) => ({
 const ItemCounter = (props) => {
     const { 
         item,
-        onChange
+        onChange,
+        type
     } = props
 
     const material = useStyles()
 
     const handleMinus = () => {
         const count = Number(item.count)
-        if(count - 1 > 0) {
-            onChange({
-                item: item.item,
-                count: count - 1
-            })
+        if(type === "result") {
+            if(count - 1 > 0) {
+                onChange({
+                    item: item.item,
+                    count: count - 1
+                })
+            }
+        }else if(type === "mini"){
+            if(count - 1 > -1) {
+                onChange({
+                    item: item.item,
+                    count: count - 1
+                })
+            }
         }
     }
 
@@ -72,7 +83,11 @@ const ItemCounter = (props) => {
                 startAdornment: (
                     <InputAdornment position='start' style={{ width: "fit-content" }}>
                         <IconButton
-                            disabled={item.count - 1 === 0}
+                            disabled={
+                                type === "result" ? 
+                                item.count - 1 === 0 : 
+                                item.count - 1 === -1
+                            }
                             onClick={handleMinus}
                         >
                             <FaMinus/>

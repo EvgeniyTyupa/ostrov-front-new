@@ -23,7 +23,6 @@ import { connect } from 'react-redux';
 import LoginModal from './Components/Auth/LoginModal';
 import { useEffect } from 'react';
 import { me } from './Redux/userReducer';
-import ServerResponse from './Components/UI/ServerResponse/ServerResponse';
 
 import Contacts from './Pages/Contacts/Contacts';
 import CatalogContainer from './Pages/Catalog/CatalogContainer';
@@ -44,8 +43,10 @@ import ActivateContainer from './Pages/Auth/Activate/ActivateContainer';
 import ForgotPassModal from './Components/Auth/ForgotPassModal';
 import ResetPasswordContainer from './Pages/Auth/ResetPassword/ResetPasswordContainer';
 import ShoppingCartResult from './Components/Common/ShoppingCart/ShoppingCartResult/ShoppingCartResult';
-import { setTotalCount, setTotalSum } from './Redux/cartReducer';
+import { getCartItems, setCartItems, setTotalCount, setTotalSum } from './Redux/cartReducer';
 import { discountParser } from './Utils/discountParser';
+import ShoppingCartContainer from './Pages/Checkout/ShoppingCart/ShoppingCartContainer';
+import { getViewedItems, setViewedItems } from './Redux/itemsReducer';
 
 const App = (props) => {
   const { 
@@ -58,26 +59,77 @@ const App = (props) => {
     setTotalCount,
     setTotalSum,
     totalSumCart,
-    totalCountCart
+    totalCountCart,
+    setCartItems,
+    viewedItems,
+    setViewedItems,
+    getViewedItems,
+    getCartItems
   } = props
 
   useEffect(() => {
     let newCount = 0
     let newTotalSum = 0
 
-    cartItems.forEach(el => {
-      newCount += el.count
-      if(el.item.in_action && el.item.from_sum_in_bill === 0 && !el.item.from_items_count) {
-        newTotalSum += Number(discountParser(el.item.price, el.item.discount).replace(/ /g,'')) * el.count
+    let newItems = [...cartItems]
+
+    newItems.forEach((el, index) => {
+      if(el.count > 0) {
+        newCount += el.count
+        if(el.item.in_action && el.item.from_sum_in_bill === 0 && !el.item.from_items_count) {
+          newTotalSum += Number(discountParser(el.item.price, el.item.discount).replace(/ /g,'')) * el.count
+        }else {
+          newTotalSum += Number(el.item.price) * el.count
+        }
       }else {
-        newTotalSum += Number(el.item.price) * el.count
+        newItems.splice(index, 1)
+        if(newItems.length === 0) {
+          localStorage.setItem('shopping_cart', JSON.stringify(newItems))
+        }
+        setCartItems(newItems)
       }
     })
+    if(newItems.length > 0) {
+      localStorage.setItem('shopping_cart', JSON.stringify(newItems))
+    }
+
     setTotalCount(newCount)
     setTotalSum(newTotalSum)
   }, [cartItems])
 
-  // console.log(totalSumCart, totalCountCart)
+  useEffect(() => {
+    if(viewedItems.length > 0){
+      let ids = []
+      viewedItems.forEach(el => {
+        ids.push(el._id)
+      })
+      localStorage.setItem('viewed_items', JSON.stringify(ids))
+    }
+  }, [viewedItems])
+
+  useEffect(() => {
+    let viewed_items = localStorage.getItem('viewed_items')
+    let parsed_items = JSON.parse(viewed_items)
+    
+    if(parsed_items){
+      getViewedItems(parsed_items)
+    }
+  }, [])
+
+  useEffect(() => {
+    let cart_items = localStorage.getItem('shopping_cart')
+    let parsed_items = JSON.parse(cart_items)
+
+    if(parsed_items) {
+      let ids = []
+      parsed_items.forEach(el => {
+        ids.push(el.item._id)
+      })
+      if(ids.length > 0) {
+        getCartItems(ids)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if(localStorage.usertoken) {
@@ -107,6 +159,8 @@ const App = (props) => {
             <Route exact path="/blog/:title" element={<PostContainer/>}/>
             <Route exact path="/actions" element={<ActionsContainer/>}/>
             <Route exact path="/actions/:title" element={<ActionContainer/>} />
+
+            <Route exact path="/shopping_cart" element={<ShoppingCartContainer/>}/>
 
             <Route exact path="profile" element={<ProfilePage/>}>
               <Route exact path="" element={<AccountContainer/>}/>
@@ -147,11 +201,16 @@ let mapStateToProps = (state) => ({
   addToCartResult: state.cart.addToCartResult,
   totalCountCart: state.cart.totalCount,
   totalSumCart: state.cart.totalSum,
-  cartItems: state.cart.items
+  cartItems: state.cart.items,
+  viewedItems: state.items.viewedItems
 })
 
 export default connect(mapStateToProps, {
   me,
   setTotalCount,
-  setTotalSum
+  setTotalSum,
+  setCartItems,
+  setViewedItems,
+  getViewedItems,
+  getCartItems
 })(App);

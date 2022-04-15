@@ -2,6 +2,8 @@
 .main button {
     color: #E86589 !important;
     font-size: 10px !important;
+    width: 30px;
+    padding: 8px;
 }
 .main button:disabled {
     color: gray !important;

@@ -62,6 +62,10 @@ export const itemsApi = {
         return instance.get(`/item/${itemId}`)
         .then(response => response.data)
     },
+    getItemsPackById(items){
+        return instance.post('/item/storage', { items: items })
+        .then(response => response.data)
+    },
     getSame(tagsId, itemId){
         return instance.post('/item/same', { tagsId, itemId })
         .then(response => response.data)

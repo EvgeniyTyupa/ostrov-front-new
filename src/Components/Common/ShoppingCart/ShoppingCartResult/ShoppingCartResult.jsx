@@ -1,12 +1,12 @@
 import { Button } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { setAddToCartResult, setCartItems } from '../../../../Redux/cartReducer'
 import { priceParser } from '../../../../Utils/priceParser'
-import ItemCounter from '../../../UI/ItemCounter/ItemCounter'
 import Modal from '../../../UI/Modal/Modal'
+import CartItem from '../CartItem/CartItem'
 import classes from './ShoppingCartResult.module.css'
 
 const ShoppingCartResult = (props) => {
@@ -14,7 +14,6 @@ const ShoppingCartResult = (props) => {
         items,
         addToCartResult,
         setAddToCartResult,
-        currentLanguage,
         setCartItems,
         totalCount,
         totalSum
@@ -23,8 +22,6 @@ const ShoppingCartResult = (props) => {
     const { t } = useTranslation()
 
     const navigate = useNavigate()
-
-    let itemName = currentLanguage === "ru" ? addToCartResult.item.name : addToCartResult.item.name_ua
 
     const onClose = () => {
         setAddToCartResult(null)
@@ -56,18 +53,14 @@ const ShoppingCartResult = (props) => {
     return (
         <Modal title={t("shopping_cart.addToCartResultTitle")} onClose={onClose}>
             <div className={classes.main}>
-                <div className={classes.item}>
-                    <NavLink to={`/item/${itemName}`}>
-                        <img src={addToCartResult.item.images[0]} alt="item image"/>
-                    </NavLink>
-                    <div className={classes.info}>
-                        <NavLink to={`/item/${itemName}`}>{itemName}</NavLink>
-                        <ItemCounter item={addToCartResult} onChange={setAddToCartResult}/>
-                    </div>
-                </div>
+                <CartItem 
+                    item={addToCartResult} 
+                    type="result"
+                    onChange={setAddToCartResult}
+                />
                 <div className={classes.messageTotal}>
                     <span>{t("shopping_cart.totalResult")}</span>
-                    <NavLink to="/shopping_cart">{totalCount},</NavLink>
+                    <NavLink onClick={onClose} to="/shopping_cart">{totalCount},</NavLink>
                     <span>{t("shopping_cart.onSum")}</span>
                     <p>{priceParser(totalSum)} грн.</p>
                 </div>
@@ -81,8 +74,7 @@ let mapStateToProps = (state) => ({
     items: state.cart.items,
     totalCount: state.cart.totalCount,
     totalSum: state.cart.totalSum,
-    addToCartResult: state.cart.addToCartResult,
-    currentLanguage: state.common.currentLanguage
+    addToCartResult: state.cart.addToCartResult
 })
 
 export default connect(mapStateToProps, {

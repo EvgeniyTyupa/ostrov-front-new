@@ -12,7 +12,8 @@ const Navbar = (props) => {
         currentLanguage,
         setCurrentLanguage,
         isAuth,
-        user
+        user,
+        totalItemsCart
     } = props
 
     const { pathname } = useLocation()
@@ -22,7 +23,7 @@ const Navbar = (props) => {
             {(!pathname.includes("admin") && !pathname.includes("/sign_up")) &&
             <div className={classes.main}>
                 <NavTop currentLanguage={currentLanguage} setCurrentLanguage={setCurrentLanguage}/>
-                <NavMid isAuth={isAuth} user={user}/>
+                <NavMid isAuth={isAuth} user={user} totalItemsCart={totalItemsCart}/>
                 <NavBot/>
             </div>}
         </>
@@ -32,7 +33,8 @@ const Navbar = (props) => {
 let mapStateToProps = (state) => ({
     currentLanguage: state.common.currentLanguage,
     isAuth: state.user.isAuth,
-    user: state.user.user
+    user: state.user.user,
+    totalItemsCart: state.cart.totalCount
 })
 
 export default connect(mapStateToProps, {

@@ -4,37 +4,7 @@
     flex-direction: column;
     align-items: center;
 }
-.item {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-top: 25px;
-    border-top: 1px solid rgba(55, 57, 92, .1);
-    padding: 15px;
-    box-sizing: border-box;
-    justify-content: center;
-}
-.item img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-.item a {
-    text-decoration: none;
-    color: #37395C;
-}
-.item a:hover {
-    text-decoration: underline;
-}
 
-.info {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-}
 .messageTotal {
     width: 100%;
     display: flex;

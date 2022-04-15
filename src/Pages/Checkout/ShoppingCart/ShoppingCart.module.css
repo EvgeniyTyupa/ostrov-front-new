@@ -1,0 +1,87 @@
+.main {
+    width: 100%;
+    min-height: 60vh;
+    margin-bottom: 75px;
+    z-index: 4;
+}
+.container {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+}
+.left {
+    width: 75%;
+}
+.right {
+    width: 25%;
+    padding-top: 45px;
+}
+.empty {
+    font-size: 16px;
+    color: #37395C;
+    margin-top: 20px;
+    font-weight: 500;
+}
+.rightCard {
+    width: 100%;
+    background-color: #E86589;
+    box-shadow: 0 6px 0 0 #c44d6d;
+    border-radius: 16px;
+    padding: 24px;
+    box-sizing: border-box;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+}
+.fieldCard {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    padding-bottom: 8px;
+}
+.fieldCard span {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+.fieldCard span::first-letter {
+    text-transform: uppercase;
+}
+.fieldCard p {
+    font-size: 18px;
+    font-weight: 700;
+}
+.fieldTotal span {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+}
+.fieldTotal p span {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+}
+.fieldTotal p {
+    font-size: 24px;
+}
+.submit {
+    margin-top: 12px !important;
+    width: fit-content;
+    background-color: #4B5EA3 !important;
+    border-radius: 32px !important;
+    color: white !important;
+    font-family: 'Montserrat' !important;
+    padding: 10px 25px !important;
+    font-weight: 700 !important;
+}
+.submit:hover {
+    background-color: #42528d !important;
+}
+.submit:disabled {
+    background-color: gray !important;
+}

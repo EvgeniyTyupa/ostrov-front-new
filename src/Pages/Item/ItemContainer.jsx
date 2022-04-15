@@ -5,7 +5,7 @@ import Preloader from '../../Components/Common/Preloader/Preloader'
 import { setAddToCartResult, setCartItems } from '../../Redux/cartReducer'
 import { getCategoriesWithParents } from '../../Redux/categoryReducer'
 import { getComments } from '../../Redux/commentsReducer'
-import { getItem, getSame } from '../../Redux/itemsReducer'
+import { getItem, getSame, setViewedItems } from '../../Redux/itemsReducer'
 import { updateProfile } from '../../Redux/userReducer'
 import { discountParser } from '../../Utils/discountParser'
 import { setViewedItemsToLC } from '../../Utils/setViewedItemsToLC'
@@ -31,7 +31,9 @@ const ItemContainer = (props) => {
         updateProfile,
         setCartItems,
         cartItems,
-        setAddToCartResult
+        setAddToCartResult,
+        setViewedItems,
+        viewedItems
     } = props
 
     const { name } = useParams()
@@ -167,8 +169,24 @@ const ItemContainer = (props) => {
             setCurrentImage(currentItem.images[0])
             getComments(currentItem._id, pageNumber + 1, pageSize)
         }
-        if(currentItem && user) {
-            setViewedItemsToLC(currentItem)
+        if(currentItem) {
+            let newViewedItems = [...viewedItems]
+            let isExist = false
+
+            newViewedItems.forEach(el => {
+                if(el._id === currentItem._id){
+                    isExist = true
+                }
+            })
+
+            if(!isExist){
+                if(newViewedItems.length === 15) {
+                    newViewedItems.splice(0, 1)
+                }
+                newViewedItems.push(currentItem)
+            }
+
+            setViewedItems(newViewedItems)
         }
     }, [currentItem])
 
@@ -213,7 +231,8 @@ let mapStateToProps = (state) => ({
     newComment: state.comments.newComment,
     isAuth: state.user.isAuth,
     user: state.user.user,
-    cartItems: state.cart.items
+    cartItems: state.cart.items,
+    viewedItems: state.items.viewedItems
 })
 
 export default connect(mapStateToProps, {
@@ -223,5 +242,6 @@ export default connect(mapStateToProps, {
     getComments,
     updateProfile,
     setCartItems,
-    setAddToCartResult
+    setAddToCartResult,
+    setViewedItems
 })(ItemContainer)

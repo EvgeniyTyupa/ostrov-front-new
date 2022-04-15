@@ -18,7 +18,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const BadgePanel = (props) => {
-    const { isAuth, user } = props
+    const { isAuth, user, totalItemsCart } = props
 
     const { t } = useTranslation()
 
@@ -26,6 +26,12 @@ const BadgePanel = (props) => {
 
     const onClickLike = () => {
         navigate(`/profile/liked_items`)
+    }
+
+    const onClickCart = () => {
+        if(totalItemsCart){
+            navigate(`/shopping_cart`)
+        }
     }
 
     return (
@@ -43,8 +49,10 @@ const BadgePanel = (props) => {
                 title={<ShoppingCartModal/>}
                 classes={{ tooltip: classes.tooltip }}
             >
-                <IconButton>
-                    <StyledBadge badgeContent={0} color="secondary">
+                <IconButton
+                    onClick={onClickCart}
+                >
+                    <StyledBadge badgeContent={totalItemsCart} color="secondary">
                         <FiShoppingCart/>
                     </StyledBadge>
                 </IconButton>
