@@ -2,6 +2,8 @@ import { Button, Tab, Tabs } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs'
 import CartTable from '../../../Components/Common/ShoppingCart/CartTable/CartTable'
 import MaxWidthContainer from '../../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../../Components/UI/Container/PaddingContainer/PaddingContainer'
@@ -57,6 +59,8 @@ const ShoppingCart = (props) => {
 
     const materialTab = useTabStyles()
 
+    const navigate = useNavigate()
+
     const cartRows = [
         "", 
         t("shopping_cart.table.item"),
@@ -72,11 +76,15 @@ const ShoppingCart = (props) => {
         ""
     ]
 
+    const goToCheckout = () => {
+        navigate('/checkout')
+    }
 
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
                 <div className={classes.left}>
+                    <Breadcrumbs active={t("shopping_cart.cart")}/> 
                     <Tabs 
                         classes={materialTab} 
                         value={currentTabIndex}
@@ -103,20 +111,21 @@ const ShoppingCart = (props) => {
                             <p>{totalCount} <span>шт.</span></p>
                         </div>
                         <div className={classes.fieldCard}>
-                            <span>{t("shopping_cart.onSum")}</span>
+                            <span>{t("shopping_cart.onSum")}:</span>
                             <p>{priceParser(totalSum)} <span>грн.</span></p>
                         </div>
                         <div className={classes.fieldCard}>
-                            <span>{t("shopping_cart.delivery")}</span>
+                            <span>{t("shopping_cart.delivery")}:</span>
                             <p>{priceParser(deliveryPrice)} <span>грн.</span></p>
                         </div>
                         <div className={cx(classes.fieldCard, classes.fieldTotal)}>
-                            <span>{t("shopping_cart.total")}</span>
+                            <span>{t("shopping_cart.total")}:</span>
                             <p>{priceParser(deliveryPrice + totalSum)} <span>грн.</span></p>
                         </div>
                         <Button 
                             className={classes.submit}
                             disabled={totalCount === 0}
+                            onClick={goToCheckout}
                         >
                             {t("shopping_cart.submit")}
                         </Button>

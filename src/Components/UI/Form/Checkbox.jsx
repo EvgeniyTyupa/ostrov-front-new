@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     root:{
         color: "#677bc5",
         '&.Mui-checked': {
-            color: "#4B5EA3"
+            color: "#4B5EA3 !important"
         }
     }
 }));

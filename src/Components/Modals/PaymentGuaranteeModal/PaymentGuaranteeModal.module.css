@@ -1,0 +1,20 @@
+.window {
+    width: 60%;
+    background-color: white;
+    border-radius: 8px;
+    padding: 25px;
+    box-sizing: border-box;
+    box-shadow: 0 0 26px -14px #e86589;
+    border: 4px solid #4B5EA3;
+}
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.content {
+    padding-top: 20px;
+    max-height: 60vh;
+    overflow-y: scroll;
+}

@@ -1,14 +1,17 @@
 import { itemsApi } from "../Api/api"
+import { OFFICE_MAIL_DELIVERY_PRICE } from "../Utils/constants"
 import { setIsFetching } from "./commonReducer"
 
 const SET_CART_ITEMS = 'SET_CART_ITEMS'
 const SET_ADD_TO_CART_RESULT = 'SET_ADD_TO_CART_RESULT'
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 const SET_TOTAL_SUM = 'SET_TOTAL_SUM'
+const SET_DELIVERY_PRICE = 'SET_DELIVERY_PRICE'
 
 let initialState = {
     items: [],
     addToCartResult: null,
+    deliveryPrice: OFFICE_MAIL_DELIVERY_PRICE,
     totalCount: 0,
     totalSum: 0
 }
@@ -27,6 +30,9 @@ let cartReducer = (state = initialState, action) => {
         case SET_TOTAL_SUM: {
             return { ...state, totalSum: action.totalSum }
         }
+        case SET_DELIVERY_PRICE: {
+            return { ...state, deliveryPrice: action.deliveryPrice }
+        }
         default: 
             return state
     }
@@ -43,6 +49,9 @@ export const setTotalCount = (totalCount) => ({
 })
 export const setTotalSum = (totalSum) => ({
     type: SET_TOTAL_SUM, totalSum
+})
+export const setDeliveryPrice = (deliveryPrice) => ({
+    type: SET_DELIVERY_PRICE, deliveryPrice
 })
 
 export const getCartItems = (ids) => async (dispatch) => {

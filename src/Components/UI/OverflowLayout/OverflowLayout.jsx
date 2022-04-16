@@ -11,6 +11,12 @@ const OverflowLayout = (props) => {
         Aos.init({duration: 1000})
     }, [])
 
+    useEffect(() => {
+        document.body.style.overflow = 'hidden'
+
+        return () => document.body.style.overflow = 'unset'
+    }, [])
+
     return (
         <div className={classes.main} style={{ zIndex: zIndex }} data-aos="fade" data-aos-duration="300">
             {children}            

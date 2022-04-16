@@ -13,8 +13,8 @@ import SmallItemsList from '../../Components/Common/Items/SmallItemsList/SmallIt
 import CommentForm from '../../Components/Common/Items/Comments/CommentForm/CommentForm'
 import Comment from '../../Components/Common/Items/Comments/Comment/Comment'
 import { priceParser } from '../../Utils/priceParser'
-import { discountParser } from '../../Utils/discountParser'
 import NeedAuthModal from '../../Components/Modals/NeedAuthModal/NeedAuthModal'
+import PaymentGuaranteeModal from '../../Components/Modals/PaymentGuaranteeModal/PaymentGuaranteeModal'
 
 const Item = (props) => {
     const {
@@ -34,7 +34,9 @@ const Item = (props) => {
         isOpenNeedAuthModal,
         handleOpenAuthModal,
         isLiked,
-        addToCart
+        addToCart,
+        setModalValue,
+        modalValue
     } = props
 
     let currentItemName = currentLanguage === "ru" ? item.name : item.name_ua
@@ -54,6 +56,7 @@ const Item = (props) => {
 
     return (
         <div className={classes.mainContainer}>
+            {modalValue != null && <PaymentGuaranteeModal modalValue={modalValue} onClose={() => setModalValue(null)}/>}
             {isOpenNeedAuthModal && <NeedAuthModal onClose={handleOpenAuthModal}/>}
             <PaddingContainer className={classes.main}>
                 <MaxWidthContainer className={classes.container}>
@@ -121,8 +124,8 @@ const Item = (props) => {
                                 </div>
                             </div>
                             <div className={classes.modalButtons}>
-                                <button>ОПЛАТА</button>
-                                <button>{t("navigation.footer.guarantee")}</button>
+                                <button onClick={() => setModalValue(0)}>ОПЛАТА</button>
+                                <button onClick={() => setModalValue(1)}>{t("navigation.footer.guarantee")}</button>
                             </div>
                         </div>
                     </div>

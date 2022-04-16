@@ -1,0 +1,120 @@
+.main {
+    width: 100%;
+}
+.main form {
+    width: 100%;
+}
+.main h4 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: #37395C;
+    text-transform: uppercase;
+}
+.radioTypes {
+    margin-top: 12px;
+}
+.mailOffice {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.field label {
+    display: block;
+    margin-bottom: 8px;
+}
+.person {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.fields {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    margin-top: 15px;
+}
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.row input {
+    font-family: 'Montserrat' !important;
+}
+.row span, .row label {
+    font-family: 'Montserrat' !important;
+}
+.field label {
+    color: #37395C;
+    font-weight: 600;
+    font-family: 'Montserrat';
+}
+.field input {
+    font-family: 'Montserrat' !important;
+}
+.payment {
+    margin-top: 25px;
+}
+.payment h4 {
+    margin-bottom: 15px;
+}
+.comment {
+    margin-top: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.comment button {
+    border: navajowhite;
+    cursor: pointer;
+    color: #E86589;
+    font-family: 'Montserrat' !important;
+    background-color: transparent;
+    outline: navajowhite;
+    font-size: 14px;
+    text-decoration: underline;
+    font-weight: 600;
+    padding: 0;
+    margin-bottom: 8px;
+}
+.commentField {
+    max-height: 0;
+    overflow: hidden;
+    transition-duration: .3s;
+    width: 100%;
+    margin-bottom: 35px;
+}
+.commentField div {
+    width: 100%;
+}
+.openComment {
+    max-height: 200px;
+}
+.recall {
+    display: flex;
+    align-items: center;
+}
+.recall span {
+    font-family: "Montserrat" !important;
+    font-size: 16px;
+    color: #37395C;
+
+}
+.recall label label {
+    margin-right: 8px;
+}
+.submit {
+    background-color: #4B5EA3 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: white !important;
+    border-radius: 4px !important;
+    margin-top: 35px !important;
+    width: 100%;
+    height: 50px;
+    font-family: 'Montserrat' !important;
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { setCartItems } from '../../../Redux/cartReducer'
+import { setCartItems, setDeliveryPrice } from '../../../Redux/cartReducer'
+import { OFFICE_MAIL_DELIVERY_PRICE } from '../../../Utils/constants'
 import ShoppingCart from './ShoppingCart'
 
 const ShoppingCartContainer = (props) => {
@@ -9,13 +10,13 @@ const ShoppingCartContainer = (props) => {
         totalSum,
         cartItems,
         setCartItems,
-        viewedItems
+        viewedItems,
+        deliveryPrice,
+        setDeliveryPrice
     } = props
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0)
     const [currentItem, setCurrentItem] = useState(null)
-
-    const [deliveryPrice, setDeliveryPrice] = useState(0)
 
     const [parsedViewedItems, setParsedViewedItems] = useState([])
 
@@ -43,11 +44,11 @@ const ShoppingCartContainer = (props) => {
     }, [currentItem])
 
     useEffect(() => {
-        if(totalSum >= 1000) { 
+        if(totalSum >= 500) { 
             setDeliveryPrice(0)
         }
         else { 
-            setDeliveryPrice(50)
+            setDeliveryPrice(OFFICE_MAIL_DELIVERY_PRICE)
         }
         
         if(totalCount === 0) {
@@ -88,9 +89,11 @@ let mapStateToProps = (state) => ({
     totalCount: state.cart.totalCount,
     totalSum: state.cart.totalSum,
     cartItems: state.cart.items,
-    viewedItems: state.items.viewedItems
+    viewedItems: state.items.viewedItems,
+    deliveryPrice: state.cart.deliveryPrice
 })
 
 export default connect(mapStateToProps, {
-    setCartItems
+    setCartItems,
+    setDeliveryPrice
 })(ShoppingCartContainer)

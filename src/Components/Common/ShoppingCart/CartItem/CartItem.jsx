@@ -15,7 +15,7 @@ const CartItem = (props) => {
     return (
         <div className={cx(
             classes.item, 
-            type === "mini" ? classes.mini : "",
+            (type === "mini" || type === "checkout") ? classes.mini : "",
             type === "result" ? classes.result : ""
         )}>
             <NavLink to={`/item/${itemName}`}>
@@ -27,7 +27,8 @@ const CartItem = (props) => {
                     <span>{priceParser(item.item.price)} грн.</span>
                 }
                 <NavLink to={`/item/${itemName}`}>{itemName}</NavLink>
-                <ItemCounter item={item} onChange={onChange} type={type}/>
+                {type === "checkout" ? <span>{item.count} шт.</span>
+                : <ItemCounter item={item} onChange={onChange} type={type}/>}
             </div>
         </div>
     )

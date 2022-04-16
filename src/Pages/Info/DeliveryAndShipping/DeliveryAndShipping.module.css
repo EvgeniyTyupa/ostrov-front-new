@@ -1,0 +1,244 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+.header{
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+}
+.link a{
+    text-decoration: none;
+    color: rgba(55, 57, 92, .7);
+}
+.link a:hover{
+    text-decoration: underline;
+}
+.active a{
+    text-decoration: none;
+    color: rgba(55, 57, 92, 1);
+}
+.header img{
+    margin-left: 14px;
+    margin-right: 14px;
+}
+.body{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.body h1{
+    color: rgb(75, 94, 163);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40px 0;
+}
+.content{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #37395C;
+}
+.leftSide{
+    width: calc(75% - 60px);
+}
+.rightSide{
+    width: 23%;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #E6E8E8;
+    height: max-content;
+}
+.law{
+    display: flex;
+}
+.law i{
+    font-size: 170px;
+    margin-right: 25px;
+    color: #4B5EA3;
+}
+.law p{
+    margin-block-start: 0;
+    font-size: 14px;
+}
+.law a{
+    text-decoration: none;
+    color: #4B5EA3;
+}
+.law a:hover{
+    color: rgb(18, 26, 189);
+}
+.deliveryPrice{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.deliveryPrice p{
+    font-size: 15px;
+}
+.rightSideContainer{
+    display: flex;
+    flex-direction: column;
+}
+.rightSideContainer h3{
+    margin-block-start: 0;
+    font-size: 16px;
+    margin-block-end: 12px;
+}
+.rightSideContainer p{
+    margin-block-start: 0;
+    line-height: 24px;
+    font-size: 13px;
+}
+.rightSide a{
+    color: #4B5EA3;
+}
+
+.types{
+   width: 100%;
+   display: flex;
+   flex-direction: column; 
+   margin-top: 25px;
+}
+.types h2 {
+    margin-bottom: 16px;
+}
+.types label{
+    cursor: pointer;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.label_one{
+    background-color: #4B5EA3;
+    padding-top: 35px !important;
+    padding-bottom: 35px !important;
+}
+.label_three{
+    background-color: #E86589;
+}
+.label_two{
+    background-color: #9DC8CF;
+}
+.deliveryInfo{
+    display: flex;
+    flex-direction: column;
+}
+.deliveryInfo span{
+    font-weight: bold;
+}
+.time{
+    font-size: 12px;
+    font-weight: 500 !important;
+    margin-top: 5px;
+}
+
+.type{
+    height: 0;
+    box-sizing: border-box;
+    transition-duration: 0.3s;
+    border: none;
+    margin-left: 0;
+    background-color: white;
+    border-radius: 10px;
+    padding: 0 20px;
+}
+.typeContent{
+    display: flex;
+    visibility: hidden;
+    color: #37395C;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+.inputOne:checked+label{
+    padding-bottom: 20px;
+}
+.inputOne:checked+label .typeOne{
+    margin-top: 10px;
+    padding-bottom: 20px;
+    height: max-content;
+}
+.inputOne:checked+label .typeContentOne{
+    display: flex;
+    flex-direction: column;
+    visibility: visible;
+    opacity: 1;
+}
+
+.inputTwo:checked+label{
+    padding-bottom: 20px;
+}
+.inputTwo:checked+label .typeTwo{
+    margin-top: 10px;
+    padding-bottom: 20px;
+    height: max-content;
+}
+.inputTwo:checked+label .typeContentTwo{
+    padding-top: 20px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    visibility: visible;
+}
+
+.inputThree:checked+label{
+    padding-bottom: 20px;
+}
+.inputThree:checked+label .typeThree{
+    margin-top: 10px;
+    padding-bottom: 20px;
+    height: max-content;
+}
+.inputThree:checked+label .typeContentThree{
+    padding-top: 20px;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    visibility: visible;
+}
+.type ol li{
+    margin-top: 10px;
+}
+.type ol li::marker{
+    font-size: 16px;
+    font-weight: 600;
+    color: #E86589;
+}
+
+@media screen and (max-width: 1170px){
+    .main{
+        width: 1024px;
+        padding-left: 50px;
+        padding-right: 50px;
+        box-sizing: border-box;
+    }
+}
+@media screen and (max-width: 1023px){
+    .main{
+        width: 100%;
+    }
+    .content{
+        flex-direction: column;
+    }
+    .leftSide{
+        width: 100%;
+    }
+    .rightSide{
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .types{
+        box-sizing: border-box;
+    }
+    .types label{
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

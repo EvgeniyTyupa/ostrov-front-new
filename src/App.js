@@ -47,6 +47,12 @@ import { getCartItems, setCartItems, setTotalCount, setTotalSum } from './Redux/
 import { discountParser } from './Utils/discountParser';
 import ShoppingCartContainer from './Pages/Checkout/ShoppingCart/ShoppingCartContainer';
 import { getViewedItems, setViewedItems } from './Redux/itemsReducer';
+import ScrollToTop from './Components/Common/Scroll/ScrollToTop';
+import DeliveryAndShipping from './Pages/Info/DeliveryAndShipping/DeliveryAndShipping';
+import Conf from './Pages/Info/Conf/Conf';
+import Rules from './Pages/Info/Rules/Rules';
+import ScrollToHash from './Components/Common/Scroll/ScrollToHash';
+import CheckoutContainer from './Pages/Checkout/Checkout/CheckoutContainer';
 
 const App = (props) => {
   const { 
@@ -140,54 +146,63 @@ const App = (props) => {
   return (
     <Router>
       <HttpsRedirect>
-        <div className='main'>
-          <Navbar/>
-          {isOpenLogin && <LoginModal/>}
-          {isOpenForgotPassModal && <ForgotPassModal/>}
-          {addToCartResult && <ShoppingCartResult/>}
-          <Routes>
-            <Route path="/admin_login" element={<AdminLogin />} />
-            <Route path="/sign_up" element={<Signup/>}/>
-            <Route path="/activate/:hash" element={<ActivateContainer/>}/>
-            <Route path="/reset_pass/:hash" element={<ResetPasswordContainer/>}/>
+        <ScrollToTop>
+          <ScrollToHash>
 
-            <Route path="/" element={<HomeContainer />} />
-            <Route exact path="/item/:name" element={<ItemContainer/>}/>
-            <Route exact path="/contacts" element={<Contacts/>}/>
-            <Route exact path="/catalog" element={<CatalogContainer/>}/>
-            <Route exact path="/blog" element={<NewsContainer/>}/>
-            <Route exact path="/blog/:title" element={<PostContainer/>}/>
-            <Route exact path="/actions" element={<ActionsContainer/>}/>
-            <Route exact path="/actions/:title" element={<ActionContainer/>} />
+            <div className='main'>
+              <Navbar/>
+              {isOpenLogin && <LoginModal/>}
+              {isOpenForgotPassModal && <ForgotPassModal/>}
+              {addToCartResult && <ShoppingCartResult/>}
+              <Routes>
+                <Route path="/admin_login" element={<AdminLogin />} />
+                <Route path="/sign_up" element={<Signup/>}/>
+                <Route path="/activate/:hash" element={<ActivateContainer/>}/>
+                <Route path="/reset_pass/:hash" element={<ResetPasswordContainer/>}/>
 
-            <Route exact path="/shopping_cart" element={<ShoppingCartContainer/>}/>
+                <Route path="/" element={<HomeContainer />} />
+                <Route exact path="/item/:name" element={<ItemContainer/>}/>
+                <Route exact path="/contacts" element={<Contacts/>}/>
+                <Route exact path="/catalog" element={<CatalogContainer/>}/>
+                <Route exact path="/blog" element={<NewsContainer/>}/>
+                <Route exact path="/blog/:title" element={<PostContainer/>}/>
+                <Route exact path="/actions" element={<ActionsContainer/>}/>
+                <Route exact path="/actions/:title" element={<ActionContainer/>} />
+                <Route exact path="/delivery_and_shipping" element={<DeliveryAndShipping/>} />
+                <Route exact path="/confidentiality" element={<Conf/>} />
+                <Route exact path="/rules" element={<Rules/>} />
 
-            <Route exact path="profile" element={<ProfilePage/>}>
-              <Route exact path="" element={<AccountContainer/>}/>
-              <Route exact path="liked_items" element={<LikedItems/>}/>
-              <Route exact path="my_orders" element={<MyOrders/>}/>
-              <Route exact path="viewed_items" element={<ViewedItems/>}/>
-              <Route exact path="settings" element={<Settings/>}/>
-            </Route>
+                <Route exact path="/shopping_cart" element={<ShoppingCartContainer/>}/>
+                <Route exact path="/checkout" element={<CheckoutContainer/>}/>
 
-            <Route path="admin" element={<AdminRoute/>}>
-              <Route path="" element={<DashboardContainer/>} />
-              <Route path="items" element={<AdminItemsContainer/>} />
-              <Route path="tags" element={<AdminTagsContainer/>} />
-              <Route path="brands" element={<AdminBrandsContainer/>} />
-              <Route path="categories" element={<AdminCategoriesContainer/>} />
-              <Route path="posts" element={<AdminNewsContainer/>} />
-              <Route path="actions" element={<AdminActionsContainer/>} />
-            </Route>
+                <Route exact path="profile" element={<ProfilePage/>}>
+                  <Route exact path="" element={<AccountContainer/>}/>
+                  <Route exact path="liked_items" element={<LikedItems/>}/>
+                  <Route exact path="my_orders" element={<MyOrders/>}/>
+                  <Route exact path="viewed_items" element={<ViewedItems/>}/>
+                  <Route exact path="settings" element={<Settings/>}/>
+                </Route>
 
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-          <StarOne/>
-          <StarTwo/>
-          <div className='footer'>
-            <Footer/>
-          </div>
-        </div>
+                <Route path="admin" element={<AdminRoute/>}>
+                  <Route path="" element={<DashboardContainer/>} />
+                  <Route path="items" element={<AdminItemsContainer/>} />
+                  <Route path="tags" element={<AdminTagsContainer/>} />
+                  <Route path="brands" element={<AdminBrandsContainer/>} />
+                  <Route path="categories" element={<AdminCategoriesContainer/>} />
+                  <Route path="posts" element={<AdminNewsContainer/>} />
+                  <Route path="actions" element={<AdminActionsContainer/>} />
+                </Route>
+
+                <Route path='*' element={<NotFound />} />
+              </Routes>
+              <StarOne/>
+              <StarTwo/>
+              <div className='footer'>
+                <Footer/>
+              </div>
+            </div>
+          </ScrollToHash>
+        </ScrollToTop>
       </HttpsRedirect>
     </Router>
   )
@@ -202,7 +217,7 @@ let mapStateToProps = (state) => ({
   totalCountCart: state.cart.totalCount,
   totalSumCart: state.cart.totalSum,
   cartItems: state.cart.items,
-  viewedItems: state.items.viewedItems
+  viewedItems: state.items.viewedItems,
 })
 
 export default connect(mapStateToProps, {

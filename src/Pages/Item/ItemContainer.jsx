@@ -50,6 +50,8 @@ const ItemContainer = (props) => {
 
     const [isLiked, setIsLiked] = useState(false)
 
+    const [modalValue, setModalValue] = useState(null)
+
     const handleOpenAuthModal = () => {
         setIsOpenNeedAuthModal(!isOpenNeedAuthModal)
     }
@@ -213,6 +215,8 @@ const ItemContainer = (props) => {
                         isOpenNeedAuthModal={isOpenNeedAuthModal}
                         handleOpenAuthModal={handleOpenAuthModal}
                         addToCart={addToCart}
+                        modalValue={modalValue}
+                        setModalValue={setModalValue}
                     />}
                 </>
             }
