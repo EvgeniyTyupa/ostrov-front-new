@@ -28,7 +28,7 @@ const CheckoutForm = (props) => {
         totalSum
     } = props
 
-    const { handleSubmit, reset, control, getValues, setValue } = useForm()
+    const { handleSubmit, reset, control, setValue } = useForm()
 
     const { t } = useTranslation()
 
@@ -40,10 +40,10 @@ const CheckoutForm = (props) => {
 
     const [isOpenComment, setIsOpenComment] = useState(false)
 
-    const [notRecall, setNotRecall] = useState(true)
+    const [approved, setApproved] = useState(true)
 
-    const handleNotRecall = () => {
-        setNotRecall(!notRecall)
+    const handleApproved = () => {
+        setApproved(!approved)
     }
 
     const handleOpenComment = () => {
@@ -60,7 +60,7 @@ const CheckoutForm = (props) => {
 
     const onSubmit = (data) => {
         data.deliveryType = deliveryType
-        data.notRecall = notRecall
+        data.approved = approved
         console.log(data)
     }
 
@@ -92,7 +92,7 @@ const CheckoutForm = (props) => {
                 paymentType: "receive",
                 comment: ""
             })
-        }else {
+        }else if(!user) {
             reset({
                 city: null,
                 warehouse: null,
@@ -472,8 +472,8 @@ const CheckoutForm = (props) => {
                         }}
                         control={
                             <CustomCheckbox 
-                                onChange={handleNotRecall}
-                                checked={notRecall}
+                                onChange={handleApproved}
+                                checked={approved}
                             />
                         } 
                         label={t("checkout.recall")}
