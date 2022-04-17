@@ -21,8 +21,8 @@ const DropdownMenuItem = (props) => {
     }
 
     useEffect(() => {
-        if(item && item.in_action) {
-            setDiscount(discountParser(item.price, item.discount))
+        if(item && item.action) {
+            setDiscount(discountParser(item.price, item.action.discount))
         }
     }, [item])
 
@@ -35,10 +35,10 @@ const DropdownMenuItem = (props) => {
                     {item.brand && <span className={classes.brand}>{item.brand.name}</span>}
                 </div>
                 <div className={classes.priceBlock}>
-                    {(item.in_action && item.from_sum_in_bill === 0 && !item.from_items_count) && 
+                    {(item.action && item.action.from_sum_in_bill === 0 && !item.action.from_items_count) && 
                         <p className={classes.discount}>{discount} грн</p>
                     }
-                    <p className={cx(classes.price, (item.in_action && (item.from_sum_in_bill === 0 && !item.from_items_count)) ? classes.inAction : undefined)}>{price} грн</p>
+                    <p className={cx(classes.price, (item.action && (item.action.from_sum_in_bill === 0 && !item.action.from_items_count)) ? classes.inAction : undefined)}>{price} грн</p>
                 </div>
             </div>
         </div>

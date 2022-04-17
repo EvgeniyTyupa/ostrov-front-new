@@ -10,7 +10,9 @@ const CheckoutContainer = (props) => {
         totalCount,
         totalSum,
         cartItems,
-        deliveryPrice
+        deliveryPrice,
+        actionDiscount,
+        gift
     } = props
 
     const navigate = useNavigate()
@@ -31,6 +33,8 @@ const CheckoutContainer = (props) => {
                 totalCount={totalCount}
                 totalSum={totalSum}
                 deliveryPrice={deliveryPrice}
+                gift={gift}
+                actionDiscount={actionDiscount}
             />
         </>
     )
@@ -41,7 +45,9 @@ let mapStateToProps = (state) => ({
     totalCount: state.cart.totalCount,
     totalSum: state.cart.totalSum,
     cartItems: state.cart.items,
-    deliveryPrice: state.cart.deliveryPrice
+    deliveryPrice: state.cart.deliveryPrice,
+    actionDiscount: state.cart.actionDiscount,
+    gift: state.cart.gift
 })
 
 export default connect(mapStateToProps, {

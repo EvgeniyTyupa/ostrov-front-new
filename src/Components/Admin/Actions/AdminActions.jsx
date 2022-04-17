@@ -153,7 +153,7 @@ const AdminActions = (props) => {
                         />
                     </div>
                     <TablePagination
-                        rowsPerPageOptions={[5, 10, 25, 50]}
+                        rowsPerPageOptions={[5, 10, 20, 50]}
                         component={"div"}
                         rowsPerPage={pageSize}
                         page={pageNumber}

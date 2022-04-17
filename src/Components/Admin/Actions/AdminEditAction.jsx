@@ -35,13 +35,18 @@ const AdminEditAction = (props) => {
     const [minDate, setMinDate] = useState(null)
     const [maxDate, setMaxDate] = useState(null)
 
-    const [discountType, setDiscountType] = useState(DISCOUNT_TYPES.percent)
-    const [kindOfAction, setKindOfAction] = useState(KIND_OF_ACTION[0].value)
+    const [discountType, setDiscountType] = useState(item.discount.includes("%") ? DISCOUNT_TYPES.percent : DISCOUNT_TYPES.fixed)
+    const [kindOfAction, setKindOfAction] = useState(item.kind_of_action)
     const [actionCondition, setActionCondition] = useState(ACTION_KONDITIONS[2].value)
 
-    const [isHavingGift, setIsHavingGift] = useState(false)
+    const [isHavingGift, setIsHavingGift] = useState(item.gift ? true : false)
 
-    const [actionTypeName, setActionTypeName] = useState("brands_id")
+    const [actionTypeName, setActionTypeName] = useState(
+        (item.brands_id && item.brands_id.length > 0) ? "brands_id" :
+        (item.categories_id && item.categories_id.length > 0)  ? "categories_id" :
+        (item.tags_id && item.tags_id.length > 0) ? "tags_id" :
+        (item.items_id && item.items_id.length > 0) ? "items_id" : ""
+    )
 
     const handleIsHavingGift = () => {
         setIsHavingGift(!isHavingGift)
@@ -50,7 +55,7 @@ const AdminEditAction = (props) => {
     const onSubmit = (data) => {
         data.brands_id = data.brands_id.length > 0 ? data.brands_id.map(item => item._id) : null
         data.categories_id = data.categories_id.length > 0 ? data.categories_id.map(item => item._id) : null
-        data.tags_id = data.tags_id.length > 0 ? data.tags.map(item => item._id) : null
+        data.tags_id = data.tags_id.length > 0 ? data.tags_id.map(item => item._id) : null
         data.items_id = data.items_id.length > 0 ? data.items_id.map(item => item._id) : null
 
         data.gift = data.gift.length > 0 ? data.gift.map(item => item._id) : null
@@ -59,38 +64,44 @@ const AdminEditAction = (props) => {
         data.end = new Date(data.end)
         console.log(data)
 
-        editAction(data)
+        editAction(item._id, data)
     }
 
     useEffect(() => {
         if(!isHavingGift){
             setValue('gift', [])
+        }else {
+            setActionCondition(
+                item.from_items_count ? ACTION_KONDITIONS[1].value :
+                item.from_sum_in_bill ? ACTION_KONDITIONS[0].value :
+                ACTION_KONDITIONS[2].value 
+            )
         }
     }, [isHavingGift])
 
-    console.log(item)
-
     useEffect(() => {
-        reset({
-            title: item.title || "",
-            title_ua: item.title_ua || "",
-            description: item.description || "",
-            description_ua: item.description_ua || "",
-            image: [item.image] || [],
-            image_mobile: [item.image_mobile] || [],
-            start: moment(item.start) || moment(),
-            end: moment(item.end) || null,
-            gift: item.gift || [],
-            kind_of_action: item.kind_of_action || KIND_OF_ACTION[0].value,
-            brands_id: item.brands_id || [],
-            categories_id: item.categories_id || [],
-            items_id: item.items_id || [],
-            tags_id: item.tags_id || [],
-            from_sum_in_bill: item.from_sum_in_bill || null,
-            from_items_count: item.from_items_count || null,
-            discount: item.discount || 0
-        })
-    }, [])
+        if(item){
+            reset({
+                title: item.title || "",
+                title_ua: item.title_ua || "",
+                description: item.description || "",
+                description_ua: item.description_ua || "",
+                image: [item.image] || [],
+                image_mobile: [item.image_mobile] || [],
+                start: moment(item.start) || moment(),
+                end: moment(item.end) || null,
+                gift: item.gift || [],
+                kind_of_action: item.kind_of_action || KIND_OF_ACTION[0].value,
+                brands_id: item.brands_id || [],
+                categories_id: item.categories_id || [],
+                items_id: item.items_id || [],
+                tags_id: item.tags_id || [],
+                from_sum_in_bill: item.from_sum_in_bill || null,
+                from_items_count: item.from_items_count || null,
+                discount: item.discount.replace("%", '') || 0
+            })
+        }
+    }, [item])
 
     useEffect(() => {
         if(kindOfAction === KIND_OF_ACTION[0].value) {
@@ -111,9 +122,15 @@ const AdminEditAction = (props) => {
             setValue("items_id", [])
             setValue("brands_id", [])
             setValue("categories_id", [])
-        } else {
+        } else if(kindOfAction === KIND_OF_ACTION[3].value) {
             setActionTypeName("items_id")
             getItems(1, 1000, "", "", "", false)
+            setValue("brands_id", [])
+            setValue("tags_id", [])
+            setValue("categories_id", [])
+        } else {
+            setActionTypeName("all")
+            setValue("items_id", [])
             setValue("brands_id", [])
             setValue("tags_id", [])
             setValue("categories_id", [])
@@ -125,10 +142,10 @@ const AdminEditAction = (props) => {
             setValue("from_sum_in_bill", 0)
             setValue("from_items_count", null)
         } else if(actionCondition === ACTION_KONDITIONS[0].value) {
-            setValue("from_sum_in_bill", 1)
+            setValue("from_sum_in_bill", item.from_sum_in_bill)
             setValue("from_items_count", null)
         } else {
-            setValue("from_items_count", 1)
+            setValue("from_items_count", item.from_items_count)
             setValue("from_sum_in_bill", null)
         }
     }, [actionCondition])
@@ -326,6 +343,7 @@ const AdminEditAction = (props) => {
                         </CustomSelect>
                     )}
                 />
+                {kindOfAction != 'all' &&
                 <div style={{ marginTop: "10px" }}>
                     <Controller
                         name={actionTypeName}
@@ -333,35 +351,39 @@ const AdminEditAction = (props) => {
                         defaultValue={[]}
                         rules={{ required: "Обязательное поле!" }}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <MultiAdminSearch
-                                value={value}
-                                onChange={onChange}
-                                items={
-                                    kindOfAction === KIND_OF_ACTION[0].value && brands ||
-                                    kindOfAction === KIND_OF_ACTION[1].value && categories ||
-                                    kindOfAction === KIND_OF_ACTION[2].value && tags ||
-                                    kindOfAction === KIND_OF_ACTION[3].value && items 
-                                }
-                                multiple={true}
-                                label={
-                                    kindOfAction === KIND_OF_ACTION[0].value && "Название бренда" ||
-                                    kindOfAction === KIND_OF_ACTION[1].value && "Имя категории" ||
-                                    kindOfAction === KIND_OF_ACTION[2].value && "Имя тега" ||
-                                    kindOfAction === KIND_OF_ACTION[3].value && "Имя товара" 
-                                }
-                                error={error}
-                                setValue={setValue}
-                                name={actionTypeName}
-                                onSearch={
-                                    kindOfAction === KIND_OF_ACTION[0].value && getBrands ||
-                                    kindOfAction === KIND_OF_ACTION[1].value && getCategories ||
-                                    kindOfAction === KIND_OF_ACTION[2].value && getTags ||
-                                    kindOfAction === KIND_OF_ACTION[3].value && getItems 
-                                }
-                            />
+                            <>
+                            
+                                {console.log('value',value)}
+                                <MultiAdminSearch
+                                    value={value}
+                                    onChange={onChange}
+                                    items={
+                                        kindOfAction === KIND_OF_ACTION[0].value ? brands :
+                                        kindOfAction === KIND_OF_ACTION[1].value ? categories :
+                                        kindOfAction === KIND_OF_ACTION[2].value ? tags :
+                                        kindOfAction === KIND_OF_ACTION[3].value && items 
+                                    }
+                                    multiple={true}
+                                    label={
+                                        kindOfAction === KIND_OF_ACTION[0].value && "Название бренда" ||
+                                        kindOfAction === KIND_OF_ACTION[1].value && "Имя категории" ||
+                                        kindOfAction === KIND_OF_ACTION[2].value && "Имя тега" ||
+                                        kindOfAction === KIND_OF_ACTION[3].value && "Имя товара" 
+                                    }
+                                    error={error}
+                                    setValue={setValue}
+                                    name={actionTypeName}
+                                    onSearch={
+                                        kindOfAction === KIND_OF_ACTION[0].value ? getBrands :
+                                        kindOfAction === KIND_OF_ACTION[1].value ? getCategories :
+                                        kindOfAction === KIND_OF_ACTION[2].value ? getTags :
+                                        kindOfAction === KIND_OF_ACTION[3].value && getItems 
+                                    }
+                                />
+                            </>
                         )}
                     />
-                </div>
+                </div>}
                 <div>
                     <div style={{ paddingLeft: "10px", boxSizing: "border-box" }}>
                         <CustomCheckbox
@@ -400,8 +422,14 @@ const AdminEditAction = (props) => {
                         value={actionCondition}
                         label="Условия акции:"
                     >
-                        {ACTION_KONDITIONS.map(item => (
-                            <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+                        {ACTION_KONDITIONS.map((item, index) => (
+                            <MenuItem 
+                                key={item.value} 
+                                value={item.value}
+                                disabled={(index === ACTION_KONDITIONS.length - 1 && isHavingGift)}
+                            >
+                                {item.label}
+                            </MenuItem>
                         ))}
                     </CustomSelect>  
                     <Field>

@@ -51,3 +51,13 @@
 .addBut:disabled {
     background-color: gray !important;
 }
+.baige {
+    position: absolute;
+    top: 25px;
+    right: -15px;
+    font-size: 12px;
+    background-color: #E86589;
+    color: white;
+    font-weight: 700;
+    padding: 4px;
+}

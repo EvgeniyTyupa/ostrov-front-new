@@ -8,6 +8,7 @@ import CartTable from '../../../Components/Common/ShoppingCart/CartTable/CartTab
 import MaxWidthContainer from '../../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../../Components/UI/Container/PaddingContainer/PaddingContainer'
 import { cx } from '../../../Utils/classnames'
+import { discountParser } from '../../../Utils/discountParser'
 import { priceParser } from '../../../Utils/priceParser'
 import classes from './ShoppingCart.module.css'
 
@@ -52,7 +53,9 @@ const ShoppingCart = (props) => {
         cartItems,
         deliveryPrice,
         setCurrentItem,
-        viewedItems
+        viewedItems,
+        actionDiscount,
+        gift
     } = props
 
     const { t } = useTranslation()
@@ -95,7 +98,7 @@ const ShoppingCart = (props) => {
                     </Tabs>
                     <div className={classes.list}>
                         {currentTabIndex === 0 && (
-                            cartItems.length > 0 ? <CartTable items={cartItems} rows={cartRows} type="cart" setCurrentItem={setCurrentItem}/> 
+                            cartItems.length > 0 ? <CartTable items={cartItems} gift={gift} rows={cartRows} type="cart" setCurrentItem={setCurrentItem}/> 
                             : <p className={classes.empty}>{t("shopping_cart.empty")}.</p>
                         )}
                          {currentTabIndex === 1 && (
@@ -108,7 +111,7 @@ const ShoppingCart = (props) => {
                     <div className={classes.rightCard}>
                         <div className={classes.fieldCard}>
                             <span>{t("shopping_cart.totalResultShort")}</span>
-                            <p>{totalCount} <span>шт.</span></p>
+                            <p>{totalCount} {gift.length > 0 && `+ ${gift.length}`} <span>шт.</span></p>
                         </div>
                         <div className={classes.fieldCard}>
                             <span>{t("shopping_cart.onSum")}:</span>
@@ -118,9 +121,13 @@ const ShoppingCart = (props) => {
                             <span>{t("shopping_cart.delivery")}:</span>
                             <p>{priceParser(deliveryPrice)} <span>грн.</span></p>
                         </div>
+                        <div className={classes.fieldCard}>
+                            <span>{t("shopping_cart.discount")}:</span>
+                            <p>{priceParser(actionDiscount)} {!actionDiscount.toString().includes("%") && <span>грн.</span>}</p>
+                        </div>
                         <div className={cx(classes.fieldCard, classes.fieldTotal)}>
                             <span>{t("shopping_cart.total")}:</span>
-                            <p>{priceParser(deliveryPrice + totalSum)} <span>грн.</span></p>
+                            <p>{priceParser(discountParser(deliveryPrice + totalSum, actionDiscount))} <span>грн.</span></p>
                         </div>
                         <Button 
                             className={classes.submit}

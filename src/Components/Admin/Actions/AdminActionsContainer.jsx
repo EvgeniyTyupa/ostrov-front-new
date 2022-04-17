@@ -124,8 +124,6 @@ const AdminActionsContainer = (props) => {
         getActions(pageNumber + 1, pageSize, "", "", "", isActual)
     }, [pageSize, pageNumber, isActual])
 
-    console.log(actions)
-
     return (
         <AdminLayout>
             {isFetching && <Preloader/>}

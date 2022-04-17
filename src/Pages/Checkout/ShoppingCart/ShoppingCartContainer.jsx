@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useCheckActionConditions } from '../../../Hooks/useCheckActionConditions'
 import { setCartItems, setDeliveryPrice } from '../../../Redux/cartReducer'
 import { OFFICE_MAIL_DELIVERY_PRICE } from '../../../Utils/constants'
 import ShoppingCart from './ShoppingCart'
@@ -12,7 +13,9 @@ const ShoppingCartContainer = (props) => {
         setCartItems,
         viewedItems,
         deliveryPrice,
-        setDeliveryPrice
+        setDeliveryPrice,
+        actionDiscount,
+        gift
     } = props
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0)
@@ -80,6 +83,8 @@ const ShoppingCartContainer = (props) => {
                 setCurrentItem={setCurrentItem}
                 deliveryPrice={deliveryPrice}
                 viewedItems={parsedViewedItems}
+                gift={gift}
+                actionDiscount={actionDiscount}
             />
         </>
     )
@@ -90,7 +95,9 @@ let mapStateToProps = (state) => ({
     totalSum: state.cart.totalSum,
     cartItems: state.cart.items,
     viewedItems: state.items.viewedItems,
-    deliveryPrice: state.cart.deliveryPrice
+    deliveryPrice: state.cart.deliveryPrice,
+    actionDiscount: state.cart.actionDiscount,
+    gift: state.cart.gift
 })
 
 export default connect(mapStateToProps, {

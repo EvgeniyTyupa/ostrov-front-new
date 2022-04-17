@@ -50,6 +50,10 @@ export const userApi = {
     validateResetHash(hash) {
         return instance.post('/auth/validate_reset_hash', { hash })
         .then(response => response.data)
+    },
+    getUsers(pageNumber, pageSize, searchBy, from, searchingValue){
+        return instance.get(`/user?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+        .then(response => response.data)
     }
 }
 

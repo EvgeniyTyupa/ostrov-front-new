@@ -34,8 +34,8 @@ const SmallItem = (props) => {
     let price = priceParser(item.price)
     
     useEffect(() => {
-        if(item && item.in_action) {
-            setDiscount(discountParser(item.price, item.discount))
+        if(item && item.action) {
+            setDiscount(discountParser(item.price, item.action.discount))
         }
     }, [item])
 
@@ -48,6 +48,9 @@ const SmallItem = (props) => {
     return (
         <div className={classes.main}  onClick={handleClick}>
             {isNew && <Baige type="new"/>}
+            {(item.action && !item.action.from_items_count && !item.action.from_sum_in_bill) 
+                && <Baige type="discount" value={item.action.discount}/>
+            }
             <img src={item.images[0]} alt="image" className={classes.image}/>
             <div className={classes.info}>
                 <div className={classes.left}>
@@ -58,10 +61,10 @@ const SmallItem = (props) => {
                     <Rating size={"22px"} ratingValue={rating} readonly/>
                 </div>
                 <div className={classes.price}>
-                    {(item.in_action && item.from_sum_in_bill === 0 && !item.from_items_count) && 
+                    {(item.action && item.action.from_sum_in_bill === 0 && !item.action.from_items_count) && 
                         <p className={classes.discount}>{discount} грн</p>
                     }
-                    <p className={cx(classes.price, (item.in_action && (item.from_sum_in_bill === 0 && !item.from_items_count)) ? classes.inAction : undefined)}>{price} грн</p>
+                    <p className={cx(classes.price, (item.action && (item.action.from_sum_in_bill === 0 && !item.action.from_items_count)) ? classes.inAction : undefined)}>{price} грн</p>
                 </div>
             </div>
             <Button

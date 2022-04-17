@@ -1,6 +1,6 @@
 .main {
     background-color: #E86589;
-    color: white;
+    color: white !important;
     text-transform: uppercase;
     position: absolute;
     right: -15px;
@@ -9,4 +9,10 @@
     padding: 4px 10px;
     font-weight: 700;
     font-size: 14px;
+}
+.new {
+    background-color: #4B5EA3;
+}
+.currency {
+    font-size: 8px !important;
 }

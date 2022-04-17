@@ -43,7 +43,7 @@ import ActivateContainer from './Pages/Auth/Activate/ActivateContainer';
 import ForgotPassModal from './Components/Auth/ForgotPassModal';
 import ResetPasswordContainer from './Pages/Auth/ResetPassword/ResetPasswordContainer';
 import ShoppingCartResult from './Components/Common/ShoppingCart/ShoppingCartResult/ShoppingCartResult';
-import { getCartItems, setCartItems, setTotalCount, setTotalSum } from './Redux/cartReducer';
+import { getCartItems, setActionDiscount, setCartItems, setGift, setTotalCount, setTotalSum } from './Redux/cartReducer';
 import { discountParser } from './Utils/discountParser';
 import ShoppingCartContainer from './Pages/Checkout/ShoppingCart/ShoppingCartContainer';
 import { getViewedItems, setViewedItems } from './Redux/itemsReducer';
@@ -53,6 +53,8 @@ import Conf from './Pages/Info/Conf/Conf';
 import Rules from './Pages/Info/Rules/Rules';
 import ScrollToHash from './Components/Common/Scroll/ScrollToHash';
 import CheckoutContainer from './Pages/Checkout/Checkout/CheckoutContainer';
+import { useCheckActionConditions } from './Hooks/useCheckActionConditions';
+import AdminUsersContainer from './Components/Admin/Users/AdminUsersContainer';
 
 const App = (props) => {
   const { 
@@ -70,8 +72,17 @@ const App = (props) => {
     viewedItems,
     setViewedItems,
     getViewedItems,
-    getCartItems
+    getCartItems,
+    setActionDiscount,
+    setGift
   } = props
+
+  const { actionDiscount, gift } = useCheckActionConditions(cartItems, totalSumCart, totalCountCart)
+
+  useEffect(() => {
+    setActionDiscount(actionDiscount)
+    setGift(gift)
+  }, [totalCountCart])
 
   useEffect(() => {
     let newCount = 0
@@ -82,8 +93,8 @@ const App = (props) => {
     newItems.forEach((el, index) => {
       if(el.count > 0) {
         newCount += el.count
-        if(el.item.in_action && el.item.from_sum_in_bill === 0 && !el.item.from_items_count) {
-          newTotalSum += Number(discountParser(el.item.price, el.item.discount).replace(/ /g,'')) * el.count
+        if(el.item.action && el.item.action.from_sum_in_bill === 0 && !el.item.action.from_items_count) {
+          newTotalSum += Number(discountParser(el.item.price, el.item.action.discount).replace(/ /g,'')) * el.count
         }else {
           newTotalSum += Number(el.item.price) * el.count
         }
@@ -148,14 +159,12 @@ const App = (props) => {
       <HttpsRedirect>
         <ScrollToTop>
           <ScrollToHash>
-
             <div className='main'>
               <Navbar/>
               {isOpenLogin && <LoginModal/>}
               {isOpenForgotPassModal && <ForgotPassModal/>}
               {addToCartResult && <ShoppingCartResult/>}
               <Routes>
-                <Route path="/admin_login" element={<AdminLogin />} />
                 <Route path="/sign_up" element={<Signup/>}/>
                 <Route path="/activate/:hash" element={<ActivateContainer/>}/>
                 <Route path="/reset_pass/:hash" element={<ResetPasswordContainer/>}/>
@@ -183,6 +192,8 @@ const App = (props) => {
                   <Route exact path="settings" element={<Settings/>}/>
                 </Route>
 
+                <Route path="/admin_login" element={<AdminLogin />} />
+
                 <Route path="admin" element={<AdminRoute/>}>
                   <Route path="" element={<DashboardContainer/>} />
                   <Route path="items" element={<AdminItemsContainer/>} />
@@ -191,6 +202,7 @@ const App = (props) => {
                   <Route path="categories" element={<AdminCategoriesContainer/>} />
                   <Route path="posts" element={<AdminNewsContainer/>} />
                   <Route path="actions" element={<AdminActionsContainer/>} />
+                  <Route path="users" element={<AdminUsersContainer/>} />
                 </Route>
 
                 <Route path='*' element={<NotFound />} />
@@ -227,5 +239,7 @@ export default connect(mapStateToProps, {
   setCartItems,
   setViewedItems,
   getViewedItems,
-  getCartItems
+  getCartItems,
+  setActionDiscount,
+  setGift
 })(App);

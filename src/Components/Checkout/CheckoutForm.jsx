@@ -25,7 +25,9 @@ const CheckoutForm = (props) => {
         npWarehouses,
         isAuth,
         setDeliveryPrice,
-        totalSum
+        totalSum,
+        actionDiscount,
+        gift
     } = props
 
     const { handleSubmit, reset, control, setValue } = useForm()

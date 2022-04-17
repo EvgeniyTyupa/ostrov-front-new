@@ -64,6 +64,8 @@ const AdminAddAction = (props) => {
     useEffect(() => {
         if(!isHavingGift){
             setValue('gift', [])
+        }else {
+            setActionCondition(ACTION_KONDITIONS[0].value)
         }
     }, [isHavingGift])
 
@@ -320,6 +322,7 @@ const AdminAddAction = (props) => {
                         </CustomSelect>
                     )}
                 />
+                {kindOfAction != 'all' &&
                 <div style={{ marginTop: "10px" }}>
                     <Controller
                         name={actionTypeName}
@@ -355,7 +358,7 @@ const AdminAddAction = (props) => {
                             />
                         )}
                     />
-                </div>
+                </div>}
                 <div>
                     <div style={{ paddingLeft: "10px", boxSizing: "border-box" }}>
                         <CustomCheckbox
@@ -394,8 +397,14 @@ const AdminAddAction = (props) => {
                         value={actionCondition}
                         label="Условия акции:"
                     >
-                        {ACTION_KONDITIONS.map(item => (
-                            <MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
+                        {ACTION_KONDITIONS.map((item, index) => (
+                            <MenuItem 
+                                key={item.value} 
+                                value={item.value}
+                                disabled={(index === ACTION_KONDITIONS.length - 1 && isHavingGift)}
+                            >
+                                {item.label}
+                            </MenuItem>
                         ))}
                     </CustomSelect>  
                     <Field>

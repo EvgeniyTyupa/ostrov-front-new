@@ -129,8 +129,8 @@ const ItemContainer = (props) => {
     }, [name])
 
     useEffect(() => {
-        if(currentItem && currentItem.in_action) {
-            setDiscount(discountParser(currentItem.price, currentItem.discount))
+        if(currentItem && currentItem.action) {
+            setDiscount(discountParser(currentItem.price, currentItem.action.discount))
         }
         if(currentItem && user && user.liked_items) {
             const liked_items = []

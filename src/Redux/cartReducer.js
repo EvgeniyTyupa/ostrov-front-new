@@ -7,13 +7,17 @@ const SET_ADD_TO_CART_RESULT = 'SET_ADD_TO_CART_RESULT'
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 const SET_TOTAL_SUM = 'SET_TOTAL_SUM'
 const SET_DELIVERY_PRICE = 'SET_DELIVERY_PRICE'
+const SET_ACTION_DISCOUNT = 'SET_ACTION_DISCOUNT'
+const SET_GIFT = 'SET_GIFT'
 
 let initialState = {
     items: [],
     addToCartResult: null,
     deliveryPrice: OFFICE_MAIL_DELIVERY_PRICE,
     totalCount: 0,
-    totalSum: 0
+    totalSum: 0,
+    actionDiscount: 0,
+    gift: []
 }
 
 let cartReducer = (state = initialState, action) => {
@@ -32,6 +36,12 @@ let cartReducer = (state = initialState, action) => {
         }
         case SET_DELIVERY_PRICE: {
             return { ...state, deliveryPrice: action.deliveryPrice }
+        }
+        case SET_ACTION_DISCOUNT: {
+            return { ...state, actionDiscount: action.actionDiscount }
+        }
+        case SET_GIFT: {
+            return { ...state, gift: action.gift }
         }
         default: 
             return state
@@ -52,6 +62,12 @@ export const setTotalSum = (totalSum) => ({
 })
 export const setDeliveryPrice = (deliveryPrice) => ({
     type: SET_DELIVERY_PRICE, deliveryPrice
+})
+export const setActionDiscount = (actionDiscount) => ({
+    type: SET_ACTION_DISCOUNT, actionDiscount
+})
+export const setGift = (gift) => ({
+    type: SET_GIFT, gift
 })
 
 export const getCartItems = (ids) => async (dispatch) => {

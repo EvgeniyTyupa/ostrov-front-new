@@ -58,8 +58,11 @@ const CartTable = (props) => {
         rows,
         setCurrentItem,
         type,
-        cartItems
+        cartItems,
+        gift
     } = props
+
+    console.log(gift)
 
     const material = useStyles()
 
@@ -113,8 +116,8 @@ const CartTable = (props) => {
                                     </div>
                                 </TableCell>
                                 <TableCell>
-                                    {(item.item.in_action && item.item.from_sum_in_bill === 0 && !item.item.from_items_count) ?
-                                        <span>{priceParser(discountParser(item.item.price, item.item.discount).replace(/ /g,''))} <span className={classes.textPrice}>грн.</span></span> :
+                                    {(item.item.action && item.item.action.from_sum_in_bill === 0 && !item.item.action.from_items_count) ?
+                                        <span>{priceParser(discountParser(item.item.price, item.item.action.discount).replace(/ /g,''))} <span className={classes.textPrice}>грн.</span></span> :
                                         <span>{priceParser(item.item.price)} <span className={classes.textPrice}>грн.</span></span>
                                     }
                                 </TableCell>
@@ -139,11 +142,52 @@ const CartTable = (props) => {
                                 {type === "cart" && <TableCell
                                     align="right"
                                 >
-                                    {(item.item.in_action && item.item.from_sum_in_bill === 0 && !item.item.from_items_count) ?
-                                        <span>{priceParser(discountParser(item.item.price, item.item.discount).replace(/ /g,'') * item.count)} <span className={classes.textPrice}>грн.</span></span> :
+                                    {(item.item.action && item.item.action.from_sum_in_bill === 0 && !item.item.action.from_items_count) ?
+                                        <span>{priceParser(discountParser(item.item.price, item.item.action.discount).replace(/ /g,'') * item.count)} <span className={classes.textPrice}>грн.</span></span> :
                                         <span>{priceParser(Number(item.item.price) * item.count)} <span className={classes.textPrice}>грн.</span></span>
                                     }
                                 </TableCell>}
+                            </TableRow>
+                        ))}
+                        {gift && gift.map(item => (
+                            <TableRow>
+                                <TableCell
+                                    style={{
+                                        width: "125px",
+                                        position: "relative",
+                                    }}
+                                >
+                                    <label className={classes.baige}>{t("shopping_cart.gift")}</label>
+                                    <img 
+                                        src={item.images[0]} 
+                                        alt="title image"
+                                        className={classes.titleImage}
+                                    />
+                                </TableCell>
+                                <TableCell
+                                    style={{
+                                        maxWidth: "300px"
+                                    }}
+                                >
+                                    <NavLink 
+                                        to={`/item/${currentLanguage === "ru" ? item.name : item.name_ua}`}
+                                    >
+                                        {currentLanguage === "ru" ? item.name : item.name_ua}
+                                    </NavLink>
+                                    <div className={classes.info}>
+                                        {item.brand && <p>{item.brand.name}</p>}
+                                        <p>Код: {item.code}</p>
+                                    </div>
+                                </TableCell>
+                                <TableCell>
+                                    <span>0 грн.</span>
+                                </TableCell>
+                                <TableCell align='center'>
+                                    <span>1 шт.</span>
+                                </TableCell> 
+                                <TableCell>
+                                    <span>0 грн.</span>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

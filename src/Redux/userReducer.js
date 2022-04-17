@@ -9,6 +9,8 @@ const SET_IS_RECEIVED_HASH_STATUS = 'SET_IS_RECEIVED_HASH_STATUS'
 const SET_IS_RECEIVED_AUTH_STATUS = 'SET_IS_RECEIVED_AUTH_STATUS'
 const SET_IS_RECEIVED_RESET_HASH_STATUS = 'SET_IS_RECEIVED_RESET_HASH_STATUS'
 const SET_IS_VALID_RESET_HASH = 'SET_IS_VALID_RESET_HASH'
+const SET_USERS_DATA = 'SET_USERS_DATA'
+const SET_TOTAL_USERS = 'SET_TOTAL_USERS'
 
 let initialState = {
     user: null,
@@ -18,7 +20,9 @@ let initialState = {
     isReceivedHashStatus: false,
     isReceiveAuthStatus: false,
     isReceivedResetHashStatus: false,
-    isValidResetHash: false
+    isValidResetHash: false,
+    users: [],
+    totalUsers: 0
 }
 
 let userReducer = (state = initialState, action) => {
@@ -46,6 +50,12 @@ let userReducer = (state = initialState, action) => {
         }
         case SET_IS_VALID_RESET_HASH: {
             return { ...state, isValidResetHash: action.isValidResetHash }
+        }
+        case SET_USERS_DATA: {
+            return { ...state, users: action.users }
+        }
+        case SET_TOTAL_USERS: {
+            return { ...state, total: action.total }
         }
         default:
             return state
@@ -75,6 +85,12 @@ export const setIsReceivedResetHashStatus = (isReceivedResetHashStatus) => ({
 })
 export const setIsValidResetHash = (isValidResetHash) => ({
     type: SET_IS_VALID_RESET_HASH, isValidResetHash
+})
+export const setUsersData = (users) => ({
+    type: SET_USERS_DATA, users
+})
+export const setTotalUsers = (total) => ({
+    type: SET_TOTAL_USERS, total
 })
 
 export const login = (data) => async (dispatch) => {
@@ -179,6 +195,16 @@ export const validateResetHash = (hash) => async (dispatch) => {
         dispatch([setIsValidResetHash(false)])
     }finally {
         dispatch([setIsReceivedAuthStatus(true), setIsReceivedResetHashStatus(true), setIsFetching(false)])
+    }
+}
+
+export const getUsers = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.getUsers(pageNumber, pageSize, searchBy, from, searchingValue)
+        dispatch([setUsersData(response.users), setTotalUsers(response.total), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
     }
 }
 

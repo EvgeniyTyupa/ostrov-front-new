@@ -1,5 +1,7 @@
-import { MdDashboard, MdCategory, MdBrandingWatermark, MdEvent } from 'react-icons/md';
-import { FaShoppingBag, FaTags, FaNewspaper } from 'react-icons/fa';
+import { MdDashboard, MdCategory, MdBrandingWatermark, MdEvent, MdToys } from 'react-icons/md';
+import { FaShoppingBag, FaTags, FaNewspaper, FaMoneyBillAlt } from 'react-icons/fa';
+import { HiUsers } from 'react-icons/hi';
+import { IoGameController } from 'react-icons/io5';
 
 export const useAdminSidebar = () => {
     const items = [
@@ -10,7 +12,7 @@ export const useAdminSidebar = () => {
         },
         {
             title: "Товары",
-            icon: <FaShoppingBag/>,
+            icon: <IoGameController/>,
             href: "/admin/items"
         },
         {
@@ -37,6 +39,16 @@ export const useAdminSidebar = () => {
             title: "Акции",
             icon: <MdEvent/>,
             href: "/admin/actions"
+        },
+        {
+            title: "Пользователи",
+            icon: <HiUsers/>,
+            href: "/admin/users"
+        },
+        {
+            title: "Заказы",
+            icon: <FaMoneyBillAlt/>,
+            href: "/admin/orders"
         },
     ]
 

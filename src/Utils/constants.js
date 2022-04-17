@@ -42,6 +42,10 @@ export const KIND_OF_ACTION = [
     {
         value: 'custom',
         label: 'Отдельные товары'
+    },
+    {
+        value: 'all',
+        label: 'Все товары'
     }
 ]
 

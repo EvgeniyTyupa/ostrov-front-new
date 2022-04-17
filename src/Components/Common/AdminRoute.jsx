@@ -1,14 +1,20 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import { me } from '../../Redux/userReducer';
+import { logout, me, setIsAuth } from '../../Redux/userReducer';
 import Preloader from './Preloader/Preloader';
 
-const AdminRoute = ({ isAuth, user, isStartData, me, isFetching, ...rest }) => {
+const AdminRoute = ({ isAuth, user, isStartData, me, isFetching, logout, ...rest }) => {
 
     useEffect(() => {
         !isStartData && me()
     }, [])
+
+    useEffect(() => {
+        if(user && user.adminLevel < 1) {
+            logout()
+        }
+    }, [user])
 
     return (isFetching && !user) ? <Preloader/> :
     (isAuth && user && user.adminLevel > 0 ) ? <Outlet/> : <Navigate to="/admin_login" />
@@ -22,5 +28,6 @@ let mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    me
+    me,
+    logout
 })(AdminRoute)

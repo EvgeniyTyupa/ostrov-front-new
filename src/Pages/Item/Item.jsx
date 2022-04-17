@@ -85,10 +85,10 @@ const Item = (props) => {
                                 <span>{t("items.code")} {item.code}</span>
                             </div>
                             <div className={classes.priceBlock}>
-                                {(item.in_action && item.from_sum_in_bill === 0 && !item.from_items_count) && 
+                                {(item.action && item.action.from_sum_in_bill === 0 && !item.action.from_items_count) && 
                                     <p className={classes.discount}>{discount} грн.</p>
                                 }
-                                <p className={cx(classes.price, (item.in_action && (item.from_sum_in_bill === 0 && !item.from_items_count)) ? classes.inAction : undefined)}>{price} грн.</p>
+                                <p className={cx(classes.price, (item.action && (item.action.from_sum_in_bill === 0 && !item.action.from_items_count)) ? classes.inAction : undefined)}>{price} грн.</p>
                             </div>
                             <div className={classes.actionBlock}>
                                 <Button

@@ -4,7 +4,7 @@ import { useAdminSidebar } from '../../../../Hooks/useAdminSidebar'
 import classes from './AdminSidebar.module.css'
 import Styled from 'styled-components'
 import { useState } from 'react'
-import { Button } from '@mui/material'
+import { Button, Divider } from '@mui/material'
 import { connect } from 'react-redux'
 import { BiCollapse, BiExitFullscreen, BiLogOut } from 'react-icons/bi';
 import { logout } from '../../../../Redux/userReducer'
@@ -39,15 +39,7 @@ const AdminSidebar = (props) => {
                     </div>
                 </Button>
             ))}
-            <Button onClick={handleLogout}>
-                {!isCollapse && 
-                    <div>
-                        <BiLogOut/>
-                        <span>Выход</span>
-                    </div>
-                }
-                {isCollapse && <BiLogOut/>}
-            </Button>
+            <Divider/>
             <Button onClick={handleCollapse}>
                 {!isCollapse && (
                     <div>
@@ -56,6 +48,15 @@ const AdminSidebar = (props) => {
                     </div>
                 )}
                 {isCollapse && <BiExitFullscreen/>}
+            </Button>
+            <Button onClick={handleLogout}>
+                {!isCollapse && 
+                    <div>
+                        <BiLogOut/>
+                        <span>Выход</span>
+                    </div>
+                }
+                {isCollapse && <BiLogOut/>}
             </Button>
         </Main>
     )

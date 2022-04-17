@@ -14,6 +14,7 @@
 .item a {
     text-decoration: none;
     color: #37395C;
+    position: relative;
 }
 .item a::first-letter {
     text-transform: uppercase;
@@ -56,4 +57,14 @@
 }
 .mini a {
     font-size: 12px;
+}
+.baige {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    font-size: 8px;
+    background-color: #E86589;
+    color: white;
+    font-weight: 700;
+    padding: 4px;
 }
