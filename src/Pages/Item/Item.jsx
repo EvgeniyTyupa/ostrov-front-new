@@ -54,6 +54,9 @@ const Item = (props) => {
 
     let price = priceParser(item.price)
 
+
+    console.log(item)
+
     return (
         <div className={classes.mainContainer}>
             {modalValue != null && <PaymentGuaranteeModal modalValue={modalValue} onClose={() => setModalValue(null)}/>}
@@ -94,8 +97,9 @@ const Item = (props) => {
                                 <Button
                                     className={classes.buyBut}
                                     onClick={addToCart}
+                                    disabled={item.count === 0}
                                 >
-                                    {t("actions.buy")}
+                                    {item.count > 0  ? t("actions.buy") : t("items.empty")}
                                 </Button>
                                 <Tooltip title={!isLiked ? t("actions.like") : t('actions.unlike')}>
                                     <IconButton 

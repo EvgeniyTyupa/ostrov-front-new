@@ -73,7 +73,9 @@ const ItemContainer = (props) => {
 
         newItems.forEach((el, index) => {
             if(el.item._id === currentItem._id){
-                el.count += 1
+                if(el.count + 1 <= currentItem.count){
+                    el.count += 1
+                }
                 isExist = true
                 currentItemIndex = index
             }

@@ -2,6 +2,7 @@ import { MdDashboard, MdCategory, MdBrandingWatermark, MdEvent, MdToys } from 'r
 import { FaShoppingBag, FaTags, FaNewspaper, FaMoneyBillAlt } from 'react-icons/fa';
 import { HiUsers } from 'react-icons/hi';
 import { IoGameController } from 'react-icons/io5';
+import { IoMdSettings } from 'react-icons/io';
 
 export const useAdminSidebar = () => {
     const items = [
@@ -49,6 +50,11 @@ export const useAdminSidebar = () => {
             title: "Заказы",
             icon: <FaMoneyBillAlt/>,
             href: "/admin/orders"
+        },
+        {
+            title: "Настройки",
+            icon: <IoMdSettings/>,
+            href: "/admin/settings"
         },
     ]
 

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     background-color: white;
-    height: calc(100vh - 110px);
+    height: calc(100vh - 140px);
     box-shadow: 1px 0px 16px -13px black;
     border-bottom-right-radius: 8px; 
     border-top-right-radius: 8px; 
@@ -35,4 +35,8 @@
 
 .main span {
     margin-left: 10px;
+}
+
+@media screen and (max-width: 1440px) {
+    
 }

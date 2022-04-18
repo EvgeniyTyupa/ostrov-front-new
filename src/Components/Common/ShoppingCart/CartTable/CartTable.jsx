@@ -133,9 +133,10 @@ const CartTable = (props) => {
                                         <Button 
                                             className={classes.addBut}
                                             onClick={() => setCurrentItem(item)}
-                                            disabled={cartItems.find(el => el.item._id === item.item._id)}
+                                            disabled={item.item.count === 0 || cartItems.find(el => el.item._id === item.item._id)}
                                         >
-                                            {cartItems.find(el => el.item._id === item.item._id) ? t("shopping_cart.added") : t("shopping_cart.add")}
+                                            {cartItems.find(el => el.item._id === item.item._id) ? t("shopping_cart.added") :
+                                            item.item.count === 0 ? t("items.empty") : t("shopping_cart.add")}
                                         </Button>
                                     </TableCell>
                                 }

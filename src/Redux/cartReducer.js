@@ -87,7 +87,15 @@ export const getCartItems = (ids) => async (dispatch) => {
             })
         })
 
-        dispatch([setCartItems(parsed_items), setIsFetching(false)])
+        let available_items = []
+
+        parsed_items.forEach(el => {
+            if(el.item.count > 0) {
+                available_items.push(el)
+            }
+        })
+
+        dispatch([setCartItems(available_items), setIsFetching(false)])
     }catch(err){
         dispatch(setIsFetching(false))
     }

@@ -1,6 +1,7 @@
-import { TextField, InputAdornment, IconButton } from '@mui/material'
+import { TextField, InputAdornment, IconButton, Tooltip } from '@mui/material'
 import { makeStyles } from '@mui/styles';
 import React from 'react'
+import { useTranslation } from 'react-i18next';
 import { FaMinus, FaPlus } from 'react-icons/fa'
 import classes from './ItemCounter.module.css'
 
@@ -46,6 +47,8 @@ const ItemCounter = (props) => {
 
     const material = useStyles()
 
+    const { t } = useTranslation()
+
     const handleMinus = () => {
         const count = Number(item.count)
         if(type === "result") {
@@ -67,10 +70,12 @@ const ItemCounter = (props) => {
 
     const handlePlus = () => {
         const count = Number(item.count)
-        onChange({
-            item: item.item,
-            count: count + 1
-        })
+        if(count + 1 <= item.item.count) {
+            onChange({
+                item: item.item,
+                count: count + 1
+            })
+        }
     }
 
     return (
@@ -96,11 +101,22 @@ const ItemCounter = (props) => {
                 ),
                 endAdornment: (
                     <InputAdornment position='end' style={{ width: "fit-content"}}>
-                        <IconButton
-                            onClick={handlePlus}
-                        >
-                            <FaPlus/>
-                        </IconButton>
+                        {item.count + 1 <= item.item.count ?
+                            <IconButton
+                                onClick={handlePlus}
+                            >
+                                <FaPlus/>
+                            </IconButton>
+                            :
+                            <Tooltip title={t("shopping_cart.not_available")}>
+                                <IconButton
+                                    className={classes.disabled}
+                                >
+                                    <FaPlus/>
+                                </IconButton>
+                            </Tooltip>
+                        }
+                        
                     </InputAdornment>
                 )
             }}

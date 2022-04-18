@@ -8,6 +8,8 @@ import ServerResponse from '../../UI/ServerResponse/ServerResponse'
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal'
 import CustomCheckbox from '../../UI/Form/Checkbox'
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData'
+import AdminUserInfo from './AdminUserInfo'
+import { priceParser } from '../../../Utils/priceParser'
 
 const AdminUsers = (props) => {
     const {
@@ -21,7 +23,11 @@ const AdminUsers = (props) => {
         users,
         total,
         handleChangePage,
-        handlePageSize
+        handlePageSize,
+        isOpenView,
+        handleOpenView,
+        currentUser,
+        updateUser
     } = props
 
     const rows = [
@@ -41,6 +47,11 @@ const AdminUsers = (props) => {
             searchByValue: "phone"
         },
         {
+            key: "money_spend",
+            text: "Потрачено",
+            searchByValue: "money_spend"
+        },
+        {
             key: "last",
             text: "",
             searchByValue: ""
@@ -50,6 +61,13 @@ const AdminUsers = (props) => {
     return (
         <div className={classes.main}>
             {(serverResponse || serverError) && <ServerResponse/>}
+            {isOpenView && 
+                <AdminUserInfo
+                    onClose={handleOpenView}
+                    user={currentUser}
+                    updateUser={updateUser}
+                />
+            }
             <div className={classes.header}>
                 <h2>Пользователи</h2>
                 <div className={classes.topController}>
@@ -71,18 +89,11 @@ const AdminUsers = (props) => {
                                     <TableCell>{(!item.first_name && !item.last_name) && "———————"} {item.first_name} {item.last_name}</TableCell>
                                     <TableCell>{item.email}</TableCell>
                                     <TableCell>{item.phone ? item.phone : "———————"}</TableCell>
-                                    {/* <TableCell>
-                                        <CustomCheckbox checked={item.is_hg} 
-                                            disabled={(!item.is_hg && totalIsHg === 5)}
-                                            onChange={
-                                                () => editTag(item._id, { is_hg: !item.is_hg })
-                                            }
-                                        />
-                                    </TableCell> */}
+                                    <TableCell>{item.money_spend ? priceParser(item.money_spend) : 0} грн.</TableCell>
                                     <TableCell width={120}>
                                         <AdminControllButtons 
                                             item={item} 
-                                            onView={() => console.log('asd')}
+                                            onView={handleOpenView}
                                             type="view"
                                         />
                                     </TableCell>

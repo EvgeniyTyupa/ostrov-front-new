@@ -106,7 +106,7 @@
 }
 .buyBut {
     font-family: 'Montserrat' !important;
-    width: 110px !important;
+    /* min-width: 110px !important; */
     border-radius: 15px !important;
     background-color: #9DC8CF !important;
     border: 1px solid #9DC8CF !important;
@@ -114,9 +114,15 @@
     font-size: 14px !important;
     font-weight: 700 !important;
     height: 32px !important;
+    padding: 4px 24px !important;
 }
 .buyBut:hover {
     background-color: #77b2bb !important;
+    border: 1px solid #77b2bb !important;
+}
+.buyBut:disabled {
+    background-color: gray !important;
+    border: 1px solid transparent !important;
 }
 .likeBut {
     color: #4B5EA2 !important;

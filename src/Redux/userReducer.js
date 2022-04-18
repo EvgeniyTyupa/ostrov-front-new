@@ -11,9 +11,11 @@ const SET_IS_RECEIVED_RESET_HASH_STATUS = 'SET_IS_RECEIVED_RESET_HASH_STATUS'
 const SET_IS_VALID_RESET_HASH = 'SET_IS_VALID_RESET_HASH'
 const SET_USERS_DATA = 'SET_USERS_DATA'
 const SET_TOTAL_USERS = 'SET_TOTAL_USERS'
+const SET_NEW_USER = 'SET_NEW_USER'
 
 let initialState = {
     user: null,
+    newUser: null,
     isAuth: false,
     isStartData: false,
     isValidActivationHash: false,
@@ -57,6 +59,9 @@ let userReducer = (state = initialState, action) => {
         case SET_TOTAL_USERS: {
             return { ...state, total: action.total }
         }
+        case SET_NEW_USER: {
+            return { ...state, newUser: action.newUser }
+        }
         default:
             return state
     }
@@ -91,6 +96,9 @@ export const setUsersData = (users) => ({
 })
 export const setTotalUsers = (total) => ({
     type: SET_TOTAL_USERS, total
+})
+export const setNewUser = (newUser) => ({
+    type: SET_NEW_USER, newUser
 })
 
 export const login = (data) => async (dispatch) => {
@@ -147,6 +155,16 @@ export const updateProfile = (userId, data) => async (dispatch) => {
     try {
         let response = await userApi.updateProfile(userId, data)
         dispatch([setUserData(response.user), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const updateSomeUser = (userId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.updateProfile(userId, data)
+        dispatch([setNewUser(response.user), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }
