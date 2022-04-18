@@ -13,7 +13,8 @@ const AdminUsersContainer = (props) => {
         total,
         updateSomeUser,
         newUser,
-        setNewUser
+        setNewUser,
+        setUsersData
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -96,5 +97,6 @@ let mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
     getUsers,
     updateSomeUser,
-    setNewUser
+    setNewUser,
+    setUsersData
 })(AdminUsersContainer)

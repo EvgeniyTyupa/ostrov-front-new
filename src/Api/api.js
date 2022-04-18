@@ -35,6 +35,10 @@ export const userApi = {
         return instance.patch(`/user/${userId}`, data)
         .then(response => response.data)
     },
+    editSomeUser(userId, data) {
+        return instance.patch(`/user/edit/${userId}`, data)
+        .then(response => response.data)
+    },
     changePassword(userId, data) {
         return instance.post(`/auth/change_password/${userId}`, data)
         .then(response => response.data)

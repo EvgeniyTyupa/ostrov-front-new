@@ -7,6 +7,7 @@ import { Rating } from 'react-simple-star-rating'
 import { addComment } from '../../../../../Redux/commentsReducer'
 import { setIsOpenLogin } from '../../../../../Redux/commonReducer'
 import AdminInput from '../../../../UI/Form/AdminInput'
+import Modal from '../../../../UI/Modal/Modal'
 import classes from './CommentForm.module.css'
 
 const CommentForm = (props) => {
@@ -70,39 +71,39 @@ const CommentForm = (props) => {
             {isAuth ?
                 <div className={classes.review}>
                     {isOpen &&
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <Controller
-                            name="text"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    error={error}
-                                    label="Текст..."
-                                    multiline={true}
-                                    rows={4}
-                                />
-                            )}
-                        />
-                        <div className={classes.container}>
-                            <div className={classes.rating}>
-                                <label>{t("items.reviews.ratingLabel")}:</label>
-                                <Rating 
-                                    ratingValue={rating}
-                                    onClick={rate => setRating(rate)}
-                                    size={"22px"}
-                                />
+                    <Modal onClose={handleIsOpen} title={t("items.reviews.openFormButt")}>
+
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <Controller
+                                name="text"
+                                control={control}
+                                defaultValue=""
+                                rules={{ required: "Обязательное поле!" }}
+                                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                    <AdminInput
+                                        onChange={onChange}
+                                        value={value}
+                                        error={error}
+                                        label="Текст..."
+                                        multiline={true}
+                                        rows={4}
+                                    />
+                                )}
+                            />
+                            <div className={classes.container}>
+                                <div className={classes.rating}>
+                                    <label>{t("items.reviews.ratingLabel")}:</label>
+                                    <Rating 
+                                        ratingValue={rating}
+                                        onClick={rate => setRating(rate)}
+                                        size={"22px"}
+                                    />
+                                </div>
+                                <Button className={classes.submit} type="submit">{t("items.reviews.submit")}</Button>
                             </div>
-                            <Button className={classes.submit} type="submit">{t("items.reviews.submit")}</Button>
-                        </div>
-                    </form>}
-                    <button onClick={handleIsOpen} className={classes.switchButt}>
-                        {!isOpen && <span>{t("items.reviews.openFormButt")}</span>}
-                        {isOpen && <span>{t("items.reviews.closeFormButt")}</span>}
-                    </button>
+                        </form>
+                    </Modal>}
+                    <Button className={classes.commentBut} onClick={handleIsOpen}>{t("items.reviews.openFormButt")}</Button>
                 </div>
                 :
                 <div className={classes.auth}>

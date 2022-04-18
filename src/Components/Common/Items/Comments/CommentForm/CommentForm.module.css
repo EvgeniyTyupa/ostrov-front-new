@@ -3,10 +3,13 @@
 }
 .review {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .review form {
     width: 100%;
     margin-bottom: 15px;
+    padding-top: 24px;
 }
 .review form div {
     width: 100%;
@@ -48,6 +51,7 @@
     justify-content: center;
     color: tomato;
     padding-top: 25px;
+    margin-bottom: 40px;
 }
 .auth button {
     outline: none;
@@ -60,4 +64,17 @@
     font-size: 16px;
     padding: 0;
     padding-left: 2px;
+}
+.commentBut {
+    background-color: #E86589 !important;
+    border-radius: 36px !important;
+    color: white !important;
+    font-family: 'Montserrat' !important;
+    font-weight: 700 !important;
+    margin: 0 auto;
+    padding: 10px 38px !important;
+    margin-bottom: 40px !important;
+}
+.commentBut:hover {
+    background-color: #d85a7c !important;
 }

@@ -163,7 +163,7 @@ export const updateProfile = (userId, data) => async (dispatch) => {
 export const updateSomeUser = (userId, data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await userApi.updateProfile(userId, data)
+        let response = await userApi.editSomeUser(userId, data)
         dispatch([setNewUser(response.user), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))

@@ -1,5 +1,6 @@
 .main {
-    width: 433px;
+    width: 100%;
+    max-width: 31%;
 }
 .main img {
     width: 100%;

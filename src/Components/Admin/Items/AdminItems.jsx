@@ -9,6 +9,7 @@ import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal'
 import AdminEditForm from './AdminEditForm';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
+import { priceParser } from '../../../Utils/priceParser';
 
 const AdminItems = (props) => {
     const { 
@@ -136,7 +137,7 @@ const AdminItems = (props) => {
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>{item.articule}</TableCell>
                                     <TableCell>{item.code}</TableCell>
-                                    <TableCell>{item.price}</TableCell>
+                                    <TableCell>{priceParser(item.price)} грн.</TableCell>
                                     <TableCell>{item.brand && item.brand.name}</TableCell>
                                     <TableCell>{item.category && item.category.name}</TableCell>
                                     <TableCell width={120}>

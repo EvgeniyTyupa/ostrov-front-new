@@ -1,0 +1,45 @@
+.main {
+    width: 100%;
+}
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(128, 128, 128, .1);
+    padding-bottom: 25px;
+    color: #4B5EA3;
+}
+.main form {
+    width: 33%;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.field input {
+    font-size: 14px !important;
+}
+.field label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #37395C;
+}
+.submitBut {
+    background-color: #4B5EA3 !important;
+    color: white !important;
+    text-transform: initial !important;
+    font-weight: 700 !important;
+    margin-top: 16px !important;
+    height: 53px !important;
+    font-size: 16px !important;
+    font-family: 'Montserrat' !important;
+    width: 100%;
+}
+.submitBut:hover {
+    background-color: #42528d !important;
+}

@@ -55,6 +55,7 @@ import ScrollToHash from './Components/Common/Scroll/ScrollToHash';
 import CheckoutContainer from './Pages/Checkout/Checkout/CheckoutContainer';
 import { useCheckActionConditions } from './Hooks/useCheckActionConditions';
 import AdminUsersContainer from './Components/Admin/Users/AdminUsersContainer';
+import AdminSettings from './Components/Admin/Settings/AdminSettings';
 
 const App = (props) => {
   const { 
@@ -203,6 +204,7 @@ const App = (props) => {
                   <Route path="posts" element={<AdminNewsContainer/>} />
                   <Route path="actions" element={<AdminActionsContainer/>} />
                   <Route path="users" element={<AdminUsersContainer/>} />
+                  <Route path="settings" element={<AdminSettings/>} />
                 </Route>
 
                 <Route path='*' element={<NotFound />} />

@@ -1,6 +1,6 @@
 import { Button, IconButton, Tooltip } from '@mui/material'
 import { t } from 'i18next'
-import React from 'react'
+import React, { useRef } from 'react'
 import { Rating } from 'react-simple-star-rating'
 import Breadcrumbs from '../../Components/Common/Breadcrumbs/Breadcrumbs'
 import CustomVerticalSlider from '../../Components/Common/Slider/Vertical/CustomVerticalSlider'
@@ -36,7 +36,8 @@ const Item = (props) => {
         isLiked,
         addToCart,
         setModalValue,
-        modalValue
+        modalValue,
+        viewedItems
     } = props
 
     let currentItemName = currentLanguage === "ru" ? item.name : item.name_ua
@@ -53,6 +54,8 @@ const Item = (props) => {
     const rating = item.rating * 20
 
     let price = priceParser(item.price)
+
+    const descriptionRef = useRef(null)
 
 
     console.log(item)
@@ -139,15 +142,17 @@ const Item = (props) => {
                 <MaxWidthContainer className={classes.descriptionContainer}>
                     <div className={classes.leftDescription}>
                         <h4>{t("items.description")}</h4>
-                        <div className={cx(classes.descText, isFullDesc ? classes.fullDescText : undefined)}>
+                        <div ref={descriptionRef} className={cx(classes.descText, isFullDesc ? classes.fullDescText : undefined)}>
                             {description.length > 0 ? description.split("\n").map(el => (
                                 <p key={el}>{el}</p>
                             )) : <p>{t("items.emptyDesc")}</p>}
                         </div>
                         {!isFullDesc && <div className={classes.hidingBlock}></div>}
-                        {description.length > 0 && <button onClick={handleFullText}>
-                            {isFullDesc ? t("items.hide") : t("items.details")}
-                        </button>}
+                        {(descriptionRef && descriptionRef.current) &&
+                            (description.length > 0 && descriptionRef.current.clientHeight > 80) && <button onClick={handleFullText}>
+                                {isFullDesc ? t("items.hide") : t("items.details")}
+                            </button>
+                        }
                     </div>
                     <div className={classes.rightDescription}>
                         <h4>ХАРАКТЕРИСТИКИ</h4>
@@ -193,14 +198,26 @@ const Item = (props) => {
                     {sameItems.length > 0 &&
                         <div className={classes.same}>
                             <SmallItemsList
-                                href="/"
+                                // href="/"
                                 title={t("items.sameItemsTitle")}
                                 items={sameItems}
                                 slidesToShow={sameItems.length > 4 ? 5 : sameItems.length}
                             />
                         </div>
                     }
+                    {viewedItems.length > 0 &&
+                        <div className={classes.viewed}>
+                            <SmallItemsList
+                                title={t("items.viewed")}
+                                items={viewedItems}
+                                slidesToShow={viewedItems.length > 4 ? 5 : viewedItems.length}
+                            />
+                        </div>
+                    }
                     <div className={classes.comments}>
+                        <div className={classes.form}>
+                            <CommentForm/>
+                        </div>
                         <div className={classes.commentsHeader}>
                             <h4>{t("items.reviews.title")}</h4>
                             <span>{totalComments}</span>
@@ -213,9 +230,6 @@ const Item = (props) => {
                                    <p>{t("items.reviews.empty")}</p> 
                                 </div>
                             }
-                            <div className={classes.form}>
-                                <CommentForm/>
-                            </div>
                         </div>
                     </div>
                 </MaxWidthContainer>

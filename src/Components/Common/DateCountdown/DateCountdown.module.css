@@ -22,4 +22,12 @@
     color: #4B5EA2;
     font-weight: 700;
     font-size: 18px;
+    animation: fade 1s step-start infinite;
+}
+
+
+@keyframes fade {
+    50% {
+        opacity: 0;
+    }
 }

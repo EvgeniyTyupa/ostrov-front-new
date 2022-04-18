@@ -10,5 +10,6 @@
     display: none;
 }
 /* .slider > div > div > div {
-    width: 20% !important;
+    width: fit-content !important;
+    margin-right: 1%
 } */

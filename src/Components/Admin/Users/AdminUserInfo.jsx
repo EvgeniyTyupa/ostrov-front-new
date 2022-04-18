@@ -46,7 +46,7 @@ const AdminUserInfo = (props) => {
     }
 
     useEffect(() => {
-        if(user.discount){
+        if(user.discount >= 0){
             setDiscount(user.discount)
         }
     }, [user])

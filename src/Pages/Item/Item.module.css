@@ -283,6 +283,11 @@
     width: 100%;
 }
 
+.viewed {
+    margin-top: 50px;
+    width: 100%;
+}
+
 /* REVIEWS */
 .comments {
     width: 100%;

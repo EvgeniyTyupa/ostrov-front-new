@@ -219,6 +219,7 @@ const ItemContainer = (props) => {
                         addToCart={addToCart}
                         modalValue={modalValue}
                         setModalValue={setModalValue}
+                        viewedItems={viewedItems}
                     />}
                 </>
             }
