@@ -5,6 +5,14 @@
     gap: 10px;
     margin-top: 24px;
 }
+.main h4 {
+    margin-top: 25px;
+    color: #4B5EA3;
+}
+.main h5 {
+    color: #4B5EA3;
+    margin-top: 12px;
+}
 .row {
     width: 100%;
     display: flex;
@@ -52,4 +60,11 @@
 }
 .edit button.save {
     color: #4B5EA3;
+}
+.itemsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    row-gap: 16px;
+    margin-bottom: 8px;
 }

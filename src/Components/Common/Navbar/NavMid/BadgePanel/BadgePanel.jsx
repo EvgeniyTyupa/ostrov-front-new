@@ -47,7 +47,8 @@ const BadgePanel = (props) => {
             }
             <Tooltip 
                 title={<ShoppingCartModal/>}
-                classes={{ tooltip: classes.tooltip }}
+                classes={{ tooltip: classes.tooltip, arrow: classes.arrow }}
+                arrow
             >
                 <IconButton
                     onClick={onClickCart}

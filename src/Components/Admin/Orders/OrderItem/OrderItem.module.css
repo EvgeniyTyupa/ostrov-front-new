@@ -1,0 +1,31 @@
+.main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 250px;
+}
+.main img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.main a {
+    font-size: 12px;
+    color: #37395C;
+    text-decoration: none;
+}
+.main a:hover {
+    text-decoration: underline;
+    color: #D56886;
+}
+.main span {
+    font-size: 12px;
+    color: #37395C;
+    text-decoration: none;
+}

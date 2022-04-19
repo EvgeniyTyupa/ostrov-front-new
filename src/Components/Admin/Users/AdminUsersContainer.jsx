@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
 import { getUsers, setNewUser, setUsersData, updateSomeUser } from '../../../Redux/userReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
@@ -25,6 +26,8 @@ const AdminUsersContainer = (props) => {
     const [currentUser, setCurrentUser] = useState(null)
 
     const [isOpenView, setIsOpenView] = useState(false)
+
+    const [searchParams] = useSearchParams()
 
     const handleOpenView = (user) => {
         setCurrentUser(user)
@@ -62,8 +65,13 @@ const AdminUsersContainer = (props) => {
     }, [newUser])
 
     useEffect(() => {
-        getUsers(pageNumber + 1, pageSize, "", "", "")
-    }, [pageNumber, pageSize])
+        if(searchParams.get('user')) {
+            console.log(searchParams.get('user'))
+            getUsers(pageNumber + 1, pageSize, "_id", "", searchParams.get('user'))
+        }else {
+            getUsers(pageNumber + 1, pageSize, "", "", "")
+        }
+    }, [searchParams, pageNumber, pageSize])
 
     return (
         <AdminLayout>

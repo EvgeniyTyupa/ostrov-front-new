@@ -1,0 +1,15 @@
+.main {
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition-duration: .3s;
+}
+.main label {
+    font-size: 14px;
+    color: rgba(128, 128, 128, 3);
+    transition-duration: .3s;
+    color: white;
+    font-weight: bold;
+}

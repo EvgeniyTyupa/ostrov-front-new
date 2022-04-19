@@ -475,3 +475,10 @@ export const newPostApi = {
         .then(resposne => resposne.data);
     }
 }
+
+export const ordersApi = {
+    getOrders(pageNumber, pageSize, searchBy, from, searchingValue) {
+        return instance.get(`/order?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+        .then(response => response.data)
+    }
+}

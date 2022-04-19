@@ -56,6 +56,7 @@ import CheckoutContainer from './Pages/Checkout/Checkout/CheckoutContainer';
 import { useCheckActionConditions } from './Hooks/useCheckActionConditions';
 import AdminUsersContainer from './Components/Admin/Users/AdminUsersContainer';
 import AdminSettings from './Components/Admin/Settings/AdminSettings';
+import AdminOrdersContainer from './Components/Admin/Orders/AdminOrdersContainer';
 
 const App = (props) => {
   const { 
@@ -204,6 +205,7 @@ const App = (props) => {
                   <Route path="posts" element={<AdminNewsContainer/>} />
                   <Route path="actions" element={<AdminActionsContainer/>} />
                   <Route path="users" element={<AdminUsersContainer/>} />
+                  <Route path="orders" element={<AdminOrdersContainer/>} />
                   <Route path="settings" element={<AdminSettings/>} />
                 </Route>
 
