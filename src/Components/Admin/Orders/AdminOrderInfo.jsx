@@ -154,6 +154,12 @@ const AdminOrderInfo = (props) => {
                         <OrderItem key={el.item._id} item={el}/>
                     )) : <p>Отсутствует.</p>}
                 </div>
+                <h5>Комментарий к заказу:</h5>
+                <div>
+                    {order.comment ? order.comment.split("\n").map(el => (
+                        <p key={el}>{el}</p>
+                    )) : <p>Отсутствует.</p>}
+                </div>
             </div>
         </Modal>
     )

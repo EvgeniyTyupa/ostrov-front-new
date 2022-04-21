@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
-import { getUsers, setNewUser, setUsersData, updateSomeUser } from '../../../Redux/userReducer'
+import { getAdmins, getUser, getUsers, setNewUser, setUsersData, updateSomeUser } from '../../../Redux/userReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminUsers from './AdminUsers'
@@ -15,7 +15,10 @@ const AdminUsersContainer = (props) => {
         updateSomeUser,
         newUser,
         setNewUser,
-        setUsersData
+        setUsersData,
+        getAdmins,
+        getUser,
+        admin
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -72,11 +75,17 @@ const AdminUsersContainer = (props) => {
 
     useEffect(() => {
         if(searchParams.get('user')) {
-            getUsers(pageNumber + 1, pageSize, "_id", "", searchParams.get('user'))
+            getUser(searchParams.get('user'))
+        }else if(onlyAdmins){
+            getAdmins()
         }else {
-            getUsers(pageNumber + 1, pageSize, "adminLevel", "", [1, 2])
+            getUsers(pageNumber + 1, pageSize, "", "", "")
         }
     }, [searchParams, pageNumber, pageSize, onlyAdmins])
+
+    useEffect(() => {
+        return () => setUsersData([])
+    }, [])
 
     return (
         <AdminLayout>
@@ -97,6 +106,7 @@ const AdminUsersContainer = (props) => {
                 updateUser={updateUser}
                 onlyAdmins={onlyAdmins}
                 handleOnlyAdmins={handleOnlyAdmins}
+                admin={admin}
             />
         </AdminLayout>
     )
@@ -106,12 +116,15 @@ let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
     users: state.user.users,
     total: state.user.total,
-    newUser: state.user.newUser
+    newUser: state.user.newUser,
+    admin: state.user.user
 })
 
 export default connect(mapStateToProps, {
     getUsers,
     updateSomeUser,
     setNewUser,
-    setUsersData
+    setUsersData,
+    getAdmins,
+    getUser
 })(AdminUsersContainer)

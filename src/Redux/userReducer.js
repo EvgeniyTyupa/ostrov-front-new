@@ -243,4 +243,23 @@ export const getUsers = (pageNumber, pageSize, searchBy, from, searchingValue) =
     }
 }
 
+export const getUser = (userId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.getUser(userId)
+        dispatch([setUsersData(response.users), setTotalUsers(response.total), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getAdmins = () => async (dispatch) => {
+    try {
+        let response = await userApi.getAdmins()
+        dispatch([setUsersData(response.users), setTotalUsers(response.total), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+ 
 export default userReducer

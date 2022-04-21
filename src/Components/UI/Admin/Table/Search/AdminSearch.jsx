@@ -19,7 +19,7 @@ const AdminSearch = (props) => {
     }, [debouncedSearchTerm])
 
     useEffect(() => {
-        if(searchValue.length === 0){
+        if(searchValue.length === 0 && debouncedSearchTerm){
             onSearch(0 + 1, pageSize, "", "", "", isActual)  
         }
     }, [searchValue])

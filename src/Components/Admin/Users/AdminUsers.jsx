@@ -30,7 +30,8 @@ const AdminUsers = (props) => {
         currentUser,
         updateUser,
         onlyAdmins,
-        handleOnlyAdmins
+        handleOnlyAdmins,
+        admin
     } = props
 
     const rows = [
@@ -75,7 +76,7 @@ const AdminUsers = (props) => {
                 <h2>Пользователи</h2>
                 <div className={classes.topController}>
                     <AdminSearch onSearch={getUsers} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
-                    {/* <Button onClick={handleAddModal} className={classes.addBut}>Добавить +</Button> */}
+                    {admin.adminLevel === 2 && <Button className={classes.addBut}>Добавить администратора</Button>}
                 </div>
             </div>
             <div className={classes.table}>
@@ -83,7 +84,11 @@ const AdminUsers = (props) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {rows.map(item => <TableTh text={item.text} onSort={getUsers} searchByValue={item.searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize} key={item.key}/>)}
+                                <TableTh text={rows[0].text} onSort={getUsers} searchByValue={rows[0].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>
+                                <TableTh text={rows[1].text} onSort={getUsers} searchByValue={rows[1].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>
+                                <TableTh text={rows[2].text} onSort={getUsers} searchByValue={rows[2].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>
+                                {!onlyAdmins && <TableTh text={rows[3].text} onSort={getUsers} searchByValue={rows[3].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>}
+                                <TableTh text={rows[4].text} onSort={getUsers} searchByValue={rows[4].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>                                
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -92,7 +97,7 @@ const AdminUsers = (props) => {
                                     <TableCell>{(!item.first_name && !item.last_name) && "———————"} {item.first_name} {item.last_name}</TableCell>
                                     <TableCell>{item.email}</TableCell>
                                     <TableCell>{item.phone ? item.phone : "———————"}</TableCell>
-                                    <TableCell>{item.money_spend ? priceParser(item.money_spend) : 0} грн.</TableCell>
+                                    {!onlyAdmins && <TableCell>{item.money_spend ? priceParser(item.money_spend) : 0} грн.</TableCell>}
                                     <TableCell width={120}>
                                         <AdminControllButtons 
                                             item={item} 
@@ -109,7 +114,7 @@ const AdminUsers = (props) => {
                 <div className={classes.footerContainer}>
                     <div className={classes.isActualContainer}>
                         <CustomCheckbox 
-                            label="Показывать администраторов" 
+                            label="Показывать только администраторов" 
                             checked={onlyAdmins} 
                             onChange={handleOnlyAdmins}
                         />

@@ -58,6 +58,14 @@ export const userApi = {
     getUsers(pageNumber, pageSize, searchBy, from, searchingValue){
         return instance.get(`/user?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)
+    },
+    getUser(userId){
+        return instance.get(`/user/${userId}`)
+        .then(response => response.data)
+    },
+    getAdmins() {
+        return instance.get('/user/get/admins')
+        .then(response => response.data)
     }
 }
 
