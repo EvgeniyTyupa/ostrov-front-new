@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { getOrders } from '../../../Redux/ordersReducer'
+import { getOrders, setNewOrder, setOrdersData, updateOrder } from '../../../Redux/ordersReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminOrders from './AdminOrders'
@@ -12,7 +12,9 @@ const AdminOrdersContainer = (props) => {
         newOrder,
         isFetching,
         getOrders,
-        
+        updateOrder,
+        setNewOrder,
+        setOrdersData
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -39,6 +41,23 @@ const AdminOrdersContainer = (props) => {
     }
 
     useEffect(() => {
+        if(newOrder) {
+            const newOrders = [...orders]
+            let pushIndex = newOrders.length
+            newOrders.forEach((item, index) => {
+                if(item._id === newOrder._id){
+                    newOrders.splice(index, 1)
+                    pushIndex = index
+                }
+            })
+            newOrders.splice(pushIndex, 0, newOrder)
+            setCurrentOrder(newOrder)
+            setOrdersData(newOrders)
+            setNewOrder(null)
+        }
+    }, [newOrder])
+
+    useEffect(() => {
         getOrders(pageNumber + 1, pageSize, "", "", "")
     }, [pageNumber, pageSize])
 
@@ -55,6 +74,10 @@ const AdminOrdersContainer = (props) => {
                 currentOrder={currentOrder}
                 isOpenView={isOpenView}
                 handleOpenView={handleOpenView}
+                handleChangePage={handleChangePage}
+                handlePageSize={handlePageSize}
+                total={total}
+                updateOrder={updateOrder}
             />
         </AdminLayout>
     )
@@ -68,5 +91,8 @@ let mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    getOrders
+    getOrders,
+    updateOrder,
+    setOrdersData,
+    setNewOrder
 })(AdminOrdersContainer)

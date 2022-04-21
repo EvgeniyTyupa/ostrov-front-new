@@ -62,3 +62,14 @@
     flex-direction: column;
     gap: 4px;
 }
+.filter {
+    margin-left: auto;
+    font-size: 14px;
+    color: #4B5EA3;
+    text-align: right;
+    font-weight: 700;
+}
+.table {
+    display: flex;
+    flex-direction: column;
+}

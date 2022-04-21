@@ -15,6 +15,7 @@ import Comment from '../../Components/Common/Items/Comments/Comment/Comment'
 import { priceParser } from '../../Utils/priceParser'
 import NeedAuthModal from '../../Components/Modals/NeedAuthModal/NeedAuthModal'
 import PaymentGuaranteeModal from '../../Components/Modals/PaymentGuaranteeModal/PaymentGuaranteeModal'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Item = (props) => {
     const {
@@ -57,9 +58,6 @@ const Item = (props) => {
 
     const descriptionRef = useRef(null)
 
-
-    console.log(item)
-
     return (
         <div className={classes.mainContainer}>
             {modalValue != null && <PaymentGuaranteeModal modalValue={modalValue} onClose={() => setModalValue(null)}/>}
@@ -83,7 +81,22 @@ const Item = (props) => {
                                     ))}
                                 </CustomVerticalSlider>
                             </div>
-                            <img src={currentImage} alt={item.name} className={classes.currentImage}/>
+                            <AnimatePresence exitBeforeEnter>
+                                <motion.div
+                                    variants={{
+                                        initial: { opacity: 0.5, y: -50 },
+                                        animate: { opacity: 1, x: 0, y: 0 },
+                                        exit: { opacity: 0, x: 100 }
+                                    }}
+                                    initial="initial"
+                                    animate="animate"
+                                    exit="exit"
+                                    transition={{ duration: .5 }}
+                                    key={currentImage}
+                                >
+                                    <img src={currentImage} alt={item.name} className={classes.currentImage}/>
+                                </motion.div>
+                            </AnimatePresence>
                         </div>
                         <div className={classes.info}>
                             <div className={classes.ratingCodeBlock}>

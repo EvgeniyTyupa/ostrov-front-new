@@ -55,6 +55,7 @@ const ShoppingCart = (props) => {
         setCurrentItem,
         viewedItems,
         actionDiscount,
+        userDiscount,
         gift
     } = props
 
@@ -125,9 +126,23 @@ const ShoppingCart = (props) => {
                             <span>{t("shopping_cart.discount")}:</span>
                             <p>{priceParser(actionDiscount)} {!actionDiscount.toString().includes("%") && <span>грн.</span>}</p>
                         </div>
+                        {userDiscount > 0 && (
+                        <div className={classes.fieldCard}>
+                            <span>{t("shopping_cart.userDiscount")}:</span>
+                            <p>{priceParser(userDiscount)}%</p>
+                        </div>)}
                         <div className={cx(classes.fieldCard, classes.fieldTotal)}>
                             <span>{t("shopping_cart.total")}:</span>
-                            <p>{priceParser(discountParser(deliveryPrice + totalSum, actionDiscount))} <span>грн.</span></p>
+                            <p>{priceParser(
+                                    discountParser(
+                                        deliveryPrice + totalSum, 
+                                        actionDiscount.includes("%") ? 
+                                            (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
+                                            : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
+                                    )
+                                )} 
+                                <span>грн.</span>
+                            </p>
                         </div>
                         <Button 
                             className={classes.submit}

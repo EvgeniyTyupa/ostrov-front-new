@@ -27,6 +27,12 @@ const AdminUsersContainer = (props) => {
 
     const [isOpenView, setIsOpenView] = useState(false)
 
+    const [onlyAdmins, setOnlyAdmins] = useState(false)
+
+    const handleOnlyAdmins = () => {
+        setOnlyAdmins(!onlyAdmins)
+    }
+
     const [searchParams] = useSearchParams()
 
     const handleOpenView = (user) => {
@@ -66,12 +72,11 @@ const AdminUsersContainer = (props) => {
 
     useEffect(() => {
         if(searchParams.get('user')) {
-            console.log(searchParams.get('user'))
             getUsers(pageNumber + 1, pageSize, "_id", "", searchParams.get('user'))
         }else {
-            getUsers(pageNumber + 1, pageSize, "", "", "")
+            getUsers(pageNumber + 1, pageSize, "adminLevel", "", [1, 2])
         }
-    }, [searchParams, pageNumber, pageSize])
+    }, [searchParams, pageNumber, pageSize, onlyAdmins])
 
     return (
         <AdminLayout>
@@ -90,6 +95,8 @@ const AdminUsersContainer = (props) => {
                 handleOpenView={handleOpenView}
                 currentUser={currentUser}
                 updateUser={updateUser}
+                onlyAdmins={onlyAdmins}
+                handleOnlyAdmins={handleOnlyAdmins}
             />
         </AdminLayout>
     )

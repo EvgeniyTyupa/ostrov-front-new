@@ -181,13 +181,13 @@ const CartTable = (props) => {
                                     </div>
                                 </TableCell>
                                 <TableCell>
-                                    <span>0 грн.</span>
+                                    <span>0 <span className={classes.textPrice}>грн.</span></span>
                                 </TableCell>
                                 <TableCell align='center'>
-                                    <span>1 шт.</span>
+                                    <span>1 <span className={classes.textPrice}>шт.</span></span>
                                 </TableCell> 
-                                <TableCell>
-                                    <span>0 грн.</span>
+                                <TableCell align='right'>
+                                    <span>0 <span className={classes.textPrice}>грн.</span></span>
                                 </TableCell>
                             </TableRow>
                         ))}

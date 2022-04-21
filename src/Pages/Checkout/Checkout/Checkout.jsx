@@ -18,7 +18,8 @@ const Checkout = (props) => {
         totalCount,
         deliveryPrice,
         actionDiscount,
-        gift
+        gift,
+        userDiscount
     } = props
 
     const { t } = useTranslation()
@@ -36,7 +37,12 @@ const Checkout = (props) => {
                 <Breadcrumbs active={t("checkout.title")} items={breadcrumbsItems}/>
                 <div className={classes.sides}>
                     <div className={classes.left}>
-                        <CheckoutForm actionDiscount={actionDiscount} gift={gift}/>
+                        <CheckoutForm 
+                            actionDiscount={actionDiscount} 
+                            gift={gift}
+                            userDiscount={userDiscount}
+                            deliveryPrice={deliveryPrice}
+                        />
                     </div>
                     <div className={classes.right}>
                         <div className={classes.card}>
@@ -79,9 +85,23 @@ const Checkout = (props) => {
                                 <span>{t("shopping_cart.discount")}:</span>
                                 <p>{priceParser(actionDiscount)} {!actionDiscount.toString().includes("%") && <span>грн.</span>}</p>
                             </div>
+                            {userDiscount > 0 && (
+                            <div className={classes.fieldCard}>
+                                <span>{t("shopping_cart.userDiscount")}:</span>
+                                <p>{priceParser(userDiscount)}%</p>
+                            </div>)}
                             <div className={cx(classes.fieldCard, classes.fieldTotal)}>
                                 <span>{t("shopping_cart.total")}:</span>
-                                <p>{priceParser(discountParser(deliveryPrice + totalSum, actionDiscount))} <span>грн.</span></p>
+                                    <p>{priceParser(
+                                        discountParser(
+                                            deliveryPrice + totalSum, 
+                                            (actionDiscount && actionDiscount.includes("%")) ? 
+                                                (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
+                                                : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
+                                        )
+                                    )} 
+                                    <span>грн.</span>
+                                </p>
                             </div>
                         </div>
                     </div>

@@ -46,5 +46,14 @@ export const getOrders = (pageNumber, pageSize, searchBy, from, searchingValue) 
         dispatch(setIsFetching(false))
     }
 }
+export const updateOrder = (orderId, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await ordersApi.updateOrder(orderId, data)
+        dispatch([setNewOrder(response.order), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
 
 export default ordersReducer

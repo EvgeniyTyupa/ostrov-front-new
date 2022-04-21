@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useOrderStatuses } from '../../../../Hooks/useOrderStatuses'
 import { cx } from '../../../../Utils/classnames'
 import classes from './OrderStatusLabel.module.css'
 
@@ -10,15 +11,14 @@ const OrderStatusLabel = (props) => {
         background: "rgba(128, 128, 128, 3)"
     })
 
+    const statuses = useOrderStatuses()
+
     useEffect(() => {
-        switch(status) {
-            case "new": {
-                setStatusProperties({
-                    backgroundColor: "#4B5EA3",
-                    text: "Новый"
-                })
+        statuses.forEach(el => {
+            if(el.value === status){
+                setStatusProperties(el)
             }
-        }
+        })
     }, [status])
 
     return (

@@ -27,7 +27,9 @@ const CheckoutForm = (props) => {
         setDeliveryPrice,
         totalSum,
         actionDiscount,
-        gift
+        gift,
+        userDiscount,
+        deliveryPrice
     } = props
 
     const { handleSubmit, reset, control, setValue } = useForm()
@@ -41,6 +43,7 @@ const CheckoutForm = (props) => {
     const [currentCity, setCurrentCity] = useState(null)
 
     const [isOpenComment, setIsOpenComment] = useState(false)
+
 
     const [approved, setApproved] = useState(true)
 
@@ -63,6 +66,10 @@ const CheckoutForm = (props) => {
     const onSubmit = (data) => {
         data.deliveryType = deliveryType
         data.approved = approved
+        data.total = totalSum
+        data.discount = actionDiscount.includes("%") ? 
+            (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
+            : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
         console.log(data)
     }
 

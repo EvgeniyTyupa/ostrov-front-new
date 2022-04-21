@@ -25,7 +25,11 @@ const AdminOrders = (props) => {
         orders,
         handleOpenView,
         isOpenView,
-        currentOrder
+        currentOrder,
+        handleChangePage,
+        handlePageSize,
+        total,
+        updateOrder
     } = props
 
     const rows = [
@@ -73,6 +77,7 @@ const AdminOrders = (props) => {
                 <AdminOrderInfo
                     onClose={handleOpenView}
                     order={currentOrder}
+                    updateOrder={updateOrder}
                 />
             }
             <div className={classes.header}>
@@ -139,6 +144,15 @@ const AdminOrders = (props) => {
                     </Table>
                 </TableContainer>
                 {orders.length === 0 && <EmptyData/>}
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 20, 50]}
+                    component={"div"}
+                    rowsPerPage={pageSize}
+                    page={pageNumber}
+                    count={total}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handlePageSize}
+                />
             </div>
         </div>
     )

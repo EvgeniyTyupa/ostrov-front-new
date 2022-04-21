@@ -12,7 +12,7 @@ const Comment = (props) => {
         <div className={classes.main}>
             <div className={classes.header}>
                 <div className={classes.info}>
-                    <p>{item.user_id.first_name}</p>
+                    <p>{item.user_id.first_name ? item.user_id.first_name : item.user_id.email}</p>
                     <Rating size={"22px"} allowHalfIcon readonly ratingValue={rating}/>
                 </div>
                 <p className={classes.date}>{moment(item.created_at).format('DD/MM/YYYY')}</p>

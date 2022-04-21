@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     transition-duration: .3s;
+    width: fit-content !important;
 }
 .main label {
     font-size: 14px;
@@ -12,4 +13,5 @@
     transition-duration: .3s;
     color: white;
     font-weight: bold;
+    width: fit-content;
 }

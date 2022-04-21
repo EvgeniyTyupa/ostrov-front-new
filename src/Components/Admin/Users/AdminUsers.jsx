@@ -10,6 +10,7 @@ import CustomCheckbox from '../../UI/Form/Checkbox'
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData'
 import AdminUserInfo from './AdminUserInfo'
 import { priceParser } from '../../../Utils/priceParser'
+import { NavLink } from 'react-router-dom'
 
 const AdminUsers = (props) => {
     const {
@@ -27,7 +28,9 @@ const AdminUsers = (props) => {
         isOpenView,
         handleOpenView,
         currentUser,
-        updateUser
+        updateUser,
+        onlyAdmins,
+        handleOnlyAdmins
     } = props
 
     const rows = [
@@ -103,15 +106,25 @@ const AdminUsers = (props) => {
                     </Table>
                 </TableContainer>
                 {users.length === 0 && <EmptyData/>}
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 20, 50]}
-                    component={"div"}
-                    rowsPerPage={pageSize}
-                    page={pageNumber}
-                    count={total}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handlePageSize}
-                />
+                <div className={classes.footerContainer}>
+                    <div className={classes.isActualContainer}>
+                        <CustomCheckbox 
+                            label="Показывать администраторов" 
+                            checked={onlyAdmins} 
+                            onChange={handleOnlyAdmins}
+                        />
+                    </div>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 20, 50]}
+                        component={"div"}
+                        rowsPerPage={pageSize}
+                        page={pageNumber}
+                        count={total}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handlePageSize}
+                    />
+                </div>
+                <NavLink to="/admin/users" className={classes.filter}>Сбросить фильтр</NavLink>
             </div>
         </div>
     )

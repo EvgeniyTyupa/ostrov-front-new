@@ -1,18 +1,57 @@
-import React from 'react'
+import { MenuItem } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { useOrderStatuses } from '../../../Hooks/useOrderStatuses'
 import { cx } from '../../../Utils/classnames'
 import { priceParser } from '../../../Utils/priceParser'
 import Field from '../../UI/Form/Field/Field'
+import CustomSelect from '../../UI/Form/Select'
 import Modal from '../../UI/Modal/Modal'
 import classes from '../Info.module.css'
 import OrderItem from './OrderItem/OrderItem'
 import OrderStatusLabel from './StatusLabel/OrderStatusLabel'
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        color: "white",
+        fontFamily: "Montserrat",
+        "&:hover": {
+            opacity: .7,
+            transitionDuration: ".3s"
+        }
+    }
+}));
+
 const AdminOrderInfo = (props) => {
     const { 
         onClose,
-        order
+        order,
+        updateOrder
     } = props
+
+    const statuses = useOrderStatuses()
+
+    const material = useStyles()
+
+    const [newStatus, setNewStatus] = useState(order.status)
+    const [paid, setPaid] = useState(order.is_paid ? "paid" : "not_paid")
+
+    const updateApprove = () => {
+        updateOrder(order._id, { approved: true })
+    }
+
+    const handleStatus = (value) => {
+        setNewStatus(value)
+        updateOrder(order._id, { status: value })
+    }
+
+    const handlePaid = (value) => {
+        setPaid(value)
+        updateOrder(order._id, { is_paid: !order.is_paid })
+    }
+
+    console.log(order)
 
     return (
         <Modal onClose={() => onClose(null)} title={`Заказ №${order.number}`}>
@@ -58,15 +97,50 @@ const AdminOrderInfo = (props) => {
                 <h4>Детали заказа</h4>
                 <Field className={classes.row}>
                     <label>Заказ подтвержден:</label>
-                    <p>{order.approved ? "Да." : "Нет, требуется консультация."}</p>
+                    <div className={classes.edit}>
+                        <p>{order.approved ? "Да." : "Нет, требуется консультация."}</p>
+                        {!order.approved && <button className={classes.save} onClick={updateApprove}>Подтвердить</button>}
+                    </div>
                 </Field>
                 <Field className={classes.row}>
                     <label>Статус:</label>
-                    <p><OrderStatusLabel status={order.status}/></p>
+                    <div className={classes.status}>
+                        <CustomSelect value={newStatus} onChange={(e) => handleStatus(e.target.value)}>
+                            <MenuItem value={statuses[0].value} disabled classes={material}>
+                                <OrderStatusLabel status={statuses[0].value}/>
+                            </MenuItem>
+                            <MenuItem value={statuses[1].value} classes={material}>
+                                <OrderStatusLabel status={statuses[1].value}/>
+                            </MenuItem>
+                            <MenuItem value={statuses[2].value} classes={material}>
+                                <OrderStatusLabel status={statuses[2].value}/>    
+                            </MenuItem>
+                            <MenuItem value={statuses[3].value} classes={material}>
+                                <OrderStatusLabel status={statuses[3].value}/>
+                            </MenuItem>
+                            <MenuItem value={statuses[4].value} classes={material}>
+                                <OrderStatusLabel status={statuses[4].value}/>    
+                            </MenuItem>
+                        </CustomSelect>
+                    </div>
                 </Field>
                 <Field className={classes.row}>
                     <label>Сумма:</label>
-                    <p>{priceParser(order.total)} грн.</p>
+                    <div className={classes.status}>
+                        <p>{priceParser(order.total)} грн.</p>
+                        <CustomSelect value={paid} onChange={(e) => handlePaid(e.target.value)}>
+                            <MenuItem value={statuses[5].value} classes={material}>
+                                <OrderStatusLabel status={statuses[5].value}/>  
+                            </MenuItem>
+                            <MenuItem value={statuses[6].value} classes={material}>
+                                <OrderStatusLabel status={statuses[6].value}/>  
+                            </MenuItem>
+                        </CustomSelect>
+                    </div>
+                </Field>
+                <Field className={classes.row}>
+                    <label>Тип оплаты:</label>
+                    <p>{order.payment_type === "receive" ? "Наложенный платеж." : "Онлайн."}</p>
                 </Field>
                 <h5>Товары:</h5>
                 <div className={classes.itemsList}>

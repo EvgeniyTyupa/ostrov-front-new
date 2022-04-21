@@ -26,6 +26,9 @@
 .row p::first-letter {
     text-transform: uppercase;
 }
+.row a {
+    color: #D56886;
+}
 .email p::first-letter {
     text-transform: initial;
 }
@@ -33,6 +36,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    width: fit-content !important;
 }
 .edit input {
     outline: none;
@@ -67,4 +71,22 @@
     gap: 16px;
     row-gap: 16px;
     margin-bottom: 8px;
+}
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+}
+.status div {
+    width: fit-content;
+}
+.status div div div {
+    /* padding: 5px; */
+    /* padding-right: 5px; */
+    padding: 2px 7px;
+    font-family: "Montserrat" !important;
+}
+.status fieldset {
+    border: none !important;
 }

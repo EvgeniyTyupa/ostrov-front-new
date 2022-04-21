@@ -15,7 +15,8 @@ const ShoppingCartContainer = (props) => {
         deliveryPrice,
         setDeliveryPrice,
         actionDiscount,
-        gift
+        gift,
+        user
     } = props
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0)
@@ -23,9 +24,13 @@ const ShoppingCartContainer = (props) => {
 
     const [parsedViewedItems, setParsedViewedItems] = useState([])
 
+    const [userDiscount, setUserDiscount] = useState(0)
+
     const handleTab = (e, value) => {
         setCurrentTabIndex(value)
     }
+
+    // console.log(totalDiscount)
 
     useEffect(() => {
         if(currentItem) {
@@ -72,6 +77,12 @@ const ShoppingCartContainer = (props) => {
         setParsedViewedItems(newItems)
     }, [viewedItems])
 
+    useEffect(() => {
+        if(user) {
+            setUserDiscount(user.discount ? user.discount : 0)
+        }
+    }, [user])
+
     return (
         <>
             <ShoppingCart
@@ -85,6 +96,7 @@ const ShoppingCartContainer = (props) => {
                 viewedItems={parsedViewedItems}
                 gift={gift}
                 actionDiscount={actionDiscount}
+                userDiscount={userDiscount}
             />
         </>
     )
@@ -97,7 +109,8 @@ let mapStateToProps = (state) => ({
     viewedItems: state.items.viewedItems,
     deliveryPrice: state.cart.deliveryPrice,
     actionDiscount: state.cart.actionDiscount,
-    gift: state.cart.gift
+    gift: state.cart.gift,
+    user: state.user.user
 })
 
 export default connect(mapStateToProps, {

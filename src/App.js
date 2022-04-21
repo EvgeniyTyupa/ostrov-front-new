@@ -22,7 +22,7 @@ import NotFound from './Pages/NotFound/NofFound';
 import { connect } from 'react-redux';
 import LoginModal from './Components/Auth/LoginModal';
 import { useEffect } from 'react';
-import { me } from './Redux/userReducer';
+import { me, setIsBlocked } from './Redux/userReducer';
 
 import Contacts from './Pages/Contacts/Contacts';
 import CatalogContainer from './Pages/Catalog/CatalogContainer';
@@ -57,6 +57,7 @@ import { useCheckActionConditions } from './Hooks/useCheckActionConditions';
 import AdminUsersContainer from './Components/Admin/Users/AdminUsersContainer';
 import AdminSettings from './Components/Admin/Settings/AdminSettings';
 import AdminOrdersContainer from './Components/Admin/Orders/AdminOrdersContainer';
+import SomeInfoModal from './Components/Modals/SomeInfoModal/SomeInfoModal';
 
 const App = (props) => {
   const { 
@@ -76,7 +77,10 @@ const App = (props) => {
     getViewedItems,
     getCartItems,
     setActionDiscount,
-    setGift
+    setGift,
+    isBlocked,
+    serverMessage,
+    setIsBlocked
   } = props
 
   const { actionDiscount, gift } = useCheckActionConditions(cartItems, totalSumCart, totalCountCart)
@@ -156,6 +160,8 @@ const App = (props) => {
     }
   }, [localStorage.usertoken, isAuth])
 
+
+
   return (
     <Router>
       <HttpsRedirect>
@@ -166,6 +172,7 @@ const App = (props) => {
               {isOpenLogin && <LoginModal/>}
               {isOpenForgotPassModal && <ForgotPassModal/>}
               {addToCartResult && <ShoppingCartResult/>}
+              {isBlocked && <SomeInfoModal text={serverMessage} onClose={() => setIsBlocked(false)}/>}
               <Routes>
                 <Route path="/sign_up" element={<Signup/>}/>
                 <Route path="/activate/:hash" element={<ActivateContainer/>}/>
@@ -234,6 +241,8 @@ let mapStateToProps = (state) => ({
   totalSumCart: state.cart.totalSum,
   cartItems: state.cart.items,
   viewedItems: state.items.viewedItems,
+  isBlocked: state.user.isBlocked,
+  serverMessage: state.common.serverMessage
 })
 
 export default connect(mapStateToProps, {
@@ -245,5 +254,6 @@ export default connect(mapStateToProps, {
   getViewedItems,
   getCartItems,
   setActionDiscount,
-  setGift
+  setGift,
+  setIsBlocked
 })(App);

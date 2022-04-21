@@ -480,5 +480,13 @@ export const ordersApi = {
     getOrders(pageNumber, pageSize, searchBy, from, searchingValue) {
         return instance.get(`/order?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
         .then(response => response.data)
+    },
+    createOrder(data) {
+        return instance.post('/order', data)
+        .then(response => response.data)
+    },
+    updateOrder(orderId, data) {
+        return instance.patch(`/order/${orderId}`, data)
+        .then(response => response.data)
     }
 }

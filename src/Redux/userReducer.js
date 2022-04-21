@@ -12,6 +12,7 @@ const SET_IS_VALID_RESET_HASH = 'SET_IS_VALID_RESET_HASH'
 const SET_USERS_DATA = 'SET_USERS_DATA'
 const SET_TOTAL_USERS = 'SET_TOTAL_USERS'
 const SET_NEW_USER = 'SET_NEW_USER'
+const SET_IS_BLOCKED = 'SET_IS_BLOCKED'
 
 let initialState = {
     user: null,
@@ -23,6 +24,7 @@ let initialState = {
     isReceiveAuthStatus: false,
     isReceivedResetHashStatus: false,
     isValidResetHash: false,
+    isBlocked: false,
     users: [],
     totalUsers: 0
 }
@@ -62,6 +64,9 @@ let userReducer = (state = initialState, action) => {
         case SET_NEW_USER: {
             return { ...state, newUser: action.newUser }
         }
+        case SET_IS_BLOCKED: {
+            return { ...state, isBlocked: action.isBlocked }
+        }
         default:
             return state
     }
@@ -100,13 +105,21 @@ export const setTotalUsers = (total) => ({
 export const setNewUser = (newUser) => ({
     type: SET_NEW_USER, newUser
 })
+export const setIsBlocked = (isBlocked) => ({
+    type: SET_IS_BLOCKED, isBlocked
+})
 
 export const login = (data) => async (dispatch) => {
     dispatch([setIsFetching(true), setIsReceivedAuthStatus(false)])
     try {
         let response = await userApi.login(data)
-        localStorage.usertoken = response.token
-        dispatch([setIsAuth(true), setServerError(null), setIsFetching(false), setIsOpenLogin(false)])
+
+        if(response.is_blocked) {
+            dispatch([setServerMessage(response.message), setIsBlocked(true), setIsFetching(false)])
+        }else {
+            localStorage.usertoken = response.token
+            dispatch([setIsAuth(true), setServerError(null), setIsFetching(false), setIsOpenLogin(false)])
+        }
     }catch(err) {
         switch(err.response.status) {
             case 404: {
@@ -136,7 +149,11 @@ export const me = () => async (dispatch) => {
     dispatch([setIsFetching(true), setIsReceivedAuthStatus(false)])
     try {
         let response = await userApi.getProfile()
-        dispatch([setUserData(response), setIsAuth(true), setIsStartData(true), setIsFetching(false)])
+        if(response.is_blocked) {
+            dispatch([setServerResponse(response.message), setIsBlocked(true), setIsFetching(false)])
+        }else {
+            dispatch([setUserData(response), setIsAuth(true), setIsStartData(true), setIsFetching(false)])
+        }
     } catch(err) {
         localStorage.usertoken = ""
     }finally {

@@ -20,6 +20,9 @@
     line-height: 20px;
     color: #37395C;
 }
+.info p::first-letter {
+    text-transform: capitalize;
+}
 .date {
     position: relative;
     top: -2px;
@@ -37,4 +40,7 @@
 }
 .textContainer p {
     margin-bottom: 15px;
+}
+.textContainer p::first-letter {
+    text-transform: capitalize;
 }
