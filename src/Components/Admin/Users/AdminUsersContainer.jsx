@@ -29,11 +29,16 @@ const AdminUsersContainer = (props) => {
     const [currentUser, setCurrentUser] = useState(null)
 
     const [isOpenView, setIsOpenView] = useState(false)
+    const [isOpenAddAdmin, setIsOpenAddAdmin] = useState(false)
 
     const [onlyAdmins, setOnlyAdmins] = useState(false)
 
     const handleOnlyAdmins = () => {
         setOnlyAdmins(!onlyAdmins)
+    }
+
+    const handleOpenAddAdmin = () => {
+        setIsOpenAddAdmin(!isOpenAddAdmin)
     }
 
     const [searchParams] = useSearchParams()
@@ -107,6 +112,8 @@ const AdminUsersContainer = (props) => {
                 onlyAdmins={onlyAdmins}
                 handleOnlyAdmins={handleOnlyAdmins}
                 admin={admin}
+                isOpenAddAdmin={isOpenAddAdmin}
+                handleOpenAddAdmin={handleOpenAddAdmin}
             />
         </AdminLayout>
     )

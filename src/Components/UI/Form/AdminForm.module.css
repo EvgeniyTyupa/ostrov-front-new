@@ -105,3 +105,6 @@
 .dateField > div {
    width: 100%;
 }
+.password input {
+    padding-left: 10px !important;
+}

@@ -11,6 +11,7 @@ import EmptyData from '../../UI/Admin/EmpyData/EmptyData'
 import AdminUserInfo from './AdminUserInfo'
 import { priceParser } from '../../../Utils/priceParser'
 import { NavLink } from 'react-router-dom'
+import AdminAdd from './AdminAdd'
 
 const AdminUsers = (props) => {
     const {
@@ -31,7 +32,9 @@ const AdminUsers = (props) => {
         updateUser,
         onlyAdmins,
         handleOnlyAdmins,
-        admin
+        admin,
+        isOpenAddAdmin,
+        handleOpenAddAdmin
     } = props
 
     const rows = [
@@ -72,11 +75,16 @@ const AdminUsers = (props) => {
                     updateUser={updateUser}
                 />
             }
+            {isOpenAddAdmin &&
+                <AdminAdd
+                    onClose={handleOpenAddAdmin}
+                />
+            }
             <div className={classes.header}>
                 <h2>Пользователи</h2>
                 <div className={classes.topController}>
                     <AdminSearch onSearch={getUsers} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
-                    {admin.adminLevel === 2 && <Button className={classes.addBut}>Добавить администратора</Button>}
+                    {admin.adminLevel === 2 && <Button onClick={handleOpenAddAdmin} className={classes.addBut}>Добавить администратора</Button>}
                 </div>
             </div>
             <div className={classes.table}>
