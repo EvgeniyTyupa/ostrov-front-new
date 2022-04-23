@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import CheckoutForm from '../../../Components/Checkout/CheckoutForm'
 import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs'
 import CartItem from '../../../Components/Common/ShoppingCart/CartItem/CartItem'
+import SomeInfoModal from '../../../Components/Modals/SomeInfoModal/SomeInfoModal'
 import MaxWidthContainer from '../../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../../Components/UI/Container/PaddingContainer/PaddingContainer'
 import { cx } from '../../../Utils/classnames'
@@ -19,7 +20,10 @@ const Checkout = (props) => {
         deliveryPrice,
         actionDiscount,
         gift,
-        userDiscount
+        userDiscount,
+        orderDone,
+        serverMessage,
+        closeOrderDoneModal
     } = props
 
     const { t } = useTranslation()
@@ -34,6 +38,8 @@ const Checkout = (props) => {
     return (
         <PaddingContainer>
             <MaxWidthContainer className={classes.main}>
+                {orderDone && <SomeInfoModal text={serverMessage} onClose={closeOrderDoneModal}/>}
+
                 <Breadcrumbs active={t("checkout.title")} items={breadcrumbsItems}/>
                 <div className={classes.sides}>
                     <div className={classes.left}>
@@ -42,6 +48,7 @@ const Checkout = (props) => {
                             gift={gift}
                             userDiscount={userDiscount}
                             deliveryPrice={deliveryPrice}
+                            items={items}
                         />
                     </div>
                     <div className={classes.right}>
@@ -100,7 +107,7 @@ const Checkout = (props) => {
                                                 : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
                                         )
                                     )} 
-                                    <span>грн.</span>
+                                    <span> грн.</span>
                                 </p>
                             </div>
                         </div>

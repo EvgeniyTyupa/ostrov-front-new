@@ -68,13 +68,12 @@
     flex-direction: column;
     align-items: flex-start;
 }
-.comment button {
-    border: navajowhite;
+.viewComment  {
     cursor: pointer;
     color: #E86589;
     font-family: 'Montserrat' !important;
     background-color: transparent;
-    outline: navajowhite;
+    outline: none;
     font-size: 14px;
     text-decoration: underline;
     font-weight: 600;

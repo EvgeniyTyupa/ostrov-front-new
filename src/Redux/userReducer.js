@@ -254,9 +254,30 @@ export const getUser = (userId) => async (dispatch) => {
 }
 
 export const getAdmins = () => async (dispatch) => {
+    dispatch(setIsFetching(true))
     try {
         let response = await userApi.getAdmins()
         dispatch([setUsersData(response.users), setTotalUsers(response.total), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const addAdmin = (data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.addAdmin(data)
+        dispatch([setNewUser(response.user), setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+    }
+}
+
+export const removeAdmin = (adminId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.removeAdmin(adminId)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

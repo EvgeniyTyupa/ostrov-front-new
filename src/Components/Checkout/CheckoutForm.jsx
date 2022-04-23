@@ -7,6 +7,7 @@ import { MdOutlineAlternateEmail } from 'react-icons/md'
 import { connect } from 'react-redux'
 import { setDeliveryPrice } from '../../Redux/cartReducer'
 import { getCities, getWarehouses } from '../../Redux/commonReducer'
+import { createOrderWithMailPost } from '../../Redux/ordersReducer'
 import { cx } from '../../Utils/classnames'
 import { COURIER_BARRIER, COURIER_DELIVERY_PRICE, OFFICE_MAIL_BARRIER, OFFICE_MAIL_DELIVERY_PRICE } from '../../Utils/constants'
 import AddressAutocomplete from '../UI/Form/AddressAutocomplete'
@@ -28,8 +29,10 @@ const CheckoutForm = (props) => {
         totalSum,
         actionDiscount,
         gift,
+        items,
         userDiscount,
-        deliveryPrice
+        deliveryPrice,
+        createOrderWithMailPost
     } = props
 
     const { handleSubmit, reset, control, setValue } = useForm()
@@ -43,7 +46,6 @@ const CheckoutForm = (props) => {
     const [currentCity, setCurrentCity] = useState(null)
 
     const [isOpenComment, setIsOpenComment] = useState(false)
-
 
     const [approved, setApproved] = useState(true)
 
@@ -64,13 +66,61 @@ const CheckoutForm = (props) => {
     }
 
     const onSubmit = (data) => {
-        data.deliveryType = deliveryType
+        console.log(data)
+        data.delivery_type = deliveryType
         data.approved = approved
-        data.total = totalSum
         data.discount = actionDiscount.includes("%") ? 
             (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
             : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
-        console.log(data)
+        
+        let total = 
+            data.discount.toString().includes("%") ? 
+            totalSum - (totalSum / 100 * Number(data.discount.replace("%", ''))) :
+            totalSum - data.discount
+
+        data.total = Math.ceil(total)
+
+        data.receiver_info = {
+            first_name: data.first_name,
+            last_name: data.last_name,
+            email: data.email,
+            phone: "+380" + data.phone,
+            city: data.city,
+            warehouse: data.warehouse,
+            street: data.street,
+            build: data.build,
+            appartment: data.appartment
+        }
+
+        if(user) {
+            data.user = user._id
+        }
+        
+        let cartItems = []
+
+        items.forEach(el => {
+            cartItems.push({
+                count: el.count,
+                item: el.item._id
+            })
+        })
+
+        data.items = cartItems
+
+        let orderGift = []
+
+        gift.forEach(el => {
+            orderGift.push({
+                count: 1,
+                item: el._id
+            })
+        })
+
+        data.gift = orderGift
+
+        if(data.payment_type === "receive"){
+            createOrderWithMailPost(data)
+        }
     }
 
     useEffect(() => {
@@ -83,11 +133,11 @@ const CheckoutForm = (props) => {
                 email: user.email,
                 city: user.city ? user.city : null,
                 warehouse: user.warehouse ? user.warehouse : null,
-                paymentType: "receive",
+                payment_type: "receive",
                 comment: "",
                 street: "",
                 build: "",
-                appartment: ""
+                appartment: "",
             })
         }if(user && receiver === "other") {
             setCurrentCity(user.city)
@@ -98,7 +148,7 @@ const CheckoutForm = (props) => {
                 email: "",
                 city: user.city ? user.city : null,
                 warehouse: null,
-                paymentType: "receive",
+                payment_type: "receive",
                 comment: ""
             })
         }else if(!user) {
@@ -109,7 +159,7 @@ const CheckoutForm = (props) => {
                 last_name: "",
                 phone: "",
                 email: "",
-                paymentType: "receive",
+                payment_type: "receive",
                 comment: "",
                 street: "",
                 build: "",
@@ -402,7 +452,7 @@ const CheckoutForm = (props) => {
                 <div className={classes.payment}>
                     <h4>{t("checkout.paymentType")}</h4>
                     <Controller
-                        name="paymentType"
+                        name="payment_type"
                         control={control}
                         defaultValue={"receive"}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
@@ -455,7 +505,7 @@ const CheckoutForm = (props) => {
                     />         
                 </div>
                 <div className={classes.comment}>
-                    <button onClick={handleOpenComment}>{t("checkout.addComment")}</button>
+                    <span onClick={handleOpenComment} className={classes.viewComment}>{t("checkout.addComment")}</span>
                     <div className={cx(classes.commentField, isOpenComment ? classes.openComment : "")}>
                         <Controller
                             name="comment"
@@ -499,7 +549,7 @@ const CheckoutForm = (props) => {
                         </IconButton>
                     </Tooltip>
                 </div>
-                <Button type="submit" className={classes.submit}>{t("checkout.submit")}</Button>
+                <Button onClick={handleSubmit(onSubmit)} className={classes.submit}>{t("checkout.submit")}</Button>
             </form>
         </div>
     )
@@ -516,5 +566,6 @@ let mapStateToProps = (state) => ({
 export default connect(mapStateToProps,{
     getWarehouses,
     getCities,
-    setDeliveryPrice
+    setDeliveryPrice,
+    createOrderWithMailPost
 })(CheckoutForm)

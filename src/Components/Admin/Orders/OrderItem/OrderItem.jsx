@@ -7,12 +7,13 @@ const OrderItem = (props) => {
     const { item, currentLanguage } = props
 
     let itemName = currentLanguage === "ru" ? item.item.name : item.item.name_ua
- 
+    
     return (
         <div className={classes.main}>
             <img src={item.item.images[0]} alt="image"/>
             <div className={classes.info}>
                 <NavLink to={`/item/${itemName}`} target="_blank">{itemName}</NavLink>
+                <span>Код: {item.item.code}</span>
                 <span>Кол-во: {item.count} шт.</span>
             </div>
         </div>

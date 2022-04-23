@@ -6,15 +6,11 @@ import classes from './AdminDeleteModal.module.css'
 const AdminDeleteModal = (props) => {
     const { onClose, onRemove, deleteItem, item } = props
 
-    const itemName = item.name || item.title || ""
+    const itemName = item.name || item.title || "администратора " + item.email ||""
 
     const handleRemove = () => {
         deleteItem(item._id)
         onRemove(null)
-    }
-
-    const handleEdit = () => {
-
     }
 
     return (

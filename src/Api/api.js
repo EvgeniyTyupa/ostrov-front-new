@@ -66,6 +66,14 @@ export const userApi = {
     getAdmins() {
         return instance.get('/user/get/admins')
         .then(response => response.data)
+    },
+    addAdmin(data) {
+        return instance.post('/user/admin', data)
+        .then(response => response.data)
+    },
+    removeAdmin(adminId) {
+        return instance.delete(`/user/${adminId}`)
+        .then(response => response.data)
     }
 }
 

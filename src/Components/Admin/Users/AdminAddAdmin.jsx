@@ -13,19 +13,21 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { cx } from '../../../Utils/classnames'
 import { Button } from '@mui/material'
 
-const AdminAdd = (props) => {
+const AdminAddAdmin = (props) => {
     const {
         onClose,
         setServerError,
-        serverError
+        serverError,
+        addAdmin
     } = props
 
     const { t } = useTranslation()
 
-    const { handleSubmit, control, reset, setValue, watch } = useForm()
+    const { handleSubmit, control, watch, reset } = useForm()
 
     const onSubmit = (data) => {
-        console.log(data)
+        data.phone = "+380" + data.phone
+        addAdmin(data)
     }
 
     return (
@@ -164,6 +166,7 @@ const AdminAdd = (props) => {
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <AdminInput
                                 onChange={onChange}
+                                error={error}
                                 value={value}
                                 regex="number"
                                 label="Телефон"
@@ -185,4 +188,4 @@ let mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     setServerError
-})(AdminAdd)
+})(AdminAddAdmin)

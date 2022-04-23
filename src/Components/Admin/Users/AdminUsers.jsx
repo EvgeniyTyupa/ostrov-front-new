@@ -11,7 +11,7 @@ import EmptyData from '../../UI/Admin/EmpyData/EmptyData'
 import AdminUserInfo from './AdminUserInfo'
 import { priceParser } from '../../../Utils/priceParser'
 import { NavLink } from 'react-router-dom'
-import AdminAdd from './AdminAdd'
+import AdminAddAdmin from './AdminAddAdmin'
 
 const AdminUsers = (props) => {
     const {
@@ -34,7 +34,11 @@ const AdminUsers = (props) => {
         handleOnlyAdmins,
         admin,
         isOpenAddAdmin,
-        handleOpenAddAdmin
+        handleOpenAddAdmin,
+        addAdmin,
+        removeAdmin,
+        isOpenRemove,
+        handleRemove
     } = props
 
     const rows = [
@@ -76,8 +80,17 @@ const AdminUsers = (props) => {
                 />
             }
             {isOpenAddAdmin &&
-                <AdminAdd
+                <AdminAddAdmin
                     onClose={handleOpenAddAdmin}
+                    addAdmin={addAdmin}
+                />
+            }
+            {isOpenRemove &&
+                <AdminDeleteModal
+                    onRemove={handleRemove}
+                    item={currentUser}
+                    deleteItem={removeAdmin}
+                    onClose={handleRemove}
                 />
             }
             <div className={classes.header}>
@@ -110,7 +123,8 @@ const AdminUsers = (props) => {
                                         <AdminControllButtons 
                                             item={item} 
                                             onView={handleOpenView}
-                                            type="view"
+                                            onRemove={handleRemove}
+                                            type={(onlyAdmins && item._id != admin._id && admin.adminLevel > 1) ? "admin" : "view"}
                                         />
                                     </TableCell>
                                 </TableRow>
@@ -122,7 +136,7 @@ const AdminUsers = (props) => {
                 <div className={classes.footerContainer}>
                     <div className={classes.isActualContainer}>
                         <CustomCheckbox 
-                            label="Показывать только администраторов" 
+                            label="Показать администраторов" 
                             checked={onlyAdmins} 
                             onChange={handleOnlyAdmins}
                         />

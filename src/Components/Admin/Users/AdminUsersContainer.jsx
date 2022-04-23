@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
-import { getAdmins, getUser, getUsers, setNewUser, setUsersData, updateSomeUser } from '../../../Redux/userReducer'
+import { addAdmin, getAdmins, getUser, getUsers, removeAdmin, setNewUser, setUsersData, updateSomeUser } from '../../../Redux/userReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminUsers from './AdminUsers'
@@ -18,7 +18,11 @@ const AdminUsersContainer = (props) => {
         setUsersData,
         getAdmins,
         getUser,
-        admin
+        admin,
+        addAdmin,
+        removeAdmin,
+        serverError,
+        serverResponse
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -30,8 +34,11 @@ const AdminUsersContainer = (props) => {
 
     const [isOpenView, setIsOpenView] = useState(false)
     const [isOpenAddAdmin, setIsOpenAddAdmin] = useState(false)
+    const [isOpenRemove, setIsOpenRemove] = useState(false)
 
     const [onlyAdmins, setOnlyAdmins] = useState(false)
+
+    const [searchParams] = useSearchParams()
 
     const handleOnlyAdmins = () => {
         setOnlyAdmins(!onlyAdmins)
@@ -41,7 +48,10 @@ const AdminUsersContainer = (props) => {
         setIsOpenAddAdmin(!isOpenAddAdmin)
     }
 
-    const [searchParams] = useSearchParams()
+    const handleRemove = (user) => {
+        setCurrentUser(user)
+        setIsOpenRemove(!isOpenRemove)
+    }
 
     const handleOpenView = (user) => {
         setCurrentUser(user)
@@ -55,6 +65,24 @@ const AdminUsersContainer = (props) => {
     const handlePageSize = (event) => {
         setPageSize(event.target.value)
         setPageNumber(0)
+    }
+
+    const handleAddAdmin = async (data) => {
+        await addAdmin(data)
+        setIsOpenAddAdmin(false)
+    }
+
+    const handleDeleteAdmin = (adminId) => {
+        removeAdmin(adminId).then(() => {
+            const newUsers = [...users]
+            newUsers.forEach((item, index) => {
+                if(item._id === adminId){
+                    newUsers.splice(index, 1)
+                }
+            })
+            setIsOpenRemove(false)
+            setUsersData(newUsers)
+        })
     }
 
     const updateUser = async (userId, data) => {
@@ -114,6 +142,12 @@ const AdminUsersContainer = (props) => {
                 admin={admin}
                 isOpenAddAdmin={isOpenAddAdmin}
                 handleOpenAddAdmin={handleOpenAddAdmin}
+                addAdmin={handleAddAdmin}
+                removeAdmin={handleDeleteAdmin}
+                isOpenRemove={isOpenRemove}
+                handleRemove={handleRemove}
+                serverError={serverError}
+                serverResponse={serverResponse}
             />
         </AdminLayout>
     )
@@ -124,7 +158,9 @@ let mapStateToProps = (state) => ({
     users: state.user.users,
     total: state.user.total,
     newUser: state.user.newUser,
-    admin: state.user.user
+    admin: state.user.user,
+    serverError: state.common.serverError,
+    serverResponse: state.common.serverResponse
 })
 
 export default connect(mapStateToProps, {
@@ -133,5 +169,7 @@ export default connect(mapStateToProps, {
     setNewUser,
     setUsersData,
     getAdmins,
-    getUser
+    getUser,
+    addAdmin,
+    removeAdmin
 })(AdminUsersContainer)

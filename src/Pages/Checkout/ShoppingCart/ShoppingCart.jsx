@@ -141,7 +141,7 @@ const ShoppingCart = (props) => {
                                             : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
                                     )
                                 )} 
-                                <span>грн.</span>
+                                <span> грн.</span>
                             </p>
                         </div>
                         <Button 

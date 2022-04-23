@@ -108,3 +108,8 @@
 .password input {
     padding-left: 10px !important;
 }
+.emailContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

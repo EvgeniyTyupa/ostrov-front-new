@@ -142,13 +142,13 @@ const AdminOrderInfo = (props) => {
                     <label>Тип оплаты:</label>
                     <p>{order.payment_type === "receive" ? "Наложенный платеж." : "Онлайн."}</p>
                 </Field>
-                <h5>Товары:</h5>
+                <h4>Товары:</h4>
                 <div className={classes.itemsList}>
                     {order.items.map(el => (
                         <OrderItem key={el.item._id} item={el}/>
                     ))}
                 </div>
-                <h5>Подарок:</h5>
+                <h4>Подарок:</h4>
                 <div className={classes.itemsList}>
                     {order.gift.length > 0 ? order.gift.map(el => (
                         <OrderItem key={el.item._id} item={el}/>

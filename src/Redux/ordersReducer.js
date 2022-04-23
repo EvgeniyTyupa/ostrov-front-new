@@ -1,14 +1,16 @@
 import { ordersApi } from "../Api/api"
-import { setIsFetching } from "./commonReducer"
+import { setIsFetching, setServerMessage } from "./commonReducer"
 
 const SET_ORDERS_DATA = 'SET_ORDERS_DATA'
 const SET_NEW_ORDER = 'SET_NEW_ORDER'
 const SET_TOTAL_ORDERS = 'SET_TOTAL_ORDERS'
+const SET_ORDER_DONE = 'SET_ORDER_DONE'
 
 let initialState = {
     orders: [],
     newOrder: null,
-    total: 0
+    total: 0,
+    orderDone: false
 }
 
 const ordersReducer = (state = initialState, action) => {
@@ -21,6 +23,9 @@ const ordersReducer = (state = initialState, action) => {
         }
         case SET_TOTAL_ORDERS: {
             return { ...state, total: action.total }
+        }
+        case SET_ORDER_DONE: {
+            return { ...state, orderDone: action.orderDone }
         }
         default: 
             return state
@@ -36,6 +41,9 @@ export const setNewOrder = (newOrder) => ({
 export const setTotalOrders = (total) => ({
     type: SET_TOTAL_ORDERS, total
 })
+export const setOrderDone = (orderDone) => ({
+    type: SET_ORDER_DONE, orderDone
+})
 
 export const getOrders = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
     dispatch(setIsFetching(true))
@@ -46,6 +54,17 @@ export const getOrders = (pageNumber, pageSize, searchBy, from, searchingValue) 
         dispatch(setIsFetching(false))
     }
 }
+
+export const createOrderWithMailPost = (data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await ordersApi.createOrder(data)
+        dispatch([setServerMessage(response.message), setOrderDone(true), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
 export const updateOrder = (orderId, data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {

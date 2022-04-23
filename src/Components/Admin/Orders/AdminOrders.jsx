@@ -3,7 +3,7 @@ import classes from '../AdminView.module.css'
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
+import { Button, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
 import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch'
 import { priceParser } from '../../../Utils/priceParser';
@@ -12,6 +12,7 @@ import { GiCheckMark } from 'react-icons/gi';
 import { FcCancel } from 'react-icons/fc';
 import moment from 'moment'
 import AdminOrderInfo from './AdminOrderInfo';
+import CustomSelect from '../../UI/Form/Select';
 
 const AdminOrders = (props) => {
     const {
@@ -83,6 +84,7 @@ const AdminOrders = (props) => {
             <div className={classes.header}>
                 <h2>Заказы</h2>
                 <div className={classes.topController}>
+                    
                     <AdminSearch onSearch={getOrders} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
                 </div>
             </div>

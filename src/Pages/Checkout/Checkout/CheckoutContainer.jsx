@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Preloader from '../../../Components/Common/Preloader/Preloader'
+import { setServerMessage } from '../../../Redux/commonReducer'
+import { setOrderDone } from '../../../Redux/ordersReducer'
 import Checkout from './Checkout'
 
 const CheckoutContainer = (props) => {
@@ -13,12 +15,22 @@ const CheckoutContainer = (props) => {
         deliveryPrice,
         actionDiscount,
         gift,
-        user
+        user,
+        orderDone,
+        serverMessage,
+        setServerMessage,
+        setOrderDone
     } = props
 
     const navigate = useNavigate()
 
     const [userDiscount, setUserDiscount] = useState(0)
+
+    const closeOrderDoneModal = () => {
+        setOrderDone(false)
+        setServerMessage(null)
+        navigate('/')
+    }
 
     useEffect(() => {
         let cart_items = localStorage.getItem('shopping_cart')
@@ -45,6 +57,9 @@ const CheckoutContainer = (props) => {
                 gift={gift}
                 actionDiscount={actionDiscount}
                 userDiscount={userDiscount}
+                orderDone={orderDone}
+                serverMessage={serverMessage}
+                closeOrderDoneModal={closeOrderDoneModal}
             />
         </>
     )
@@ -58,9 +73,12 @@ let mapStateToProps = (state) => ({
     deliveryPrice: state.cart.deliveryPrice,
     actionDiscount: state.cart.actionDiscount,
     gift: state.cart.gift,
-    user: state.user.user
+    user: state.user.user,
+    orderDone: state.orders.orderDone,
+    serverMessage: state.common.serverMessage
 })
 
 export default connect(mapStateToProps, {
-
+    setServerMessage,
+    setOrderDone
 })(CheckoutContainer)

@@ -29,10 +29,20 @@ const AdminControllButtons = (props) => {
                     <IconButton className={classes.delBut} onClick={handleRemove}>
                         <MdDeleteForever/>
                     </IconButton>
-                </> :
-                <IconButton className={classes.editBut} onClick={handleView}>
-                    <AiFillEye/>
-                </IconButton>
+                </> : type === "view" ?
+                <>
+                    <IconButton className={classes.editBut} onClick={handleView}>
+                        <AiFillEye/>
+                    </IconButton>
+                </> : type === "admin" &&
+                <>
+                    <IconButton className={classes.editBut} onClick={handleView}>
+                        <AiFillEye/>
+                    </IconButton>
+                    <IconButton className={classes.delBut} onClick={handleRemove}>
+                        <MdDeleteForever/>
+                    </IconButton>
+                </>
             }
         </div>
     )
