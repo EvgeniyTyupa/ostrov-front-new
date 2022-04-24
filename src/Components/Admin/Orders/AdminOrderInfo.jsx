@@ -1,8 +1,10 @@
 import { MenuItem } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { useOrderStatuses } from '../../../Hooks/useOrderStatuses'
+import { setNewTotal } from '../../../Redux/ordersReducer'
 import { cx } from '../../../Utils/classnames'
 import { priceParser } from '../../../Utils/priceParser'
 import Field from '../../UI/Form/Field/Field'
@@ -27,7 +29,9 @@ const AdminOrderInfo = (props) => {
     const { 
         onClose,
         order,
-        updateOrder
+        updateOrder,
+        newOrdersCount,
+        setNewTotal
     } = props
 
     const statuses = useOrderStatuses()
@@ -43,6 +47,9 @@ const AdminOrderInfo = (props) => {
 
     const handleStatus = (value) => {
         setNewStatus(value)
+        if(order.status === "new") {
+            setNewTotal(newOrdersCount - 1)
+        }
         updateOrder(order._id, { status: value })
     }
 
@@ -50,8 +57,6 @@ const AdminOrderInfo = (props) => {
         setPaid(value)
         updateOrder(order._id, { is_paid: !order.is_paid })
     }
-
-    console.log(order)
 
     return (
         <Modal onClose={() => onClose(null)} title={`Заказ №${order.number}`}>
@@ -128,6 +133,22 @@ const AdminOrderInfo = (props) => {
                     <label>Сумма:</label>
                     <div className={classes.status}>
                         <p>{priceParser(order.total)} грн.</p>
+                    </div>
+                </Field>
+                <Field className={classes.row}>
+                    <label>Доставка:</label>
+                    <p>{order.delivery_price ? order.delivery_price : "Бесплатно."}</p>
+                </Field>
+                <Field className={classes.row}>
+                    <label>Скидка:</label>
+                    <p>{order.discount}%</p>
+                </Field>
+                <Field className={classes.row}>
+                    <label>Итого:</label>
+                    <div className={classes.status}>
+                        <p className={classes.totalPrice}>{priceParser(order.finaly_sum)}
+                            <span>&nbsp;грн.</span>
+                        </p>
                         <CustomSelect value={paid} onChange={(e) => handlePaid(e.target.value)}>
                             <MenuItem value={statuses[5].value} classes={material}>
                                 <OrderStatusLabel status={statuses[5].value}/>  
@@ -165,4 +186,10 @@ const AdminOrderInfo = (props) => {
     )
 }
 
-export default AdminOrderInfo
+let mapStateToProps = (state) => ({
+    newOrdersCount: state.orders.newTotal
+})
+
+export default connect(mapStateToProps, {
+    setNewTotal
+})(AdminOrderInfo)

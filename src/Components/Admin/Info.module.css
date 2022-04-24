@@ -91,3 +91,9 @@
 .status fieldset {
     border: none !important;
 }
+.totalPrice {
+    border-bottom: 2px solid #4B5EA3;
+    color: #4B5EA3;
+    font-size: 18px;
+    font-weight: 700;
+}

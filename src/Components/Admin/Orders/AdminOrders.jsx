@@ -12,7 +12,21 @@ import { GiCheckMark } from 'react-icons/gi';
 import { FcCancel } from 'react-icons/fc';
 import moment from 'moment'
 import AdminOrderInfo from './AdminOrderInfo';
-import CustomSelect from '../../UI/Form/Select';
+import MultiSelect from '../../UI/Form/MultiSelect';
+import CustomCheckbox from '../../UI/Form/Checkbox';
+import { useOrderStatuses } from '../../../Hooks/useOrderStatuses';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        color: "white",
+        fontFamily: "Montserrat",
+        "&:hover": {
+            opacity: .7,
+            transitionDuration: ".3s"
+        }
+    }
+}));
 
 const AdminOrders = (props) => {
     const {
@@ -30,8 +44,12 @@ const AdminOrders = (props) => {
         handleChangePage,
         handlePageSize,
         total,
-        updateOrder
+        updateOrder,
+        filterStatuses,
+        handleFilterStatuses
     } = props
+
+    const material = useStyles()
 
     const rows = [
         {
@@ -71,6 +89,10 @@ const AdminOrders = (props) => {
         },
     ]
 
+    const statuses = useOrderStatuses()
+
+    let selectOptions = [...statuses].splice(0, 5)
+
     return (
         <div className={classes.main}>
             {(serverResponse || serverError) && <ServerResponse/>}
@@ -84,8 +106,21 @@ const AdminOrders = (props) => {
             <div className={classes.header}>
                 <h2>Заказы</h2>
                 <div className={classes.topController}>
-                    
-                    <AdminSearch onSearch={getOrders} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
+                    <MultiSelect 
+                        onChange={handleFilterStatuses} 
+                        value={filterStatuses}
+                        label="Отображать статус"
+                        options={selectOptions}
+                    >
+                        {statuses.map((el, index) => (
+                            index < 5 &&
+                            <MenuItem value={el.value} classes={material}>
+                                <CustomCheckbox checked={filterStatuses.indexOf(el.value) > -1}/>
+                                <OrderStatusLabel status={el.value}/>
+                            </MenuItem>
+                        ))}
+                    </MultiSelect>
+                    <AdminSearch filter={filterStatuses} onSearch={getOrders} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
                 </div>
             </div>
             <div className={classes.table}>
@@ -102,6 +137,7 @@ const AdminOrders = (props) => {
                                         pageNumber={pageNumber} 
                                         pageSize={pageSize} 
                                         key={item.key}
+                                        filter={filterStatuses}
                                         align={
                                             item.key === 'approved' ? "center" : "left"
                                         }

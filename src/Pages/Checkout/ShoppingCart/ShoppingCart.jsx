@@ -118,13 +118,17 @@ const ShoppingCart = (props) => {
                             <span>{t("shopping_cart.onSum")}:</span>
                             <p>{priceParser(totalSum)} <span>грн.</span></p>
                         </div>
-                        <div className={classes.fieldCard}>
+                        {/* <div className={classes.fieldCard}>
                             <span>{t("shopping_cart.delivery")}:</span>
                             <p>{priceParser(deliveryPrice)} <span>грн.</span></p>
-                        </div>
+                        </div> */}
                         <div className={classes.fieldCard}>
                             <span>{t("shopping_cart.discount")}:</span>
-                            <p>{priceParser(actionDiscount)} {!actionDiscount.toString().includes("%") && <span>грн.</span>}</p>
+                            {
+                                (actionDiscount && !actionDiscount.toString().includes("%")) ? <p>{priceParser(actionDiscount)} <span>грн.</span></p>
+                                : (actionDiscount && actionDiscount.toString().includes("%")) ? <p>{actionDiscount}</p> 
+                                : <p>0%</p>
+                            }
                         </div>
                         {userDiscount > 0 && (
                         <div className={classes.fieldCard}>
@@ -133,12 +137,13 @@ const ShoppingCart = (props) => {
                         </div>)}
                         <div className={cx(classes.fieldCard, classes.fieldTotal)}>
                             <span>{t("shopping_cart.total")}:</span>
+                            {console.log((Number(actionDiscount.replace("%", '')) + userDiscount + "%"))}
                             <p>{priceParser(
                                     discountParser(
-                                        deliveryPrice + totalSum, 
-                                        actionDiscount.includes("%") ? 
-                                            (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
-                                            : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
+                                        totalSum, 
+                                        actionDiscount.toString().includes("%") ? 
+                                            (Number(actionDiscount.replace("%", '')) + userDiscount + "%")
+                                            : Math.ceil((((totalSum) / 100 * userDiscount) + Number(actionDiscount)))
                                     )
                                 )} 
                                 <span> грн.</span>

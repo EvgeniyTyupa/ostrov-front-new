@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Preloader from '../../../Components/Common/Preloader/Preloader'
 import { setServerMessage } from '../../../Redux/commonReducer'
 import { setOrderDone } from '../../../Redux/ordersReducer'
+import { checkPromocode, setReceivePromocodeStatus } from '../../../Redux/promocodeReducer'
 import Checkout from './Checkout'
 
 const CheckoutContainer = (props) => {
@@ -19,12 +20,35 @@ const CheckoutContainer = (props) => {
         orderDone,
         serverMessage,
         setServerMessage,
-        setOrderDone
+        setOrderDone,
+        checkPromocode,
+        currentPromocode,
+        receivePromocodeStatus,
+        setReceivePromocodeStatus
     } = props
 
     const navigate = useNavigate()
 
     const [userDiscount, setUserDiscount] = useState(0)
+
+    const [isUsePromocode, setIsUsePromocode] = useState(false)
+
+    const [promocodeValue, setPromocodeValue] = useState("")
+
+    const handleUsePromocode = () => {
+        setIsUsePromocode(!isUsePromocode)
+    }
+
+    const handlePromocodeValue = (value) => {
+        setReceivePromocodeStatus(false)
+        setPromocodeValue(value)
+    }
+
+    const handleCheckPromocode = () => {
+        if(promocodeValue.length > 0) {
+            checkPromocode(promocodeValue)
+        }
+    }
 
     const closeOrderDoneModal = () => {
         setOrderDone(false)
@@ -43,6 +67,8 @@ const CheckoutContainer = (props) => {
     useEffect(() => {
         if(user) {
             setUserDiscount(user.discount ? user.discount : 0)
+        }else {
+            setUserDiscount(0)
         }
     }, [user])
 
@@ -60,6 +86,13 @@ const CheckoutContainer = (props) => {
                 orderDone={orderDone}
                 serverMessage={serverMessage}
                 closeOrderDoneModal={closeOrderDoneModal}
+                isUsePromocode={isUsePromocode}
+                handleUsePromocode={handleUsePromocode}
+                promocodeValue={promocodeValue}
+                setPromocodeValue={handlePromocodeValue}
+                checkPromocode={handleCheckPromocode}
+                currentPromocode={currentPromocode}
+                receivePromocodeStatus={receivePromocodeStatus}
             />
         </>
     )
@@ -75,10 +108,14 @@ let mapStateToProps = (state) => ({
     gift: state.cart.gift,
     user: state.user.user,
     orderDone: state.orders.orderDone,
-    serverMessage: state.common.serverMessage
+    serverMessage: state.common.serverMessage,
+    currentPromocode: state.promocodes.currentPromocode,
+    receivePromocodeStatus: state.promocodes.receivePromocodeStatus
 })
 
 export default connect(mapStateToProps, {
     setServerMessage,
-    setOrderDone
+    setOrderDone,
+    checkPromocode,
+    setReceivePromocodeStatus
 })(CheckoutContainer)

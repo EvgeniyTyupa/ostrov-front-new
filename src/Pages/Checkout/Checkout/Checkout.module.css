@@ -99,3 +99,68 @@
 .fieldTotal p {
     font-size: 24px;
 }
+.promocodeBlock {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.addPromocodeButt {
+    font-family: 'Montserrat';
+    font-size: 14px;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    color: #E86589;
+    background-color: transparent;
+    padding: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.promoInputBlock {
+    max-height: 0;
+    overflow: hidden;
+    transition-duration: .3s;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.promoInputBlock p {
+    width: 100%;
+    text-align: center;
+}
+.promoInputBlock div {
+    width: 100%;
+    padding-right: 0 !important;
+}
+.promoInputBlock input {
+    padding-right: 0 !important;
+    font-family: "Montserrat" !important;
+    font-size: 14px !important;
+}
+.promoInputBlock p {
+    color: #E86589 !important;
+    font-family: 'Montserrat' !important;
+}
+.openPromo {
+    max-height: 80px;
+    margin-top: 12px;
+}
+.submitPromoBut {
+    background-color: #4B5EA3 !important;
+    font-size: 28px !important;
+    color: white !important;
+    height: 53px !important;
+    border-radius: 4px !important;
+    position: relative !important;
+    left: 10px !important;
+}
+.promoSuccess {
+    font-size: 12px;
+    color: #E86589;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+}

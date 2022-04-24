@@ -5,11 +5,13 @@ const SET_ORDERS_DATA = 'SET_ORDERS_DATA'
 const SET_NEW_ORDER = 'SET_NEW_ORDER'
 const SET_TOTAL_ORDERS = 'SET_TOTAL_ORDERS'
 const SET_ORDER_DONE = 'SET_ORDER_DONE'
+const SET_NEW_TOTAL = 'SET_NEW_TOTAL'
 
 let initialState = {
     orders: [],
     newOrder: null,
     total: 0,
+    newTotal: 0,
     orderDone: false
 }
 
@@ -26,6 +28,9 @@ const ordersReducer = (state = initialState, action) => {
         }
         case SET_ORDER_DONE: {
             return { ...state, orderDone: action.orderDone }
+        }
+        case SET_NEW_TOTAL: {
+            return { ...state, newTotal: action.newTotal }
         }
         default: 
             return state
@@ -44,14 +49,39 @@ export const setTotalOrders = (total) => ({
 export const setOrderDone = (orderDone) => ({
     type: SET_ORDER_DONE, orderDone
 })
+export const setNewTotal = (newTotal) => ({
+    type: SET_NEW_TOTAL, newTotal
+})
 
-export const getOrders = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
+export const getOrders = (pageNumber, pageSize, searchBy, from, searchingValue, filterStatuses) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await ordersApi.getOrders(pageNumber, pageSize, searchBy, from, searchingValue)
+        let response = await ordersApi.getOrders(pageNumber, pageSize, searchBy, from, searchingValue, filterStatuses)
         dispatch([setOrdersData(response.orders), setTotalOrders(response.total), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
+    }
+}
+
+export const getNewOrdersCount = () => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await ordersApi.getNewOrdersCount()
+        dispatch([setNewTotal(response.count), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const subscribeOnOrdersCount = () => async (dispatch) => {
+    try {
+        let response = await ordersApi.subscribeOnNewOrders()
+        dispatch(setNewTotal(response.count))
+        await subscribeOnOrdersCount()
+    }catch(err) {
+        setTimeout(() => {
+            subscribeOnOrdersCount()
+        }, 500)
     }
 }
 

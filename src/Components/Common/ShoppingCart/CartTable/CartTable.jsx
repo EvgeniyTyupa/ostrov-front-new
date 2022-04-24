@@ -62,8 +62,6 @@ const CartTable = (props) => {
         gift
     } = props
 
-    console.log(gift)
-
     const material = useStyles()
 
     const { t } = useTranslation()
@@ -133,10 +131,10 @@ const CartTable = (props) => {
                                         <Button 
                                             className={classes.addBut}
                                             onClick={() => setCurrentItem(item)}
-                                            disabled={item.item.count === 0 || cartItems.find(el => el.item._id === item.item._id)}
+                                            disabled={item.item.count <= 0 || cartItems.find(el => el.item._id === item.item._id)}
                                         >
                                             {cartItems.find(el => el.item._id === item.item._id) ? t("shopping_cart.added") :
-                                            item.item.count === 0 ? t("items.empty") : t("shopping_cart.add")}
+                                            item.item.count <= 0 ? t("items.empty") : t("shopping_cart.add")}
                                         </Button>
                                     </TableCell>
                                 }

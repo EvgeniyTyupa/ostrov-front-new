@@ -26,6 +26,21 @@ const AdminOrdersContainer = (props) => {
 
     const [isOpenView, setIsOpenView] = useState(false)
 
+    const [filterStatuses, setFilterStatuses] = useState([
+        "new", "sended", "received", "canceled", "refund"
+    ])
+
+    const handleFilterStatuses = (event) => {
+
+        const {
+            target: { value },
+        } = event;
+
+        setFilterStatuses(
+            typeof value === 'string' ? value.split(',') : value,
+        );
+    };
+    
     const handleOpenView = (user) => {
         setCurrentOrder(user)
         setIsOpenView(!isOpenView)
@@ -58,8 +73,8 @@ const AdminOrdersContainer = (props) => {
     }, [newOrder])
 
     useEffect(() => {
-        getOrders(pageNumber + 1, pageSize, "", "", "")
-    }, [pageNumber, pageSize])
+        getOrders(pageNumber + 1, pageSize , "", "", "", filterStatuses.join(','))
+    }, [pageNumber, pageSize, filterStatuses])
 
     return (
         <AdminLayout>
@@ -78,6 +93,8 @@ const AdminOrdersContainer = (props) => {
                 handlePageSize={handlePageSize}
                 total={total}
                 updateOrder={updateOrder}
+                filterStatuses={filterStatuses}
+                handleFilterStatuses={handleFilterStatuses}
             />
         </AdminLayout>
     )

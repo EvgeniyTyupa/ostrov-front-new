@@ -4,7 +4,7 @@ import AdminInput from '../../../Form/AdminInput'
 import useDebounce from '../../../../../Utils/debounce'
 
 const AdminSearch = (props) => {
-    const { onSearch, pageSize, setSearchValue, searchValue, isActual = false } = props
+    const { onSearch, pageSize, setSearchValue, searchValue, filter = false } = props
 
     const debouncedSearchTerm = useDebounce(searchValue, 500);
 
@@ -14,13 +14,13 @@ const AdminSearch = (props) => {
 
     useEffect(() => {
         if(debouncedSearchTerm){
-            onSearch(0 + 1, pageSize, "", "", searchValue, isActual)  
+            onSearch(0 + 1, pageSize, "", "", searchValue, filter)  
         }
     }, [debouncedSearchTerm])
 
     useEffect(() => {
         if(searchValue.length === 0 && debouncedSearchTerm){
-            onSearch(0 + 1, pageSize, "", "", "", isActual)  
+            onSearch(0 + 1, pageSize, "", "", "", filter)  
         }
     }, [searchValue])
 

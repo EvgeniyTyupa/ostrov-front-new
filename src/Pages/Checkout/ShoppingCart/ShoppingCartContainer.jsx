@@ -52,19 +52,6 @@ const ShoppingCartContainer = (props) => {
     }, [currentItem])
 
     useEffect(() => {
-        if(totalSum >= 500) { 
-            setDeliveryPrice(0)
-        }
-        else { 
-            setDeliveryPrice(OFFICE_MAIL_DELIVERY_PRICE)
-        }
-        
-        if(totalCount === 0) {
-            setDeliveryPrice(0)
-        }
-    }, [totalSum])
-
-    useEffect(() => {
         let newItems = []
 
         viewedItems.forEach(el => {
@@ -80,6 +67,8 @@ const ShoppingCartContainer = (props) => {
     useEffect(() => {
         if(user) {
             setUserDiscount(user.discount ? user.discount : 0)
+        }else {
+            setUserDiscount(0)
         }
     }, [user])
 

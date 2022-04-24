@@ -4,6 +4,7 @@ import { addAction, deleteAction, editAction, getActions, setActionsData, setNew
 import { getBrands } from '../../../Redux/brandsReducer'
 import { getAllCategoriesForSelect } from '../../../Redux/categoryReducer'
 import { getItems } from '../../../Redux/itemsReducer'
+import { addPromocode, getPromocodes, setNewPromocode, setPromocodesData, setTotalPromocodes } from '../../../Redux/promocodeReducer'
 import { getTags } from '../../../Redux/tagsReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
@@ -31,7 +32,15 @@ const AdminActionsContainer = (props) => {
         setNewAction,
         serverError,
         serverResponse,
-        setTotalActions
+        setTotalActions,
+        getPromocodes,
+        newPromocode,
+        promocodes,
+        setNewPromocode,
+        setTotalPromocodes,
+        setPromocodesData,
+        totalPromocodes,
+        addPromocode
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -43,9 +52,17 @@ const AdminActionsContainer = (props) => {
     const [openEdit, setOpenEdit] = useState(false)
     const [openRemove, setOpenRemove] = useState(false)
 
+    const [isOpenAddPromocode, setIsOpenAddPromocode] = useState(false)
+
     const [currentItem, setCurrentItem] = useState(null)
 
     const [isActual, setIsActual] = useState(false)
+
+    const [currentTab, setCurrentTab] = useState(0)
+
+    const handleTab = (e, value) => {
+        setCurrentTab(value)
+    }
 
     const handleIsActual = () => {
         setIsActual(!isActual)
@@ -53,6 +70,10 @@ const AdminActionsContainer = (props) => {
  
     const handleAddModal = () => {
         setIsOpenAddModal(!isOpenAddModal)
+    }
+
+    const handleAddPromocodeModal = () => {
+        setIsOpenAddPromocode(!isOpenAddPromocode)
     }
 
     const handleEdit = (item) => {
@@ -72,6 +93,11 @@ const AdminActionsContainer = (props) => {
     const handlePageSize = (event) => {
         setPageSize(event.target.value)
         setPageNumber(0)
+    }
+
+    const handleAddPromocode = async (data) => {
+        await addPromocode(data)
+        handleAddPromocodeModal()
     }
 
     const handleAddAction = async (data) => {
@@ -98,6 +124,29 @@ const AdminActionsContainer = (props) => {
     }
 
     useEffect(() => {
+        if(newPromocode) {
+            const newPromocodes = [...promocodes]
+            let pushIndex = newPromocodes.length
+
+            let isUpdate = false
+
+            newPromocodes.forEach((item, index) => {
+                if(item._id === newPromocode._id) {
+                    newPromocodes.splice(index, 1)
+                    pushIndex = index
+                    isUpdate = true
+                }
+            })
+            newPromocodes.splice(pushIndex, 0, newPromocode)
+            setPromocodesData(newPromocodes)
+            setNewPromocode(null)
+            if(!isUpdate) {
+                setTotalPromocodes(totalPromocodes + 1)
+            }
+        }
+    }, [newPromocode])
+
+    useEffect(() => {
         if(newAction) {
             const newActions = [...actions]
             let pushIndex = newActions.length
@@ -106,7 +155,7 @@ const AdminActionsContainer = (props) => {
 
             newActions.forEach((item, index) => {
                 if(item._id === newAction._id) {
-                    newAction.splice(index, 1)
+                    newActions.splice(index, 1)
                     pushIndex = index
                     isUpdate = true
                 }
@@ -122,6 +171,7 @@ const AdminActionsContainer = (props) => {
 
     useEffect(() => {
         getActions(pageNumber + 1, pageSize, "", "", "", isActual)
+        getPromocodes(pageSize, pageNumber, "", "", "")
     }, [pageSize, pageNumber, isActual])
 
     return (
@@ -159,6 +209,12 @@ const AdminActionsContainer = (props) => {
                 openRemove={openRemove}
                 openEdit={openEdit}
                 currentItem={currentItem}
+                currentTab={currentTab}
+                handleTab={handleTab}
+                getPromocodes={getPromocodes}
+                isOpenAddPromocode={isOpenAddPromocode}
+                handleAddPromocodeModal={handleAddPromocodeModal}
+                handleAddPromocode={handleAddPromocode}
             />
         </AdminLayout>
     )
@@ -175,6 +231,9 @@ let mapStateToProps = (state) => ({
     tags: state.tags.tags,
     serverResponse: state.common.serverResponse,
     serverError: state.common.serverError,
+    newPromocode: state.promocodes.newPromocode,
+    promocodes: state.promocodes.promocodes,
+    totalPromocodes: state.promocodes.total
 })
 
 export default connect(mapStateToProps, {
@@ -188,5 +247,10 @@ export default connect(mapStateToProps, {
     deleteAction,
     setActionsData,
     setNewAction,
-    setTotalActions
+    setTotalActions,
+    getPromocodes,
+    setPromocodesData,
+    setTotalPromocodes,
+    setNewPromocode,
+    addPromocode
 })(AdminActionsContainer)

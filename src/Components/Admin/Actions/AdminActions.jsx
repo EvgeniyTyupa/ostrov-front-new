@@ -1,16 +1,37 @@
 import React from 'react'
 import classes from '../AdminView.module.css'
-import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
-import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch'
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
-import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
+import { Button, Tab, Tabs } from '@mui/material'
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
-import moment from 'moment'
-import CustomCheckbox from '../../UI/Form/Checkbox';
 import AdminAddAction from './AdminAddAction';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminEditAction from './AdminEditAction';
+import AdminActionsTable from './AdminActionsTable';
+import { makeStyles } from '@mui/styles';
+import AdminPromocodesTable from './Promocode/AdminPromocodesTable';
+
+const useTabStyles = makeStyles((theme) => ({
+    root: {
+        '& .MuiTab-textColorPrimary': {
+            color: "white",
+            textTransform: "initial",
+            fontSize: "16px",
+            fontWeight: "700",
+            fontFamily: "Montserrat",
+            textTransform: "uppercase",
+            transitionDuration: ".3s",
+            color: "rgba(75, 94, 163, .5)"
+        },
+        '& .Mui-selected': {
+            opacity: 1,
+            color: "#4B5EA3 !important",
+        },
+        '& .MuiTabs-indicator': {
+            backgroundColor: "transpa",
+            height: "0px"
+        }
+    }
+}));
 
 const AdminActions = (props) => {
     const {
@@ -44,7 +65,13 @@ const AdminActions = (props) => {
         deleteAction,
         openRemove,
         openEdit,
-        currentItem
+        currentItem,
+        currentTab,
+        handleTab,
+        getPromocodes,
+        isOpenAddPromocode,
+        handleAddPromocodeModal,
+        handleAddPromocode
     } = props
 
     const rows = [
@@ -69,6 +96,8 @@ const AdminActions = (props) => {
             searchByValue: ""
         }
     ]
+
+    const material = useTabStyles()
 
     return (
         <div className={classes.main}>
@@ -113,54 +142,49 @@ const AdminActions = (props) => {
             <div className={classes.header}>
                 <h2>Акции</h2>
                 <div className={classes.topController}>
-                    <AdminSearch onSearch={getActions} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
-                    <Button onClick={handleAddModal} className={classes.addBut}>Добавить +</Button>
+                    <AdminSearch filter={isActual} onSearch={currentTab === 0 ? getActions : getPromocodes} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
+                    <Button onClick={currentTab === 0 ? handleAddModal : handleAddPromocodeModal} className={classes.addBut}>Добавить +</Button>
                 </div>
             </div>
-            <div className={classes.table}>
-                <TableContainer component={Paper} className={classes.tableContainer}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                {rows.map(item => <TableTh text={item.text} onSort={getActions} searchByValue={item.searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize} key={item.key}/>)}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {actions.map(item => (
-                                <TableRow key={item._id}>
-                                    <TableCell>{item.title}</TableCell>
-                                    <TableCell>{moment(item.start).format('DD/MM/YYYY')}</TableCell>
-                                    <TableCell>{moment(item.end).format('DD/MM/YYYY')}</TableCell>
-                                    <TableCell width={120}>
-                                        <AdminControllButtons
-                                            item={item}
-                                            onRemove={handleRemove}
-                                            onEdit={handleEdit}
-                                        />
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                {actions.length === 0 && <EmptyData/>}
-                <div className={classes.footerContainer}>
-                    <div className={classes.isActualContainer}>
-                        <CustomCheckbox 
-                            label="Показывать только актуальные" 
-                            checked={isActual} 
-                            onChange={handleIsActual}
+            <div className={classes.tabs}>
+                <Tabs
+                    value={currentTab} 
+                    onChange={handleTab}
+                    classes={material}
+                >
+                    <Tab value={0} label="Акции"/>
+                    <Tab value={1} label="Промокоды"/>
+                </Tabs>
+                <div className={classes.tabContent}>
+                    {currentTab === 0 && (
+                        <AdminActionsTable
+                            isActual={isActual}
+                            rows={rows}
+                            getActions={getActions}
+                            searchValue={searchValue}
+                            pageNumber={pageNumber}
+                            pageSize={pageSize}
+                            actions={actions}
+                            handleRemove={handleRemove}
+                            handleEdit={handleEdit}
+                            handleIsActual={handleIsActual}
+                            handleChangePage={handleChangePage}
+                            handlePageSize={handlePageSize}
+                            total={total}
                         />
-                    </div>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 20, 50]}
-                        component={"div"}
-                        rowsPerPage={pageSize}
-                        page={pageNumber}
-                        count={total}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handlePageSize}
-                    />
+                    )}
+                    {currentTab === 1 && (
+                        <AdminPromocodesTable
+                            searchValue={searchValue}
+                            isOpenAddPromocode={isOpenAddPromocode}
+                            handleAddPromocodeModal={handleAddPromocodeModal}
+                            pageNumber={pageNumber}
+                            pageSize={pageSize}
+                            handleChangePage={handleChangePage}
+                            handlePageSize={handlePageSize}
+                            handleAddPromocode={handleAddPromocode}
+                        />
+                    )}
                 </div>
             </div>
         </div>

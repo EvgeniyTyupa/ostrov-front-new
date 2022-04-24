@@ -113,7 +113,7 @@ const Item = (props) => {
                                 <Button
                                     className={classes.buyBut}
                                     onClick={addToCart}
-                                    disabled={item.count === 0}
+                                    disabled={item.count <= 0}
                                 >
                                     {item.count > 0  ? t("actions.buy") : t("items.empty")}
                                 </Button>

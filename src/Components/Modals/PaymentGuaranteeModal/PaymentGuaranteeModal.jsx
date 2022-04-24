@@ -1,6 +1,6 @@
 import { IconButton, Tab, Tabs } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AiOutlineClose } from 'react-icons/ai'
 import { connect } from 'react-redux'

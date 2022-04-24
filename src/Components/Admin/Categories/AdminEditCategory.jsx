@@ -35,7 +35,6 @@ const AdminEditCategory = (props) => {
             reset({
                 name: item.name || "",
                 name_ua: item.name_ua || "",
-                code: item.code || "",
                 p_id: allCategories.find((elem) => elem._id == item.p_id) || 0
             })
         }
@@ -77,23 +76,6 @@ const AdminEditCategory = (props) => {
                             )}
                         />
                     </Field>
-                </Field>
-                <Field>
-                    <label className={classes.label}>URL (будет отображаться в адресной строке)</label>
-                    <Controller
-                        name="code"
-                        control={control}
-                        defaultValue=""
-                        rules={{ required: "Обязательное поле!" }}
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                error={error}
-                                label="barbie"  
-                            />
-                        )}
-                    />
                 </Field>
                 <Controller
                     name="p_id"

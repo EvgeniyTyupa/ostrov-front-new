@@ -12,6 +12,7 @@ import actionsReducer from './actionsReducer';
 import commentsReducer from './commentsReducer';
 import cartReducer from './cartReducer';
 import ordersReducer from './ordersReducer';
+import promocodeReducer from './promocodeReducer';
 
 let reducers = combineReducers({
     common: commonReducer,
@@ -24,7 +25,8 @@ let reducers = combineReducers({
     actions: actionsReducer,
     comments: commentsReducer,
     cart: cartReducer,
-    orders: ordersReducer
+    orders: ordersReducer,
+    promocodes: promocodeReducer
 })
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleWare, multi))

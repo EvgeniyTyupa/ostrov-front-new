@@ -51,11 +51,6 @@ const AdminItems = (props) => {
             searchByValue: "name"
         },
         {
-            key: 'articule',
-            text: "Артикул",
-            searchByValue: "articule"
-        },
-        {
             key: 'code',
             text: "Код",
             searchByValue: "code"
@@ -74,6 +69,11 @@ const AdminItems = (props) => {
             key: 'category',
             text: "Категория",
             searchByValue: "category"
+        },
+        {
+            key: 'count',
+            text: "Наявность",
+            searchByValue: "count"
         },
         {
             key: 'last',
@@ -131,16 +131,16 @@ const AdminItems = (props) => {
                         <TableBody >
                             {items.map(item => (
                                 <TableRow key={item._id}>
-                                    <TableCell width={110}>
+                                    <TableCell width={70}>
                                         <img src={item.images[0]} alt="image" className={classes.imgPreview}/>
                                     </TableCell>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.articule}</TableCell>
-                                    <TableCell>{item.code}</TableCell>
+                                    <TableCell width={"12%"}>{item.name}</TableCell>
+                                    <TableCell align='center'>{item.code}</TableCell>
                                     <TableCell>{priceParser(item.price)} грн.</TableCell>
                                     <TableCell>{item.brand && item.brand.name}</TableCell>
                                     <TableCell>{item.category && item.category.name}</TableCell>
-                                    <TableCell width={120}>
+                                    <TableCell align='center'>{item.count > 0 ? (item.count + " шт.") : "Нет в наличии"}</TableCell>
+                                    <TableCell width={90} align="right">
                                        <AdminControllButtons 
                                             item={item} 
                                             onRemove={handleRemove}

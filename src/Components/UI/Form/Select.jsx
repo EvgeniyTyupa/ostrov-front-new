@@ -40,7 +40,6 @@ const CustomSelect = (props) => {
         error, 
         children, 
         variant = "outlined",
-        multiple = false
     } = props
 
     const material = useStyles()

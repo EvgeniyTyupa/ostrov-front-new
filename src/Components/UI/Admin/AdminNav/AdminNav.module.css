@@ -22,7 +22,12 @@
     gap: 8px;
     color: #4B5EA2
 }
-.userContainer svg {
+.side svg {
     font-size: 24px;
     color: #4B5EA2
+}
+.side {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }

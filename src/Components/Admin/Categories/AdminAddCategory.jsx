@@ -23,7 +23,6 @@ const AdminAddCategory = (props) => {
         reset({
             name: "",
             name_ua: "",
-            code: "",
             p_id: null
         })
     }
@@ -68,23 +67,6 @@ const AdminAddCategory = (props) => {
                             )}
                         />
                     </Field>
-                </Field>
-                <Field>
-                    <label className={classes.label}>URL (будет отображаться в адресной строке)</label>
-                    <Controller
-                        name="code"
-                        control={control}
-                        defaultValue=""
-                        rules={{ required: "Обязательное поле!" }}
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                error={error}
-                                label="barbie"  
-                            />
-                        )}
-                    />
                 </Field>
                 <Controller
                     name="p_id"

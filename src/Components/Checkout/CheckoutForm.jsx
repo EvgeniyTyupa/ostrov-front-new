@@ -66,19 +66,19 @@ const CheckoutForm = (props) => {
     }
 
     const onSubmit = (data) => {
-        console.log(data)
         data.delivery_type = deliveryType
         data.approved = approved
-        data.discount = actionDiscount.includes("%") ? 
-            (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
-            : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
         
-        let total = 
-            data.discount.toString().includes("%") ? 
-            totalSum - (totalSum / 100 * Number(data.discount.replace("%", ''))) :
-            totalSum - data.discount
+        data.discount = actionDiscount.toString().includes("%") ? 
+            (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
+            : ((((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)) / (totalSum + deliveryPrice) * 100)
+        
+            data.total = totalSum
+        data.delivery_price = deliveryPrice
 
-        data.total = Math.ceil(total)
+        data.finaly_sum = actionDiscount.toString().includes("%") ?  
+            Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount))) :
+            Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)))
 
         data.receiver_info = {
             first_name: data.first_name,
@@ -117,6 +117,8 @@ const CheckoutForm = (props) => {
         })
 
         data.gift = orderGift
+
+        console.log(data)
 
         if(data.payment_type === "receive"){
             createOrderWithMailPost(data)

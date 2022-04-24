@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
@@ -7,10 +8,13 @@ import CartItem from '../../../Components/Common/ShoppingCart/CartItem/CartItem'
 import SomeInfoModal from '../../../Components/Modals/SomeInfoModal/SomeInfoModal'
 import MaxWidthContainer from '../../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../../Components/UI/Container/PaddingContainer/PaddingContainer'
+import AdminInput from '../../../Components/UI/Form/AdminInput'
 import { cx } from '../../../Utils/classnames'
 import { discountParser } from '../../../Utils/discountParser'
 import { priceParser } from '../../../Utils/priceParser'
 import classes from './Checkout.module.css'
+import { BiRightArrowAlt } from 'react-icons/bi';
+import Error from '../../../Components/UI/Form/Error/Error'
 
 const Checkout = (props) => {
     const {
@@ -23,7 +27,14 @@ const Checkout = (props) => {
         userDiscount,
         orderDone,
         serverMessage,
-        closeOrderDoneModal
+        closeOrderDoneModal,
+        isUsePromocode,
+        handleUsePromocode,
+        promocodeValue,
+        setPromocodeValue,
+        checkPromocode,
+        currentPromocode,
+        receivePromocodeStatus
     } = props
 
     const { t } = useTranslation()
@@ -102,14 +113,40 @@ const Checkout = (props) => {
                                     <p>{priceParser(
                                         discountParser(
                                             deliveryPrice + totalSum, 
-                                            (actionDiscount && actionDiscount.includes("%")) ? 
-                                                (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
-                                                : ((((deliveryPrice + totalSum) / 100 * userDiscount) / (deliveryPrice + totalSum) * 100) + Number(actionDiscount))
+                                            (actionDiscount.toString().includes("%")) ? 
+                                                ((Number(actionDiscount.replace("%", '')) + userDiscount) + "%")
+                                                : Math.ceil((((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)))
                                         )
                                     )} 
                                     <span> грн.</span>
                                 </p>
                             </div>
+                            {currentPromocode ?
+                                <p className={classes.promoSuccess}>
+                                    {t("checkout.promocodeApply")} {currentPromocode.discount.includes("%") ? currentPromocode.discount : (currentPromocode.discount + " грн.")}
+                                </p> 
+                                :
+                                <div className={classes.promocodeBlock}>
+                                    <button onClick={handleUsePromocode} className={classes.addPromocodeButt}>{t("checkout.addPromocode")}</button>
+                                    <div className={cx(classes.promoInputBlock, isUsePromocode ? classes.openPromo : "")}>
+                                        <AdminInput
+                                            value={promocodeValue}
+                                            onChange={setPromocodeValue}
+                                            placeholder={t("checkout.promocodePlaceholder")}
+                                            endAdornment={true}
+                                            endAdornmentIcon={
+                                                <Button 
+                                                    className={classes.submitPromoBut}
+                                                    onClick={checkPromocode}
+                                                >
+                                                    <BiRightArrowAlt/>
+                                                </Button>
+                                            }
+                                        />
+                                        {receivePromocodeStatus && <Error text={t("checkout.promocodeError")}/>}
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

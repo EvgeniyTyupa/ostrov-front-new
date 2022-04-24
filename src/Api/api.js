@@ -493,8 +493,16 @@ export const newPostApi = {
 }
 
 export const ordersApi = {
-    getOrders(pageNumber, pageSize, searchBy, from, searchingValue) {
-        return instance.get(`/order?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+    getOrders(pageNumber, pageSize, searchBy, from, searchingValue, filterStatuses) {
+        return instance.get(`/order?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filterStatuses}`)
+        .then(response => response.data)
+    },
+    getNewOrdersCount() {
+        return instance.get(`/order/newOrdersCount`)
+        .then(response => response.data)
+    },
+    subscribeOnNewOrders() {
+        return instance.get('/order/subscribe')
         .then(response => response.data)
     },
     createOrder(data) {
@@ -503,6 +511,29 @@ export const ordersApi = {
     },
     updateOrder(orderId, data) {
         return instance.patch(`/order/${orderId}`, data)
+        .then(response => response.data)
+    }
+}
+
+export const promocodeApi = {
+    getPromocodes(pageNumber, pageSize, searchBy, from, searchingValue) {
+        return instance.get(`/promocode?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}`)
+        .then(response => response.data)
+    },
+    checkPromocode(code) {
+        return instance.get(`/promocode/${code}`)
+        .then(response => response.data)
+    },
+    addPromocode(data) {
+        return instance.post('/promocode', data)
+        .then(response => response.data)
+    },
+    updatePromocode(promocodeId, data) {
+        return instance.patch(`/promocode/${promocodeId}`, data)
+        .then(response => response.data)
+    },
+    deletePromocode(promocodeId) {
+        return instance.delete(`/promocode/${promocodeId}`)
         .then(response => response.data)
     }
 }
