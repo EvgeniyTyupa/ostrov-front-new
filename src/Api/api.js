@@ -497,6 +497,10 @@ export const ordersApi = {
         return instance.get(`/order?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filterStatuses}`)
         .then(response => response.data)
     },
+    getOrdersByUserId(userId, pageNumber, pageSize, stype, from) {
+        return instance.get(`/order/getByUserId/${userId}?limit=${pageSize}&count=${pageNumber}&search_by=${stype}&from=${from}`)
+        .then(response => response.data)
+    },
     getNewOrdersCount() {
         return instance.get(`/order/newOrdersCount`)
         .then(response => response.data)
@@ -534,6 +538,13 @@ export const promocodeApi = {
     },
     deletePromocode(promocodeId) {
         return instance.delete(`/promocode/${promocodeId}`)
+        .then(response => response.data)
+    }
+}
+
+export const dashboardApi = {
+    getStats() {
+        return instance.get('/dashboard/stats')
         .then(response => response.data)
     }
 }

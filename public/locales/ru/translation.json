@@ -25,7 +25,7 @@
             "about": "О нас",
             "news": "Новости",
             "shop": "Магазины",
-            "career": "Карьера",
+            "career": "Сотрудничество",
             "helpTitle": "Помощь",
             "delivery": "Оплата и доставка",
             "rules": "Правила пользования сайтом",
@@ -197,9 +197,35 @@
     },
     "profile": {
         "order_empty": "Пока что заказы отсутствуют.",
-        "order_empty_link": "Перейти к покупкам.",
+        "order_empty_link": "Перейти к покупкам",
         "liked_empty": "У Вас нет избранных товаров",
         "viewed_empty": "Пока что нет ни одного просмотренного товара.",
+        "orders": {
+            "table": {
+                "time": "Время заказа"
+            },
+            "info": {
+                "title": "Заказ",
+                "receiverTitle": "Данные о получателе",
+                "receiverName": "Имя",
+                "deliveryTitle": "Данные о доставке",
+                "deliveryTypeOffice": "на отделение Новой Почты",
+                "deliveryTypeCourier": "курьером",
+                "address": "Адрес",
+                "street": "ул.",
+                "detailsTitle": "Детали заказа",
+                "approved": "Да.",
+                "not_approved": "Нет, требуется консультация.",
+                "approvedLabel": "Заказ подтвержден",
+                "sum": "Сумма",
+                "free": "Бесплатно.",
+                "discount": "Скидка",
+                "totalLabel": "Итого",
+                "onPlacePayment": "Наложенный платеж.",
+                "goods": "Товары",
+                "gift": "Подарок"
+            }
+        },
         "settings": {
             "old_password": "Старый пароль",
             "new_password": "Новый пароль",
@@ -429,5 +455,8 @@
             "paid": "Оплачено",
             "not_paid": "Не оплачено"
         }
+    },
+    "career": {
+        "title": "Сотрудничество"
     }
 }

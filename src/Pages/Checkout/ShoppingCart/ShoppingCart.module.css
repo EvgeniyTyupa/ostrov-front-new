@@ -8,6 +8,9 @@
     width: 100%;
     padding: 20px 0;
     padding-top: 0;
+}
+.sideContainer {
+    width: 100%;
     display: flex;
     justify-content: space-around;
     gap: 30px;
@@ -17,7 +20,7 @@
 }
 .right {
     width: 25%;
-    padding-top: 105px;
+    padding-top: 50px;
 }
 .empty {
     font-size: 16px;

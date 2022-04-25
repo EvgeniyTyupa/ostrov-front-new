@@ -10,6 +10,7 @@ import AdminEditForm from './AdminEditForm';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 import { priceParser } from '../../../Utils/priceParser';
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
 
 const AdminItems = (props) => {
     const { 
@@ -83,7 +84,7 @@ const AdminItems = (props) => {
     ]
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             {(serverError || serverResponse) && <ServerResponse/> }
             {isOpenAddModal && 
                 <AdminAddForm 
@@ -163,7 +164,7 @@ const AdminItems = (props) => {
                     onRowsPerPageChange={handlePageSize}
                 />
             </div>
-        </div>
+        </AnimatedBlock>
     )
 }
 

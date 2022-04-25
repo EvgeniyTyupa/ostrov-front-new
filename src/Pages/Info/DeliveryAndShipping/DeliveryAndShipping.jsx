@@ -3,9 +3,10 @@ import classes from './DeliveryAndShipping.module.css';
 import { useTranslation } from "react-i18next";
 import Helmet from "react-helmet"
 import { connect } from 'react-redux';
-import { Breadcrumbs } from '@mui/material';
 import PaddingContainer from '../../../Components/UI/Container/PaddingContainer/PaddingContainer';
 import MaxWidthContainer from '../../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer';
+import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock';
+import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs';
 
 const DeliveryAndShipping = (props) => {
     const { t } = useTranslation();
@@ -17,8 +18,8 @@ const DeliveryAndShipping = (props) => {
                     title={`${t("siteName")} | ${props.currentLanguage === "ru" ? "Оплата и доставка" : "Оплата і доставка"}`}
                     meta={[{"name": "description", "content": "Онлайн магазин дитячих іграшок"}]}
                 />
-                <Breadcrumbs active={t("navigation.delivery")}/>
-                <div className={classes.body}>
+                <AnimatedBlock className={classes.body}>
+                    <Breadcrumbs active={t("navigation.delivery")}/>
                     <h1>{t("delivery.header")}</h1>
                     <div className={classes.content}>
                         <div className={classes.leftSide}>
@@ -107,8 +108,7 @@ const DeliveryAndShipping = (props) => {
                             </div>
                         </div>
                     </div>
-                    
-                </div>
+                </AnimatedBlock>
             </MaxWidthContainer>
         </PaddingContainer>
     );

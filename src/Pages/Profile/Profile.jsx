@@ -9,14 +9,14 @@ const ProfilePage = (props) => {
         user, 
         me, 
         isAuth,
-        isReceiveAuthStatus
+        isReceiveAuthStatus,
     } = props
 
     useEffect(() => {
         if(!user) {
             me()
         }
-    }, [])
+    }, [user])
 
     return !isReceiveAuthStatus ? <Preloader/> :
     isAuth ? <Outlet/> : <Navigate to="/" />
@@ -29,5 +29,5 @@ let mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    me
+    me,
 })(ProfilePage)

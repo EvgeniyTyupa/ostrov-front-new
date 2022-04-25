@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import ActionSmallItem from '../../Components/Common/Actions/ActionSmallItem/ActionSmallItem'
 import Breadcrumbs from '../../Components/Common/Breadcrumbs/Breadcrumbs'
 import MaxWidthContainer from '../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
@@ -15,11 +16,11 @@ const Actions = (props) => {
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
                 <Breadcrumbs active={t("navigation.actions")}/>
-                <div className={classes.wrapper}>
+                <AnimatedBlock className={classes.wrapper}>
                     {actions.map(el => (
                         <ActionSmallItem key={el._id} action={el} currentLanguage={currentLanguage}/>
                     ))}
-                </div>
+                </AnimatedBlock>
             </MaxWidthContainer>
         </PaddingContainer>
     )

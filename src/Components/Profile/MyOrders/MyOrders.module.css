@@ -1,5 +1,5 @@
 .main {
-    height: 40vh;
+    min-height: 40vh;
 }
 .table {
     margin-top: 20px;
@@ -8,8 +8,32 @@
     flex-wrap: wrap;
     gap: 16px;
     row-gap: 16px;
-    max-height: 40vh;
-    overflow-y: scroll;
+}
+.container {
+    width: 100%;
+}
+.container h4 {
+    font-size: 14px;
+    color: #37395C;
+    margin-bottom: 12px;
+}
+.paper {
+    width: 100%;
+    border: 2px solid #4B5EA3;
+}
+.paper th {
+    font-weight: 700;
+    color: #4B5EA3;
+}
+.paper th.Mui-active {
+    color: #E86589 !important;
+}
+.paper th, .paper .td {
+    font-family: 'Montserrat' !important;
+}
+.tbody {
+    max-height: 40vh !important; 
+    overflow-y: scroll !important;
 }
 .empty {
     font-size: 14px;
@@ -18,6 +42,16 @@
 .table a {
     font-size: 14px;
     color: #E86589;
-    margin-top: 8px;
-    display: block;
+}
+.emptyBlock {
+    display: flex;
+    gap: 8px;
+}
+.viewBut {
+    background-color: #4B5EA3 !important;
+    color: white !important;
+    font-size: 16px !important;
+}
+.viewBut:hover {
+    background-color: #42528d !important;
 }

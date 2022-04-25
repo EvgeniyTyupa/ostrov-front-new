@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 import ProfileLayout from '../../UI/ProfileLayout/ProfileLayout'
 import LikedItem from './LikedItem/LikedItem'
 import classes from './LikedItems.module.css'
@@ -12,7 +13,7 @@ const LikedItems = (props) => {
 
     return (
         <ProfileLayout title={t("profile.menu.liked")}>
-            <div className={classes.main}>
+            <AnimatedBlock className={classes.main} key="like">
                 <div className={classes.wrapper}>
                     {user.liked_items.map(el => (
                         <LikedItem 
@@ -25,7 +26,7 @@ const LikedItems = (props) => {
                         <p className={classes.empty}>{t("profile.liked_empty")}.</p>
                     }
                 </div>
-            </div>
+            </AnimatedBlock>
         </ProfileLayout>
     )
 }

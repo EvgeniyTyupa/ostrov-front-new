@@ -11,6 +11,7 @@ import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminContr
 import moment from 'moment'
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import CustomCheckbox from '../../UI/Form/Checkbox';
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
 
 const AdminNews = (props) => {
     const {
@@ -60,7 +61,7 @@ const AdminNews = (props) => {
     ]
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             {isOpenAddModal &&
                 <AdminAddNews
                     onClose={handleAddModal}
@@ -132,7 +133,7 @@ const AdminNews = (props) => {
                     onRowsPerPageChange={handlePageSize}
                 />
             </div>
-        </div>
+        </AnimatedBlock>
     )
 }
 

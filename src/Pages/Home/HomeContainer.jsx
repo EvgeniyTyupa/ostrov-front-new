@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { getActions } from '../../Redux/actionsReducer'
@@ -7,6 +7,7 @@ import { getMainCategoriesWithChildren } from '../../Redux/categoryReducer'
 import { getItems } from '../../Redux/itemsReducer'
 import { getNews, getViewOnMainPosts } from '../../Redux/newsReducer'
 import { getHgTags, getTags } from '../../Redux/tagsReducer'
+import { shuffle } from '../../Utils/shuffle'
 import Home from './Home'
 
 const HomeContainer = (props) => {
@@ -32,6 +33,15 @@ const HomeContainer = (props) => {
         viewOnMainPosts
     } = props
 
+    let slides = [...actions]
+
+    const [shuffleSlides, setShuffleSlides] = useState(actions)
+
+    useEffect(() => {
+        setShuffleSlides(shuffle(slides.concat(viewOnMainPosts)))
+    }, [])
+
+
     useEffect(() => {
         getMainCategoriesWithChildren()
         getViewOnMainPosts()
@@ -45,8 +55,8 @@ const HomeContainer = (props) => {
 
     return (
         <>
-            {isFetching ? <Preloader/> 
-            :
+            {isFetching && <Preloader/>}
+            
                 <Home 
                     categories={mainCategoriesWithChildren}
                     actions={actions}
@@ -57,8 +67,9 @@ const HomeContainer = (props) => {
                     tags={tags}
                     currentLanguage={currentLanguage}
                     viewOnMainPosts={viewOnMainPosts}
+                    slides={shuffleSlides}
                 />
-            }
+            
         </>
     )
 }

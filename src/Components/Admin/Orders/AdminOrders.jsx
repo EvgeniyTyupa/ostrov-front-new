@@ -16,6 +16,7 @@ import MultiSelect from '../../UI/Form/MultiSelect';
 import CustomCheckbox from '../../UI/Form/Checkbox';
 import { useOrderStatuses } from '../../../Hooks/useOrderStatuses';
 import { makeStyles } from '@mui/styles';
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -94,7 +95,7 @@ const AdminOrders = (props) => {
     let selectOptions = [...statuses].splice(0, 5)
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             {(serverResponse || serverError) && <ServerResponse/>}
             {isOpenView &&
                 <AdminOrderInfo
@@ -192,7 +193,7 @@ const AdminOrders = (props) => {
                     onRowsPerPageChange={handlePageSize}
                 />
             </div>
-        </div>
+        </AnimatedBlock>
     )
 }
 

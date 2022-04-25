@@ -15,7 +15,7 @@ const SmallItemsList = (props) => {
         <div className={classes.main}>
             <div className={classes.header}>
                 <h4>{title}</h4>
-                {(href && slidesToShow > 5) && <NavLink to={href}>{t("items.listTextHref")}</NavLink>}
+                {(href && slidesToShow === 5) && <NavLink to={href}>{t("items.listTextHref")}</NavLink>}
             </div>
             <div className={cx(classes.slider, slidesToShow < 5 ? classes.notFull : "")}>
                 <CustomSlider slidesToShow={slidesToShow}>

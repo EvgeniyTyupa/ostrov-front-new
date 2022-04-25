@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
-import { getByBrandCategoryTag, globalSearchCatalog, selectItems } from '../../Redux/itemsReducer'
+import { getByBrandCategoryTag, globalSearchCatalog, selectItems, setItemsData } from '../../Redux/itemsReducer'
 import { getTag } from '../../Redux/tagsReducer'
 import Catalog from './Catalog'
 import { setCurrentFilterItem } from '../../Redux/commonReducer'
@@ -24,7 +24,8 @@ const CatalogContainer = (props) => {
         categoriesWithParents,
         total,
         globalSearchCatalog,
-        selectItems
+        selectItems,
+        setItemsData
     } = props
 
     const navigate = useNavigate()
@@ -159,6 +160,7 @@ const CatalogContainer = (props) => {
 
     useEffect(() => {
         return () => {
+            setItemsData([])
             setCurrentFilterItem(null)
         }
     }, [])
@@ -200,5 +202,6 @@ export default connect(mapStateToProps, {
     getCategoriesWithParents,
     setCurrentFilterItem,
     globalSearchCatalog,
-    selectItems
+    selectItems,
+    setItemsData
 })(CatalogContainer)

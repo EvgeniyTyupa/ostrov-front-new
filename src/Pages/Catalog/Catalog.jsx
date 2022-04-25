@@ -9,6 +9,7 @@ import CustomPagination from '../../Components/Common/Pagination/Pagination'
 import CustomSelect from '../../Components/UI/Form/Select'
 import { useSortableFields } from '../../Hooks/useSortableFields'
 import { MenuItem } from '@mui/material'
+import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 
 const Catalog = (props) => {
     const { 
@@ -31,7 +32,7 @@ const Catalog = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
-                <div className={classes.header}>
+                <AnimatedBlock className={classes.header}>
                     <Breadcrumbs items={breadcrumbsItems} active={activeBreadcrumb}/>
                     <div className={classes.sort}>
                         <label>{t("catalog.sort.label")}:</label>
@@ -41,11 +42,11 @@ const Catalog = (props) => {
                             ))}
                         </CustomSelect>
                     </div>
-                </div>
-                <div className={classes.wrapper}>
+                </AnimatedBlock>
+                <AnimatedBlock className={classes.wrapper}>
                     {items.map(el => <SmallItem key={el._id} item={el}/>)}
                     {items.length === 0 && <p className={classes.empty}>{t("catalog.empty")} 🥲</p>}
-                </div>
+                </AnimatedBlock>
                 {items.length > 0 &&
                     <CustomPagination
                         currentPage={pageNumber}

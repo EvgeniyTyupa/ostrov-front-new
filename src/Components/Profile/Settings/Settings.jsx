@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { setServerError } from '../../../Redux/commonReducer'
 import { changePassword } from '../../../Redux/userReducer'
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 import Preloader from '../../Common/Preloader/Preloader'
 import Error from '../../UI/Form/Error/Error'
 import Field from '../../UI/Form/Field/Field'
@@ -45,87 +46,90 @@ const Settings = (props) => {
         <ProfileLayout title={t("profile.menu.settings")}>
             {isFetching && <Preloader/>}
             {serverResponse && <ServerResponse/>}
-            <form onSubmit={handleSubmit(onSubmit)} className={classes.main}>
-                <Field className={classes.field}>
-                    <label>{t("profile.settings.old_password")}</label>
-                    <Controller
-                        name="old_password"
-                        control={control}
-                        rules={{ 
-                            required: {
-                                value: true,
-                                message: t("errors.required")
-                            }
-                        }}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <InputPassword
-                                error={error}
-                                onChange={(e) => {
-                                    setServerError(null)
-                                    onChange(e.target.value)
-                                }}
-                                value={value}  
-                                label={null}
-                            />
-                        )}
-                    />
-                </Field>
-                {serverError && <Error text={serverError}/>}
-                <Field className={classes.field}>
-                    <label>{t("profile.settings.new_password")}</label>
-                    <Controller
-                        name="new_password"
-                        control={control}
-                        defaultValue=""
-                        rules={{ 
-                            required: {
-                                value: true,
-                                message: t("errors.required")
-                            }
-                        }}
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <InputPassword
-                                error={error}
-                                onChange={onChange}
-                                value={value}  
-                                label={null}
-                            />
-                        )}
-                    />
-                </Field>
-                <Field className={classes.field}>
-                    <label>{t("profile.settings.match_password")}</label>
-                    <Controller
-                        name="match_password"
-                        control={control}
-                        rules={{ 
-                            required: {
-                                value: true,
-                                message: t("errors.required")
-                            },
-                            validate: {
-                                value: (value) => value === watch('new_password') || t("errors.notMatch")
-                            }
-                        }}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <InputPassword
-                                error={error}
-                                onChange={onChange}
-                                value={value}  
-                                label={null}
-                            />
-                        )}
-                    />
-                </Field>
-                <Button 
-                    className={classes.submitBut} 
-                    type="submit"
-                >
-                    {t("profile.settings.submit")}
-                </Button>
-            </form>
+            <AnimatedBlock>
+
+                <form onSubmit={handleSubmit(onSubmit)} className={classes.main}>
+                    <Field className={classes.field}>
+                        <label>{t("profile.settings.old_password")}</label>
+                        <Controller
+                            name="old_password"
+                            control={control}
+                            rules={{ 
+                                required: {
+                                    value: true,
+                                    message: t("errors.required")
+                                }
+                            }}
+                            defaultValue=""
+                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                <InputPassword
+                                    error={error}
+                                    onChange={(e) => {
+                                        setServerError(null)
+                                        onChange(e.target.value)
+                                    }}
+                                    value={value}  
+                                    label={null}
+                                />
+                            )}
+                        />
+                    </Field>
+                    {serverError && <Error text={serverError}/>}
+                    <Field className={classes.field}>
+                        <label>{t("profile.settings.new_password")}</label>
+                        <Controller
+                            name="new_password"
+                            control={control}
+                            defaultValue=""
+                            rules={{ 
+                                required: {
+                                    value: true,
+                                    message: t("errors.required")
+                                }
+                            }}
+                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                <InputPassword
+                                    error={error}
+                                    onChange={onChange}
+                                    value={value}  
+                                    label={null}
+                                />
+                            )}
+                        />
+                    </Field>
+                    <Field className={classes.field}>
+                        <label>{t("profile.settings.match_password")}</label>
+                        <Controller
+                            name="match_password"
+                            control={control}
+                            rules={{ 
+                                required: {
+                                    value: true,
+                                    message: t("errors.required")
+                                },
+                                validate: {
+                                    value: (value) => value === watch('new_password') || t("errors.notMatch")
+                                }
+                            }}
+                            defaultValue=""
+                            render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                <InputPassword
+                                    error={error}
+                                    onChange={onChange}
+                                    value={value}  
+                                    label={null}
+                                />
+                            )}
+                        />
+                    </Field>
+                    <Button 
+                        className={classes.submitBut} 
+                        type="submit"
+                    >
+                        {t("profile.settings.submit")}
+                    </Button>
+                </form>
+            </AnimatedBlock>
         </ProfileLayout>
     )
 }

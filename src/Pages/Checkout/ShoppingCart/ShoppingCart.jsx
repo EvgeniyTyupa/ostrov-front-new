@@ -3,6 +3,7 @@ import { makeStyles } from '@mui/styles'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs'
 import CartTable from '../../../Components/Common/ShoppingCart/CartTable/CartTable'
 import MaxWidthContainer from '../../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
@@ -87,77 +88,82 @@ const ShoppingCart = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
-                <div className={classes.left}>
-                    <Breadcrumbs active={t("shopping_cart.cart")}/> 
-                    <Tabs 
-                        classes={materialTab} 
-                        value={currentTabIndex}
-                        onChange={handleTab}
-                    >
-                        <Tab label={`${t("shopping_cart.cart")} (${totalCount})`}/>
-                        <Tab label={`${t("shopping_cart.viewed")} (${viewedItems.length})`}/>
-                    </Tabs>
-                    <div className={classes.list}>
-                        {currentTabIndex === 0 && (
-                            cartItems.length > 0 ? <CartTable items={cartItems} gift={gift} rows={cartRows} type="cart" setCurrentItem={setCurrentItem}/> 
-                            : <p className={classes.empty}>{t("shopping_cart.empty")}.</p>
-                        )}
-                         {currentTabIndex === 1 && (
-                            viewedItems.length > 0 ? <CartTable items={viewedItems.reverse()} cartItems={cartItems} rows={viewedRows} type="viewed" setCurrentItem={setCurrentItem}/> 
-                            : <p className={classes.empty}>{t("profile.viewed_empty")}.</p>
-                        )}
-                    </div>
-                </div>
-                <div className={classes.right}>
-                    <div className={classes.rightCard}>
-                        <div className={classes.fieldCard}>
-                            <span>{t("shopping_cart.totalResultShort")}</span>
-                            <p>{totalCount} {gift.length > 0 && `+ ${gift.length}`} <span>шт.</span></p>
-                        </div>
-                        <div className={classes.fieldCard}>
-                            <span>{t("shopping_cart.onSum")}:</span>
-                            <p>{priceParser(totalSum)} <span>грн.</span></p>
-                        </div>
-                        {/* <div className={classes.fieldCard}>
-                            <span>{t("shopping_cart.delivery")}:</span>
-                            <p>{priceParser(deliveryPrice)} <span>грн.</span></p>
-                        </div> */}
-                        <div className={classes.fieldCard}>
-                            <span>{t("shopping_cart.discount")}:</span>
-                            {
-                                (actionDiscount && !actionDiscount.toString().includes("%")) ? <p>{priceParser(actionDiscount)} <span>грн.</span></p>
-                                : (actionDiscount && actionDiscount.toString().includes("%")) ? <p>{actionDiscount}</p> 
-                                : <p>0%</p>
-                            }
-                        </div>
-                        {userDiscount > 0 && (
-                        <div className={classes.fieldCard}>
-                            <span>{t("shopping_cart.userDiscount")}:</span>
-                            <p>{priceParser(userDiscount)}%</p>
-                        </div>)}
-                        <div className={cx(classes.fieldCard, classes.fieldTotal)}>
-                            <span>{t("shopping_cart.total")}:</span>
-                            {console.log((Number(actionDiscount.replace("%", '')) + userDiscount + "%"))}
-                            <p>{priceParser(
-                                    discountParser(
-                                        totalSum, 
-                                        actionDiscount.toString().includes("%") ? 
-                                            (Number(actionDiscount.replace("%", '')) + userDiscount + "%")
-                                            : Math.ceil((((totalSum) / 100 * userDiscount) + Number(actionDiscount)))
-                                    )
-                                )} 
-                                <span> грн.</span>
-                            </p>
-                        </div>
-                        <Button 
-                            className={classes.submit}
-                            disabled={totalCount === 0}
-                            onClick={goToCheckout}
+                <Breadcrumbs active={t("shopping_cart.cart")}/> 
+                <AnimatedBlock 
+                    exit={{ opacity: 0, y: 100, transition: { duration: .5 } }}
+                    className={classes.sideContainer}    
+                >
+                    <div className={classes.left}>
+                        <Tabs 
+                            classes={materialTab} 
+                            value={currentTabIndex}
+                            onChange={handleTab}
                         >
-                            {t("shopping_cart.submit")}
-                        </Button>
+                            <Tab label={`${t("shopping_cart.cart")} (${totalCount})`}/>
+                            <Tab label={`${t("shopping_cart.viewed")} (${viewedItems.length})`}/>
+                        </Tabs>
+                        <div className={classes.list}>
+                            {currentTabIndex === 0 && (
+                                cartItems.length > 0 ? <CartTable items={cartItems} gift={gift} rows={cartRows} type="cart" setCurrentItem={setCurrentItem}/> 
+                                : <p className={classes.empty}>{t("shopping_cart.empty")}.</p>
+                            )}
+                            {currentTabIndex === 1 && (
+                                viewedItems.length > 0 ? <CartTable items={viewedItems.reverse()} cartItems={cartItems} rows={viewedRows} type="viewed" setCurrentItem={setCurrentItem}/> 
+                                : <p className={classes.empty}>{t("profile.viewed_empty")}.</p>
+                            )}
+                        </div>
                     </div>
-                </div>
+                    <div className={classes.right}>
+                        <div className={classes.rightCard}>
+                            <div className={classes.fieldCard}>
+                                <span>{t("shopping_cart.totalResultShort")}</span>
+                                <p>{totalCount} {gift.length > 0 && `+ ${gift.length}`} <span>шт.</span></p>
+                            </div>
+                            <div className={classes.fieldCard}>
+                                <span>{t("shopping_cart.onSum")}:</span>
+                                <p>{priceParser(totalSum)} <span>грн.</span></p>
+                            </div>
+                            {/* <div className={classes.fieldCard}>
+                                <span>{t("shopping_cart.delivery")}:</span>
+                                <p>{priceParser(deliveryPrice)} <span>грн.</span></p>
+                            </div> */}
+                            <div className={classes.fieldCard}>
+                                <span>{t("shopping_cart.discount")}:</span>
+                                {
+                                    (actionDiscount && !actionDiscount.toString().includes("%")) ? <p>{priceParser(actionDiscount)} <span>грн.</span></p>
+                                    : (actionDiscount && actionDiscount.toString().includes("%")) ? <p>{actionDiscount}</p> 
+                                    : <p>0%</p>
+                                }
+                            </div>
+                            {userDiscount > 0 && (
+                            <div className={classes.fieldCard}>
+                                <span>{t("shopping_cart.userDiscount")}:</span>
+                                <p>{priceParser(userDiscount)}%</p>
+                            </div>)}
+                            <div className={cx(classes.fieldCard, classes.fieldTotal)}>
+                                <span>{t("shopping_cart.total")}:</span>
+                                {console.log((Number(actionDiscount.replace("%", '')) + userDiscount + "%"))}
+                                <p>{priceParser(
+                                        discountParser(
+                                            totalSum, 
+                                            actionDiscount.toString().includes("%") ? 
+                                                (Number(actionDiscount.replace("%", '')) + userDiscount + "%")
+                                                : Math.ceil((((totalSum) / 100 * userDiscount) + Number(actionDiscount)))
+                                        )
+                                    )} 
+                                    <span> грн.</span>
+                                </p>
+                            </div>
+                            <Button 
+                                className={classes.submit}
+                                disabled={totalCount === 0}
+                                onClick={goToCheckout}
+                            >
+                                {t("shopping_cart.submit")}
+                            </Button>
+                        </div>
+                    </div>
+                </AnimatedBlock>
             </MaxWidthContainer>
         </PaddingContainer>
     )

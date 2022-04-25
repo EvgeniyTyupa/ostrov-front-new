@@ -9,6 +9,7 @@ import AdminEditAction from './AdminEditAction';
 import AdminActionsTable from './AdminActionsTable';
 import { makeStyles } from '@mui/styles';
 import AdminPromocodesTable from './Promocode/AdminPromocodesTable';
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
 
 const useTabStyles = makeStyles((theme) => ({
     root: {
@@ -100,7 +101,7 @@ const AdminActions = (props) => {
     const material = useTabStyles()
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             {(serverResponse || serverError) && <ServerResponse/>}
             {isOpenAddModal && 
                 <AdminAddAction
@@ -187,7 +188,7 @@ const AdminActions = (props) => {
                     )}
                 </div>
             </div>
-        </div>
+        </AnimatedBlock>
     )
 } 
 

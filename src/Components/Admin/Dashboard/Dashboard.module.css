@@ -1,0 +1,147 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+    overflow-y: auto;
+    max-height: calc(100vh - 140px);
+    padding: 4px;
+    box-sizing: border-box;
+    padding-bottom: 28px;
+}
+.card {
+    box-shadow: 0 0 10px -7px black;
+    border-radius: 16px;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    box-sizing: border-box;
+
+}
+.donat {
+    width: 40%;
+    height: 250px;
+}
+.mini {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+.mini .card {
+    width: 33%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.miniSide {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.miniSide h3 {
+    text-align: center;
+}
+.titleLabel {
+    font-size: 16px;
+    color: black;
+    opacity: .4;
+}
+.value {
+    font-size: 28px;
+    color: #4B5EA2;
+}
+.miniIcon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: white;
+    border-radius: 50%;
+}
+.total .miniIcon {
+    background-color: #4B5EA2;
+}
+.totalLastMonth .miniIcon {
+    background-color: #E86589;
+}
+.users .miniIcon {
+    background-color: #9DC8CF;
+}
+.popular {
+    width: 100%;
+    height: 250px;
+}
+.popularWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+.popularItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #37395C;
+}
+.popularItem h3 {
+    font-size: 14px;
+    color: #37395C;
+}
+.popularItem h3::first-letter {
+    text-transform: uppercase;
+}
+.topItem h3 {
+    font-size: 20px;
+    color: #4B5EA2;
+}
+.popularItem img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 6px;
+}
+.topItem img {
+    width: 60px;
+    height: 60px;
+}
+.popularItem label {
+    font-weight: 700;
+    color: #37395C;
+}
+.topItem label {
+    font-size: 24px;
+    color: #4B5EA2;
+}
+.buyCount {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.buyCount svg {
+    background-color: #4B5EA2;
+    border-radius: 50%;
+    color: white;
+    padding: 12px;
+    font-size: 26px;
+}
+.buyCount p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #37395C;
+    opacity: .4;
+}
+.popularSection {
+    width: 60%
+}
+.charts {
+    width: 100%;
+    display: flex;
+    gap: 24px;
+}

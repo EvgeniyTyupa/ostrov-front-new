@@ -3,9 +3,10 @@ import classes from './Conf.module.css';
 import { useTranslation } from "react-i18next";
 import Helmet from "react-helmet"
 import { connect } from 'react-redux';
-import { Breadcrumbs } from '@mui/material';
 import PaddingContainer from '../../../Components/UI/Container/PaddingContainer/PaddingContainer';
 import MaxWidthContainer from '../../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer';
+import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock';
+import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs';
 
 const Conf = (props) => {
     const { t } = useTranslation()
@@ -18,8 +19,8 @@ const Conf = (props) => {
                     title={`${t("siteName")} | ${props.currentLanguage === "ru" ? "Политика конфиденциальности" : "Політика конфіденційності"}`}
                     meta={[{"name": "description", "content": "Онлайн магазин дитячих іграшок"}]}
                 />
-                <Breadcrumbs active={t("navigation.footer.conf")}/>
-                <div className={classes.body}>
+                <AnimatedBlock className={classes.body}>
+                    <Breadcrumbs active={t("navigation.footer.conf")}/>
                     <h1>{t("conf.header1")} <br/>{t("conf.header2")}</h1>
                     <div className={classes.content}>
                         <div className={classes.leftSide}>
@@ -31,7 +32,7 @@ const Conf = (props) => {
                             <p>{t("conf.2")}</p>
                         </div>
                     </div>
-                </div>
+                </AnimatedBlock>
             </MaxWidthContainer>
         </PaddingContainer>
     );

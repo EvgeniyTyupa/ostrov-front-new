@@ -18,12 +18,12 @@ const ActionsContainer = (props) => {
 
     return (
         <>
-            {isFetching ? <Preloader/> :
+            {isFetching && <Preloader/>}
                 <Actions
                     actions={actions}
                     currentLanguage={currentLanguage}
                 />
-            }
+            
         </>
     )
 }

@@ -25,16 +25,15 @@ const NewsContainer = (props) => {
 
     return (
         <>
-            {isFetching ? <Preloader/> :
-                <News
-                    news={news}
-                    currentPage={currentPage}
-                    pageSize={pageSize}
-                    setCurrentPage={setCurrentPage}
-                    setPageSize={handlePageSize}
-                    total={total}
-                />
-            }
+            {isFetching && <Preloader/>}
+            <News
+                news={news}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                setCurrentPage={setCurrentPage}
+                setPageSize={handlePageSize}
+                total={total}
+            />
         </>
     )
 }

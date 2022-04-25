@@ -1,0 +1,25 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 150px;
+}
+.header{
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+}
+.body h1{
+    color: #E86589;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.content{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #37395C;
+}

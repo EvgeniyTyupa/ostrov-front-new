@@ -29,16 +29,16 @@ const PostContainer = (props) => {
 
     return (
         <>
-            {isFetching ? <Preloader/> :
+            {isFetching && <Preloader/>}
                 <>
-                    {!currentPost ? <NotFound/> :
+                    {/* {!currentPost ? <NotFound/> : */}
                         <Post 
                             post={currentPost}
                             currentLanguage={currentLanguage}
                         />
-                    }
+                    
                 </>
-            }
+            
         </>
     )
 }

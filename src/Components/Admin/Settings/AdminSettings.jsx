@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { setServerError } from '../../../Redux/commonReducer'
 import { changePassword } from '../../../Redux/userReducer'
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import Error from '../../UI/Form/Error/Error'
@@ -49,7 +50,7 @@ const AdminSettings = (props) => {
         <AdminLayout>
             {isFetching && <Preloader/>}
             {serverResponse && <ServerResponse/>}
-            <div className={classes.main}>
+            <AnimatedBlock className={classes.main}>
                 <div className={classes.header}>
                     <h2>Настройки</h2>
                 </div>
@@ -134,7 +135,7 @@ const AdminSettings = (props) => {
                         {t("profile.settings.submit")}
                     </Button>
                 </form>
-            </div>
+            </AnimatedBlock>
         </AdminLayout>
     )
 }

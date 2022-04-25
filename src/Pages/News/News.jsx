@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import Breadcrumbs from '../../Components/Common/Breadcrumbs/Breadcrumbs'
 import NewsSmallItem from '../../Components/Common/News/NewsSmallItem/NewsSmallItem'
 import CustomPagination from '../../Components/Common/Pagination/Pagination'
@@ -23,11 +24,11 @@ const News = (props) => {
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
                 <Breadcrumbs active={t("news.title")}/>
-                <div className={classes.wrapper}>
+                <AnimatedBlock className={classes.wrapper}>
                     {news.map(el => (
                         <NewsSmallItem key={el._id} item={el}/>
                     ))}
-                </div>
+                </AnimatedBlock>
                 <CustomPagination
                     currentPage={currentPage}
                     pageSize={pageSize}

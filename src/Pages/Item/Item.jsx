@@ -16,6 +16,7 @@ import { priceParser } from '../../Utils/priceParser'
 import NeedAuthModal from '../../Components/Modals/NeedAuthModal/NeedAuthModal'
 import PaymentGuaranteeModal from '../../Components/Modals/PaymentGuaranteeModal/PaymentGuaranteeModal'
 import { motion, AnimatePresence } from 'framer-motion'
+import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 
 const Item = (props) => {
     const {
@@ -59,7 +60,7 @@ const Item = (props) => {
     const descriptionRef = useRef(null)
 
     return (
-        <div className={classes.mainContainer}>
+        <AnimatedBlock className={classes.mainContainer}>
             {modalValue != null && <PaymentGuaranteeModal modalValue={modalValue} onClose={() => setModalValue(null)}/>}
             {isOpenNeedAuthModal && <NeedAuthModal onClose={handleOpenAuthModal}/>}
             <PaddingContainer className={classes.main}>
@@ -247,7 +248,7 @@ const Item = (props) => {
                     </div>
                 </MaxWidthContainer>
             </PaddingContainer>
-        </div>
+        </AnimatedBlock>
     )
 }
 

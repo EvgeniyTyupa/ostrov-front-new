@@ -9,6 +9,7 @@ import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminEditBrand from './AdminEditBrand';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
 
 const AdminBrands = (props) => {
     const { 
@@ -54,7 +55,7 @@ const AdminBrands = (props) => {
     ]
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             {(serverResponse || serverError) && <ServerResponse/>}
             {isOpenAddModal &&
                 <AdminAddBrand
@@ -123,7 +124,7 @@ const AdminBrands = (props) => {
                     onRowsPerPageChange={handlePageSize}
                 />
             </div>
-        </div>
+        </AnimatedBlock>
     )
 }
 

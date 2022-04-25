@@ -141,9 +141,8 @@ const AdminOrderInfo = (props) => {
                 </Field>
                 <Field className={classes.row}>
                     <label>Скидка:</label>
-                    <p>{order.discount}%</p>
+                    <p>{order.discount}</p>
                 </Field>
-                {console.log(order)}
                 {order.promocode &&
                 <Field className={classes.row}>
                     <label>Промокод:</label>

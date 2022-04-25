@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 import ProfileLayout from '../../UI/ProfileLayout/ProfileLayout'
 import ViewedItem from './ViewedItem/ViewedItem'
 import classes from './ViewedItems.module.css'
@@ -12,7 +13,7 @@ const ViewedItems = (props) => {
 
     return (
         <ProfileLayout title={t("profile.menu.viewed")}>
-            <div className={classes.main}>
+            <AnimatedBlock className={classes.main}>
                 <div className={classes.wrapper}>
                     {viewedItems ? viewedItems.reverse().map(el => (
                         <ViewedItem
@@ -24,7 +25,7 @@ const ViewedItems = (props) => {
                         <p className={classes.empty}>{t("profile.viewed_empty")}</p>
                     }
                 </div>
-            </div>
+            </AnimatedBlock>
         </ProfileLayout>
     )
 }

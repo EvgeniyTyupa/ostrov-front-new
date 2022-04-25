@@ -3,12 +3,13 @@ import { cx } from '../../../../../Utils/classnames'
 import classes from './PostTypeTwo.module.css'
 import { BsCalendar } from 'react-icons/bs';
 import moment from 'moment'
+import AnimatedBlock from '../../../../Animation/AnimatedBlock/AnimatedBlock';
 
 const PostTypeTwo = (props) => {
     const { post, currentLanguage } = props
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             <div className={classes.header}>
                 <h4>{currentLanguage === "ru" ? post.title : post.title_ua}</h4>
                 <div className={classes.date}>
@@ -35,7 +36,7 @@ const PostTypeTwo = (props) => {
                     </div>
                 </div>
             ))}
-        </div>
+        </AnimatedBlock>
     )
 }
 

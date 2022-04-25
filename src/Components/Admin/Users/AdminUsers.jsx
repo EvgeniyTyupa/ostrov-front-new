@@ -12,6 +12,7 @@ import AdminUserInfo from './AdminUserInfo'
 import { priceParser } from '../../../Utils/priceParser'
 import { NavLink } from 'react-router-dom'
 import AdminAddAdmin from './AdminAddAdmin'
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 
 const AdminUsers = (props) => {
     const {
@@ -70,7 +71,7 @@ const AdminUsers = (props) => {
     ]
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             {(serverResponse || serverError) && <ServerResponse/>}
             {isOpenView && 
                 <AdminUserInfo
@@ -153,7 +154,7 @@ const AdminUsers = (props) => {
                 </div>
                 <NavLink to="/admin/users" className={classes.filter}>Сбросить фильтр</NavLink>
             </div>
-        </div>
+        </AnimatedBlock>
     )
 }
 

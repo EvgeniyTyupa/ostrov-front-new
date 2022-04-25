@@ -63,6 +63,16 @@ export const getOrders = (pageNumber, pageSize, searchBy, from, searchingValue, 
     }
 }
 
+export const getOrdersByUserId = (userId, pageNumber, pageSize, stype, from) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await ordersApi.getOrdersByUserId(userId, pageNumber, pageSize, stype, from)
+        dispatch([setOrdersData(response.orders), setTotalOrders(response.totalCount), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
 export const getNewOrdersCount = () => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {

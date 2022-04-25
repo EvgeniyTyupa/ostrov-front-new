@@ -9,6 +9,7 @@ import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminAddCategory from './AdminAddCategory';
 import AdminEditCategory from './AdminEditCategory';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
 
 const AdminCategories = (props) => {
     const {
@@ -51,7 +52,7 @@ const AdminCategories = (props) => {
     ]
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             {(serverResponse || serverError) && <ServerResponse/>}
             {isOpenAddModal && 
                 <AdminAddCategory
@@ -121,7 +122,7 @@ const AdminCategories = (props) => {
                     onRowsPerPageChange={handlePageSize}
                 />
             </div>
-        </div>
+        </AnimatedBlock>
     )
 }
 

@@ -10,6 +10,7 @@ import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal';
 import AdminEditTag from './AdminEditTag';
 import CustomCheckbox from '../../UI/Form/Checkbox';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
 
 const AdminTags = (props) => {
     const {
@@ -56,7 +57,7 @@ const AdminTags = (props) => {
     ]
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock className={classes.main}>
             {(serverResponse || serverError) && <ServerResponse/>}
             {isOpenAddModal && 
                 <AdminAddTag
@@ -130,7 +131,7 @@ const AdminTags = (props) => {
                     onRowsPerPageChange={handlePageSize}
                 />
             </div>
-        </div>
+        </AnimatedBlock>
     )
 }
 

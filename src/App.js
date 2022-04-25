@@ -21,7 +21,7 @@ import ItemContainer from './Pages/Item/ItemContainer';
 import NotFound from './Pages/NotFound/NofFound';
 import { connect } from 'react-redux';
 import LoginModal from './Components/Auth/LoginModal';
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { me, setIsBlocked } from './Redux/userReducer';
 
 import Contacts from './Pages/Contacts/Contacts';
@@ -58,6 +58,9 @@ import AdminSettings from './Components/Admin/Settings/AdminSettings';
 import AdminOrdersContainer from './Components/Admin/Orders/AdminOrdersContainer';
 import SomeInfoModal from './Components/Modals/SomeInfoModal/SomeInfoModal';
 import MyOrdersContainer from './Components/Profile/MyOrders/MyOrdersContainer';
+import { AnimatePresence } from 'framer-motion';
+import TransitionRoutes from './Components/Animation/TransitionRoutes';
+import Preloader from './Components/Common/Preloader/Preloader';
 
 const App = (props) => {
   const { 
@@ -173,51 +176,9 @@ const App = (props) => {
               {isOpenForgotPassModal && <ForgotPassModal/>}
               {addToCartResult && <ShoppingCartResult/>}
               {isBlocked && <SomeInfoModal text={serverMessage} onClose={() => setIsBlocked(false)}/>}
-              <Routes>
-                <Route path="/sign_up" element={<Signup/>}/>
-                <Route path="/activate/:hash" element={<ActivateContainer/>}/>
-                <Route path="/reset_pass/:hash" element={<ResetPasswordContainer/>}/>
-
-                <Route path="/" element={<HomeContainer />} />
-                <Route exact path="/item/:name" element={<ItemContainer/>}/>
-                <Route exact path="/contacts" element={<Contacts/>}/>
-                <Route exact path="/catalog" element={<CatalogContainer/>}/>
-                <Route exact path="/blog" element={<NewsContainer/>}/>
-                <Route exact path="/blog/:title" element={<PostContainer/>}/>
-                <Route exact path="/actions" element={<ActionsContainer/>}/>
-                <Route exact path="/actions/:title" element={<ActionContainer/>} />
-                <Route exact path="/delivery_and_shipping" element={<DeliveryAndShipping/>} />
-                <Route exact path="/confidentiality" element={<Conf/>} />
-                <Route exact path="/rules" element={<Rules/>} />
-
-                <Route exact path="/shopping_cart" element={<ShoppingCartContainer/>}/>
-                <Route exact path="/checkout" element={<CheckoutContainer/>}/>
-
-                <Route exact path="profile" element={<ProfilePage/>}>
-                  <Route exact path="" element={<AccountContainer/>}/>
-                  <Route exact path="liked_items" element={<LikedItems/>}/>
-                  <Route exact path="my_orders" element={<MyOrdersContainer/>}/>
-                  <Route exact path="viewed_items" element={<ViewedItems/>}/>
-                  <Route exact path="settings" element={<Settings/>}/>
-                </Route>
-
-                <Route path="/admin_login" element={<AdminLogin />} />
-
-                <Route path="admin" element={<AdminRoute/>}>
-                  <Route path="" element={<DashboardContainer/>} />
-                  <Route path="items" element={<AdminItemsContainer/>} />
-                  <Route path="tags" element={<AdminTagsContainer/>} />
-                  <Route path="brands" element={<AdminBrandsContainer/>} />
-                  <Route path="categories" element={<AdminCategoriesContainer/>} />
-                  <Route path="posts" element={<AdminNewsContainer/>} />
-                  <Route path="actions" element={<AdminActionsContainer/>} />
-                  <Route path="users" element={<AdminUsersContainer/>} />
-                  <Route path="orders" element={<AdminOrdersContainer/>} />
-                  <Route path="settings" element={<AdminSettings/>} />
-                </Route>
-
-                <Route path='*' element={<NotFound />} />
-              </Routes>
+              <Suspense fallback={<Preloader/>}>
+                <TransitionRoutes/>
+              </Suspense>
               <StarOne/>
               <StarTwo/>
               <div className='footer'>

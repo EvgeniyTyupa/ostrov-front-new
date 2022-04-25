@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { useProfileMenu } from '../../../Hooks/useProfileMenu'
 import { logout } from '../../../Redux/userReducer'
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 import MaxWidthContainer from '../Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../Container/PaddingContainer/PaddingContainer'
 import classes from './ProfileLayout.module.css'
@@ -19,7 +20,13 @@ const ProfileLayout = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
-                <div className={classes.menu}>
+                <AnimatedBlock 
+                    className={classes.menu}
+                    initial={{opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    duration={.3}
+                >
                     {menuItems.map(el => (
                         <NavLink 
                             key={el.href}
@@ -30,7 +37,7 @@ const ProfileLayout = (props) => {
                             {el.text}
                         </NavLink>
                     ))}
-                </div>
+                </AnimatedBlock>
                 <div className={classes.content}>
                     <div className={classes.header}>
                         <h4>{title}</h4>

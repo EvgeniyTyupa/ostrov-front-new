@@ -3,6 +3,7 @@ import classes from './OverflowLayout.module.css'
 
 import Aos from 'aos'
 import 'aos/dist/aos.css'
+import AnimateFade from '../../Animation/AnimateFade/AnimateFade'
 
 const OverflowLayout = (props) => {
     const { zIndex = 10, children } = props
@@ -11,16 +12,16 @@ const OverflowLayout = (props) => {
         Aos.init({duration: 1000})
     }, [])
 
-    useEffect(() => {
-        document.body.style.overflow = 'hidden'
+    // useEffect(() => {
+    //     document.body.style.overflow = 'hidden'
 
-        return () => document.body.style.overflow = 'unset'
-    }, [])
+    //     return () => document.body.style.overflow = 'unset'
+    // }, [])
 
     return (
-        <div className={classes.main} style={{ zIndex: zIndex }} data-aos="fade" data-aos-duration="300">
+        <AnimateFade className={classes.main} zIndex={zIndex} key="preloader">
             {children}            
-        </div>
+        </AnimateFade>
     )
 }
 

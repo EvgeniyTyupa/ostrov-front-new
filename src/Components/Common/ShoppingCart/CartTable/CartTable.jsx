@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { discountParser } from '../../../../Utils/discountParser'
 import { priceParser } from '../../../../Utils/priceParser'
+import AnimatedBlock from '../../../Animation/AnimatedBlock/AnimatedBlock'
+import AnimateFade from '../../../Animation/AnimateFade/AnimateFade'
 import ItemCounter from '../../../UI/ItemCounter/ItemCounter'
 import classes from './CartTable.module.css'
 
@@ -67,7 +69,14 @@ const CartTable = (props) => {
     const { t } = useTranslation()
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock 
+            className={classes.main} 
+            key={type}
+            initial={{opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            duration={.3}
+        >
             <TableContainer>
                 <Table classes={material}>
                     <TableHead>
@@ -192,7 +201,7 @@ const CartTable = (props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </div>
+        </AnimatedBlock>
     )
 }
 

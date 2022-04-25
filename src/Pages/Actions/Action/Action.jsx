@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs'
 import DateCountdown from '../../../Components/Common/DateCountdown/DateCountdown'
 import SmallItemsList from '../../../Components/Common/Items/SmallItemsList/SmallItemsList'
@@ -25,7 +26,7 @@ const Action = (props) => {
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
                 <Breadcrumbs items={breadcrumbsItems} active={currentLanguage === "ru" ? action.title : action.title_ua}/>
-                <div className={classes.content}>
+                <AnimatedBlock className={classes.content}>
                     <div className={classes.imageContainer}>
                         <img src={action.image} alt="title_image"/>
                     </div>
@@ -42,7 +43,7 @@ const Action = (props) => {
                             <DateCountdown date={action.end} currentLanguage={currentLanguage}/>
                         </div>
                     </div>
-                </div>
+                </AnimatedBlock>
                 <SmallItemsList
                     items={action.items}
                     title={t("event.items")}

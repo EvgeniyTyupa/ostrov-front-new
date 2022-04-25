@@ -15,6 +15,7 @@ import { priceParser } from '../../../Utils/priceParser'
 import classes from './Checkout.module.css'
 import { BiRightArrowAlt } from 'react-icons/bi';
 import Error from '../../../Components/UI/Form/Error/Error'
+import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock'
 
 const Checkout = (props) => {
     const {
@@ -78,7 +79,7 @@ const Checkout = (props) => {
                 {orderDone && <SomeInfoModal text={serverMessage} onClose={closeOrderDoneModal}/>}
 
                 <Breadcrumbs active={t("checkout.title")} items={breadcrumbsItems}/>
-                <div className={classes.sides}>
+                <AnimatedBlock className={classes.sides}>
                     <div className={classes.left}>
                         <CheckoutForm 
                             actionDiscount={actionDiscount} 
@@ -174,7 +175,7 @@ const Checkout = (props) => {
                             }
                         </div>
                     </div>
-                </div>
+                </AnimatedBlock>
             </MaxWidthContainer>
         </PaddingContainer>
     )
