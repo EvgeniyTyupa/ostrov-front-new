@@ -1,6 +1,7 @@
 .main {
     min-height: 60vh;
     margin-bottom: 75px;
+    z-index: 2;
 }
 .sides {
     width: 100%;

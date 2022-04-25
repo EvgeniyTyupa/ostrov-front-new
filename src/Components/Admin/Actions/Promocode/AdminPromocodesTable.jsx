@@ -6,6 +6,7 @@ import AdminDeleteModal from '../../../UI/Admin/AdminDeleteModal/AdminDeleteModa
 import EmptyData from '../../../UI/Admin/EmpyData/EmptyData'
 import AdminControllButtons from '../../../UI/Admin/Table/ControlButtons/AdminControllButtons'
 import TableTh from '../../../UI/Admin/Table/TableTh/TableTh'
+import CustomCheckbox from '../../../UI/Form/Checkbox'
 import classes from '../../AdminView.module.css'
 import AdminAddPromocode from './AdminAddPromocode'
 import AdminEditPromocode from './AdminEditPromocode'
@@ -25,6 +26,11 @@ const rows = [
         key: "discount",
         text: "Скидка",
         searchByValue: "discount"
+    },
+    {
+        key: "is_active",
+        text: "Активен",
+        searchByValue: "is_active"
     },
     {
         key: 'last',
@@ -118,6 +124,13 @@ const AdminPromocodesTable = (props) => {
                                 <TableCell>{item.name}</TableCell>
                                 <TableCell>{item.code}</TableCell>
                                 <TableCell>{item.discount.includes("%") ? item.discount : (item.discount + " грн.")}</TableCell>
+                                <TableCell>
+                                    <CustomCheckbox checked={item.is_active} 
+                                        onChange={
+                                            () => updatePromocode(item._id, { ...item, is_active: !item.is_active })
+                                        }
+                                    />
+                                </TableCell>
                                 <TableCell width={120}>
                                     <AdminControllButtons
                                         item={item}

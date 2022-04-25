@@ -3,7 +3,7 @@ import classes from '../AdminView.module.css'
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
-import { Button, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
+import { MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
 import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch'
 import { priceParser } from '../../../Utils/priceParser';
@@ -156,7 +156,7 @@ const AdminOrders = (props) => {
                                             <span>{item.receiver_info.phone}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell>{priceParser(item.total)} грн.</TableCell>
+                                    <TableCell>{priceParser(item.finaly_sum)} грн.</TableCell>
                                     <TableCell>
                                         <OrderStatusLabel status={item.status}/>
                                     </TableCell>

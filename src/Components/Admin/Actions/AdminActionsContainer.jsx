@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
 import { addAction, deleteAction, editAction, getActions, setActionsData, setNewAction, setTotalActions } from '../../../Redux/actionsReducer'
 import { getBrands } from '../../../Redux/brandsReducer'
 import { getAllCategoriesForSelect } from '../../../Redux/categoryReducer'
@@ -59,6 +60,8 @@ const AdminActionsContainer = (props) => {
     const [isActual, setIsActual] = useState(false)
 
     const [currentTab, setCurrentTab] = useState(0)
+
+    const [searchParams] = useSearchParams()
 
     const handleTab = (e, value) => {
         setCurrentTab(value)
@@ -173,6 +176,13 @@ const AdminActionsContainer = (props) => {
         getActions(pageNumber + 1, pageSize, "", "", "", isActual)
         getPromocodes(pageSize, pageNumber, "", "", "")
     }, [pageSize, pageNumber, isActual])
+
+    useEffect(() => {
+        if(searchParams.get('tab') === "promocode" && searchParams.get('search')) {
+            setCurrentTab(1)
+            setSearchValue(searchParams.get('search'))
+        }
+    }, [searchParams])
 
     return (
         <AdminLayout>

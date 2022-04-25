@@ -34,7 +34,6 @@ import ProfilePage from './Pages/Profile/Profile';
 import AccountContainer from './Components/Profile/Account/AccountContainer';
 import Settings from './Components/Profile/Settings/Settings';
 import LikedItems from './Components/Profile/LikedItems/LikedItems';
-import MyOrders from './Components/Profile/MyOrders/MyOrders';
 import ViewedItems from './Components/Profile/ViewedItems/ViewedItems';
 import Signup from './Pages/Auth/Signup/Signup';
 import StarOne from './Components/UI/Decor/StartOne/StarOne';
@@ -58,6 +57,7 @@ import AdminUsersContainer from './Components/Admin/Users/AdminUsersContainer';
 import AdminSettings from './Components/Admin/Settings/AdminSettings';
 import AdminOrdersContainer from './Components/Admin/Orders/AdminOrdersContainer';
 import SomeInfoModal from './Components/Modals/SomeInfoModal/SomeInfoModal';
+import MyOrdersContainer from './Components/Profile/MyOrders/MyOrdersContainer';
 
 const App = (props) => {
   const { 
@@ -196,7 +196,7 @@ const App = (props) => {
                 <Route exact path="profile" element={<ProfilePage/>}>
                   <Route exact path="" element={<AccountContainer/>}/>
                   <Route exact path="liked_items" element={<LikedItems/>}/>
-                  <Route exact path="my_orders" element={<MyOrders/>}/>
+                  <Route exact path="my_orders" element={<MyOrdersContainer/>}/>
                   <Route exact path="viewed_items" element={<ViewedItems/>}/>
                   <Route exact path="settings" element={<Settings/>}/>
                 </Route>

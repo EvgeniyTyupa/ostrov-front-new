@@ -143,6 +143,17 @@ const AdminOrderInfo = (props) => {
                     <label>Скидка:</label>
                     <p>{order.discount}%</p>
                 </Field>
+                {console.log(order)}
+                {order.promocode &&
+                <Field className={classes.row}>
+                    <label>Промокод:</label>
+                    <div className={classes.status}>
+                        <NavLink to={`/admin/actions?tab=promocode&search=${order.promocode.name}`}>
+                            {order.promocode.name}
+                        </NavLink>
+                        <span>- {order.promocode.discount} {order.promocode.discount.includes("%") ? "" : "грн."}</span>
+                    </div>
+                </Field>}
                 <Field className={classes.row}>
                     <label>Итого:</label>
                     <div className={classes.status}>

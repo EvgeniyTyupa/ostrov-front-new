@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import CheckoutForm from '../../../Components/Checkout/CheckoutForm'
@@ -46,6 +46,32 @@ const Checkout = (props) => {
         }
     ]
 
+    const [totalDiscount, setTotalDiscount] = useState("0")
+
+    useEffect(() => {
+        if(currentPromocode) {
+            if(currentPromocode.discount.toString().includes("%")){
+                if(actionDiscount.toString().includes("%")) {
+                    setTotalDiscount(((Number(actionDiscount.replace("%", '')) + Number(currentPromocode.discount.replace("%", '')) + userDiscount) + "%"))
+                }else {
+                    setTotalDiscount(Math.ceil((((deliveryPrice + totalSum) / 100 * (userDiscount + Number(currentPromocode.discount.replace("%", '')))) + Number(actionDiscount))))
+                }
+            }else {
+                if(actionDiscount.toString().includes("%")) {
+                    setTotalDiscount(Number(actionDiscount.replace("%", '')) + userDiscount + (Number(currentPromocode.discount) / (totalSum + deliveryPrice) * 100) + "%")
+                }else {
+                    setTotalDiscount(Math.ceil((((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount) + Number(currentPromocode.discount))))
+                }
+            }
+        }else {
+            if(actionDiscount.toString().includes("%")) {
+                setTotalDiscount(((Number(actionDiscount.replace("%", '')) + userDiscount) + "%"))
+            }else {
+                setTotalDiscount(Math.ceil((((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount))))
+            }
+        }
+    }, [currentPromocode, actionDiscount, userDiscount, deliveryPrice, totalSum])
+
     return (
         <PaddingContainer>
             <MaxWidthContainer className={classes.main}>
@@ -59,6 +85,7 @@ const Checkout = (props) => {
                             gift={gift}
                             userDiscount={userDiscount}
                             deliveryPrice={deliveryPrice}
+                            currentPromocode={currentPromocode}
                             items={items}
                         />
                     </div>
@@ -113,9 +140,7 @@ const Checkout = (props) => {
                                     <p>{priceParser(
                                         discountParser(
                                             deliveryPrice + totalSum, 
-                                            (actionDiscount.toString().includes("%")) ? 
-                                                ((Number(actionDiscount.replace("%", '')) + userDiscount) + "%")
-                                                : Math.ceil((((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)))
+                                            totalDiscount
                                         )
                                     )} 
                                     <span> грн.</span>

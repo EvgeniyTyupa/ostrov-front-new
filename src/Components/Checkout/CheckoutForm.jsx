@@ -32,7 +32,8 @@ const CheckoutForm = (props) => {
         items,
         userDiscount,
         deliveryPrice,
-        createOrderWithMailPost
+        createOrderWithMailPost,
+        currentPromocode
     } = props
 
     const { handleSubmit, reset, control, setValue } = useForm()
@@ -79,6 +80,31 @@ const CheckoutForm = (props) => {
         data.finaly_sum = actionDiscount.toString().includes("%") ?  
             Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount))) :
             Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)))
+
+
+        if(currentPromocode) {
+            if(currentPromocode.discount.toString().includes("%")){
+                if(actionDiscount.toString().includes("%")) {
+                    data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount + Number(currentPromocode.discount.replace("%", '')))))
+                }else {
+                    data.finaly_sum = Math.ceil((((deliveryPrice + totalSum) / 100 * (userDiscount + Number(currentPromocode.discount.replace("%", '')))) + Number(actionDiscount)))
+                }
+            }else {
+                if(actionDiscount.toString().includes("%")) {
+                    data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount + (Number(currentPromocode.discount) / (totalSum + deliveryPrice) * 100))))
+                }else {
+                    data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount) + Number(currentPromocode.discount)))
+                }
+            }
+        }else {
+            if(actionDiscount.toString().includes("%")) {
+                data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount)))
+            }else {
+                data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)))
+            }
+        }
+
+        data.promocode = currentPromocode._id
 
         data.receiver_info = {
             first_name: data.first_name,

@@ -67,8 +67,7 @@ export const checkPromocode = (code) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await promocodeApi.checkPromocode(code)
-        let promocode = response.promocode.length > 0 ? response.promocode[0] : null
-        dispatch([setCurrentPromocode(promocode), setReceivePromocodeStatus(true), setIsFetching(false)])
+        dispatch([setCurrentPromocode(response.promocode), setReceivePromocodeStatus(true), setIsFetching(false)])
     }catch(err) {
         dispatch([setIsFetching(false)])
     }
