@@ -127,7 +127,14 @@ const AdminPromocodesTable = (props) => {
                                 <TableCell>
                                     <CustomCheckbox checked={item.is_active} 
                                         onChange={
-                                            () => updatePromocode(item._id, { ...item, is_active: !item.is_active })
+                                            () => updatePromocode(
+                                                item._id, 
+                                                { 
+                                                    ...item, 
+                                                    is_active: !item.is_active,
+                                                    count_of_usage: 0
+                                                }
+                                            )
                                         }
                                     />
                                 </TableCell>

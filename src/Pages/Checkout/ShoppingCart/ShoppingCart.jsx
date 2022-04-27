@@ -142,7 +142,6 @@ const ShoppingCart = (props) => {
                             </div>)}
                             <div className={cx(classes.fieldCard, classes.fieldTotal)}>
                                 <span>{t("shopping_cart.total")}:</span>
-                                {console.log((Number(actionDiscount.replace("%", '')) + userDiscount + "%"))}
                                 <p>{priceParser(
                                         discountParser(
                                             totalSum, 

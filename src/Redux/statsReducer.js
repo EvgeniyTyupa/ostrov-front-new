@@ -21,10 +21,10 @@ export const setStatsData = (stats) => ({
     type: SET_STATS_DATA, stats
 })
 
-export const getStats = () => async (dispatch) => {
+export const getStats = (filterDate) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await dashboardApi.getStats()
+        let response = await dashboardApi.getStats(filterDate)
         dispatch([setStatsData(response), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))

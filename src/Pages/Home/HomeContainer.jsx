@@ -33,13 +33,12 @@ const HomeContainer = (props) => {
         viewOnMainPosts
     } = props
 
-    let slides = [...actions]
-
     const [shuffleSlides, setShuffleSlides] = useState(actions)
 
     useEffect(() => {
+        let slides = [...actions]
         setShuffleSlides(shuffle(slides.concat(viewOnMainPosts)))
-    }, [])
+    }, [actions, viewOnMainPosts])
 
 
     useEffect(() => {

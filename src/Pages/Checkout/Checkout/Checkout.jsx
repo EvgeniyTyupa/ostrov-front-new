@@ -74,7 +74,7 @@ const Checkout = (props) => {
     }, [currentPromocode, actionDiscount, userDiscount, deliveryPrice, totalSum])
 
     return (
-        <PaddingContainer>
+        <PaddingContainer className={classes.container}>
             <MaxWidthContainer className={classes.main}>
                 {orderDone && <SomeInfoModal text={serverMessage} onClose={closeOrderDoneModal}/>}
 

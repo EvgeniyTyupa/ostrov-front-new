@@ -1,11 +1,32 @@
 .main {
     width: 100%;
     display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+.date {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+.date h2 {
+    margin-right: auto;
+    color: #4B5EA3;
+}
+.date label {
+    color: #37395C;
+    font-family: 'Roboto';
+}
+.content {
+    width: 100%;
+    display: flex;
     flex-direction: column;
     row-gap: 24px;
     overflow-y: auto;
-    max-height: calc(100vh - 140px);
-    padding: 4px;
+    max-height: calc(100vh - 228px);
+    padding: 1px;
     box-sizing: border-box;
     padding-bottom: 28px;
 }
@@ -70,18 +91,29 @@
 .totalLastMonth .miniIcon {
     background-color: #E86589;
 }
+.totalEarn .miniIcon {
+    background-color: #9DC8CF;
+}
 .users .miniIcon {
     background-color: #9DC8CF;
 }
 .popular {
-    width: 100%;
+    width: 50%;
     height: 250px;
+    display: flex;
+    align-items: flex-start;
+}
+.popularSide, .otherPopular {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
 }
 .popularWrapper {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-top: 16px;
 }
 .popularItem {
     display: flex;
@@ -138,10 +170,62 @@
     opacity: .4;
 }
 .popularSection {
-    width: 60%
+    width: 100%;
+    display: flex;
+    gap: 24px;
 }
 .charts {
     width: 100%;
     display: flex;
     gap: 24px;
+}
+.otherPopular {
+    gap: 32px;
+}
+.otherPopular .item {
+    display: flex;
+    flex-direction: column;
+}
+.otherPopular .item h3 {
+    font-size: 16px;
+    color: #4B5EA2;
+    margin-top: 8px;
+}
+.promocodes {
+    width: 20%;
+}
+.promocodes h3 {
+    font-size: 16px;
+    color: black;
+    opacity: .4;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+.promocode {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.promocodeInfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.promocode p {
+    font-size: 14px;
+    color: #4B5EA2;
+    font-weight: 700;
+}
+.promocode label {
+    font-size: 14px;
+    color: #37395C;
+    font-weight: 500;
+}
+.empty {
+    color: #4B5EA2;
+    font-size: 16px;
+}
+.charts .empty {
+    margin-top: 16px;
 }

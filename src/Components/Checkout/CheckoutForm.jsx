@@ -85,9 +85,9 @@ const CheckoutForm = (props) => {
         if(currentPromocode) {
             if(currentPromocode.discount.toString().includes("%")){
                 if(actionDiscount.toString().includes("%")) {
-                    data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount + Number(currentPromocode.discount.replace("%", '')))))
+                    data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount + Number(currentPromocode.discount.replace("%", ''))))))
                 }else {
-                    data.finaly_sum = Math.ceil((((deliveryPrice + totalSum) / 100 * (userDiscount + Number(currentPromocode.discount.replace("%", '')))) + Number(actionDiscount)))
+                    data.finaly_sum = Math.ceil((deliveryPrice + totalSum) - (((deliveryPrice + totalSum) / 100 * (userDiscount + Number(currentPromocode.discount.replace("%", '')))) + Number(actionDiscount)))
                 }
             }else {
                 if(actionDiscount.toString().includes("%")) {
@@ -104,7 +104,9 @@ const CheckoutForm = (props) => {
             }
         }
 
-        data.promocode = currentPromocode._id
+        if(currentPromocode) {
+            data.promocode = currentPromocode._id
+        }
 
         data.receiver_info = {
             first_name: data.first_name,

@@ -543,8 +543,8 @@ export const promocodeApi = {
 }
 
 export const dashboardApi = {
-    getStats() {
-        return instance.get('/dashboard/stats')
+    getStats(filterDate) {
+        return instance.get(`/dashboard/stats?dateFilter=${filterDate}`)
         .then(response => response.data)
     }
 }
