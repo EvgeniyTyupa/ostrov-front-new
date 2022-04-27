@@ -40,10 +40,6 @@
     box-sizing: border-box;
 
 }
-.donat {
-    width: 40%;
-    height: 250px;
-}
 .mini {
     width: 100%;
     display: flex;
@@ -228,4 +224,11 @@
 }
 .charts .empty {
     margin-top: 16px;
+}
+.ordersBar {
+    width: 60%;
+}
+.donat {
+    width: 40%;
+    height: 250px;
 }

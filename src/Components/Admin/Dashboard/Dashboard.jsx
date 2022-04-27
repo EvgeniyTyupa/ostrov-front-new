@@ -15,6 +15,7 @@ const Dashboard = (props) => {
         donatChartInfo,
         stats,
         dateValue,
+        ordersBar,
         handleFilterDate
     } = props
 
@@ -27,22 +28,13 @@ const Dashboard = (props) => {
                     <MenuItem value="all">За все время</MenuItem>
                     <MenuItem value="year">За текущий год</MenuItem>
                     <MenuItem value="3 month">За последние 3 месяца</MenuItem>
-                    <MenuItem value="current month">За за текущий месяц</MenuItem>
+                    <MenuItem value="current month">За текущий месяц</MenuItem>
                     <MenuItem value="current week">За текущую неделю</MenuItem>
                     <MenuItem value="today">За сегодня</MenuItem>
                 </CustomSelect>
             </div>
             <div className={classes.content}>
                 <div className={classes.mini}>
-                    <div className={cx(classes.card, classes.total)}>
-                        <div className={classes.miniSide}>
-                            <p className={classes.titleLabel}>Общие поступления</p>
-                            <h3 className={classes.value}>{priceParser(stats.startTotal)} грн.</h3>
-                        </div>
-                        <div className={classes.miniIcon}>
-                            <MdOutlineAttachMoney/>
-                        </div>
-                    </div>
                     <div className={cx(classes.card, classes.totalEarn)}>
                         <div className={classes.miniSide}>
                             <p className={classes.titleLabel}>Всего заработано</p>
@@ -61,15 +53,15 @@ const Dashboard = (props) => {
                             <MdOutlineAttachMoney/>
                         </div>
                     </div>
-                    {/* <div className={cx(classes.card, classes.users)}>
+                    <div className={cx(classes.card, classes.users)}>
                         <div className={classes.miniSide}>
-                            <p className={classes.titleLabel}>Всего пользователей</p>
+                            <p className={classes.titleLabel}>Новых пользователей</p>
                             <h3 className={classes.value}>{stats.users.length}</h3>
                         </div>
                         <div className={classes.miniIcon}>
                             <HiUsers/>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
                 <div className={classes.charts}>
                     <div className={cx(classes.card, classes.donat)}>
@@ -86,6 +78,14 @@ const Dashboard = (props) => {
                             <h3 className={classes.empty}>Данные отсутствуют.</h3>
                         </div>
                         }
+                    </div>
+                    <div className={cx(classes.card, classes.ordersBar)}>
+                        <Chart
+                            // type="bar"
+                            options={ordersBar.options}
+                            series={ordersBar.series}
+                            height="100%"
+                        />
                     </div>
                 </div>
                 <div className={classes.popularSection}>

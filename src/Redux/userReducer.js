@@ -118,6 +118,7 @@ export const login = (data) => async (dispatch) => {
             dispatch([setServerMessage(response.message), setIsBlocked(true), setIsFetching(false)])
         }else {
             localStorage.usertoken = response.token
+            localStorage.refreshToken = response.refreshToken
             dispatch([setIsAuth(true), setServerError(null), setIsFetching(false), setIsOpenLogin(false)])
         }
     }catch(err) {
@@ -164,6 +165,7 @@ export const me = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
     dispatch(setIsFetching(true))
     localStorage.usertoken = ""
+    localStorage.refreshToken = ""
     dispatch([setIsAuth(false), setUserData(null), setIsFetching(false)])
 }
 
@@ -225,6 +227,7 @@ export const validateResetHash = (hash) => async (dispatch) => {
     try {
         let response = await userApi.validateResetHash(hash)
         localStorage.usertoken = response.token
+        localStorage.refreshToken = response.refreshToken
         dispatch([setIsAuth(true), setIsValidResetHash(true)])
     }catch(err) {
         dispatch([setIsValidResetHash(false)])

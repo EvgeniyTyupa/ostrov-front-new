@@ -12,9 +12,40 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     config => {
-        config.headers.authorization = `Bearer ${localStorage.usertoken}`;
+        const token = localStorage.usertoken;
+        if (token) {
+            config.headers.authorization = `Bearer ${token}`;
+        }
         config.headers['Accept-Language'] = i18next.language;
         return config;
+    },
+    error => Promise.reject(error)
+);
+
+instance.interceptors.response.use(
+    (res) => {
+      return res;
+    },
+    async (err) => {
+        const originalConfig = err.config;
+        if (originalConfig.url !== "/auth/login" && err.response) {
+            // Access Token was expired
+            if (err.response.status === 401 && !originalConfig._retry) {
+                originalConfig._retry = true;
+                try {
+                    const rs = await instance.post("/auth/refresh_tokens", {
+                        refreshToken: localStorage.refreshToken
+                    });
+                    const { accessToken, refreshToken } = rs.data;
+                    localStorage.usertoken = accessToken
+                    localStorage.refreshToken = refreshToken
+                    return instance(originalConfig);
+                } catch (_error) {
+                    return Promise.reject(_error);
+                }
+            }
+        }
+        return Promise.reject(err);
     }
 );
 
@@ -53,6 +84,10 @@ export const userApi = {
     },
     validateResetHash(hash) {
         return instance.post('/auth/validate_reset_hash', { hash })
+        .then(response => response.data)
+    },
+    refreshTokens(refreshToken) {
+        return instance.post('/auth/refresh_tokens', { refreshToken })
         .then(response => response.data)
     },
     getUsers(pageNumber, pageSize, searchBy, from, searchingValue){
