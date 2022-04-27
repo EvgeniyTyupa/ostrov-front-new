@@ -80,19 +80,25 @@ const Item = (props) => {
                                             onClick={() => setCurrentImage(el)}
                                         />
                                     ))}
+                                    {item.video_link &&
+                                        <div className={classes.smallVideoContainer}>
+                                            <div className={classes.videoShield}/>
+                                            <iframe src={`${item.video_link}?disablekb=1`} frameborder="0"></iframe>
+                                        </div>
+                                    }
                                 </CustomVerticalSlider>
                             </div>
                             <AnimatePresence exitBeforeEnter>
                                 <motion.div
                                     variants={{
-                                        initial: { opacity: 0.5, y: -50 },
-                                        animate: { opacity: 1, x: 0, y: 0 },
-                                        exit: { opacity: 0, x: 100 }
+                                        initial: { opacity: 0, transform: "scale(.8)"},
+                                        animate: { opacity: 1, transform: "scale(1)"},
+                                        exit: { opacity: 0, transform: "scale(.5)" }
                                     }}
                                     initial="initial"
                                     animate="animate"
                                     exit="exit"
-                                    transition={{ duration: .5 }}
+                                    transition={{ duration: .2 }}
                                     key={currentImage}
                                 >
                                     <img src={currentImage} alt={item.name} className={classes.currentImage}/>

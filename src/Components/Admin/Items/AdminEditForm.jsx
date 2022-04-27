@@ -234,6 +234,7 @@ const AdminEditForm = (props) => {
                                 onChange={onChange}
                                 value={value}
                                 label="Видео Youtube"
+                                placeholder="https://www.youtube.com/embed/vO7pqwo5hA4"
                                 startAdornment={true}
                                 startAdornmentIcon={<BsYoutube/>}
                             />
