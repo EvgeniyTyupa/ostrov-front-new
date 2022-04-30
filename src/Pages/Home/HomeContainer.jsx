@@ -42,7 +42,6 @@ const HomeContainer = (props) => {
 
 
     useEffect(() => {
-        getMainCategoriesWithChildren()
         getViewOnMainPosts()
         getActions(1, 100, "", "", "", true)
         getItems(1, 15, "rating", -1, "")

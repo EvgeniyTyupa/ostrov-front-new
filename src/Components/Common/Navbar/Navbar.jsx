@@ -13,7 +13,8 @@ const Navbar = (props) => {
         setCurrentLanguage,
         isAuth,
         user,
-        totalItemsCart
+        totalItemsCart,
+        mainCategoriesWithChildren
     } = props
 
     const { pathname } = useLocation()
@@ -24,7 +25,7 @@ const Navbar = (props) => {
             <div className={classes.main}>
                 <NavTop currentLanguage={currentLanguage} setCurrentLanguage={setCurrentLanguage}/>
                 <NavMid isAuth={isAuth} user={user} totalItemsCart={totalItemsCart}/>
-                <NavBot/>
+                <NavBot categories={mainCategoriesWithChildren}/>
             </div>}
         </>
     )
@@ -34,7 +35,9 @@ let mapStateToProps = (state) => ({
     currentLanguage: state.common.currentLanguage,
     isAuth: state.user.isAuth,
     user: state.user.user,
-    totalItemsCart: state.cart.totalCount
+    totalItemsCart: state.cart.totalCount,
+    mainCategoriesWithChildren: state.categories.mainCategoriesWithChildren
+
 })
 
 export default connect(mapStateToProps, {

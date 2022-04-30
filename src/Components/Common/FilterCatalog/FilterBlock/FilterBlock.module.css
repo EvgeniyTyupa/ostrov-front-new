@@ -1,0 +1,18 @@
+.main {
+    width: 100%;
+}
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header h4 {
+    color: #4B5EA2;
+}
+.header svg {
+    transition-duration: .3s;
+}
+.open {
+    transform: rotate(180deg);
+}

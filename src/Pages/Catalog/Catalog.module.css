@@ -15,8 +15,22 @@
     justify-content: space-between;
     align-items: center;
 }
-.wrapper {
+.itemsContainer {
     width: 100%;
+    display: flex;
+    gap: 24px;
+}
+.filter {
+    width: 257px;
+    background-color: #ebebeb;
+    border-radius: 25px;
+    padding: 16px;
+    height: fit-content;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+.wrapper {
+    width: calc(100% - 257px);
     display: flex;
     flex-wrap: wrap;
     gap: 3%;

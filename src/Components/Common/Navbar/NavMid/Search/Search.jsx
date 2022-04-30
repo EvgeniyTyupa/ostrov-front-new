@@ -98,7 +98,7 @@ const Search = (props) => {
 
     useEffect(() => {
         if(debouncedSearchTerm && searchValue.length > 2) {
-           globalSearch(1, 25, "", "", searchValue, "popular")
+            globalSearch(1, 25, "", "", searchValue, "popular", [1, 100000], [[0, 17]], ['female', 'male', 'all'])
         }
     }, [debouncedSearchTerm])
 

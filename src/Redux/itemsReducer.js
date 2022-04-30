@@ -84,10 +84,10 @@ export const getViewedItems = (ids) => async (dispatch) => {
     }
 }
 
-export const globalSearchCatalog = (pageNumber, pageSize, searchBy, from, searchValue, filter) => async (dispatch) => {
+export const globalSearchCatalog = (pageNumber, pageSize, searchBy, from, searchValue, filter, priceRange, ageRange, gender) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await itemsApi.globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter)
+        let response = await itemsApi.globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter, priceRange, ageRange, gender)
         dispatch([
             setItemsData(response.items),
             setTotalData(response.total), 
@@ -98,10 +98,10 @@ export const globalSearchCatalog = (pageNumber, pageSize, searchBy, from, search
     }
 }
 
-export const globalSearch = (pageNumber, pageSize, searchBy, from, searchValue, filter) => async (dispatch) => {
+export const globalSearch = (pageNumber, pageSize, searchBy, from, searchValue, filter, priceRange, ageRange, gender) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await itemsApi.globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter)
+        let response = await itemsApi.globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter, priceRange, ageRange, gender)
         dispatch([
             setSearchingItems(response.items), 
             setSearchingBrands(response.brands),
@@ -115,10 +115,10 @@ export const globalSearch = (pageNumber, pageSize, searchBy, from, searchValue, 
     }
 }
 
-export const selectItems = (pageNumber, pageSize, filter, from, minAge, maxAge, minPrice, maxPrice, tag) => async (dispatch) => {
+export const selectItems = (pageNumber, pageSize, filter, from, tag, priceRange, ageRange, gender) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await itemsApi.selectItems(pageNumber, pageSize, filter, from, minAge, maxAge, minPrice, maxPrice, tag)
+        let response = await itemsApi.selectItems(pageNumber, pageSize, filter, from, tag, priceRange, ageRange, gender)
         dispatch([setItemsData(response.items), setTotalData(response.total), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
@@ -175,10 +175,10 @@ export const deleteItem = (itemId) => async (dispatch) => {
     }
 }
 
-export const getByBrandCategoryTag = (pageNumber, pageSize, searchBy, from, searchingValue, filter) => async (dispatch) => {
+export const getByBrandCategoryTag = (pageNumber, pageSize, searchBy, from, searchingValue, filter, priceRange, ageRange, gender) => async (dispatch) => {
     dispatch(setIsFetching(true));
     try{
-        let items = await itemsApi.getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue, filter)
+        let items = await itemsApi.getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue, filter, priceRange, ageRange, gender)
         dispatch([setItemsData(items.items), setTotalData(items.total), setIsFetching(false)])
     }catch(err){
         dispatch(setIsFetching(false));

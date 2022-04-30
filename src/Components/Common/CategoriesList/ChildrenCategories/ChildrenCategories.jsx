@@ -1,4 +1,5 @@
 import React from 'react'
+import AnimatedBlock from '../../../Animation/AnimatedBlock/AnimatedBlock'
 import classes from './ChildrenCategories.module.css'
 
 const ChildrenCategories = (props) => {
@@ -22,9 +23,16 @@ const ChildrenCategories = (props) => {
     }
 
     return (
-        <div className={classes.main}>
+        <AnimatedBlock 
+            className={classes.main}
+            initial={{ opacity: 0, x: -200 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            duration={1.3}
+            type={"spring"}
+        >
             {renderChild(category)}
-        </div>
+        </AnimatedBlock>
     )
 }
 

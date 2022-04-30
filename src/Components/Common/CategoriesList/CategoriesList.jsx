@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 import classes from './CategoriesList.module.css'
 import ChildrenCategories from './ChildrenCategories/ChildrenCategories'
 
@@ -35,13 +36,19 @@ const CategoriesList = (props) => {
                 ))}
             </ul>
             {(currentCategory && currentCategory.children.length > 0) && 
-                <div className={classes.childs}>
+                <AnimatedBlock 
+                    className={classes.childs}
+                    initial={{ height: 0 }}
+                    animate={{ height: "100%" }}
+                    exit={{ height: 0 }}
+                    duration={.8}
+                >
                     <ChildrenCategories 
                         category={currentCategory}
                         currentLanguage={currentLanguage}
                         onClick={onClick}
                     />
-                </div>
+                </AnimatedBlock>
             }
         </div>
     )

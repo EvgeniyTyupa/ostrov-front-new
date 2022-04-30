@@ -43,7 +43,7 @@
     height: 456px;
 }
 .smallVideoContainer {
-    width: 111px;
+    width: 109px !important;
     height: 103px;
     position: relative;
     display: flex;
@@ -87,11 +87,20 @@
     opacity: 1;
     border: 1px solid #4B5EA2;
 }
-.currentImage {
+.currentImageBlock {
     width: calc(100% - 110px);
     height: 456px;
-    object-fit: cover;
     margin-left: 25px;
+}
+.currentImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    
+}
+.currentVideo {
+    width: 100%;
+    height: 456px;
 }
 
 /* INFO */

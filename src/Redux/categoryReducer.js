@@ -8,6 +8,7 @@ const SET_ALL_CATEGORIES = 'SET_ALL_CATEGORIES'
 const SET_CATEGORIES_WITH_PARENTS = 'SET_CATEGORIES_WITH_PARENTS'
 const SET_MAIN_CATEGORIES = 'SET_MAIN_CATEGORIES'
 const SET_SEARCHING_CATEGORIES = 'SET_SEARCHING_CATEGORIES'
+const SET_CATEGORIES_FILTER = 'SET_CATEGORIES_FILTER'
 
 let initialState = {
     categories: [],
@@ -16,6 +17,7 @@ let initialState = {
     categoriesWithParents: [],
     mainCategoriesWithChildren: [],
     searchingCategories: [],
+    filterCategories: [],
     total: 0
 }
 
@@ -42,6 +44,9 @@ const categoryReducer = (state = initialState, action) => {
         case SET_SEARCHING_CATEGORIES: {
             return { ...state, searchingCategories: action.searchingCategories }
         }
+        case SET_CATEGORIES_FILTER: {
+            return { ...state, filterCategories: action.filterCategories }
+        }
         default:
             return state
     }
@@ -67,6 +72,9 @@ export const setMainCategoriesWithChildren = (mainCategoriesWithChildren) => ({
 })
 export const setSearchingCategories = (searchingCategories) => ({
     type: SET_SEARCHING_CATEGORIES, searchingCategories
+})
+export const setFilterCategories = (filterCategories) => ({
+    type: SET_CATEGORIES_FILTER, filterCategories
 })
 
 export const getAllCategories = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
@@ -104,6 +112,16 @@ export const getMainCategoriesWithChildren = () => async (dispatch) => {
     try {
         let response = await categoryApi.getMainCategoriesWithChildren()
         dispatch([setMainCategoriesWithChildren(response.categories), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getFilterChildrenCategories = (categoryId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await categoryApi.getFilterChildrenCategory(categoryId)
+        dispatch([setFilterCategories(response.categories), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

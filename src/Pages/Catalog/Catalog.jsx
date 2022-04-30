@@ -10,6 +10,7 @@ import CustomSelect from '../../Components/UI/Form/Select'
 import { useSortableFields } from '../../Hooks/useSortableFields'
 import { MenuItem } from '@mui/material'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
+import FilterCatalog from '../../Components/Common/FilterCatalog/FilterCatalog'
 
 const Catalog = (props) => {
     const { 
@@ -22,7 +23,15 @@ const Catalog = (props) => {
         setPageNumber,
         total,
         filter,
-        setFilter
+        setFilter,
+        filterCategories,
+        priceRange,
+        setPriceRange,
+        ageRange,
+        setAgeRange,
+        gender,
+        setGender,
+        applyFilter
     } = props
 
     const { t } = useTranslation()
@@ -43,9 +52,23 @@ const Catalog = (props) => {
                         </CustomSelect>
                     </div>
                 </AnimatedBlock>
-                <AnimatedBlock className={classes.wrapper}>
-                    {items.map(el => <SmallItem key={el._id} item={el}/>)}
-                    {items.length === 0 && <p className={classes.empty}>{t("catalog.empty")} 🥲</p>}
+                <AnimatedBlock className={classes.itemsContainer}>
+                    <div className={classes.filter}>
+                        <FilterCatalog
+                            categories={filterCategories}
+                            priceRange={priceRange}
+                            setPriceRange={setPriceRange}
+                            ageRange={ageRange}
+                            setAgeRange={setAgeRange}
+                            gender={gender}
+                            setGender={setGender}
+                            applyFilter={applyFilter}
+                        />
+                    </div>
+                    <div className={classes.wrapper}>
+                        {items.map(el => <SmallItem key={el._id} item={el}/>)}
+                        {items.length === 0 && <p className={classes.empty}>{t("catalog.empty")} 🥲</p>}
+                    </div>
                 </AnimatedBlock>
                 {items.length > 0 &&
                     <CustomPagination

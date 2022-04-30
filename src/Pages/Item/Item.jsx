@@ -81,7 +81,7 @@ const Item = (props) => {
                                         />
                                     ))}
                                     {item.video_link &&
-                                        <div className={classes.smallVideoContainer}>
+                                        <div className={classes.smallVideoContainer} onClick={() => setCurrentImage(item.video_link)}>
                                             <div className={classes.videoShield}/>
                                             <iframe src={`${item.video_link}?disablekb=1`} frameborder="0"></iframe>
                                         </div>
@@ -99,9 +99,14 @@ const Item = (props) => {
                                     animate="animate"
                                     exit="exit"
                                     transition={{ duration: .2 }}
+                                    className={classes.currentImageBlock}
                                     key={currentImage}
                                 >
-                                    <img src={currentImage} alt={item.name} className={classes.currentImage}/>
+                                    {(currentImage && currentImage.includes("https://www.youtube.com/embed")) ?
+                                        <iframe src={`${currentImage}?disablekb=1`} allow="fullscreen" frameborder="0" className={classes.currentVideo}></iframe>
+                                        :
+                                        <img src={currentImage} alt={item.name} className={classes.currentImage}/>
+                                    }
                                 </motion.div>
                             </AnimatePresence>
                         </div>

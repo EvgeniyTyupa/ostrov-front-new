@@ -1,0 +1,72 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 240px;
+    width: 100%;
+}
+.content p {
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: 100%; 
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 14px;
+}
+.content p::first-letter {
+    text-transform: capitalize;
+}
+.content p:hover {
+    color: #E86589;
+}
+.content span {
+    font-family: 'Montserrat' !important;
+    font-size: 14px;
+}
+.ageFilter {
+    gap: 0;
+}
+.priceFields {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+.range {
+    display: flex;
+    justify-content: center;
+}
+.range span span {
+    background-color: #E86589 !important;
+    color: #E86589 !important
+}
+.range span span span span {
+    color: white !important
+}
+.range > span {
+    width: 89%;
+}
+.priceFields div {
+    height: 40px !important;
+}
+.priceFields input {
+    font-family: "Montserrat" !important;
+    font-size: 14px;
+}
+.searchBut {
+    margin-top: 12px;
+    height: 40px !important;
+    text-transform: initial !important;
+    background-color: #4B5EA2;
+    color: white !important;
+    font-family: 700 !important;
+    font-family: 'Montserrat' !important;
+}
+.searchBut:hover {
+    background-color: #42528d !important;
+}

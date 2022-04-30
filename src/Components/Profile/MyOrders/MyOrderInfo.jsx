@@ -21,7 +21,7 @@ const MyOrderInfo = (props) => {
             <div className={classes.main}>
                 <h4>{t("profile.orders.info.receiverTitle")}</h4>
                 <Field className={classes.row}>
-                    <label>{t("profile.orders.info.receiverTitle")}:</label>
+                    <label>{t("profile.orders.info.receiverName")}:</label>
                     <p>{order.receiver_info.first_name} {order.receiver_info.last_name}</p>
                 </Field>
                 <Field className={cx(classes.row, classes.email)}>

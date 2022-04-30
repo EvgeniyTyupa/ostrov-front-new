@@ -5,6 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
 }
 .container {
     display: flex;
@@ -16,6 +17,7 @@
     display: flex;
     align-items: center;
     color: white;
+    position: relative;
 }
 .catalogContainer p {
     font-weight: 700;
@@ -36,4 +38,23 @@
     text-decoration: none;
     text-transform: uppercase;
     transition-duration: .3s;
+}
+.handle {
+    cursor: pointer;
+    transition-duration: .3s;
+    height: 100%;
+}
+.handle svg, .handle p {
+    transition-duration: .3s;
+}
+.handle:hover p {
+    transform: scale(1.05);
+}
+.handle:hover svg {
+    transform: scale(1.2);
+}
+.catalogMenu {
+    position: absolute;
+    top: 35px;
+    z-index: 8;
 }

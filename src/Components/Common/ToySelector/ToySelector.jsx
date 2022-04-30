@@ -2,54 +2,12 @@ import React, { useEffect, useState } from 'react'
 import classes from './ToySelector.module.css'
 import children_img from '../../../Assets/children.jpg'
 import { useTranslation } from 'react-i18next'
-import Slider from '@mui/material/Slider';
 import { Autocomplete, Button, MenuItem, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useForm, Controller } from 'react-hook-form'
 import { makeStyles } from '@mui/styles'
 import { useChildAge } from '../../../Hooks/useChildAge';
 import { useNavigate } from 'react-router-dom';
-
-const PrettoSlider = styled(Slider)({
-    color: '#9DC8CF',
-    height: 3,
-    width: "98%",
-    margin: "auto",
-    '& .MuiSlider-track': {
-      border: 'none',
-    },
-    '& .MuiSlider-thumb': {
-      height: 24,
-      width: 24,
-      backgroundColor: '#E86589',
-      border: '6px solid currentColor',
-      '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
-        boxShadow: 'inherit',
-      },
-      '&:before': {
-        display: 'none',
-      },
-    },
-    '& .MuiSlider-valueLabel': {
-      lineHeight: 1.2,
-      fontSize: 12,
-      background: 'unset',
-      padding: 0,
-      width: 32,
-      height: 32,
-      borderRadius: '50% 50% 50% 0',
-      backgroundColor: '#9DC8CF',
-      transformOrigin: 'bottom left',
-      transform: 'translate(50%, -100%) rotate(-45deg) scale(0)',
-      '&:before': { display: 'none' },
-      '&.MuiSlider-valueLabelOpen': {
-        transform: 'translate(50%, -100%) rotate(-45deg) scale(1)',
-      },
-      '& > *': {
-        transform: 'rotate(45deg)',
-      },
-    },
-});
+import CustomPrettoSlider from '../../UI/Form/PrettoSlider/PrettoSlider';
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -121,9 +79,6 @@ const ToySelector = (props) => {
 
     const onSubmit = (data) => {
         data.tag = data.tag._id
-
-        console.log(data)
-
         navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=selector&from=asc&minAge=${data.minAge === -1 ? 0 : data.minAge}&maxAge=${data.maxAge === -1 ? 17 : data.maxAge}&minPrice=${data.minPrice}&maxPrice=${data.maxPrice}&tag=${data.tag}`)
     }
 
@@ -181,12 +136,10 @@ const ToySelector = (props) => {
                                 )}
                             />
                         </div>
-                        <PrettoSlider
-                            getAriaLabel={() => 'Temperature range'}
+                        <CustomPrettoSlider
                             value={priceRange}
                             onChange={handlePriceRange}
-                            valueLabelDisplay="auto"
-                            max={16000}
+                            max={100000}
                         />
                     </div>
                     <h4 className={classes.blockTitle}>{t("selector.age")}</h4>

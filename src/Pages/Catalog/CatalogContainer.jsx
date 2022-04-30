@@ -6,7 +6,7 @@ import { getByBrandCategoryTag, globalSearchCatalog, selectItems, setItemsData }
 import { getTag } from '../../Redux/tagsReducer'
 import Catalog from './Catalog'
 import { setCurrentFilterItem } from '../../Redux/commonReducer'
-import { getCategoriesWithParents } from '../../Redux/categoryReducer'
+import { getCategoriesWithParents, getFilterChildrenCategories, setFilterCategories } from '../../Redux/categoryReducer'
 import { getBrand } from '../../Redux/brandsReducer'
 import { useTranslation } from 'react-i18next'
 
@@ -25,7 +25,10 @@ const CatalogContainer = (props) => {
         total,
         globalSearchCatalog,
         selectItems,
-        setItemsData
+        setItemsData,
+        getFilterChildrenCategories,
+        filterCategories,
+        setFilterCategories
     } = props
 
     const navigate = useNavigate()
@@ -44,8 +47,9 @@ const CatalogContainer = (props) => {
 
     const [searchValue, setSearchValue] = useState("")
 
-    const [ageRange, setAgeRange] = useState([0, 17])
-    const [priceRange, setPriceRange] = useState([0, 16000])
+    const [ageRange, setAgeRange] = useState([[0, 17]])
+    const [priceRange, setPriceRange] = useState([0, 100000])
+    const [gender, setGender] = useState([])
 
     const [activeBreadcrumb, setActiveBreadcrumb] = useState("")
     const [breadcrumbsItems, setBreadcrumbsItems] = useState(null)
@@ -72,6 +76,17 @@ const CatalogContainer = (props) => {
         }
     }
 
+    const applyFilter = () => {
+        if(searchBy === "name") {
+            globalSearchCatalog(pageNumber, pageSize, "", from, searchValue, filter.includes("price") ? "price" : filter, priceRange, ageRange, gender)
+            setBreadcrumbsItems(null)
+        } else if(searchBy === "selector") {
+            selectItems(pageNumber, pageSize, filter, from, searchValue === "none" ? "" : searchValue, priceRange, ageRange, gender)
+        } else {
+            getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter, priceRange, ageRange, gender)
+        }
+    }
+
     useEffect(() => {
         switch(searchBy){
             case "tags": {
@@ -80,6 +95,7 @@ const CatalogContainer = (props) => {
             }
             case "category": {
                 getCategoriesWithParents(searchValue)
+                getFilterChildrenCategories(searchValue)
                 break
             }
             case "brand": {
@@ -100,8 +116,7 @@ const CatalogContainer = (props) => {
         if(searchBy != "selector") {
             navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=${searchBy}&from=${from}&searchValue=${searchValue}&filter=${filter}`)
         }else {
-            console.log(ageRange, priceRange)
-            navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=selector&from=${from}&minAge=${ageRange[0]}&maxAge=${ageRange[1]}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}&tag=${searchValue === "none" ? "" : searchValue}`)
+            navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=selector&from=${from}&minAge=${ageRange[0][0]}&maxAge=${ageRange[0][1]}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}&tag=${searchValue === "none" ? "" : searchValue}`)
         }
     }, [searchValue, searchBy, pageNumber, pageSize, from, filter])
 
@@ -139,35 +154,31 @@ const CatalogContainer = (props) => {
         if(searchParams.get('from')) setFrom(searchParams.get('from'))
         if(searchParams.get('searchValue')) setSearchValue(searchParams.get('searchValue'))
         if(searchParams.get('tag')) setSearchValue(searchParams.get('tag'))
-        if(searchParams.get('minAge')) setAgeRange([searchParams.get('minAge'), searchParams.get('maxAge')])
-        if(searchParams.get('maxAge')) setAgeRange([searchParams.get('minAge'), searchParams.get('maxAge')])
+        if(searchParams.get('minAge')) setAgeRange([[Number(searchParams.get('minAge')), Number(searchParams.get('maxAge'))]])
+        if(searchParams.get('maxAge')) setAgeRange([[Number(searchParams.get('minAge')), Number(searchParams.get('maxAge'))]])
         if(searchParams.get('minPrice')) setPriceRange([searchParams.get('minPrice'), searchParams.get('minPrice')])
         if(searchParams.get('maxPrice')) setPriceRange([searchParams.get('minPrice'), searchParams.get('maxPrice')])
+        if(searchParams.get('gender')) {
+            let genders = searchParams.get('gender').split(',')
+            setGender(genders)
+        } 
     }, [searchParams])
 
-    // console.log(pageNumber, pageSize, searchBy, from, searchValue)
-
     useEffect(() => {
-        if(searchBy === "name") {
-            globalSearchCatalog(pageNumber, pageSize, "", from, searchValue, filter.includes("price") ? "price" : filter)
-            setBreadcrumbsItems(null)
-        } else if(searchBy === "selector") {
-            selectItems(pageNumber, pageSize, filter, from, ageRange[0], ageRange[1], priceRange[0], priceRange[1], searchValue === "none" ? "" : searchValue)
-        } else {
-            getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter)
-        }
-    }, [searchBy, searchValue, from, pageSize, pageNumber, filter])
+       applyFilter()
+    }, [searchBy, searchValue, from, pageSize, pageNumber, filter, ageRange, gender])
 
     useEffect(() => {
         return () => {
             setItemsData([])
             setCurrentFilterItem(null)
+            setFilterCategories([])
         }
     }, [])
 
     return (
         <>
-            {isFetching ? <Preloader/> :
+            {isFetching && <Preloader/>}
                 <Catalog
                     items={items}
                     activeBreadcrumb={activeBreadcrumb}
@@ -179,8 +190,16 @@ const CatalogContainer = (props) => {
                     setPageSize={handlePageSize}
                     filter={filter}
                     setFilter={handleFilter}
+                    filterCategories={filterCategories}
+                    priceRange={priceRange}
+                    setPriceRange={setPriceRange}
+                    ageRange={ageRange}
+                    setAgeRange={setAgeRange}
+                    gender={gender}
+                    setGender={setGender}
+                    applyFilter={applyFilter}
                 />
-            }
+            
         </>
     )
 }
@@ -191,7 +210,8 @@ let mapStateToProps = (state) => ({
     currentLanguage: state.common.currentLanguage,
     currentFilterItem: state.common.currentFilterItem,
     categoriesWithParents: state.categories.categoriesWithParents,
-    total: state.items.total
+    total: state.items.total,
+    filterCategories: state.categories.filterCategories
 })
 
 export default connect(mapStateToProps, {
@@ -203,5 +223,7 @@ export default connect(mapStateToProps, {
     setCurrentFilterItem,
     globalSearchCatalog,
     selectItems,
-    setItemsData
+    setItemsData,
+    getFilterChildrenCategories,
+    setFilterCategories
 })(CatalogContainer)

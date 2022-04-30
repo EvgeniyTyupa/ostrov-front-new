@@ -11,9 +11,10 @@ import { BsYoutube } from 'react-icons/bs';
 import CustomAutocomplete from '../../UI/Form/Autocomplete'
 import { Button, MenuItem } from '@mui/material'
 import CustomSelect from '../../UI/Form/Select'
-import { AGES, GENDERS } from '../../../Utils/constants'
+import { GENDERS } from '../../../Utils/constants'
 import { useEffect } from 'react'
 import DropZone from '../../Common/DropZone/DropZone'
+import { useChildAge } from '../../../Hooks/useChildAge'
 
 
 const AdminEditForm = (props) => {
@@ -21,7 +22,7 @@ const AdminEditForm = (props) => {
 
     const { handleSubmit, control, reset, setValue } = useForm()
 
-    console.log(item)
+    const ages = useChildAge()
 
     useEffect(() => {
         reset({
@@ -56,7 +57,6 @@ const AdminEditForm = (props) => {
         data.tags = data.tags.map(item => item._id)
 
         editItem(item._id, data)
-        // console.log(data)
     }
 
     const handleClose = () => {
@@ -288,18 +288,18 @@ const AdminEditForm = (props) => {
                 </Field>
                 <Field className={classes.row}>
                     <Controller
-                        name="min_age"
+                        name="gender"
                         control={control}
-                        defaultValue=""
                         rules={{ required: "Обязательное поле!" }}
+                        defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <CustomSelect
                                 onChange={onChange}
-                                value={Number(value)}
-                                label="Минимальный возраст"  
+                                value={value}
+                                label="Пол"  
                                 error={error}
                             >
-                                {AGES.map(item => <MenuItem value={item} key={item}>{item}</MenuItem>)}
+                                {GENDERS.map(item => <MenuItem value={item.value} key={item.value}>{item.text}</MenuItem>)}
                             </CustomSelect>
                         )}
                     />
@@ -310,34 +310,26 @@ const AdminEditForm = (props) => {
                         rules={{ required: "Обязательное поле!" }}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <CustomSelect
-                                onChange={onChange}
-                                value={Number(value)}
-                                label="Максимальный возраст"  
+                                onChange={(e) => {
+                                    const newValue = Number(e.target.value)
+                                    setValue('max_age', newValue)
+                                    ages.forEach(el => {
+                                        if(el.value[1] === newValue) {
+                                            setValue('min_age', el.value[0])
+                                        }
+                                    })
+                                }}
+                                value={value}
+                                label="Подходит по возрасту"  
                                 error={error}
                             >
-                                {AGES.map(item => <MenuItem value={item} key={item}>{item}</MenuItem>)}
+                                {ages.map(el => 
+                                    el.value[1] > -1 && <MenuItem key={el.text} value={el.value[1]}>{el.text}</MenuItem>
+                                )}
                             </CustomSelect>
                         )}
                     />
                 </Field>
-                
-                <Controller
-                    name="gender"
-                    control={control}
-                    rules={{ required: "Обязательное поле!" }}
-                    defaultValue=""
-                    render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <CustomSelect
-                            onChange={onChange}
-                            value={value}
-                            label="Пол"  
-                            error={error}
-                        >
-                            {GENDERS.map(item => <MenuItem value={item.value} key={item.value}>{item.text}</MenuItem>)}
-                        </CustomSelect>
-                    )}
-                />
-               
                 <Field className={classes.row}>
                     <Controller
                         name="material"

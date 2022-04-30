@@ -11,7 +11,8 @@ const AnimatedBlock = (props) => {
         initial = { opacity: 0, y: -20 },
         animate = { opacity: 1, y: 0 },
         exit = { opacity: 0, y: 100 },
-        duration = .3
+        duration = .3,
+        type = "tween"
     } = props
 
     const animations = {
@@ -27,7 +28,7 @@ const AnimatedBlock = (props) => {
             initial="initial"
             exit="exit"
             animate="animate"
-            transition={{ type: "tween", duration: duration }}
+            transition={{ type: type, duration: duration }}
             className={cx(classes.main, className)}
         >
             {children}

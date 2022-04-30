@@ -30,7 +30,9 @@ instance.interceptors.response.use(
         const originalConfig = err.config;
         if (originalConfig.url !== "/auth/login" && err.response) {
             // Access Token was expired
+            console.log(originalConfig.url,  err.response)
             if (err.response.status === 401 && !originalConfig._retry) {
+                console.log(err.response.status, originalConfig._retry)
                 originalConfig._retry = true;
                 try {
                     const rs = await instance.post("/auth/refresh_tokens", {
@@ -129,16 +131,50 @@ export const itemsApi = {
         return instance.post('/item/same', { tagsId, itemId })
         .then(response => response.data)
     },
-    getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue, filter){
-        return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filter}`)
+    getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue, filter, priceRange, ageRange, gender){
+        let parsedGender = gender.join(',')
+        let min_price = priceRange[0]
+        let max_price = priceRange[1]
+
+        let newAges = [...ageRange]
+        let min_age = []
+        let max_age = []
+        newAges.forEach(el => {
+           min_age.push(el[0])
+           max_age.push(el[1])
+        })
+       
+        return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filter}&gender=${parsedGender}&min_price=${min_price}&max_price=${max_price}&min_age=${min_age.join(',')}&max_age=${max_age.join(',')}`)
         .then(response => response.data)
     },
-    globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter) {
-        return instance.get(`/item/search/${searchValue}?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&filter=${filter}`)
+    globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter, priceRange, ageRange, gender) {       
+        let parsedGender = gender.join(',')
+        let min_price = priceRange[0]
+        let max_price = priceRange[1]
+        let newAges = [...ageRange]
+        let min_age = []
+        let max_age = []
+        newAges.forEach(el => {
+           min_age.push(el[0])
+           max_age.push(el[1])
+        })
+        
+        return instance.get(`/item/search/${searchValue}?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&filter=${filter}&gender=${parsedGender}&min_price=${min_price}&max_price=${max_price}&min_age=${min_age.join(',')}&max_age=${max_age.join(',')}`)
         .then(response => response.data)
     },
-    selectItems(pageNumber, pageSize, filter, from, minAge, maxAge, minPrice, maxPrice, tag) {
-        return instance.get(`/item/selector/search?limit=${pageSize}&count=${pageNumber}&filter=${filter}&from=${from}&minAge=${minAge}&maxAge=${maxAge}&minPrice=${minPrice}&maxPrice=${maxPrice}&tag=${tag}`)
+    selectItems(pageNumber, pageSize, filter, from, tag, priceRange, ageRange, gender) {
+        let parsedGender = gender.join(',')
+        let min_price = priceRange[0]
+        let max_price = priceRange[1]
+        let newAges = [...ageRange]
+        let min_age = []
+        let max_age = []
+        newAges.forEach(el => {
+           min_age.push(el[0])
+           max_age.push(el[1])
+        })
+
+        return instance.get(`/item/selector/search?limit=${pageSize}&count=${pageNumber}&filter=${filter}&from=${from}&tag=${tag}&gender=${parsedGender}&min_price=${min_price}&max_price=${max_price}&min_age=${min_age.join(',')}&max_age=${max_age.join(',')}`)
         .then(response => response.data)
     },
     createItem(data) {
@@ -158,10 +194,9 @@ export const itemsApi = {
             }
         }
 
-        return axios.post(`${baseURL}/item`, newFormData, {
+        return instance.post(`/item`, newFormData, {
             headers:{
                 'Content-Type' : 'multipart/form-data',
-                'Authorization' : `Bearer ${localStorage.usertoken}`
             }
         })
         .then(resposne => resposne.data);
@@ -183,10 +218,9 @@ export const itemsApi = {
             }
         }
 
-        return axios.patch(`${baseURL}/item/${itemId}`, newFormData, {
+        return instance.patch(`/item/${itemId}`, newFormData, {
             headers:{
-                'Content-Type' : 'multipart/form-data',
-                'Authorization' : `Bearer ${localStorage.usertoken}`
+                'Content-Type' : 'multipart/form-data'
             }
         })
         .then(resposne => resposne.data);
@@ -211,10 +245,9 @@ export const brandApi = {
         newFormData.append('name', data.name)
         newFormData.append('image', data.image[0], data.image[0].name)
 
-        return axios.post(`${baseURL}/brand`, newFormData, {
+        return instance.post(`/brand`, newFormData, {
             headers:{
-                'Content-Type' : 'multipart/form-data',
-                'Authorization' : `Bearer ${localStorage.usertoken}`
+                'Content-Type' : 'multipart/form-data'
             }
         })
         .then(resposne => resposne.data);
@@ -227,7 +260,7 @@ export const brandApi = {
         if(data.image) {
             newFormData.append('image', data.image[0], data.image[0].name)
         }
-        return axios.patch(`${baseURL}/brand/${brandId}`, newFormData, {
+        return instance.patch(`/brand/${brandId}`, newFormData, {
             headers:{
                 'Content-Type' : 'multipart/form-data',
                 'Authorization' : `Bearer ${localStorage.usertoken}`
@@ -256,6 +289,10 @@ export const categoryApi = {
     },
     getMainCategoriesWithChildren(){
         return instance.get('/category/main')
+        .then(response => response.data)
+    },
+    getFilterChildrenCategory(categoryId) {
+        return instance.get(`/category/children_for_filter/${categoryId}`)
         .then(response => response.data)
     },
     addCategory(data) {
@@ -329,10 +366,9 @@ export const newsApi = {
             }
         }
 
-        return axios.post(`${baseURL}/post`, newFormData, {
+        return instance.post(`/post`, newFormData, {
             headers:{
-                'Content-Type' : 'multipart/form-data',
-                'Authorization' : `Bearer ${localStorage.usertoken}`
+                'Content-Type' : 'multipart/form-data'
             }
         })
         .then(resposne => resposne.data);
@@ -366,10 +402,9 @@ export const newsApi = {
             }
         }
 
-        return axios.patch(`${baseURL}/post/${newsId}`, newFormData, {
+        return instance.patch(`/post/${newsId}`, newFormData, {
             headers:{
-                'Content-Type' : 'multipart/form-data',
-                'Authorization' : `Bearer ${localStorage.usertoken}`
+                'Content-Type' : 'multipart/form-data'
             }
         })
         .then(resposne => resposne.data);
@@ -426,10 +461,9 @@ export const actionsApi = {
             }
         }
 
-        return axios.post(`${baseURL}/action`, newFormData, {
+        return instance.post(`/action`, newFormData, {
             headers:{
-                'Content-Type' : 'multipart/form-data',
-                'Authorization' : `Bearer ${localStorage.usertoken}`
+                'Content-Type' : 'multipart/form-data'
             }
         })
         .then(resposne => resposne.data);
@@ -467,10 +501,9 @@ export const actionsApi = {
             }
         }
 
-        return axios.patch(`${baseURL}/action/${actionId}`, newFormData, {
+        return instance.patch(`/action/${actionId}`, newFormData, {
             headers:{
-                'Content-Type' : 'multipart/form-data',
-                'Authorization' : `Bearer ${localStorage.usertoken}`
+                'Content-Type' : 'multipart/form-data'
             }
         })
         .then(resposne => resposne.data);

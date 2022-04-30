@@ -24,43 +24,20 @@ import LoginModal from './Components/Auth/LoginModal';
 import { Suspense, useEffect } from 'react';
 import { me, setIsBlocked } from './Redux/userReducer';
 
-import Contacts from './Pages/Contacts/Contacts';
-import CatalogContainer from './Pages/Catalog/CatalogContainer';
-import NewsContainer from './Pages/News/NewsContainer';
-import PostContainer from './Pages/News/Post/PostContainer';
-import ActionsContainer from './Pages/Actions/ActionsContainer';
-import ActionContainer from './Pages/Actions/Action/ActionContainer';
-import ProfilePage from './Pages/Profile/Profile';
-import AccountContainer from './Components/Profile/Account/AccountContainer';
-import Settings from './Components/Profile/Settings/Settings';
-import LikedItems from './Components/Profile/LikedItems/LikedItems';
-import ViewedItems from './Components/Profile/ViewedItems/ViewedItems';
-import Signup from './Pages/Auth/Signup/Signup';
 import StarOne from './Components/UI/Decor/StartOne/StarOne';
 import StarTwo from './Components/UI/Decor/StarTwo/StarTwo';
-import ActivateContainer from './Pages/Auth/Activate/ActivateContainer';
 import ForgotPassModal from './Components/Auth/ForgotPassModal';
-import ResetPasswordContainer from './Pages/Auth/ResetPassword/ResetPasswordContainer';
 import ShoppingCartResult from './Components/Common/ShoppingCart/ShoppingCartResult/ShoppingCartResult';
 import { getCartItems, setActionDiscount, setCartItems, setGift, setTotalCount, setTotalSum } from './Redux/cartReducer';
 import { discountParser } from './Utils/discountParser';
-import ShoppingCartContainer from './Pages/Checkout/ShoppingCart/ShoppingCartContainer';
 import { getViewedItems, setViewedItems } from './Redux/itemsReducer';
 import ScrollToTop from './Components/Common/Scroll/ScrollToTop';
-import DeliveryAndShipping from './Pages/Info/DeliveryAndShipping/DeliveryAndShipping';
-import Conf from './Pages/Info/Conf/Conf';
-import Rules from './Pages/Info/Rules/Rules';
 import ScrollToHash from './Components/Common/Scroll/ScrollToHash';
-import CheckoutContainer from './Pages/Checkout/Checkout/CheckoutContainer';
 import { useCheckActionConditions } from './Hooks/useCheckActionConditions';
-import AdminUsersContainer from './Components/Admin/Users/AdminUsersContainer';
-import AdminSettings from './Components/Admin/Settings/AdminSettings';
-import AdminOrdersContainer from './Components/Admin/Orders/AdminOrdersContainer';
 import SomeInfoModal from './Components/Modals/SomeInfoModal/SomeInfoModal';
-import MyOrdersContainer from './Components/Profile/MyOrders/MyOrdersContainer';
-import { AnimatePresence } from 'framer-motion';
 import TransitionRoutes from './Components/Animation/TransitionRoutes';
 import Preloader from './Components/Common/Preloader/Preloader';
+import { getMainCategoriesWithChildren } from './Redux/categoryReducer';
 
 const App = (props) => {
   const { 
@@ -83,7 +60,8 @@ const App = (props) => {
     setGift,
     isBlocked,
     serverMessage,
-    setIsBlocked
+    setIsBlocked,
+    getMainCategoriesWithChildren
   } = props
 
   const { actionDiscount, gift } = useCheckActionConditions(cartItems, totalSumCart, totalCountCart)
@@ -164,6 +142,9 @@ const App = (props) => {
   }, [localStorage.usertoken, isAuth])
 
 
+  useEffect(() => {
+    getMainCategoriesWithChildren()
+  }, [])
 
   return (
     <Router>
@@ -216,5 +197,6 @@ export default connect(mapStateToProps, {
   getCartItems,
   setActionDiscount,
   setGift,
-  setIsBlocked
+  setIsBlocked,
+  getMainCategoriesWithChildren
 })(App);
