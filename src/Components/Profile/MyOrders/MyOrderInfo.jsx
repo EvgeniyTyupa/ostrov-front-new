@@ -72,7 +72,7 @@ const MyOrderInfo = (props) => {
                 </Field>
                 <Field className={classes.row}>
                     <label>{t("profile.orders.info.discount")}:</label>
-                    <p>{order.discount}</p>
+                    <p>{order.discount.toString().includes('%') ? order.discount : order.discount + "%"}</p>
                 </Field>
                 {order.promocode &&
                 <Field className={classes.row}>

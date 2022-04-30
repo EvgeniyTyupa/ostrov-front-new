@@ -69,30 +69,32 @@ const TransitionRoutes = (props) => {
     const [searchParams, setSearch] = useCustomSearchParams()
 
     useEffect(() => {
-        let query = ""
-        let isEmpty = false
-
-        Object.keys(searchParams).map(function(key, index) {
-            if(!searchParams[key]) {
-                isEmpty = true
+        if(!location.pathname.includes("admin")) {
+            let query = ""
+            let isEmpty = false
+    
+            Object.keys(searchParams).map(function(key, index) {
+                if(!searchParams[key]) {
+                    isEmpty = true
+                }
+            });
+            
+            Object.keys(searchParams).map(function(key, index) {
+                if(key != "lang"){
+                    query += index === 0 ? `?${key}=${searchParams[key]}` : `&${key}=${searchParams[key]}`
+                }
+            });
+    
+            if(query.length > 0) {
+                query += `&lang=${currentLanguage}`
+            }else {
+                query += `?lang=${currentLanguage}`
             }
-        });
-        
-        Object.keys(searchParams).map(function(key, index) {
-            if(key != "lang"){
-                query += index === 0 ? `?${key}=${searchParams[key]}` : `&${key}=${searchParams[key]}`
+    
+            
+            if(!isEmpty){
+                navigate(location.pathname + query)
             }
-        });
-
-        if(query.length > 0) {
-            query += `&lang=${currentLanguage}`
-        }else {
-            query += `?lang=${currentLanguage}`
-        }
-
-        
-        if(!isEmpty){
-            navigate(location.pathname + query)
         }
     }, [location.search, currentLanguage])
 

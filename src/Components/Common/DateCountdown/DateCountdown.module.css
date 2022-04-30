@@ -24,7 +24,12 @@
     font-size: 18px;
     animation: fade 1s step-start infinite;
 }
-
+.expired {
+    font-size: 14px;
+    color: #37395C;
+    font-weight: 700;
+    margin-top: 24px;
+}
 
 @keyframes fade {
     50% {

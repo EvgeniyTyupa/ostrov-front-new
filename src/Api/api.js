@@ -78,6 +78,10 @@ export const userApi = {
         return instance.post('/auth/activate', { hash })
         .then(response => response.data)
     },
+    sendActivationMail(email) {
+        return instance.post('/auth/send_activation_mail', { email })
+        .then(response => response.data)
+    },
     forgotPass(data) {
         return instance.post('/auth/forgot_pass', data)
         .then(response => response.data)

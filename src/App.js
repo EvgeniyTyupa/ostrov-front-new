@@ -1,28 +1,16 @@
 import './App.css';
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import HttpsRedirect from 'react-https-redirect';
 
-import AdminLogin from './Pages/Auth/AdminLogin/AdminLogin';
-import HomeContainer from './Pages/Home/HomeContainer';
-import DashboardContainer from './Components/Admin/Dashboard/DashboardContainer';
-import AdminItemsContainer from './Components/Admin/Items/AdminItemsContainer';
-import AdminTagsContainer from './Components/Admin/Tags/AdminTagsContainer';
-import AdminRoute from './Components/Common/AdminRoute';
-import AdminBrandsContainer from './Components/Admin/Brands/AdminBrandsContainer';
-import AdminCategoriesContainer from './Components/Admin/Categories/AdminCategoriesContainer';
-import AdminNewsContainer from './Components/Admin/News/AdminNewsContainer';
-import AdminActionsContainer from './Components/Admin/Actions/AdminActionsContainer';
 import Navbar from './Components/Common/Navbar/Navbar';
 import Footer from './Components/Common/Footer/Footer';
 
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import ItemContainer from './Pages/Item/ItemContainer';
-import NotFound from './Pages/NotFound/NofFound';
 import { connect } from 'react-redux';
 import LoginModal from './Components/Auth/LoginModal';
 import { Suspense, useEffect } from 'react';
-import { me, setIsBlocked } from './Redux/userReducer';
+import { me, setIsBlocked, setNotActivated } from './Redux/userReducer';
 
 import StarOne from './Components/UI/Decor/StartOne/StarOne';
 import StarTwo from './Components/UI/Decor/StarTwo/StarTwo';
@@ -38,6 +26,7 @@ import SomeInfoModal from './Components/Modals/SomeInfoModal/SomeInfoModal';
 import TransitionRoutes from './Components/Animation/TransitionRoutes';
 import Preloader from './Components/Common/Preloader/Preloader';
 import { getMainCategoriesWithChildren } from './Redux/categoryReducer';
+import NotActivatedModal from './Components/Modals/NotActivatedModal/NotActivatedModal';
 
 const App = (props) => {
   const { 
@@ -61,7 +50,9 @@ const App = (props) => {
     isBlocked,
     serverMessage,
     setIsBlocked,
-    getMainCategoriesWithChildren
+    getMainCategoriesWithChildren,
+    notActivated,
+    setNotActivated
   } = props
 
   const { actionDiscount, gift } = useCheckActionConditions(cartItems, totalSumCart, totalCountCart)
@@ -157,6 +148,7 @@ const App = (props) => {
               {isOpenForgotPassModal && <ForgotPassModal/>}
               {addToCartResult && <ShoppingCartResult/>}
               {isBlocked && <SomeInfoModal text={serverMessage} onClose={() => setIsBlocked(false)}/>}
+              {notActivated && <NotActivatedModal onClose={() => setNotActivated(false)}/>}
               <Suspense fallback={<Preloader/>}>
                 <TransitionRoutes/>
               </Suspense>
@@ -184,7 +176,8 @@ let mapStateToProps = (state) => ({
   cartItems: state.cart.items,
   viewedItems: state.items.viewedItems,
   isBlocked: state.user.isBlocked,
-  serverMessage: state.common.serverMessage
+  serverMessage: state.common.serverMessage,
+  notActivated: state.user.notActivated
 })
 
 export default connect(mapStateToProps, {
@@ -198,5 +191,6 @@ export default connect(mapStateToProps, {
   setActionDiscount,
   setGift,
   setIsBlocked,
-  getMainCategoriesWithChildren
+  getMainCategoriesWithChildren,
+  setNotActivated
 })(App);

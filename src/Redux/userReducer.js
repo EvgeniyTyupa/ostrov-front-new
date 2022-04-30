@@ -13,6 +13,8 @@ const SET_USERS_DATA = 'SET_USERS_DATA'
 const SET_TOTAL_USERS = 'SET_TOTAL_USERS'
 const SET_NEW_USER = 'SET_NEW_USER'
 const SET_IS_BLOCKED = 'SET_IS_BLOCKED'
+const SET_NOT_ACTIVATED = 'SET_NOT_ACTIVATED'
+const SET_EMAIL_TO_MAIL = 'SET_EMAIL_TO_MAIL'
 
 let initialState = {
     user: null,
@@ -25,6 +27,8 @@ let initialState = {
     isReceivedResetHashStatus: false,
     isValidResetHash: false,
     isBlocked: false,
+    notActivated: false,
+    emailToSendMail: "",
     users: [],
     totalUsers: 0
 }
@@ -67,6 +71,12 @@ let userReducer = (state = initialState, action) => {
         case SET_IS_BLOCKED: {
             return { ...state, isBlocked: action.isBlocked }
         }
+        case SET_NOT_ACTIVATED: {
+            return { ...state, notActivated: action.notActivated }
+        }
+        case SET_EMAIL_TO_MAIL: {
+            return { ...state, emailToSendMail: action.emailToSendMail }
+        }
         default:
             return state
     }
@@ -108,6 +118,12 @@ export const setNewUser = (newUser) => ({
 export const setIsBlocked = (isBlocked) => ({
     type: SET_IS_BLOCKED, isBlocked
 })
+export const setNotActivated = (notActivated) => ({
+    type: SET_NOT_ACTIVATED, notActivated
+})
+export const setEmailToSendMail = (emailToSendMail) => ({
+    type: SET_EMAIL_TO_MAIL, emailToSendMail
+})
 
 export const login = (data) => async (dispatch) => {
     dispatch([setIsFetching(true), setIsReceivedAuthStatus(false)])
@@ -116,6 +132,8 @@ export const login = (data) => async (dispatch) => {
 
         if(response.is_blocked) {
             dispatch([setServerMessage(response.message), setIsBlocked(true), setIsFetching(false)])
+        }else if(response.not_activated) {
+            dispatch([setNotActivated(true), setEmailToSendMail(response.email), setIsFetching(false)])
         }else {
             localStorage.usertoken = response.token
             localStorage.refreshToken = response.refreshToken
@@ -281,6 +299,16 @@ export const removeAdmin = (adminId) => async (dispatch) => {
     try {
         let response = await userApi.removeAdmin(adminId)
         dispatch([setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const sendActivationMail = (email) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.sendActivationMail(email)
+        dispatch([setServerMessage(response.message), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }
