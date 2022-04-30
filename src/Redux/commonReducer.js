@@ -18,7 +18,7 @@ let initialState = {
     serverResponse: null,
     serverMessage: null,
     serverError: null,
-    currentLanguage: "ru",
+    currentLanguage: "ua",
     isOpenLogin: false,
     isOpenRegister: false,
     currentFilterItem: null,

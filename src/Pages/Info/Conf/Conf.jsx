@@ -15,9 +15,9 @@ const Conf = (props) => {
         <PaddingContainer>
             <MaxWidthContainer className={classes.main}>
                 <Helmet 
-                    htmlAttributes={{"lang": "en", "amp": undefined}}
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
                     title={`${t("siteName")} | ${props.currentLanguage === "ru" ? "Политика конфиденциальности" : "Політика конфіденційності"}`}
-                    meta={[{"name": "description", "content": "Онлайн магазин дитячих іграшок"}]}
+                    meta={[{"name": "description", "content": t("siteDescription")}]}
                 />
                 <AnimatedBlock className={classes.body}>
                     <Breadcrumbs active={t("navigation.footer.conf")}/>

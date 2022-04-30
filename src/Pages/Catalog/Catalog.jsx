@@ -11,6 +11,7 @@ import { useSortableFields } from '../../Hooks/useSortableFields'
 import { MenuItem } from '@mui/material'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import FilterCatalog from '../../Components/Common/FilterCatalog/FilterCatalog'
+import { Helmet } from 'react-helmet'
 
 const Catalog = (props) => {
     const { 
@@ -31,7 +32,8 @@ const Catalog = (props) => {
         setAgeRange,
         gender,
         setGender,
-        applyFilter
+        applyFilter,
+        currentLanguage
     } = props
 
     const { t } = useTranslation()
@@ -42,6 +44,11 @@ const Catalog = (props) => {
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
                 <AnimatedBlock className={classes.header}>
+                    <Helmet 
+                        htmlAttributes={{"lang": "ua", "amp": undefined}}
+                        title={`${t("siteName")} | ${currentLanguage === "ru" ? "Каталог" : "Каталог"}`}
+                        meta={[{"name": "description", "content": t("siteDescription")}]}
+                    />
                     <Breadcrumbs items={breadcrumbsItems} active={activeBreadcrumb}/>
                     <div className={classes.sort}>
                         <label>{t("catalog.sort.label")}:</label>

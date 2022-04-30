@@ -26,7 +26,7 @@ const PayTab = (props) => {
                 <h4>{t("modals.payment_guarantee.tabs.payment.nine")}</h4>
                 <ol>
                     <li>{t("modals.payment_guarantee.tabs.payment.ten")}</li>
-                    <li>{t("modals.payment_guarantee.tabs.payment.eleven")} <NavLink to="/delivery">{t("modals.payment_guarantee.tabs.payment.eleven1")}</NavLink> {t("modals.payment_guarantee.tabs.payment.eleven2")}</li>
+                    <li>{t("modals.payment_guarantee.tabs.payment.eleven")} <NavLink to="/delivery">{t("modals.payment_guarantee.tabs.payment.eleven1")}</NavLink>.</li>
                     <li>{t("modals.payment_guarantee.tabs.payment.twelve")}
                         <ul>
                             <li>{t("modals.payment_guarantee.tabs.payment.thirteen")}</li>

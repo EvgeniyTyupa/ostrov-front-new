@@ -78,7 +78,7 @@ const CommentForm = (props) => {
                                 name="text"
                                 control={control}
                                 defaultValue=""
-                                rules={{ required: "Обязательное поле!" }}
+                                rules={{ required: t("errors.required") }}
                                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                                     <AdminInput
                                         onChange={onChange}

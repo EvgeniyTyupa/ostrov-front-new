@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'
 import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs'
@@ -25,6 +26,11 @@ const Action = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
+                <Helmet 
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
+                    title={`${t("siteName")} | ${currentLanguage === "ru" ? `Акция ` + action.title : `Акція ` + action.title_ua}`}
+                    meta={[{"name": "description", "content": t("siteDescription")}]}
+                />
                 <Breadcrumbs items={breadcrumbsItems} active={currentLanguage === "ru" ? action.title : action.title_ua}/>
                 <AnimatedBlock className={classes.content}>
                     <div className={classes.imageContainer}>

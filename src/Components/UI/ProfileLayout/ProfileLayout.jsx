@@ -1,5 +1,6 @@
 import { Button } from '@mui/material'
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
@@ -19,6 +20,11 @@ const ProfileLayout = (props) => {
 
     return (
         <PaddingContainer className={classes.main}>
+            <Helmet 
+                htmlAttributes={{"lang": "ua", "amp": undefined}}
+                title={`${t("siteName")} | ${t("profile.menu.account")}`}
+                meta={[{"name": "description", "content": t("siteDescription")}]}
+            />
             <MaxWidthContainer className={classes.container}>
                 <AnimatedBlock 
                     className={classes.menu}

@@ -1,8 +1,13 @@
 import { AnimatePresence } from 'framer-motion'
 import React from 'react'
+import { useEffect } from 'react'
 import { lazy } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { connect } from 'react-redux'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { useCustomSearchParams } from '../../Hooks/useCustomSearchParams'
 import AdminLogin from '../../Pages/Auth/AdminLogin/AdminLogin'
+import { setCurrentLanguage } from '../../Redux/commonReducer'
 import AdminActionsContainer from '../Admin/Actions/AdminActionsContainer'
 import AdminBrandsContainer from '../Admin/Brands/AdminBrandsContainer'
 import AdminCategoriesContainer from '../Admin/Categories/AdminCategoriesContainer'
@@ -43,8 +48,53 @@ const Settings = lazy(() => import("../../Components/Profile/Settings/Settings")
 
 const NotFound = lazy(() => import("../../Pages/NotFound/NofFound"))
 
-const TransitionRoutes = () => {
+const TransitionRoutes = (props) => {
+    const { currentLanguage, setCurrentLanguage } = props
+
+    const { t, i18n } = useTranslation()
+
     const location = useLocation()
+    const navigate = useNavigate()
+
+    const search = useLocation().search
+    const lang = new URLSearchParams(search).get('lang')
+
+    useEffect(() => {
+        if(lang === "ru" || lang === "ua"){
+            i18n.changeLanguage(lang)
+            setCurrentLanguage(lang)
+        }
+    }, [])
+
+    const [searchParams, setSearch] = useCustomSearchParams()
+
+    useEffect(() => {
+        let query = ""
+        let isEmpty = false
+
+        Object.keys(searchParams).map(function(key, index) {
+            if(!searchParams[key]) {
+                isEmpty = true
+            }
+        });
+        
+        Object.keys(searchParams).map(function(key, index) {
+            if(key != "lang"){
+                query += index === 0 ? `?${key}=${searchParams[key]}` : `&${key}=${searchParams[key]}`
+            }
+        });
+
+        if(query.length > 0) {
+            query += `&lang=${currentLanguage}`
+        }else {
+            query += `?lang=${currentLanguage}`
+        }
+
+        
+        if(!isEmpty){
+            navigate(location.pathname + query)
+        }
+    }, [location.search, currentLanguage])
 
     return (
         <AnimatePresence exitBeforeEnter>
@@ -98,4 +148,10 @@ const TransitionRoutes = () => {
     )
 }
 
-export default TransitionRoutes
+let mapStateToProps = (state) => ({
+    currentLanguage: state.common.currentLanguage
+})
+
+export default connect(mapStateToProps, {
+    setCurrentLanguage
+})(TransitionRoutes)

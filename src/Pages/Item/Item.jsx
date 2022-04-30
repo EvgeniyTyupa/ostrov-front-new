@@ -17,6 +17,7 @@ import NeedAuthModal from '../../Components/Modals/NeedAuthModal/NeedAuthModal'
 import PaymentGuaranteeModal from '../../Components/Modals/PaymentGuaranteeModal/PaymentGuaranteeModal'
 import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
+import { Helmet } from 'react-helmet'
 
 const Item = (props) => {
     const {
@@ -61,6 +62,11 @@ const Item = (props) => {
 
     return (
         <AnimatedBlock className={classes.mainContainer}>
+            <Helmet 
+                htmlAttributes={{"lang": "ua", "amp": undefined}}
+                title={`${t("siteName")} | ${currentLanguage === "ru" ? item.name : item.name_ua}`}
+                meta={[{"name": "description", "content": t("siteDescription")}]}
+            />
             {modalValue != null && <PaymentGuaranteeModal modalValue={modalValue} onClose={() => setModalValue(null)}/>}
             {isOpenNeedAuthModal && <NeedAuthModal onClose={handleOpenAuthModal}/>}
             <PaddingContainer className={classes.main}>

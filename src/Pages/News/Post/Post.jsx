@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'
 import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs'
 import PostTypeOne from '../../../Components/Common/News/Post/PostTypeOne/PostTypeOne'
@@ -22,6 +23,11 @@ const Post = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
+                <Helmet 
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
+                    title={`${t("siteName")} | ${active}`}
+                    meta={[{"name": "description", "content": t("siteDescription")}]}
+                />
                 <Breadcrumbs items={breadcrumbsItems} active={active}/>
                 {post.type === 1 && <PostTypeOne post={post} currentLanguage={currentLanguage}/>}
                 {post.type === 2 && <PostTypeTwo post={post} currentLanguage={currentLanguage}/>}

@@ -6,6 +6,7 @@ import PaddingContainer from '../../Components/UI/Container/PaddingContainer/Pad
 import classes from './Contacts.module.css'
 import { BsInstagram } from 'react-icons/bs';
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
+import { Helmet } from 'react-helmet'
 
 const Contacts = (props) => {
     const { t } = useTranslation()
@@ -13,6 +14,11 @@ const Contacts = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
+                <Helmet 
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
+                    title={`${t("siteName")} | ${t("navigation.contact")}`}
+                    meta={[{"name": "description", "content": t("siteDescription")}]}
+                />
                 <Breadcrumbs active={t("navigation.contact")}/>
                 <AnimatedBlock className={classes.header}>
                     <div className={classes.phone}>

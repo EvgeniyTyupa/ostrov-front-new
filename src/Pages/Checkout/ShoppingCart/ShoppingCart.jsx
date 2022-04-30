@@ -1,6 +1,7 @@
 import { Button, Tab, Tabs } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock'
@@ -57,7 +58,8 @@ const ShoppingCart = (props) => {
         viewedItems,
         actionDiscount,
         userDiscount,
-        gift
+        gift,
+        currentLanguage
     } = props
 
     const { t } = useTranslation()
@@ -88,6 +90,11 @@ const ShoppingCart = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
+                <Helmet 
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
+                    title={`${t("siteName")} | ${currentLanguage === "ru" ? "Корзина" : "Кошик"}`}
+                    meta={[{"name": "description", "content": t("siteDescription")}]}
+                />
                 <Breadcrumbs active={t("shopping_cart.cart")}/> 
                 <AnimatedBlock 
                     exit={{ opacity: 0, y: 100, transition: { duration: .5 } }}

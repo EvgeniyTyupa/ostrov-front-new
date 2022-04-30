@@ -105,7 +105,7 @@ const ToySelector = (props) => {
                                 name="minPrice"
                                 control={control}
                                 defaultValue=""
-                                rules={{ required: "Обязательное поле!" }}
+                                rules={{ required: t("errors.required") }}
                                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                                     <TextField
                                         onChange={(e) => {
@@ -122,7 +122,7 @@ const ToySelector = (props) => {
                                 name="maxPrice"
                                 control={control}
                                 defaultValue=""
-                                rules={{ required: "Обязательное поле!" }}
+                                rules={{ required: t("errors.required") }}
                                 render={({ field: { onChange, value }, fieldState: { error } }) => (
                                     <TextField
                                         onChange={(e) => {

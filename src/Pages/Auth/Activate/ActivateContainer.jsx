@@ -9,7 +9,8 @@ const ActivateContainer = (props) => {
     const { 
         activateProfile,
         isValidActivationHash,
-        isReceivedHashStatus
+        isReceivedHashStatus,
+        currentLanguage
     } = props
 
     const { hash } = useParams()
@@ -22,7 +23,7 @@ const ActivateContainer = (props) => {
         <>
             {!isReceivedHashStatus ? <Preloader/> :
                <>
-                    {isValidActivationHash ? <Activate/> :
+                    {isValidActivationHash ? <Activate currentLanguage={currentLanguage}/> :
                         <Navigate to="/"/>
                     }
                </> 
@@ -34,7 +35,8 @@ const ActivateContainer = (props) => {
 let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
     isValidActivationHash: state.user.isValidActivationHash,
-    isReceivedHashStatus: state.user.isReceivedHashStatus
+    isReceivedHashStatus: state.user.isReceivedHashStatus,
+    currentLanguage: state.common.currentLanguage
 })
 
 export default connect(mapStateToProps, {

@@ -18,6 +18,7 @@ import Preloader from '../../../Components/Common/Preloader/Preloader'
 import Error from '../../../Components/UI/Form/Error/Error'
 import { setIsRegisterDone, setServerError, setServerMessage } from '../../../Redux/commonReducer'
 import SomeInfoModal from '../../../Components/Modals/SomeInfoModal/SomeInfoModal'
+import { Helmet } from 'react-helmet'
 
 const Signup = (props) => {
     const { 
@@ -28,7 +29,8 @@ const Signup = (props) => {
         setIsRegisterDone,
         setServerError,
         serverMessage,
-        setServerMessage
+        setServerMessage,
+        currentLanguage
     } = props
 
     const { handleSubmit, control, watch } = useForm()
@@ -55,6 +57,11 @@ const Signup = (props) => {
 
     return (
         <div className={classes.container}>
+            <Helmet 
+                htmlAttributes={{"lang": "ua", "amp": undefined}}
+                title={`${t("siteName")} | ${currentLanguage === "ru" ? "Регистрация" : "Реєстрація"}`}
+                meta={[{"name": "description", "content": t("siteDescription")}]}
+            />
             {isFetching && <Preloader/>}
             {serverMessage && <SomeInfoModal text={serverMessage} onClose={onCloseInfoModal}/>}
             <div className={classes.main}>
@@ -156,7 +163,8 @@ let mapStateToProps = (state) => ({
     isFetching: state.common.isFetching,
     serverError: state.common.serverError,
     serverMessage: state.common.serverMessage,
-    isRegisterDone: state.common.isRegisterDone
+    isRegisterDone: state.common.isRegisterDone,
+    currentLanguage: state.common.currentLanguage
 })
 
 export default connect(mapStateToProps, {

@@ -15,6 +15,7 @@ import sun_img from '../../Assets/sun.svg'
 import { shuffle } from '../../Utils/shuffle'
 import MainSlide from '../../Components/Common/MainSlide/MainSlide'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
+import { Helmet } from 'react-helmet'
 
 const Home = (props) => {
     const { 
@@ -25,7 +26,7 @@ const Home = (props) => {
         brands,
         hgTags,
         tags,
-        currentLanguge,
+        currentLanguage,
     } = props
 
     const { t } = useTranslation()
@@ -33,6 +34,11 @@ const Home = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer>
+                <Helmet 
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
+                    title={`${t("siteName")} | ${currentLanguage === "ru" ? "Главная" : "Головна"}`}
+                    meta={[{"name": "description", "content": t("siteDescription")}]}
+                />
                 <AnimatedBlock 
                     className={classes.container}
                     initial={{opacity: 0, y: -200, transition: { duration: 1 } }}
@@ -43,7 +49,7 @@ const Home = (props) => {
                         <div className={classes.actionSlider}>
                             <CustomSlider type="action">
                                 {slides.map(item => (
-                                    <MainSlide item={item} key={item._id} currentLanguge={currentLanguge}/>
+                                    <MainSlide item={item} key={item._id} currentLanguage={currentLanguage}/>
                                 ))}
                             </CustomSlider>
                         </div>
@@ -60,7 +66,7 @@ const Home = (props) => {
                         <HgTags tags={hgTags}/>
                     </div>
                     <div className={classes.selector} id="selector">
-                        <ToySelector tags={tags} currentLanguge={currentLanguge}/>
+                        <ToySelector tags={tags} currentLanguage={currentLanguage}/>
                     </div>
                     <div className={classes.insta}>
                         <InstaBlock/>

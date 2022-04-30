@@ -118,7 +118,7 @@ const Search = (props) => {
                 <Controller
                     name="searchValue"
                     control={control}
-                    rules={{ required: "Обязательное поле!" }}
+                    rules={{ required: t("errors.required") }}
                     defaultValue=""
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <TextField 

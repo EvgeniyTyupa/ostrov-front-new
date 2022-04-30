@@ -16,6 +16,7 @@ import classes from './Checkout.module.css'
 import { BiRightArrowAlt } from 'react-icons/bi';
 import Error from '../../../Components/UI/Form/Error/Error'
 import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock'
+import { Helmet } from 'react-helmet'
 
 const Checkout = (props) => {
     const {
@@ -35,7 +36,8 @@ const Checkout = (props) => {
         setPromocodeValue,
         checkPromocode,
         currentPromocode,
-        receivePromocodeStatus
+        receivePromocodeStatus,
+        currentLanguage
     } = props
 
     const { t } = useTranslation()
@@ -76,8 +78,12 @@ const Checkout = (props) => {
     return (
         <PaddingContainer className={classes.container}>
             <MaxWidthContainer className={classes.main}>
+                <Helmet 
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
+                    title={`${t("siteName")} | ${currentLanguage === "ru" ? "Оформить заказ" : "Оформити замовлення"}`}
+                    meta={[{"name": "description", "content": t("siteDescription")}]}
+                />
                 {orderDone && <SomeInfoModal text={serverMessage} onClose={closeOrderDoneModal}/>}
-
                 <Breadcrumbs active={t("checkout.title")} items={breadcrumbsItems}/>
                 <AnimatedBlock className={classes.sides}>
                     <div className={classes.left}>

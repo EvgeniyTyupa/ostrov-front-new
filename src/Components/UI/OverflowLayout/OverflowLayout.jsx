@@ -6,7 +6,7 @@ import 'aos/dist/aos.css'
 import AnimateFade from '../../Animation/AnimateFade/AnimateFade'
 
 const OverflowLayout = (props) => {
-    const { zIndex = 10, children } = props
+    const { zIndex = 20, children } = props
 
     useEffect(() => {
         Aos.init({duration: 1000})

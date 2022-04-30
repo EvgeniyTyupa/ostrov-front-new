@@ -105,14 +105,11 @@ const FilterCatalog = (props) => {
                 <div className={cx(classes.content, classes.ageFilter)}>
                     {ages.map((el, index) => (
                         index > 0 && (
-                            <>
-                                {console.log(ageRange.find(item => item[0] === el.value[0] && item[1] === el.value[1]))}
-                                <CustomCheckbox 
-                                    label={el.text}
-                                    onChange={() => handleAge(el.value)}
-                                    checked={ageRange.find(item => item[0] === el.value[0] && item[1] === el.value[1]) ? true : false}
-                                />
-                            </>
+                            <CustomCheckbox 
+                                label={el.text}
+                                onChange={() => handleAge(el.value)}
+                                checked={ageRange.find(item => item[0] === el.value[0] && item[1] === el.value[1]) ? true : false}
+                            />
                         )
                     ))}
                 </div>

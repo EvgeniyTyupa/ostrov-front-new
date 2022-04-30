@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import Breadcrumbs from '../../Components/Common/Breadcrumbs/Breadcrumbs'
@@ -23,6 +24,11 @@ const News = (props) => {
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
+                <Helmet 
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
+                    title={`${t("siteName")} | Блог`}
+                    meta={[{"name": "description", "content": t("siteDescription")}]}
+                />
                 <Breadcrumbs active={t("news.title")}/>
                 <AnimatedBlock className={classes.wrapper}>
                     {news.map(el => (

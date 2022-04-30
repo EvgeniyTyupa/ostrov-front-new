@@ -16,7 +16,8 @@ const ShoppingCartContainer = (props) => {
         setDeliveryPrice,
         actionDiscount,
         gift,
-        user
+        user,
+        currentLanguage
     } = props
 
     const [currentTabIndex, setCurrentTabIndex] = useState(0)
@@ -86,6 +87,7 @@ const ShoppingCartContainer = (props) => {
                 gift={gift}
                 actionDiscount={actionDiscount}
                 userDiscount={userDiscount}
+                currentLanguage={currentLanguage}
             />
         </>
     )
@@ -99,7 +101,8 @@ let mapStateToProps = (state) => ({
     deliveryPrice: state.cart.deliveryPrice,
     actionDiscount: state.cart.actionDiscount,
     gift: state.cart.gift,
-    user: state.user.user
+    user: state.user.user,
+    currentLanguage: state.common.currentLanguage
 })
 
 export default connect(mapStateToProps, {

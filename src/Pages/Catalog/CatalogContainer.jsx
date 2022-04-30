@@ -198,6 +198,7 @@ const CatalogContainer = (props) => {
                     gender={gender}
                     setGender={setGender}
                     applyFilter={applyFilter}
+                    currentLanguage={currentLanguage}
                 />
             
         </>

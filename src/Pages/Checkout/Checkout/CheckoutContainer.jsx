@@ -24,7 +24,8 @@ const CheckoutContainer = (props) => {
         checkPromocode,
         currentPromocode,
         receivePromocodeStatus,
-        setReceivePromocodeStatus
+        setReceivePromocodeStatus,
+        currentLanguage
     } = props
 
     const navigate = useNavigate()
@@ -93,6 +94,7 @@ const CheckoutContainer = (props) => {
                 checkPromocode={handleCheckPromocode}
                 currentPromocode={currentPromocode}
                 receivePromocodeStatus={receivePromocodeStatus}
+                currentLanguage={currentLanguage}
             />
         </>
     )
@@ -110,7 +112,8 @@ let mapStateToProps = (state) => ({
     orderDone: state.orders.orderDone,
     serverMessage: state.common.serverMessage,
     currentPromocode: state.promocodes.currentPromocode,
-    receivePromocodeStatus: state.promocodes.receivePromocodeStatus
+    receivePromocodeStatus: state.promocodes.receivePromocodeStatus,
+    currentLanguage: state.common.currentLanguage
 })
 
 export default connect(mapStateToProps, {

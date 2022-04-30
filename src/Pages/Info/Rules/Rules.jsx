@@ -17,9 +17,9 @@ const Rules = (props) => {
         <PaddingContainer >
             <MaxWidthContainer className={classes.main}>
                 <Helmet 
-                    htmlAttributes={{"lang": "en", "amp": undefined}}
+                    htmlAttributes={{"lang": "ua", "amp": undefined}}
                     title={`${t("siteName")} | Правила користування`}
-                    meta={[{"name": "description", "content": "Онлайн магазин дитячих іграшок"}]}/>
+                    meta={[{"name": "description", "content": t('siteDescription')}]}/>
                 <AnimatedBlock>
                     <h1>Оферта</h1>
                     <div className={classes.text}>
