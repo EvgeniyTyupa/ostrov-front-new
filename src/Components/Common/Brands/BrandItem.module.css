@@ -8,3 +8,10 @@
 .main:hover {
     transform: scale(1.05);
 }
+
+@media screen and (max-width: 1170px) {
+    
+    .main {
+        width: 160px
+    }
+}

@@ -1,0 +1,170 @@
+.burger button {
+    color: #2B629C;
+    font-size: 32px;
+    padding-right: 0;
+}
+.paper {
+    width: 45%;
+    background-color: #9DC8CF !important;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    box-sizing: border-box;
+}
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.closeBut {
+    color: white !important;
+}
+.langContainer button {
+    color: #F9F9F9 !important;
+    opacity: .6;
+    font-family: "Montserrat" !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+}
+.langContainer button.activeLang {
+    color: white !important;
+    opacity: 1;
+    text-decoration: underline;
+}
+.catalogBut {
+    color: white !important;
+    font-size: 24px !important;
+    font-family: "Montserrat" !important;
+    font-weight: 700 !important;
+    margin-top: 24px !important;
+    padding: 0 !important;
+}
+.catalogBut p {
+    margin-left: 8px;
+}
+.phoneContainer {
+    color: white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    gap: 8px;
+    margin-top: 25px;
+    font-weight: 700;
+}
+.phoneContainer a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 20px;
+    color: white;
+    font-weight: 700;
+    margin-top: 48px;
+    margin-bottom: 24px;
+    gap: 24px;
+}
+.links a {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.divider {
+    background-color: white;
+    height: 1px;
+}
+.footLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 16px;
+}
+.footLinks a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+}
+.links a.profileLink {
+    font-size: 32px;
+}
+
+@media screen and (max-width: 767px) {
+    .paper {
+        width: 75%;
+    }
+    .links {
+        margin-top: 24px
+    }
+    .divider {
+        margin: 24px 0;
+    }
+    .footLinks {
+        margin-bottom: 32px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .phoneContainer {
+        font-size: 16px;
+    }
+    .phoneContainer a {
+        font-size: 16px;
+    }
+    .catalogBut {
+        font-size: 20px !important;
+    }
+    .links a {
+        font-size: 16px;
+    }
+    .footLinks a {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .divider {
+        margin: 16px 0;
+    }
+    .langContainer button {
+        font-size: 14px !important;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .paper {
+        padding: 15px !important;
+        padding-right: 7px !important;
+    }
+    .langContainer button {
+        font-size: 12px !important;
+    }
+    .links {
+        margin-top: 0;
+    }
+    .phoneContainer {
+        font-size: 12px;
+    }
+    .phoneContainer a {
+        font-size: 12px;
+    }
+    .catalogBut {
+        font-size: 16px !important;
+    }
+
+    .links a {
+        font-size: 14px;
+    }
+    .footLinks a {
+        font-size: 14px;
+    }
+}

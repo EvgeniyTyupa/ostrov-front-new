@@ -69,3 +69,5 @@ export const COURIER_BARRIER = 1000
 
 export const OFFICE_MAIL_DELIVERY_PRICE = 50
 export const COURIER_DELIVERY_PRICE = 50
+
+export const PHONE_NUMBER = "123456789"

@@ -69,7 +69,8 @@ const Search = (props) => {
         setSearchingCategories,
         setSearchingTags,
         currentLanguage,
-        total
+        total,
+        className
     } = props
 
     const { handleSubmit, control, reset, setValue } = useForm()
@@ -113,7 +114,7 @@ const Search = (props) => {
 
 
     return (
-        <div className={cx(classes.main, isShowDropdown ? classes.active : undefined)}>
+        <div className={cx(classes.main, isShowDropdown ? classes.active : undefined, className)}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     name="searchValue"

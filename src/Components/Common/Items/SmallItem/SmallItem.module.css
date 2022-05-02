@@ -85,3 +85,10 @@
     background-color: #9DC8CF !important;
     color: white !important;
 }
+
+@media screen and (max-width: 1170px) {
+    .main {
+        width: 230px;
+        max-width: 100%;
+    }
+}

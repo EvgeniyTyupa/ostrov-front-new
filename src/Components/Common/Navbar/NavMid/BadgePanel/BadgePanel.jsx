@@ -1,12 +1,13 @@
 import { Badge, IconButton, Tooltip } from '@mui/material'
 import React from 'react'
 import classes from './BadgePanel.module.css'
-import { FiHeart, FiShoppingCart } from 'react-icons/fi';
+import { FiHeart, FiSearch, FiShoppingCart } from 'react-icons/fi';
 import { styled } from '@mui/material/styles';
 import AccountMenu from './AccountMenu/AccountMenu';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import ShoppingCartModal from '../../../ShoppingCart/ShoppingCartModal/ShoppingCartModal';
+import Burger from '../../Burger/Burger';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -36,6 +37,9 @@ const BadgePanel = (props) => {
 
     return (
         <div className={classes.main}>
+            <IconButton className={classes.searchMobile}>
+                <FiSearch/>
+            </IconButton>
             {(isAuth && user) &&
                 <Tooltip title={t("common.likeTooltip")}>
                     <IconButton onClick={onClickLike}>
@@ -59,6 +63,9 @@ const BadgePanel = (props) => {
                 </IconButton>
             </Tooltip>
             <AccountMenu/>
+            <div className={classes.burger}>
+                <Burger/>
+            </div>
         </div>
     )
 }

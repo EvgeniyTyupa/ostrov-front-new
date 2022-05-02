@@ -2,7 +2,7 @@ import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { setIsOpenForgotPassModal } from '../../Redux/commonReducer'
+import { setIsOpenForgotPassModal, setServerResponse } from '../../Redux/commonReducer'
 import AdminInput from '../UI/Form/AdminInput'
 import Field from '../UI/Form/Field/Field'
 import Modal from '../UI/Modal/Modal'
@@ -18,7 +18,8 @@ const ForgotPassModal = (props) => {
         setIsOpenForgotPassModal,
         serverError,
         forgotPass,
-        serverResponse
+        serverResponse,
+        setServerResponse
     } = props
 
     const { handleSubmit, control, reset } = useForm()
@@ -30,6 +31,7 @@ const ForgotPassModal = (props) => {
     }
 
     const onClose = () => {
+        setServerResponse(null)
         setIsOpenForgotPassModal(false)
     }
 
@@ -74,5 +76,6 @@ let mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     setIsOpenForgotPassModal,
+    setServerResponse,
     forgotPass
 })(ForgotPassModal)

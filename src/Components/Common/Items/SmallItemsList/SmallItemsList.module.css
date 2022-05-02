@@ -34,3 +34,9 @@
 .notFull > div > div > div > div > div {
     width: 20% !important;
 }
+
+@media screen and (max-width: 1170px) {
+    .notFull > div > div > div > div > div {
+        width: fit-content !important
+    }
+}

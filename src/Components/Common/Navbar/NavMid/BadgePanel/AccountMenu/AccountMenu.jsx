@@ -41,7 +41,7 @@ const AccountMenu = (props) => {
     }
 
     return (
-        <React.Fragment>
+        <div className={classes.main}>
             <Tooltip title={t("common.userTooltip")}>
                 <IconButton onClick={handleClick}>
                     <FiUser/>
@@ -102,7 +102,7 @@ const AccountMenu = (props) => {
                     </div>
                 }
             </Menu>
-        </React.Fragment>
+        </div>
     )
 }
 

@@ -15,6 +15,9 @@
 .logoContainer {
     width: 281px;
 }
+.burger {
+    display: none;
+}
 .logo {
     width: 150px;
 }
@@ -32,4 +35,42 @@
 }
 .phoneNumber:hover {
     text-decoration: underline;
+}
+
+@media screen and (max-width: 1170px) {
+    .logoContainer {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+    }
+    .content {
+        width: 100%;
+    }
+    .phoneNumber {
+        margin-left: 27px;
+    }
+    .burger {
+        display: block;
+    }
+    .desktop {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .logo {
+        width: 120px;
+    }
+    .phoneNumber {
+        display: none;
+    }
+    .content {
+        justify-content: flex-end;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .logo {
+        width: 100px;
+    }
 }

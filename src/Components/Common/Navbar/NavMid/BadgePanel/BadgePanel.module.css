@@ -3,6 +3,9 @@
     align-items: center;
     gap: 20px;
 }
+.burger {
+    display: none;
+}
 .main button {
     font-size: 24px;
     padding: 10px;
@@ -20,4 +23,28 @@
 }
 .arrow {
     color: #E86589 !important;
+}
+.searchMobile {
+    display: none;
+}
+
+@media screen and (max-width: 1170px) {
+    .searchMobile {
+        display: block;
+    }
+    .burger {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .main {
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .main button {
+        padding: 5px;
+    }
 }

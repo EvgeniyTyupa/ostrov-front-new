@@ -34,7 +34,7 @@ const NavBot = (props) => {
             <MaxWidthContainer className={classes.container}>
                 <div ref={catalogRef} className={cx(classes.catalogContainer, location.pathname != "/" ? classes.handle : "")} onClick={handleOpen}>
                     <RiFileListFill/>
-                    <p>КАТАЛОГ</p>
+                    <p className={classes.catalogHeader}>КАТАЛОГ</p>
                     {isOpenCatalog &&
                         <AnimatedBlock
                             className={classes.catalogMenu}

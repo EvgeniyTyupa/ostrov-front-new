@@ -12,10 +12,10 @@ import PaddingContainer from '../../Components/UI/Container/PaddingContainer/Pad
 import classes from './Home.module.css'
 import BrandItem from '../../Components/Common/Brands/BrandItem'
 import sun_img from '../../Assets/sun.svg'
-import { shuffle } from '../../Utils/shuffle'
 import MainSlide from '../../Components/Common/MainSlide/MainSlide'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import { Helmet } from 'react-helmet'
+import useWindowDimensions from '../../Hooks/useWindowDimension'
 
 const Home = (props) => {
     const { 
@@ -31,6 +31,8 @@ const Home = (props) => {
 
     const { t } = useTranslation()
 
+    const { width } = useWindowDimensions()
+
     return (
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer>
@@ -45,7 +47,9 @@ const Home = (props) => {
                     exit={{ opacity: 0 }}
                 >
                     <div className={classes.top}>
-                        <CategoriesList categories={categories}/>
+                        <div className={classes.catList}>
+                            <CategoriesList categories={categories}/>
+                        </div>
                         <div className={classes.actionSlider}>
                             <CustomSlider type="action">
                                 {slides.map(item => (
@@ -59,7 +63,10 @@ const Home = (props) => {
                             items={items} 
                             title={t("items.itemsListTitle")} 
                             href={`/catalog?pageNumber=1&pageSize=25&searchBy=popular&from=asc`}
-                            slidesToShow={items.length > 4 ? 5 : items.length}
+                            slidesToShow={
+                                width > 1170 ? (items.length > 4 ? 5 : items.length) :
+                                width > 767 ? (items.length > 2 ? 3 : items.length) : 1
+                            }
                         />
                     </div>
                     <div className={classes.tags}>
@@ -76,13 +83,20 @@ const Home = (props) => {
                             items={news}
                             title={t("navigation.news")}
                             href="/blog"
-                            slidesToShow={news.length > 3 ? 4 : news.length}
+                            slidesToShow={
+                                width > 1170 ? (news.length > 3 ? 4 : news.length) :
+                                width > 767 ? (news.length > 2 ? 3 : news.length) : 1
+                            }
                         />
                     </div>
                     <div className={classes.brands} id="brands">
                         <h4>{t("brands.title")}</h4>
                         <div className={classes.brandsSlider}>
-                            <CustomSlider slidesToShow={brands.length > 4 ? 5 : brands.length}>
+                            <CustomSlider slidesToShow={
+                                width > 1170 ? 5 : 
+                                width > 767 ? 5 : 
+                                width > 468 > 3 ? 2 : 1    
+                            }>
                                 {brands.map(el => <BrandItem key={el._id} item={el}/>)}
                             </CustomSlider>
                         </div>

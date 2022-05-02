@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
         width: "100%",
         '& input': {
             fontSize: "14px",
+            fontFamily: "Montserrat"
         },
         '& input::placeholder': {
             color: "#37395C"
@@ -56,6 +57,9 @@ const FootTop = (props) => {
 
     const onSubmit = (data) => {
         console.log(data)
+        reset({
+            email: ""
+        })
     }
 
     return (
@@ -71,7 +75,6 @@ const FootTop = (props) => {
                         rules={{ 
                             required: {
                                 value: true,
-                                message: t("errors.required")
                             },
                             pattern: {
                                 value: /^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}/,

@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import Search from './Search/Search'
 import MaxWidthContainer from '../../../UI/Container/MaxWidthContainer/MaxWidthContainer'
 import BadgePanel from './BadgePanel/BadgePanel'
+import { PHONE_NUMBER } from '../../../../Utils/constants'
 
 const NavMid = (props) => {
     const { isAuth, user, totalItemsCart } = props
@@ -19,8 +20,8 @@ const NavMid = (props) => {
                     </NavLink>
                 </div>
                 <div className={classes.content}>
-                    <Search/>
-                    <a href='tel:123456789' className={classes.phoneNumber}>123456789</a>
+                    <Search className={classes.desktop}/>
+                    <a href={`tel:${PHONE_NUMBER}`} className={classes.phoneNumber}>{PHONE_NUMBER}</a>
                     <BadgePanel isAuth={isAuth} user={user} totalItemsCart={totalItemsCart}/>
                 </div>
             </MaxWidthContainer>

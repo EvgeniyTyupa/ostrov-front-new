@@ -14,7 +14,7 @@
     width: 100%;
 }
 .modal {
-    width: 30%;
+    width: 35%;
     border: 3px solid #4B5EA3;
 }
 .forgot {
@@ -28,4 +28,7 @@
 .message {
     color: #37395C;
     margin-top: 8px;
+    font-size: 14px;
+    margin-top: 16px;
+
 }

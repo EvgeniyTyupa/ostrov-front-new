@@ -79,3 +79,15 @@
     bottom: 170px;
     position: absolute;
 }
+
+@media screen and (max-width: 1170px) {
+    .catList {
+        display: none;
+    }
+    .actionSlider {
+        width: 100%;
+    }
+    .tags {
+        margin-top: 65px;
+    }
+}

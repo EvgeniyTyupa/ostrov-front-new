@@ -70,6 +70,7 @@ const Catalog = (props) => {
                             gender={gender}
                             setGender={setGender}
                             applyFilter={applyFilter}
+                            itemsLength={items.length}
                         />
                     </div>
                     <div className={classes.wrapper}>

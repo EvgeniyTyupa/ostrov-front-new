@@ -22,11 +22,6 @@
 }
 .filter {
     width: 257px;
-    background-color: #ebebeb;
-    border-radius: 25px;
-    padding: 16px;
-    height: fit-content;
-    box-sizing: border-box;
     margin-top: 20px;
 }
 .wrapper {

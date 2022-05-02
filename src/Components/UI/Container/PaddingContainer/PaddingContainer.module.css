@@ -13,3 +13,16 @@
         padding: 0 50px;
     }
 }
+
+@media screen and (max-width: 568px) {
+    .main {
+        padding: 0 15px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .main {
+        padding: 0 15px;
+    }
+}
+
