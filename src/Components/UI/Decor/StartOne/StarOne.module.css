@@ -4,3 +4,9 @@
     left: 25px;
     z-index: 0;
 }
+
+@media screen and (max-width: 568px) {
+    .main {
+        display: none;
+    }
+}

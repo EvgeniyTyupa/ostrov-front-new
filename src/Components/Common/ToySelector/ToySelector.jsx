@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
     root:{
         background: "white",
         width: "100%",
+        "@media screen and (max-width: 468px)": {
+            width: "98%"
+        },
         '& input': {
             fontSize: "14px",
             fontFamily: "Montserrat"

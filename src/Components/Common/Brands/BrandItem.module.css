@@ -15,3 +15,18 @@
         width: 160px
     }
 }
+
+@media screen and (max-width: 862px) {  
+    .main {
+        width: 120px;
+        height: auto;
+        object-fit: cover;
+        aspect-ratio: 1 / 1;
+    }
+}
+
+@media screen and (max-width: 400px) {  
+    .main {
+        width: 100px;
+    }
+}

@@ -47,3 +47,16 @@
         width: 280px;
     }
 }
+
+@media screen and (max-width: 862px) {
+    .main {
+        width: 200px;
+    }
+    .img {
+        height: 175px !important;
+    }
+}
+
+@media screen and (max-width: 568px) {
+
+}

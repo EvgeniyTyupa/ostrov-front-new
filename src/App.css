@@ -21,3 +21,10 @@
     left: -100px;
     z-index: 0;
 }
+
+@media screen and (max-width: 568px) {
+    .main {
+        background-image: url("./Assets/main_bg_mobile.jpg");
+    }
+
+}

@@ -15,11 +15,11 @@ const SmallItemsList = (props) => {
         <div className={classes.main}>
             <div className={classes.header}>
                 <h4>{title}</h4>
-                {(href && slidesToShow === 5) && <NavLink to={href}>{t("items.listTextHref")}</NavLink>}
+                {(href && items.length >= 5 ) && <NavLink to={href}>{t("items.listTextHref")}</NavLink>}
             </div>
-            <div className={cx(classes.slider, slidesToShow < 5 ? classes.notFull : "")}>
+            <div className={cx(classes.slider, items.length < 5 ? classes.notFull : "")}>
                 <CustomSlider slidesToShow={slidesToShow}>
-                    {items.map(item => <SmallItem key={item._id} item={item}/>)}
+                    {items.map(item => <SmallItem key={item._id} item={item} className={classes.item}/>)}
                 </CustomSlider>
             </div>
         </div>

@@ -12,7 +12,7 @@ import { discountParser } from '../../../../Utils/discountParser'
 import { cx } from '../../../../Utils/classnames'
 
 const SmallItem = (props) => {
-    const { item, currentLanguage } = props
+    const { item, currentLanguage, className } = props
 
     // console.log(item)
 
@@ -46,7 +46,7 @@ const SmallItem = (props) => {
     }, [])
 
     return (
-        <div className={classes.main}  onClick={handleClick}>
+        <div className={cx(classes.main, className)}  onClick={handleClick}>
             {isNew && <Baige type="new"/>}
             {(item.action && !item.action.from_items_count && !item.action.from_sum_in_bill) 
                 && <Baige type="discount" value={item.action.discount}/>

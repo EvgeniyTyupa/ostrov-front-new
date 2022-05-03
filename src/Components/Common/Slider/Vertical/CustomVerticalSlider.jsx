@@ -63,6 +63,8 @@ const CustomVerticalSlider = (props) => {
         autoplay = true,
     } = props
 
+    console.log(slidesToShow)
+
     const settings = {
         dots: dots,
         infinite: infinite,

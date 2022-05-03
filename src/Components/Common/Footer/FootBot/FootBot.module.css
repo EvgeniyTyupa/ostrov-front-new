@@ -66,3 +66,48 @@
 .bot a:hover {
     text-decoration: underline;
 }
+
+
+@media screen and (max-width: 1170px) {
+    .main {
+        height: fit-content;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .top {
+        flex-wrap: wrap;
+        row-gap: 24px;
+    }
+    .navBlock {
+        width: fit-content;
+    }
+    .infoBlock {
+        display: flex;
+        gap: 15%;
+        width: 100%;
+        align-items: flex-start;
+    }
+    .infoBlock .navBlock + .navBlock {
+        margin-top: 0px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .top {
+        flex-direction: column;
+        align-items: center;
+    }
+    .navBlock {
+        align-items: center;
+    }
+    .infoBlock {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+    .bot {
+        flex-direction: column;
+        padding-bottom: 25px;
+    }
+}

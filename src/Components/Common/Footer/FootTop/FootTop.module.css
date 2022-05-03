@@ -56,3 +56,35 @@
     top: -35%;
     width: 180px;
 }
+
+@media screen and (max-width: 768px) {
+    .boy {
+        width: 180px;
+    }
+    .girl {
+        width: 150px;
+    }
+    .form form {
+        max-width: unset;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .boy, .girl {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .main {
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+    .form form {
+        max-width: 90%;
+    }
+    .form p {
+        font-size: 13px;
+        text-align: center;
+    }
+}

@@ -91,3 +91,46 @@
         margin-top: 65px;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .selector {
+        margin-top: 66px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .main {
+        padding: 0;
+    }
+    .sunImg {
+        display: none;
+    }
+    .insta {
+        margin-top: 35px;
+    }
+    .tags, .popular, .news, .brands {
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+    .about {
+        margin-top: 50px;
+        margin-bottom: 35px;
+        padding: 0 15px;
+    }
+    .news {
+        margin-top: 35px;
+    }
+    .brands {
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .about p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    
+}

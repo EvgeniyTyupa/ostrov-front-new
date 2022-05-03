@@ -25,12 +25,12 @@
     color: #E86589 !important;
 }
 .searchMobile {
-    display: none;
+    display: none !important;
 }
 
 @media screen and (max-width: 1170px) {
     .searchMobile {
-        display: block;
+        display: block !important;
     }
     .burger {
         display: block;

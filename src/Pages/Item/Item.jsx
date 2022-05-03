@@ -81,7 +81,7 @@ const Item = (props) => {
                                         <img 
                                             src={el} 
                                             key={el}
-                                            alt="small image" 
+                                            alt="item image" 
                                             className={cx(classes.smallImage, el === currentImage ? classes.activeImg : undefined)}
                                             onClick={() => setCurrentImage(el)}
                                         />

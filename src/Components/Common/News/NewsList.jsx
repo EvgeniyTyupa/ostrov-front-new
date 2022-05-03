@@ -18,7 +18,7 @@ const NewsList = (props) => {
             </div>
             <div className={classes.slider}>
                 <CustomSlider slidesToShow={slidesToShow}>
-                    {items.map(el => <NewsSmallItem key={el._id} item={el}/>)}
+                    {items.map(el => <NewsSmallItem key={el._id} item={el} className={classes.item}/>)}
                 </CustomSlider>
             </div>
         </div>

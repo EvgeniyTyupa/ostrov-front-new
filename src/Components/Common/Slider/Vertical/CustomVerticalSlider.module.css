@@ -15,3 +15,6 @@
 .slider > div {
     width: 115px;
 }
+.slider > div:nth-child(2) {
+    height: 456px !important;
+}

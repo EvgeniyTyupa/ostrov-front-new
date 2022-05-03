@@ -55,3 +55,26 @@
     top: -120px;
     right: 0px;
 }
+
+@media screen and (max-width: 768px) {
+    .girl {
+        width: 100px;
+        left: 30px;
+    }
+    .boy {
+        width: 150px;
+        top: -60px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .girl, .boy {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .info p {
+        font-size: 12px;
+    }
+}

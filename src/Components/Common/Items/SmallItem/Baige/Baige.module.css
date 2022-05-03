@@ -16,3 +16,10 @@
 .currency {
     font-size: 8px !important;
 }
+
+@media screen and (max-width: 468px) {
+    .main {
+        right: 0;
+        font-size: 16px;
+    }
+}

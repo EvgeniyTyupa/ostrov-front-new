@@ -69,6 +69,12 @@
     }
 }
 
+@media screen and (max-width: 468px) {
+    .main {
+        height: 80px;
+    }
+}
+
 @media screen and (max-width: 375px) {
     .logo {
         width: 100px;

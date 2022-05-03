@@ -51,7 +51,18 @@ const Home = (props) => {
                             <CategoriesList categories={categories}/>
                         </div>
                         <div className={classes.actionSlider}>
-                            <CustomSlider type="action">
+                            <CustomSlider 
+                                type="action"
+                                responsive={[
+                                    {
+                                      breakpoint: 1920,
+                                      settings: {
+                                        slidesToShow: 1,
+                                        slidesToScroll: 1,
+                                      }
+                                    }
+                                ]}
+                            >
                                 {slides.map(item => (
                                     <MainSlide item={item} key={item._id} currentLanguage={currentLanguage}/>
                                 ))}
@@ -65,7 +76,8 @@ const Home = (props) => {
                             href={`/catalog?pageNumber=1&pageSize=25&searchBy=popular&from=asc`}
                             slidesToShow={
                                 width > 1170 ? (items.length > 4 ? 5 : items.length) :
-                                width > 767 ? (items.length > 2 ? 3 : items.length) : 1
+                                width > 767 ? (items.length > 2 ? 3 : items.length) : 
+                                width > 568 ? (items.length > 1 ? 2 : items.length) : 1
                             }
                         />
                     </div>
@@ -85,19 +97,43 @@ const Home = (props) => {
                             href="/blog"
                             slidesToShow={
                                 width > 1170 ? (news.length > 3 ? 4 : news.length) :
-                                width > 767 ? (news.length > 2 ? 3 : news.length) : 1
+                                width > 767 ? (news.length > 2 ? 3 : news.length) : 
+                                width > 568 ? (news.length > 1 ? 2 : news.length) : 1
                             }
                         />
                     </div>
                     <div className={classes.brands} id="brands">
                         <h4>{t("brands.title")}</h4>
                         <div className={classes.brandsSlider}>
-                            <CustomSlider slidesToShow={
-                                width > 1170 ? 5 : 
-                                width > 767 ? 5 : 
-                                width > 468 > 3 ? 2 : 1    
-                            }>
-                                {brands.map(el => <BrandItem key={el._id} item={el}/>)}
+                            <CustomSlider 
+                                slidesToShow={
+                                    width > 1170 ? 5 : 
+                                    width > 767 ? 5 : 
+                                    width > 468 > 3 ? 3 : 1    
+                                }
+                                responsive={[
+                                    {
+                                      breakpoint: 600,
+                                      settings: {
+                                        slidesToShow: 4,
+                                        slidesToScroll: 1,
+                                      }
+                                    },
+                                    {
+                                      breakpoint: 480,
+                                      settings: {
+                                        slidesToShow: 3,
+                                        slidesToScroll: 1
+                                      }
+                                    }
+                                ]}
+                            >
+                                {brands.map(el => (
+                                    <BrandItem 
+                                        key={el._id} 
+                                        item={el}
+                                    />
+                                ))}
                             </CustomSlider>
                         </div>
                     </div>

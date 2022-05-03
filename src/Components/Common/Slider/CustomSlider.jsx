@@ -3,9 +3,12 @@ import React from 'react'
 import Slider from "react-slick";
 import classes from './Slider.module.css'
 import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
+import useWindowDimensions from '../../../Hooks/useWindowDimension';
 
 function SampleNextArrow(props) {
     const { className, style, onClick, type } = props;
+    const { width } = useWindowDimensions()
+
     return (
         <div
             className={className}
@@ -14,8 +17,9 @@ function SampleNextArrow(props) {
                 display: "block", 
                 padding: 0,
                 zIndex: 5,
-                right: type === "items" ? 0 : "5%",
-                top: "48%"
+                right: type === "items" ? 
+                (width < 768 ? "4%" : 0) : (width < 768 ? "9%" : "5%"),
+                top: (width < 768 && type === "items") ? "43%" : "48%"
             }}
         >
             <IconButton
@@ -30,6 +34,8 @@ function SampleNextArrow(props) {
   
 function SamplePrevArrow(props) {
     const { className, style, onClick, type } = props;
+    const { width } = useWindowDimensions()
+
     return (
         <div 
             className={className}
@@ -38,8 +44,8 @@ function SamplePrevArrow(props) {
                 display: "block", 
                 padding: 0,
                 zIndex: 5,
-                left:  type === "items" ? "-20px" : "3%",
-                top: "48%"
+                left:  type === "items" ? "-20px" : "4%",
+                top: (width < 768 && type === "items") ? "43%" : "48%"
             }}
         >
             <IconButton
@@ -60,10 +66,26 @@ const CustomSlider = (props) => {
         speed = 500,
         slidesToShow = 1,
         slidesToScroll = 1,
-        autoplay = true,
+        autoplay = false,
         vertical = false,
         verticalSwiping = false,
-        type = "items"
+        type = "items",
+        responsive = [
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+        ]
     } = props
 
     const settings = {
@@ -81,7 +103,8 @@ const CustomSlider = (props) => {
         verticalSwiping: verticalSwiping,
         nextArrow: <SampleNextArrow type={type}/>,
         prevArrow: <SamplePrevArrow type={type}/>,
-        className: classes.slider
+        className: classes.slider,
+        responsive: responsive
     };
 
     return(
