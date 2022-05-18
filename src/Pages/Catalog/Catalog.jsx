@@ -12,6 +12,7 @@ import { MenuItem } from '@mui/material'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import FilterCatalog from '../../Components/Common/FilterCatalog/FilterCatalog'
 import { Helmet } from 'react-helmet'
+import FilterCatalogMobile from '../../Components/Common/FilterCatalog/FilterCatalogMobile/FilterCatalogMobile'
 
 const Catalog = (props) => {
     const { 
@@ -59,6 +60,19 @@ const Catalog = (props) => {
                         </CustomSelect>
                     </div>
                 </AnimatedBlock>
+                <div className={classes.filterMobile}>
+                    <FilterCatalogMobile
+                        categories={filterCategories}
+                        priceRange={priceRange}
+                        setPriceRange={setPriceRange}
+                        ageRange={ageRange}
+                        setAgeRange={setAgeRange}
+                        gender={gender}
+                        setGender={setGender}
+                        applyFilter={applyFilter}
+                        itemsLength={items.length}
+                    />
+                </div>
                 <AnimatedBlock className={classes.itemsContainer}>
                     <div className={classes.filter}>
                         <FilterCatalog

@@ -72,6 +72,20 @@ const CustomSlider = (props) => {
         type = "items",
         responsive = [
             {
+                breakpoint: 1170,
+                settings: {
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 862,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                }
+            },
+            {
               breakpoint: 600,
               settings: {
                 slidesToShow: 2,
@@ -104,7 +118,7 @@ const CustomSlider = (props) => {
         nextArrow: <SampleNextArrow type={type}/>,
         prevArrow: <SamplePrevArrow type={type}/>,
         className: classes.slider,
-        responsive: responsive
+        responsive: responsive,
     };
 
     return(

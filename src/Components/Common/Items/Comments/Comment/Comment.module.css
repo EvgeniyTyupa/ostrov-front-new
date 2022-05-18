@@ -44,3 +44,16 @@
 .textContainer p::first-letter {
     text-transform: capitalize;
 }
+
+@media screen and (max-width: 468px) {
+    .info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .header {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}

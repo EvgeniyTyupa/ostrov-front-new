@@ -18,6 +18,7 @@ import PaymentGuaranteeModal from '../../Components/Modals/PaymentGuaranteeModal
 import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import { Helmet } from 'react-helmet'
+import CustomSlider from '../../Components/Common/Slider/CustomSlider'
 
 const Item = (props) => {
     const {
@@ -93,6 +94,57 @@ const Item = (props) => {
                                         </div>
                                     }
                                 </CustomVerticalSlider>
+                            </div>
+                            <div className={classes.sliderHorizontal}>
+                                <CustomSlider 
+                                    slidesToShow={4}
+                                    responsive={[
+                                        {
+                                            breakpoint: 862,
+                                            settings: {
+                                              slidesToShow: 4,
+                                              slidesToScroll: 1,
+                                            }
+                                        },
+                                        {
+                                          breakpoint: 600,
+                                          settings: {
+                                            slidesToShow: 3,
+                                            slidesToScroll: 1,
+                                          }
+                                        },
+                                        {
+                                          breakpoint: 568,
+                                          settings: {
+                                            slidesToShow: item.images.length > 5 ? 6 : 5,
+                                            slidesToScroll: 1
+                                          }
+                                        },
+                                        {
+                                            breakpoint: 400,
+                                            settings: {
+                                              slidesToShow: 4,
+                                              slidesToScroll: 1
+                                            }
+                                          }
+                                    ]}
+                                >
+                                    {item.images.map(el => (
+                                        <img 
+                                            src={el} 
+                                            key={el}
+                                            alt="item image" 
+                                            className={cx(classes.smallImage, el === currentImage ? classes.activeImg : undefined)}
+                                            onClick={() => setCurrentImage(el)}
+                                        />
+                                    ))}
+                                    {item.video_link &&
+                                        <div className={classes.smallVideoContainer} onClick={() => setCurrentImage(item.video_link)}>
+                                            <div className={classes.videoShield}/>
+                                            <iframe src={`${item.video_link}?disablekb=1`} frameborder="0"></iframe>
+                                        </div>
+                                    }
+                                </CustomSlider>
                             </div>
                             <AnimatePresence exitBeforeEnter>
                                 <motion.div
@@ -178,7 +230,7 @@ const Item = (props) => {
                                 <p key={el}>{el}</p>
                             )) : <p>{t("items.emptyDesc")}</p>}
                         </div>
-                        {!isFullDesc && <div className={classes.hidingBlock}></div>}
+                        {(!isFullDesc && item.description.length > 150) && <div className={classes.hidingBlock}></div>}
                         {(descriptionRef && descriptionRef.current) &&
                             (description.length > 0 && descriptionRef.current.clientHeight > 80) && <button onClick={handleFullText}>
                                 {isFullDesc ? t("items.hide") : t("items.details")}
@@ -229,10 +281,10 @@ const Item = (props) => {
                     {sameItems.length > 0 &&
                         <div className={classes.same}>
                             <SmallItemsList
-                                // href="/"
+                                href="/"
                                 title={t("items.sameItemsTitle")}
                                 items={sameItems}
-                                slidesToShow={sameItems.length > 4 ? 5 : sameItems.length}
+                                slidesToShow={5}
                             />
                         </div>
                     }
@@ -241,7 +293,7 @@ const Item = (props) => {
                             <SmallItemsList
                                 title={t("items.viewed")}
                                 items={viewedItems}
-                                slidesToShow={viewedItems.length > 4 ? 5 : viewedItems.length}
+                                slidesToShow={5}
                             />
                         </div>
                     }

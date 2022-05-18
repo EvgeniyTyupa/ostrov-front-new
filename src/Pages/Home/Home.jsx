@@ -95,11 +95,7 @@ const Home = (props) => {
                             items={news}
                             title={t("navigation.news")}
                             href="/blog"
-                            slidesToShow={
-                                width > 1170 ? (news.length > 3 ? 4 : news.length) :
-                                width > 767 ? (news.length > 2 ? 3 : news.length) : 
-                                width > 568 ? (news.length > 1 ? 2 : news.length) : 1
-                            }
+                            slidesToShow={news.length > 3 ? 4 : news.length}
                         />
                     </div>
                     <div className={classes.brands} id="brands">

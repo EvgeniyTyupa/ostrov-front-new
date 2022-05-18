@@ -7,6 +7,9 @@ const PrettoSlider = styled(Slider)({
     height: 3,
     width: "100%",
     margin: "auto",
+    "@media screen and (max-width: 468px)": {
+      width: "97%"
+    },
     '& .MuiSlider-track': {
       border: 'none',
     },

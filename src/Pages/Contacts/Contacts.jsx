@@ -7,6 +7,7 @@ import classes from './Contacts.module.css'
 import { BsInstagram } from 'react-icons/bs';
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import { Helmet } from 'react-helmet'
+import { PHONE_NUMBER } from '../../Utils/constants'
 
 const Contacts = (props) => {
     const { t } = useTranslation()
@@ -24,9 +25,9 @@ const Contacts = (props) => {
                     <div className={classes.phone}>
                         <h4>{t("contact.phone")}</h4>
                         <div className={classes.phoneNumbers}>
-                            <a href="tel:0(800)400-546">0(800) 400-546</a>
-                            <a href="tel:0(800)400-546">0(800) 400-546</a>
-                            <a href="tel:0(800)400-546">0(800) 400-546</a>
+                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
                         </div>
                     </div>
                     <div className={classes.info}>

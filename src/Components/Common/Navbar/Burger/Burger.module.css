@@ -70,7 +70,7 @@
     margin-bottom: 24px;
     gap: 24px;
 }
-.links a {
+.links a, .links p {
     color: white;
     font-size: 20px;
     text-decoration: none;
@@ -120,6 +120,9 @@
     .phoneContainer a {
         font-size: 16px;
     }
+    .links p {
+        font-size: 16px;
+    }
     .catalogBut {
         font-size: 20px !important;
     }
@@ -150,6 +153,11 @@
     }
     .links {
         margin-top: 0;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    .footLinks {
+        gap: 16px;
     }
     .phoneContainer {
         font-size: 12px;
@@ -161,7 +169,7 @@
         font-size: 16px !important;
     }
 
-    .links a {
+    .links a, .links p {
         font-size: 14px;
     }
     .footLinks a {

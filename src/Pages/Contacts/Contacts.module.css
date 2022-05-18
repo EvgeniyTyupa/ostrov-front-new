@@ -6,7 +6,7 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
-    color: #2B629C;
+    color: #4B5EA3;
     text-decoration: none;
 }
 .main h4 {
@@ -94,5 +94,85 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 17px;
-    color: #2B629C;
+    color: #4B5EA3;
+}
+
+@media screen and (max-width:1170px) {
+    .items {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+@media screen and (max-width: 862px) {
+    .info {
+        width: 70%;
+    }
+    .phone {
+        width: 30%;
+    }
+    .infoBlock {
+        width: 70%;
+    }
+    .address {
+        width: fit-content;
+    }
+    .bot {
+        gap: 24px;
+    }
+    .map {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .header {
+        flex-direction: column;
+        width: 100%;
+        gap: 32px;
+        align-items: center;
+    }
+    .info {
+        flex-direction: column;
+        width: 100%;
+        gap: 32px;
+        align-items: center;
+    }
+    .bot {
+        flex-direction: column;
+        margin-top: 32px;
+    }
+    .address {
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+    .map {
+        width: 100%;
+    }
+    .infoBlock {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+    .items {
+        align-items: center;
+    }
+    .phoneNumbers {
+        padding-left: 0;
+        align-items: center;
+    }
+    .phone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main {
+        margin-bottom: 25px;
+    }
+    .days {
+        align-items: center;
+    }
 }

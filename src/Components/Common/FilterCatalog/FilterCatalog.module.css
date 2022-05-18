@@ -82,3 +82,10 @@
 .searchBut:hover {
     background-color: #42528d !important;
 }
+
+@media screen and (max-width: 1170px) {
+    .container {
+        width: 100%;
+        border-radius: 0;
+    }
+}

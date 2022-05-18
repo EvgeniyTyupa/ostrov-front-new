@@ -17,3 +17,7 @@ h1, h2, h3, h4, h5, p {
 .MuiPickersDay-root.Mui-selected {
   background-color: #4B5EA3 !important;
 }
+.slick-track {
+  margin-left: unset !important;
+  margin-right: unset !important;
+}

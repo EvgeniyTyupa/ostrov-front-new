@@ -3,9 +3,12 @@ import Slider from 'react-slick'
 import classes from './CustomVerticalSlider.module.css'
 import { FiArrowDown, FiArrowUp } from 'react-icons/fi';
 import { IconButton } from '@mui/material';
+import useWindowDimensions from '../../../../Hooks/useWindowDimension';
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
+    const { width } = useWindowDimensions()
+
     return (
         <div
             className={className}
@@ -14,7 +17,7 @@ function SampleNextArrow(props) {
                 display: "block", 
                 padding: 0,
                 zIndex: 5,
-                left: "35%",
+                left: width > 862 ? "35%" : "25%",
                 top: "97%"
             }}
         >
@@ -30,6 +33,8 @@ function SampleNextArrow(props) {
   
 function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
+    const { width } = useWindowDimensions()
+
     return (
         <div 
             className={className}
@@ -38,7 +43,7 @@ function SamplePrevArrow(props) {
                 display: "block", 
                 padding: 0,
                 zIndex: 5,
-                left: "35%",
+                left: width > 862 ? "35%" : "25%",
                 top: "-10px"
             }}
         >

@@ -81,6 +81,9 @@
 }
 
 @media screen and (max-width: 1170px) {
+    .selector {
+        margin-top: 66px;
+    }
     .catList {
         display: none;
     }

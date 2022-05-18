@@ -36,6 +36,13 @@
     text-transform: initial !important;
     font-family: 'Montserrat' !important;
 }
+.submit {
+    color: white !important;
+    padding: 8px 16px;
+    background-color: #4B5EA3 !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+}
 .switchButt {
     padding: 0;
     outline: none;
@@ -82,4 +89,18 @@
 }
 .commentBut:hover {
     background-color: #d85a7c !important;
+}
+
+@media screen and (max-width: 862px) {
+    .auth button {
+        margin-left: 4px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    
+    .auth {
+        flex-direction: column;
+        align-items: center;
+    }
 }

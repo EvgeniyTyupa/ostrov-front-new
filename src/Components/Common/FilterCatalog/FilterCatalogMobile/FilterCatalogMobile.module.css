@@ -1,0 +1,39 @@
+.main {
+    width: 100%;
+}
+.filterBut {
+    width: 100% !important;
+    background-color: #4B5EA3 !important; 
+    border-radius: 0 !important;
+    font-family: 'Montserrat' !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-weight: 700 !important;
+}
+.paper {
+    width: 40%;
+    background-color: #ebebeb !important;
+    max-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    margin-left: auto;
+    padding: 16px !important;
+    padding-bottom: 0 !important;
+}
+
+@media screen and (max-width: 768px) {
+    .paper {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .paper {
+        width: 80%;
+    }
+}

@@ -18,3 +18,13 @@
 .slider > div:nth-child(2) {
     height: 456px !important;
 }
+
+
+@media screen and (max-width: 862px) {
+    .slider {
+        height: 307px !important;
+    }
+    .slider > div:nth-child(2) {
+        height: 307px !important;
+    }
+}

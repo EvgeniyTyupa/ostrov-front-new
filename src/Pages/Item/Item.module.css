@@ -289,7 +289,7 @@
     transition-duration: .3s;
 }
 .fullDescText {
-    max-height: 450px
+    max-height: 1050px
 }
 .leftDescription button {
     background-color: transparent;
@@ -365,4 +365,131 @@
 }
 .form {
     margin-top: 25px;
+}
+.sliderHorizontal {
+    display: none;
+}
+
+@media screen and (max-width: 1170px) {
+    .deliveryPoints {
+        align-items: flex-start;
+        padding-left: 0;
+    }
+    .deliveryPoint {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    .info {
+        width: 50%;
+    }
+    .modalButtons {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+        margin-top: 24px;
+    }
+    .modalButtons button {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 862px) {
+    .content {
+        gap: 25px;
+    }
+    .images {
+        width: 50%;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+    .info {
+        width: 50%;
+    }
+    .currentImageBlock {
+        width: 100%;
+        height: 307px;
+        margin-left: 0px;
+    }
+    .smallVideoContainer {
+        width: 70px !important;
+        height: 70px;
+    }
+    .smallVideoContainer iframe {
+        width: 70px !important;
+        height: 70px;
+    }
+    .smallImage {
+        width: 70px !important;
+        height: 70px;
+    }
+    .slider {
+        width: 70px;
+        height: 307px;
+        display: none;
+    }
+    .currentVideo {
+        height: 307px;
+    }
+    .buyBut {
+        height: fit-content !important;
+    }
+    .comments {
+        margin-top: 20px;
+    }
+    .sliderHorizontal {
+        display: block;
+        margin-top: 16px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .currentVideo {
+        height: 456px;
+    }
+    .currentImageBlock {
+        height: 456px;
+    }
+    .images {
+        width: 100%;
+    }
+    .info {
+        width: 100%;
+    }
+    .content {
+        flex-direction: column;
+    }
+    .modalButtons {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .descriptionBlock {
+        margin-bottom: 55px;
+    }
+    .descriptionContainer {
+        flex-direction: column-reverse;
+    }
+    .rightDescription {
+        width: 100%;
+        margin-bottom: 32px;
+    }
+    .leftDescription {
+        width: 100%;
+    }
+    .comments {
+        margin-bottom: 55px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .currentImageBlock, .currentVideo {
+        height: 350px;
+    }
+    .form {
+        margin-top: 55px;
+    }
+    .modalButtons button {
+        font-size: 12px;
+    }
 }

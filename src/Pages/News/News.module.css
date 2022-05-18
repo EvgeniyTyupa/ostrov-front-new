@@ -22,3 +22,53 @@
     row-gap: 45px;
     margin-bottom: 100px;
 }
+
+@media screen and (max-width: 1366px) {
+    .wrapper {
+        gap: 4%;
+        row-gap: 45px;
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .wrapper {
+        gap: 1.5%;
+        row-gap: 45px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .wrapper {
+        gap: 4.5%;
+        row-gap: 45px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wrapper {
+        gap: 5%;
+        row-gap: 45px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .main {
+        margin-bottom: 50px;
+    }
+    .wrapper {
+        gap: 5%;
+        row-gap: 45px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .wrapper div {
+        width: 47%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .wrapper div {
+        width: 100%;
+    }
+}

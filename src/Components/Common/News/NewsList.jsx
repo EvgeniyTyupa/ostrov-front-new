@@ -17,7 +17,39 @@ const NewsList = (props) => {
                 <NavLink to={href}>{t("news.all")}</NavLink>
             </div>
             <div className={classes.slider}>
-                <CustomSlider slidesToShow={slidesToShow}>
+                <CustomSlider 
+                    slidesToShow={slidesToShow}
+                    responsive={[
+                        {
+                            breakpoint: 1170,
+                            settings: {
+                              slidesToShow: 3,
+                              slidesToScroll: 1,
+                            }
+                        },
+                        {
+                            breakpoint: 862,
+                            settings: {
+                              slidesToShow: 3,
+                              slidesToScroll: 1,
+                            }
+                        },
+                        {
+                          breakpoint: 600,
+                          settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1,
+                          }
+                        },
+                        {
+                          breakpoint: 480,
+                          settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                          }
+                        }
+                    ]}
+                >
                     {items.map(el => <NewsSmallItem key={el._id} item={el} className={classes.item}/>)}
                 </CustomSlider>
             </div>

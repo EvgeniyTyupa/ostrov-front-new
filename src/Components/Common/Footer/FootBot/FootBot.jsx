@@ -2,6 +2,7 @@ import react from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { useFooterNavigation } from '../../../../Hooks/useFooterNavigation'
+import { PHONE_NUMBER } from '../../../../Utils/constants'
 import MaxWidthContainer from '../../../UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../../UI/Container/PaddingContainer/PaddingContainer'
 import classes from './FootBot.module.css'
@@ -26,9 +27,9 @@ const FootBot = (props) => {
                     <div className={classes.infoBlock}>
                         <div className={classes.navBlock}>
                             <h4>{t("navigation.contact")}</h4>
-                            <a href='tel:0(800) 400-546'>0(800) 400-546</a>
-                            <a href='tel:0(800) 400-546'>0(800) 400-546</a>
-                            <a href='tel:0(800) 400-546'>0(800) 400-546</a>
+                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
                         </div>
                         <div className={classes.navBlock}>
                             <h4>{t("navigation.footer.workingTitle")}</h4>
