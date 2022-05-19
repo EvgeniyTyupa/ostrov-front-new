@@ -117,3 +117,28 @@
     height: 50px;
     font-family: 'Montserrat' !important;
 }
+
+@media screen and (max-width: 468px) {
+    .row {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .radioTypes div {
+        gap: 20px !important;
+    }
+    .payment div {
+        gap: 20px !important;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .main span {
+        font-size: 14px !important;
+    }
+    .main h4 {
+        font-size: 14px;
+    }
+    .submit {
+        font-size: 14px !important;
+    }
+}

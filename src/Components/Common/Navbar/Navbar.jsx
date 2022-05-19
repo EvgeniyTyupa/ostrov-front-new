@@ -1,7 +1,10 @@
 import React from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { setCurrentLanguage } from '../../../Redux/commonReducer'
+import { cx } from '../../../Utils/classnames'
 import classes from './Navbar.module.css'
 import NavBot from './NavBot/NavBot'
 import NavMid from './NavMid/NavMid'
@@ -19,10 +22,24 @@ const Navbar = (props) => {
 
     const { pathname } = useLocation()
 
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+    
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
         <>
             {(!pathname.includes("admin") && !pathname.includes("/sign_up")) &&
-            <div className={classes.main}>
+            <div className={cx(classes.main, scrollPosition > 60 ? classes.sticky : "")}>
                 <NavTop currentLanguage={currentLanguage} setCurrentLanguage={setCurrentLanguage}/>
                 <NavMid isAuth={isAuth} user={user} totalItemsCart={totalItemsCart}/>
                 <NavBot categories={mainCategoriesWithChildren}/>

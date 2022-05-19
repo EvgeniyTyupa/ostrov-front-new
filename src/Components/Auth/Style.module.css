@@ -32,3 +32,22 @@
     margin-top: 16px;
 
 }
+
+@media screen and (max-width: 1024px) {
+    .modal {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .modal {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .modal {
+        width: 95%;
+        padding: 16px;
+    }
+}

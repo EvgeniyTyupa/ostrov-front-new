@@ -10,6 +10,7 @@ import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 import MaxWidthContainer from '../Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../Container/PaddingContainer/PaddingContainer'
 import classes from './ProfileLayout.module.css'
+import ProfileMobileMenu from './ProfileMobileMenu/ProfileMobileMenu'
 
 const ProfileLayout = (props) => {
     const { children, title, logout } = props
@@ -47,7 +48,10 @@ const ProfileLayout = (props) => {
                 <div className={classes.content}>
                     <div className={classes.header}>
                         <h4>{title}</h4>
-                        <Button onClick={() => logout()}>{t("auth.logout")}</Button>
+                        <Button className={classes.exit} onClick={() => logout()}>{t("auth.logout")}</Button>
+                        <div className={classes.mobileMenu}>
+                            <ProfileMobileMenu logout={logout}/>
+                        </div>
                     </div>
                     {children}
                 </div>

@@ -46,14 +46,14 @@ const FilterCatalogMobile = (props) => {
                 onClose={handleOpen}
                 classes={{ root: classes.root, paper: classes.paper }}
             >
-                <div className={classes.header}>
+                {/* <div className={classes.header}>
                     <IconButton 
                         onClick={handleOpen}
                         className={classes.closeBut}
                     >
                         <AiOutlineClose/>
                     </IconButton>
-                </div>
+                </div> */}
                 <FilterCatalog
                     categories={categories}
                     priceRange={priceRange}

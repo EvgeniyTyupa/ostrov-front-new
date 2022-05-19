@@ -15,3 +15,22 @@
     font-size: 14px;
     color: #37395C;
 }
+
+@media screen and (max-width: 1170px) {
+    .main {
+        height: fit-content;
+    }
+    .wrapper {
+        width: 100%;
+        max-height: unset;
+        overflow-y: hidden;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .wrapper {
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+}
+

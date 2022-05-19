@@ -55,3 +55,9 @@
 .viewBut:hover {
     background-color: #42528d !important;
 }
+
+@media screen and (max-width: 1170px) {
+    .table {
+        width: 100%;
+    }
+}

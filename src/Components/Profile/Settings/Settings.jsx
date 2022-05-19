@@ -46,7 +46,7 @@ const Settings = (props) => {
         <ProfileLayout title={t("profile.menu.settings")}>
             {isFetching && <Preloader/>}
             {serverResponse && <ServerResponse/>}
-            <AnimatedBlock>
+            <AnimatedBlock className={classes.container}>
 
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.main}>
                     <Field className={classes.field}>

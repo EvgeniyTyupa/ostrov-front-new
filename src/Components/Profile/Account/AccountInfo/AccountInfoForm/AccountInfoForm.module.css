@@ -55,3 +55,16 @@
 .lastField {
     margin-top: 20px !important;
 }
+
+@media screen and (max-width: 1170px) {
+    .main {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .row {
+        flex-direction: column;
+        gap: 0px;
+    }
+}

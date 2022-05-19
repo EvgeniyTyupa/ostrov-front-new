@@ -43,7 +43,7 @@
     color: #37395C;
     text-transform: uppercase;
 }
-.header button {
+.exit {
     background-color: transparent !important;
     font-size: 14px !important;
     font-weight: 700 !important;
@@ -52,10 +52,34 @@
     color: #4B5EA3 !important;
     font-family: 'Montserrat' !important;
 }
-.header button:hover {
+.exit:hover {
     text-decoration: underline;
 }
 .content {
     width: calc(100% - 281px);
     padding-top: 22px;
+}
+.mobileMenu {
+    display: none;
+}
+
+@media screen and (max-width: 1170px) {
+    .content {
+        width: 100%;
+    }
+    .menu {
+        display: none;
+    }
+    .exit {
+        display: none;
+    }
+    .mobileMenu {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .main {
+        margin-bottom: 40px;
+    }
 }

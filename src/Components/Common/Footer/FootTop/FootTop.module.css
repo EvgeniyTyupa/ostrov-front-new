@@ -79,6 +79,7 @@
     .main {
         padding: 0 15px;
         box-sizing: border-box;
+        height: 160px;
     }
     .form form {
         max-width: 90%;

@@ -97,9 +97,7 @@ const CartTable = (props) => {
                         {items.map(item => (
                             <TableRow key={item.item._id}>
                                 <TableCell
-                                    style={{
-                                        width: "125px"
-                                    }}
+                                    className={classes.imageCell}
                                 >
                                     <img 
                                         src={item.item.images[0]} 
@@ -160,10 +158,7 @@ const CartTable = (props) => {
                         {gift && gift.map(item => (
                             <TableRow>
                                 <TableCell
-                                    style={{
-                                        width: "125px",
-                                        position: "relative",
-                                    }}
+                                    className={classes.imageCell}
                                 >
                                     <label className={classes.baige}>{t("shopping_cart.gift")}</label>
                                     <img 

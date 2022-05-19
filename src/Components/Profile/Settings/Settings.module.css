@@ -30,3 +30,17 @@
 .submitBut:hover {
     background-color: #42528d !important;
 }
+
+@media screen and (max-width: 1170px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main {
+        width: 100%;
+    }
+}

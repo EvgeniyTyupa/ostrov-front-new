@@ -93,7 +93,6 @@ const TransitionRoutes = (props) => {
     
             
             if(!isEmpty){
-                console.log(location)
                 navigate(location.pathname + query + location.hash)
             }
         }

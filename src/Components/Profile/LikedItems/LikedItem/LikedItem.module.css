@@ -74,3 +74,10 @@
     font-size: 14px;
     color: #E86589;
 }
+
+
+@media screen and (max-width: 568px) {
+    .main {
+        width: 100%;
+    }
+}

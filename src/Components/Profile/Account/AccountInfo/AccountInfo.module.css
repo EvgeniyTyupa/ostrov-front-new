@@ -37,3 +37,23 @@
 .editBut:hover {
     text-decoration: underline !important;
 }
+
+@media screen and (max-width: 1170px) {
+    .info {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .field {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .field p {
+        width: 100%;
+    }
+    .field label {
+        width: 100%;
+    }
+}

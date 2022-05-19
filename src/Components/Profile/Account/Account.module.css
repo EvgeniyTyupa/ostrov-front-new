@@ -36,3 +36,9 @@
     color: #4B5EA3;
     width: fit-content;
 }
+
+@media screen and (max-width: 568px) {
+    .info {
+        width: 100%;
+    }
+}
