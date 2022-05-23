@@ -6,10 +6,16 @@ import { NavLink } from 'react-router-dom'
 import Search from './Search/Search'
 import MaxWidthContainer from '../../../UI/Container/MaxWidthContainer/MaxWidthContainer'
 import BadgePanel from './BadgePanel/BadgePanel'
-import { PHONE_NUMBER } from '../../../../Utils/constants'
 
 const NavMid = (props) => {
-    const { isAuth, user, totalItemsCart } = props
+    const { 
+        isAuth, 
+        user, 
+        totalItemsCart, 
+        setIsOpenMobileCatalog, 
+        isOpenMobileCatalog, 
+        siteInfo
+    } = props
 
     return (
         <PaddingContainer className={classes.main}>
@@ -21,8 +27,12 @@ const NavMid = (props) => {
                 </div>
                 <div className={classes.content}>
                     <Search className={classes.desktop}/>
-                    <a href={`tel:${PHONE_NUMBER}`} className={classes.phoneNumber}>{PHONE_NUMBER}</a>
-                    <BadgePanel isAuth={isAuth} user={user} totalItemsCart={totalItemsCart}/>
+                    <div className={classes.phones}>
+                        {siteInfo && siteInfo[0].phones.map(el => (
+                            <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`} className={classes.phoneNumber}>{el}</a>
+                        ))}
+                    </div>
+                    <BadgePanel isAuth={isAuth} user={user} totalItemsCart={totalItemsCart} setIsOpenMobileCatalog={setIsOpenMobileCatalog} isOpenMobileCatalog={isOpenMobileCatalog}/>
                 </div>
             </MaxWidthContainer>
         </PaddingContainer>

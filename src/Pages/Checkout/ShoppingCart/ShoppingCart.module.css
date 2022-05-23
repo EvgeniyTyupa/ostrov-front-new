@@ -89,6 +89,9 @@
 .submit:disabled {
     background-color: gray !important;
 }
+.listMobile {
+    display: none;
+}
 
 @media screen and (max-width: 1170px) {
     .sideContainer {
@@ -100,5 +103,36 @@
     .right {
         width: 100%;
         padding-top: 0;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .list {
+        display: none;
+    }
+    .listMobile {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 6px 0 0 whitesmoke !important;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .main {
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .submit {
+        font-size: 12px !important;
+    }
+    .fieldCard p {
+        font-size: 16px;
+    }
+    .fieldTotal span {
+        font-size: 14px !important;
     }
 }

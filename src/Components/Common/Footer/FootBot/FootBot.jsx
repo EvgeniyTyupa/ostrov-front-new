@@ -1,5 +1,6 @@
 import react from 'react'
 import { useTranslation } from 'react-i18next'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { useFooterNavigation } from '../../../../Hooks/useFooterNavigation'
 import { PHONE_NUMBER } from '../../../../Utils/constants'
@@ -8,6 +9,8 @@ import PaddingContainer from '../../../UI/Container/PaddingContainer/PaddingCont
 import classes from './FootBot.module.css'
 
 const FootBot = (props) => {
+    const { siteInfo } = props
+
     const navigationItems = useFooterNavigation()
 
     const { t } = useTranslation()
@@ -27,9 +30,9 @@ const FootBot = (props) => {
                     <div className={classes.infoBlock}>
                         <div className={classes.navBlock}>
                             <h4>{t("navigation.contact")}</h4>
-                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
-                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
-                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+                            {siteInfo && siteInfo[0].phones.map(el => (
+                                <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`}>{el}</a>
+                            ))}
                         </div>
                         <div className={classes.navBlock}>
                             <h4>{t("navigation.footer.workingTitle")}</h4>
@@ -47,4 +50,8 @@ const FootBot = (props) => {
     )
 }
 
-export default FootBot
+let mapStateToProps = (state) => ({
+    siteInfo: state.common.siteInfo
+})
+
+export default connect(mapStateToProps, null)(FootBot)

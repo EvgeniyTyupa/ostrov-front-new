@@ -106,8 +106,7 @@
 .types h2 {
     margin-bottom: 16px;
 }
-.types label{
-    cursor: pointer;
+.backs {
     padding-top: 25px;
     padding-bottom: 25px;
     padding-left: 20px;
@@ -115,6 +114,11 @@
     color: white;
     border-radius: 10px;
     margin-bottom: 20px;
+}
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 .label_one{
     background-color: #4B5EA3;
@@ -129,7 +133,17 @@
 }
 .deliveryInfo{
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.deliveryInfo button {
+    color: white !important;
+}
+.deliveryInfo button svg {
+    transition-duration: .3s;
+}
+.active svg {
+    transform: rotate(45deg);
 }
 .deliveryInfo span{
     font-weight: bold;
@@ -139,7 +153,16 @@
     font-weight: 500 !important;
     margin-top: 5px;
 }
-
+.law {
+    display: flex;
+    align-items: center;
+    gap: 16px
+}
+.law svg {
+    font-size: 300px;
+    height: fit-content;
+    color: #4B5EA3
+}
 .type{
     height: 0;
     box-sizing: border-box;
@@ -157,30 +180,26 @@
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
 }
-.inputOne:checked+label{
-    padding-bottom: 20px;
-}
-.inputOne:checked+label .typeOne{
+
+.typeOne{
     margin-top: 10px;
     padding-bottom: 20px;
     height: max-content;
 }
-.inputOne:checked+label .typeContentOne{
+.typeContentOne{
     display: flex;
     flex-direction: column;
     visibility: visible;
     opacity: 1;
 }
 
-.inputTwo:checked+label{
-    padding-bottom: 20px;
-}
-.inputTwo:checked+label .typeTwo{
+
+.typeTwo{
     margin-top: 10px;
     padding-bottom: 20px;
     height: max-content;
 }
-.inputTwo:checked+label .typeContentTwo{
+.typeContentTwo{
     padding-top: 20px;
     opacity: 1;
     display: flex;
@@ -188,15 +207,12 @@
     visibility: visible;
 }
 
-.inputThree:checked+label{
-    padding-bottom: 20px;
-}
-.inputThree:checked+label .typeThree{
+.typeThree{
     margin-top: 10px;
     padding-bottom: 20px;
     height: max-content;
 }
-.inputThree:checked+label .typeContentThree{
+.typeContentThree{
     padding-top: 20px;
     opacity: 1;
     display: flex;
@@ -214,15 +230,8 @@
 
 @media screen and (max-width: 1170px){
     .main{
-        width: 1024px;
-        padding-left: 50px;
-        padding-right: 50px;
-        box-sizing: border-box;
-    }
-}
-@media screen and (max-width: 1023px){
-    .main{
         width: 100%;
+        margin-bottom: 50px;
     }
     .content{
         flex-direction: column;
@@ -240,5 +249,35 @@
     .types label{
         width: 100%;
         box-sizing: border-box;
+    }
+}
+
+
+@media screen and (max-width: 568px) {
+    .law svg {
+        display: none;
+    }
+    .main a {
+        word-break: break-all;
+    }
+    .main ol {
+        word-break: break-all;
+        padding-left: 10px;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .main span {
+        font-size: 14px;
+    }
+    .main li {
+        font-size: 14px;
+    }
+    .main a {
+        font-size: 14px;
+    }
+    .main h1 {
+        font-size: 24px;
+        padding: 20px 0;
     }
 }

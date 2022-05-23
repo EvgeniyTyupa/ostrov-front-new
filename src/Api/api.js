@@ -618,3 +618,14 @@ export const dashboardApi = {
         .then(response => response.data)
     }
 }
+
+export const siteInfoApi = {
+    getInfo() {
+        return instance.get('/info')
+        .then(response => response.data)
+    },
+    updateInfo(id, data) {
+        return instance.patch(`/info/${id}`, data)
+        .then(response => response.data)
+    } 
+}

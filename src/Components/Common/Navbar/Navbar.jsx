@@ -17,12 +17,16 @@ const Navbar = (props) => {
         isAuth,
         user,
         totalItemsCart,
-        mainCategoriesWithChildren
+        mainCategoriesWithChildren,
+        siteInfo
     } = props
 
     const { pathname } = useLocation()
 
     const [scrollPosition, setScrollPosition] = useState(0);
+
+    const [isOpenMobileCatalog, setIsOpenMobileCatalog] = useState(false)
+
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
@@ -41,8 +45,8 @@ const Navbar = (props) => {
             {(!pathname.includes("admin") && !pathname.includes("/sign_up")) &&
             <div className={cx(classes.main, scrollPosition > 60 ? classes.sticky : "")}>
                 <NavTop currentLanguage={currentLanguage} setCurrentLanguage={setCurrentLanguage}/>
-                <NavMid isAuth={isAuth} user={user} totalItemsCart={totalItemsCart}/>
-                <NavBot categories={mainCategoriesWithChildren}/>
+                <NavMid isAuth={isAuth} user={user} totalItemsCart={totalItemsCart} setIsOpenMobileCatalog={setIsOpenMobileCatalog} isOpenMobileCatalog={isOpenMobileCatalog} siteInfo={siteInfo}/>
+                <NavBot categories={mainCategoriesWithChildren} setIsOpenMobileCatalog={setIsOpenMobileCatalog} isOpenMobileCatalog={isOpenMobileCatalog}/>
             </div>}
         </>
     )
@@ -53,8 +57,8 @@ let mapStateToProps = (state) => ({
     isAuth: state.user.isAuth,
     user: state.user.user,
     totalItemsCart: state.cart.totalCount,
-    mainCategoriesWithChildren: state.categories.mainCategoriesWithChildren
-
+    mainCategoriesWithChildren: state.categories.mainCategoriesWithChildren,
+    siteInfo: state.common.siteInfo
 })
 
 export default connect(mapStateToProps, {

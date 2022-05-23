@@ -97,3 +97,12 @@
     font-size: 18px;
     font-weight: 700;
 }
+
+@media screen and (max-width: 375px) {
+    .row p {
+        font-size: 14px;
+    }
+    .row label {
+        font-size: 14px;
+    }
+}

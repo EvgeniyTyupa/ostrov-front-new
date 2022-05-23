@@ -232,3 +232,55 @@
     width: 40%;
     height: 250px;
 }
+
+@media screen and (max-width: 768px) {
+    .mini {
+        flex-direction: column;
+    }
+    .mini .card {
+        width: 100%;
+    }
+    .charts {
+        flex-direction: column;
+    }
+    .donat {
+        width: 100%;
+    }
+    .ordersBar {
+        width: 100%;
+    }
+    .popularSection {
+        flex-direction: column;
+    }
+    .popular {
+        width: 100%;
+    }
+    .promocodes {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .content {
+        padding-bottom: 5px;
+    }
+    .donat {
+        display: none;
+    }
+    .date label {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .topItem img {
+        width: 50px;
+        height: 50px;
+    }
+    .topItem h3 {
+        font-size: 14px;
+    }
+    .value {
+        font-size: 24px;
+    }
+}

@@ -21,3 +21,18 @@
 .delBut:hover {
     background-color: #d44d35 !important;
 }
+
+@media screen and (max-width: 568px) {
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .editBut {
+        margin-right: 0 !important;
+    }
+    .delBut {
+        margin-left: 0 !important;
+        margin-top: 4px !important;
+    }
+}

@@ -39,7 +39,7 @@ const AdminBrands = (props) => {
     const rows = [
         {
             key: 'image',
-            text: "Изображение",
+            text: "",
             searchByValue: ""
         },
         {

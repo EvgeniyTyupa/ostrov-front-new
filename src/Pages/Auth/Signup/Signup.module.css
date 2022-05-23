@@ -75,3 +75,50 @@
     gap: 8px;
     align-items: center;
 }
+
+@media screen and (max-width: 1170px) {
+    .main {
+        flex-direction: column;
+        margin-bottom: 20%;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .main {
+        margin-bottom: 20%;
+    }
+    .links {
+        bottom: 4%;
+    }
+    .logo img {
+        width: 250px;
+    }
+    .boy, .girl {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    .logo img {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .logo img {
+        width: 140px;
+    }
+    .main {
+        gap: 25px;
+        margin-bottom: 5%;
+    }
+    .main form button[type="submit"] {
+        height: 50px !important;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .links {
+        display: none;
+    }
+}

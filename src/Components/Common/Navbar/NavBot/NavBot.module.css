@@ -68,6 +68,24 @@
         justify-content: space-between;
         margin-left: 27px;
     }
+    .catalogMenu {
+        display: none;
+    }
+    .paper {
+        width: 60%;
+        background-color: #E86589 !important;
+        display: flex;
+        flex-direction: column;
+        padding: 32px;
+        box-sizing: border-box;
+        position: relative;
+    }
+    .header {
+        margin-left: auto;
+    }
+    .header button {
+        color: white !important;
+    }
 }
 
 @media screen and (max-width: 862px) {
@@ -80,10 +98,20 @@
     .links a {
         font-size: 12px;        
     }
+    .paper {
+        width: 70%;
+    }
 }
 
 @media screen and (max-width: 767px) {
     .main {
         display: none;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .paper {
+        width: 90%;
+        padding: 16px;
     }
 }

@@ -36,6 +36,11 @@
 .phoneNumber:hover {
     text-decoration: underline;
 }
+.phones {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
 @media screen and (max-width: 1170px) {
     .logoContainer {

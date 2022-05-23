@@ -99,6 +99,12 @@
 }
 
 @media screen and (max-width: 468px) {
+    .main {
+        margin-bottom: 15px;
+    }
+    .wrapper {
+        min-height: unset;
+    }
     .wrapper > div {
         width: 100%;
     }

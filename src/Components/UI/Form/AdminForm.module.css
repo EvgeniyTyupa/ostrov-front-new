@@ -113,3 +113,21 @@
     flex-direction: column;
     gap: 4px;
 }
+
+@media screen and (max-width: 568px) {
+    .row {
+        flex-direction: column;
+        gap: 24px;
+    }
+    .submit {
+        width: 100% !important;
+    }
+    .template {
+        flex-direction: row;
+        align-items: center;
+    }
+    .newsSchema {
+        width: 50%;
+        height: 50%;
+    }
+}

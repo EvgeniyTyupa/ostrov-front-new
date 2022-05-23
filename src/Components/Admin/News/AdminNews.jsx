@@ -2,7 +2,6 @@ import React from 'react'
 import classes from '../AdminView.module.css'
 import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
 import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch';
-import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
 import AdminAddNews from './AdminAddNews';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';

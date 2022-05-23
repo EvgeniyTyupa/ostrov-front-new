@@ -1,0 +1,18 @@
+.main div {
+    width: 100%;
+}
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.removeContainer {
+    margin-left: auto;
+    width: fit-content !important;
+}
+.removeContainer button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #4B5EA3 !important;
+}

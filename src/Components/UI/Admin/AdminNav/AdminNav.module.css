@@ -31,3 +31,15 @@
     align-items: center;
     gap: 16px;
 }
+.burger {
+    display: none;
+}
+
+@media screen and (max-width: 1170px) {
+    .burger {
+        display: block;
+    }
+    .userContainer {
+        display: none;
+    }
+}

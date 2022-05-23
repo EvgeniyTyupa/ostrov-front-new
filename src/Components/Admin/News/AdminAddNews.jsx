@@ -11,6 +11,7 @@ import news_schema_1 from '../../../Assets/Admin/news_schema_1.jpg'
 import news_schema_2 from '../../../Assets/Admin/news_schema_2.jpg'
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import NewsContentSection from './NewsContentSection/NewsContentSection'
+import { cx } from '../../../Utils/classnames'
 
 const AdminAddNews = (props) => {
     const { onClose, createNews } = props
@@ -115,7 +116,7 @@ const AdminAddNews = (props) => {
                         />
                     </Field>
                 </Field>
-                <Field className={classes.row}>
+                <Field className={cx(classes.row, classes.template)}>
                     <div style={{ width: "calc(50% - 13px)" }}>
                         <CustomSelect
                             onChange={(e) => setNewsTypeIndex(e.target.value)}

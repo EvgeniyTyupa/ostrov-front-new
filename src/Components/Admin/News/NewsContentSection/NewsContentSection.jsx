@@ -1,7 +1,6 @@
 import React from 'react'
 import { Controller } from 'react-hook-form'
 import DropZone from '../../../Common/DropZone/DropZone'
-import CustomButton from '../../../UI/Button/CustomButton'
 import AdminInput from '../../../UI/Form/AdminInput'
 import classes from './NewsContentSection.module.css'
 import { AiOutlineMinus } from 'react-icons/ai';
@@ -72,7 +71,7 @@ const NewsContentSection = (props) => {
                 />
             </div>
             <div className={classes.removeContainer}>
-                <Button onClick={onRemove}>
+                <Button onClick={() => onRemove(index)}>
                     <AiOutlineMinus/>&nbsp;
                     <span>Удалить</span>
                 </Button>

@@ -22,3 +22,13 @@
 .searchBut:hover {
     background-color: #77b2bb !important;
 }
+
+@media screen and (max-width: 1170px) {
+    .main {
+        width: 100%;
+        max-width: unset;
+        margin-top: auto;
+        margin-bottom: 35%;
+    }
+    
+}

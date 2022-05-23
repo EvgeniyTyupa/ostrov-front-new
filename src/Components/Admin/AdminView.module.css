@@ -20,7 +20,7 @@
     border-radius: 4px;
 }
 .tableContainer {
-    max-height: 65vh;
+    max-height: calc(100vh - 280px)
 }
 .tableContainer thead th {
     font-weight: bold;
@@ -45,7 +45,7 @@
     gap: 25px;
 }
 .isActualContainer {
-    width: 100%;
+    width: fit-content;
     display: flex;
     padding: 10px 0;
 }
@@ -56,6 +56,7 @@
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 .infoCell {
     display: flex;
@@ -72,4 +73,46 @@
 .table {
     display: flex;
     flex-direction: column;
+}
+
+
+@media screen and (max-width: 568px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .topController {
+        flex-direction: column-reverse;
+        width: 100%;
+        margin-top: 8px;
+        gap: 16px;
+    }
+    .topController > div {
+        width: 100% !important;
+    }
+    .topController button {
+        width: 100% !important;
+    }
+    .imgPreview {
+        width: 60px;
+        height: 60px;
+    }
+    .tableContainer th {
+        text-align: center;
+    }
+    .tableContainer thead th {
+        font-size: 12px;
+        padding: 8px !important;
+    }
+    .tableContainer td {
+        font-size: 12px !important;
+        padding: 8px !important;
+    }
+    .isActualContainer span {
+        font-size: 12px;
+    }
+    .footerContainer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

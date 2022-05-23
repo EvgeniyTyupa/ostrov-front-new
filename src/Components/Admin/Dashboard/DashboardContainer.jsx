@@ -74,7 +74,7 @@ const DashboardContainer = (props) => {
         },
         legend: {
             position: 'left',
-            offsetY: 80,
+            offsetY: 65,
             width: 130,
             fontFamily: "Montserrat",
             fontWeight: 400

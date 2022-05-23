@@ -1,11 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import useWindowDimensions from '../../../Hooks/useWindowDimension'
 import classes from './MainSlide.module.css'
 
 const MainSlide = (props) => {
     const { item, currentLanguage } = props
     
     const navigate = useNavigate()
+
+    const { width } = useWindowDimensions()
 
     const onClick = () => {
         if(item.image) {
@@ -17,7 +20,7 @@ const MainSlide = (props) => {
 
     return(
         <img 
-            src={item.image ? item.image : item.images[0]} 
+            src={item.image ? (width <= 568 ? item.image_mobile : item.image) : item.images[0]} 
             alt="title img"
             className={classes.main}
             onClick={onClick}

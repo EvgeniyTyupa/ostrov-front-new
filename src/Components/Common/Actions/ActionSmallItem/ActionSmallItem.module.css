@@ -28,3 +28,12 @@
     margin-top: 11px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 568px) {
+    .main img {
+        margin-bottom: 8px;
+    }
+    .main p {
+        margin-top: 8px;
+    }
+}

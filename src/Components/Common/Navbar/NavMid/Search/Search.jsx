@@ -70,7 +70,8 @@ const Search = (props) => {
         setSearchingTags,
         currentLanguage,
         total,
-        className
+        className,
+        handleOpen
     } = props
 
     const { handleSubmit, control, reset, setValue } = useForm()
@@ -94,6 +95,7 @@ const Search = (props) => {
     const onSubmit = (data) => {
         if(data.searchValue.length > 2) {
             navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=name&from=asc&searchValue=${data.searchValue}`)
+            handleOpen()
         }
     }
 
@@ -165,7 +167,7 @@ let mapStateToProps = (state) => ({
     tags: state.tags.searchingTags,
     categories: state.categories.searchingCategories,
     currentLanguage: state.common.currentLanguage,
-    total: state.items.total
+    total: state.items.total,
 })
 
 export default connect(mapStateToProps, {

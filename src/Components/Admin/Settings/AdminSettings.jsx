@@ -13,6 +13,34 @@ import Field from '../../UI/Form/Field/Field'
 import InputPassword from '../../UI/Form/InputPassword'
 import ServerResponse from '../../UI/ServerResponse/ServerResponse'
 import classes from './AdminSettings.module.css'
+import { makeStyles } from '@mui/styles';
+import { Tabs } from '@mui/material'
+import { Tab } from '@mui/material'
+import { useState } from 'react'
+import AdminSiteInfo from './SiteInfo/AdminSiteInfo'
+
+const useTabStyles = makeStyles((theme) => ({
+    root: {
+        '& .MuiTab-textColorPrimary': {
+            color: "white",
+            textTransform: "initial",
+            fontSize: "16px",
+            fontWeight: "700",
+            fontFamily: "Montserrat",
+            textTransform: "uppercase",
+            transitionDuration: ".3s",
+            color: "rgba(75, 94, 163, .5)"
+        },
+        '& .Mui-selected': {
+            opacity: 1,
+            color: "#4B5EA3 !important",
+        },
+        '& .MuiTabs-indicator': {
+            backgroundColor: "transpa",
+            height: "0px"
+        }
+    }
+}));
 
 const AdminSettings = (props) => {
     const { 
@@ -28,9 +56,17 @@ const AdminSettings = (props) => {
 
     const { t } = useTranslation()
 
+    const [currentTab, setCurrentTab] = useState(0)
+
+    const handleTab = (e, value) => {
+        setCurrentTab(value)
+    }
+
     const onSubmit = (data) => {
         changePassword(user._id, data)
     }
+
+    const material = useTabStyles()
 
     useEffect(() => {
         if(serverResponse) {
@@ -54,87 +90,104 @@ const AdminSettings = (props) => {
                 <div className={classes.header}>
                     <h2>Настройки</h2>
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className={classes.main}>
-                    <Field className={classes.field}>
-                        <label>{t("profile.settings.old_password")}</label>
-                        <Controller
-                            name="old_password"
-                            control={control}
-                            rules={{ 
-                                required: {
-                                    value: true,
-                                    message: t("errors.required")
-                                }
-                            }}
-                            defaultValue=""
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <InputPassword
-                                    error={error}
-                                    onChange={(e) => {
-                                        setServerError(null)
-                                        onChange(e.target.value)
-                                    }}
-                                    value={value}  
-                                    label={null}
-                                />
-                            )}
-                        />
-                    </Field>
-                    {serverError && <Error text={serverError}/>}
-                    <Field className={classes.field}>
-                        <label>{t("profile.settings.new_password")}</label>
-                        <Controller
-                            name="new_password"
-                            control={control}
-                            defaultValue=""
-                            rules={{ 
-                                required: {
-                                    value: true,
-                                    message: t("errors.required")
-                                }
-                            }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <InputPassword
-                                    error={error}
-                                    onChange={onChange}
-                                    value={value}  
-                                    label={null}
-                                />
-                            )}
-                        />
-                    </Field>
-                    <Field className={classes.field}>
-                        <label>{t("profile.settings.match_password")}</label>
-                        <Controller
-                            name="match_password"
-                            control={control}
-                            rules={{ 
-                                required: {
-                                    value: true,
-                                    message: t("errors.required")
-                                },
-                                validate: {
-                                    value: (value) => value === watch('new_password') || t("errors.notMatch")
-                                }
-                            }}
-                            defaultValue=""
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <InputPassword
-                                    error={error}
-                                    onChange={onChange}
-                                    value={value}  
-                                    label={null}
-                                />
-                            )}
-                        />
-                    </Field>
-                    <Button 
-                        className={classes.submitBut} 
-                        type="submit"
+                <div className={classes.tabs}>
+                    <Tabs
+                        value={currentTab} 
+                        onChange={handleTab}
+                        classes={material}
                     >
-                        {t("profile.settings.submit")}
-                    </Button>
-                </form>
+                        <Tab value={0} label="Пароль"/>
+                        <Tab value={1} label="Информация"/>
+                    </Tabs>
+                    <div className={classes.tabContent}>
+                        {currentTab === 0 && (
+                            <form onSubmit={handleSubmit(onSubmit)} className={classes.main}>
+                                <Field className={classes.field}>
+                                    <label>{t("profile.settings.old_password")}</label>
+                                    <Controller
+                                        name="old_password"
+                                        control={control}
+                                        rules={{ 
+                                            required: {
+                                                value: true,
+                                                message: t("errors.required")
+                                            }
+                                        }}
+                                        defaultValue=""
+                                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                            <InputPassword
+                                                error={error}
+                                                onChange={(e) => {
+                                                    setServerError(null)
+                                                    onChange(e.target.value)
+                                                }}
+                                                value={value}  
+                                                label={null}
+                                            />
+                                        )}
+                                    />
+                                </Field>
+                                {serverError && <Error text={serverError}/>}
+                                <Field className={classes.field}>
+                                    <label>{t("profile.settings.new_password")}</label>
+                                    <Controller
+                                        name="new_password"
+                                        control={control}
+                                        defaultValue=""
+                                        rules={{ 
+                                            required: {
+                                                value: true,
+                                                message: t("errors.required")
+                                            }
+                                        }}
+                                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                            <InputPassword
+                                                error={error}
+                                                onChange={onChange}
+                                                value={value}  
+                                                label={null}
+                                            />
+                                        )}
+                                    />
+                                </Field>
+                                <Field className={classes.field}>
+                                    <label>{t("profile.settings.match_password")}</label>
+                                    <Controller
+                                        name="match_password"
+                                        control={control}
+                                        rules={{ 
+                                            required: {
+                                                value: true,
+                                                message: t("errors.required")
+                                            },
+                                            validate: {
+                                                value: (value) => value === watch('new_password') || t("errors.notMatch")
+                                            }
+                                        }}
+                                        defaultValue=""
+                                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                                            <InputPassword
+                                                error={error}
+                                                onChange={onChange}
+                                                value={value}  
+                                                label={null}
+                                            />
+                                        )}
+                                    />
+                                </Field>
+                                <Button 
+                                    className={classes.submitBut} 
+                                    type="submit"
+                                >
+                                    {t("profile.settings.submit")}
+                                </Button>
+                            </form>
+                        )}
+                        {currentTab === 1 && (
+                            <AdminSiteInfo/>
+                        )}
+                    </div>
+                </div>
             </AnimatedBlock>
         </AdminLayout>
     )

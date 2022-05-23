@@ -7,9 +7,11 @@ import classes from './Contacts.module.css'
 import { BsInstagram } from 'react-icons/bs';
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import { Helmet } from 'react-helmet'
-import { PHONE_NUMBER } from '../../Utils/constants'
+import { connect } from 'react-redux'
 
 const Contacts = (props) => {
+    const { siteInfo } = props
+
     const { t } = useTranslation()
 
     return (
@@ -25,9 +27,9 @@ const Contacts = (props) => {
                     <div className={classes.phone}>
                         <h4>{t("contact.phone")}</h4>
                         <div className={classes.phoneNumbers}>
-                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
-                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
-                            <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+                            {siteInfo && siteInfo[0].phones.map(el => (
+                                <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`}>{el}</a>
+                            ))}
                         </div>
                     </div>
                     <div className={classes.info}>
@@ -78,4 +80,8 @@ const Contacts = (props) => {
     )
 }
 
-export default Contacts
+let mapStateToProps = (state) => ({
+    siteInfo: state.common.siteInfo
+})
+
+export default connect(mapStateToProps, null)(Contacts)

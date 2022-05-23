@@ -7,3 +7,19 @@
     gap: 3%;
     flex-wrap: wrap;
 }
+
+@media screen and (max-width: 768px) {
+    .wrapper div {
+        max-width: 48%;
+        margin-bottom: 24px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .wrapper div {
+        max-width: 100%;
+    }
+    .main {
+        margin-bottom: 20px;
+    }
+}

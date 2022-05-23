@@ -7,6 +7,7 @@ import { Badge, IconButton, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { MdFiberNew } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import AdminBurger from './AdminBurger/AdminBurger';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -42,6 +43,9 @@ const AdminNav = (props) => {
                 <div className={classes.userContainer}>
                     <span>{user.email}</span>
                     <FaUserCircle/>
+                </div>
+                <div className={classes.burger}>
+                    <AdminBurger email={user.email}/>
                 </div>
             </div>
         </div>

@@ -39,7 +39,7 @@ const AdminActionsTable = (props) => {
                                 <TableCell>{item.title}</TableCell>
                                 <TableCell>{moment(item.start).format('DD/MM/YYYY')}</TableCell>
                                 <TableCell>{moment(item.end).format('DD/MM/YYYY')}</TableCell>
-                                <TableCell width={120}>
+                                <TableCell width={"15%"}>
                                     <AdminControllButtons
                                         item={item}
                                         onRemove={handleRemove}

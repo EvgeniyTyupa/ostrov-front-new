@@ -21,3 +21,18 @@ h1, h2, h3, h4, h5, p {
   margin-left: unset !important;
   margin-right: unset !important;
 }
+
+@media screen and (max-width: 768px) {
+  .apexcharts-pie {
+    transform: translateX(18%) !important;
+  }
+  .apexcharts-legend {
+    top: 85px !important;
+  }
+}
+
+@media screen and (max-width: 468px) {
+  #SvgjsText1457 {
+    font-size: 24px !important;
+  }
+}

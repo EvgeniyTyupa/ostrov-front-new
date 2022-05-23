@@ -9,9 +9,14 @@ import { cx } from '../../../../Utils/classnames';
 import AnimatedBlock from '../../../Animation/AnimatedBlock/AnimatedBlock';
 import CategoriesList from '../../CategoriesList/CategoriesList';
 import { useOnClickOutside } from '../../../../Hooks/useOnClickOutside';
+import useWindowDimensions from '../../../../Hooks/useWindowDimension';
+import { Drawer } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { AiOutlineClose } from 'react-icons/ai';
+import CategoriesListMobile from '../../CategoriesList/CategoriesListMobile/CategoriesListMobile';
 
 const NavBot = (props) => {
-    const { categories } = props
+    const { categories, setIsOpenMobileCatalog, isOpenMobileCatalog } = props
 
     const { t } = useTranslation()
 
@@ -19,15 +24,26 @@ const NavBot = (props) => {
 
     const catalogRef = useRef(null)
 
+    const { width } = useWindowDimensions()
+
     const [isOpenCatalog, setIsOpenCatalog] = useState(false)
 
     useOnClickOutside(catalogRef, () => setIsOpenCatalog(false));
 
     const handleOpen = () => {
+        if(width <= 1170) {
+            handleMobileOpen(0)
+        }
         if(location.pathname != "/"){
             setIsOpenCatalog(!isOpenCatalog)
         }
     }
+
+    const handleMobileOpen = () => {
+        setIsOpenMobileCatalog(!isOpenMobileCatalog)
+    }
+
+    const anchor = 'left'
 
     return (
         <PaddingContainer className={classes.main}>
@@ -48,6 +64,22 @@ const NavBot = (props) => {
                         </AnimatedBlock>
                     }
                 </div>
+                <Drawer 
+                    anchor={anchor} 
+                    open={isOpenMobileCatalog} 
+                    onClose={handleMobileOpen}
+                    classes={{ root: classes.root, paper: classes.paper }}
+                >
+                    <div className={classes.header}>
+                        <IconButton 
+                            onClick={handleMobileOpen}
+                            className={classes.closeBut}
+                        >
+                            <AiOutlineClose/>
+                        </IconButton>
+                    </div>
+                    <CategoriesListMobile categories={categories}/>
+                </Drawer>
                 <div className={classes.links}>
                     <NavLink to="/#brands">{t("navigation.brands")}</NavLink>
                     <NavLink to="/actions">{t("navigation.actions")}</NavLink>

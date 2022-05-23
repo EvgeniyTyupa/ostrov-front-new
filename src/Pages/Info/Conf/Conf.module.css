@@ -52,6 +52,7 @@
     border-radius: 20px;
     background-color: #E6E8E8;
     max-height: 40vh;
+    box-sizing: border-box;
 }
 .law{
     display: flex;
@@ -59,4 +60,32 @@
 .law p{
     margin-block-start: 0;
     font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        gap: 24px;
+    }
+    .leftSide {
+        width: 100%;
+    }
+    .rightSide {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .main {
+        margin-bottom: 40px;
+    }
+    .main h1 {
+        font-size: 26px;
+    }
+    .rightSide {
+        padding: 16px;
+    }
+    .rightSide p {
+        font-size: 14px;
+    }
 }

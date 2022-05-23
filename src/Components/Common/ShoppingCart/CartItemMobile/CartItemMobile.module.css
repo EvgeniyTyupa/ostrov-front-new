@@ -1,0 +1,94 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+    box-sizing: border-box;
+    background-color: white;
+    border-bottom: 1px solid rgba(128, 128, 128, .3);
+}
+.top {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.top img {
+    width: 75px;
+    height: 75px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+.top a {
+    color: #E86589;
+    text-decoration: none;
+}
+.top a::first-letter {
+    text-transform: capitalize;
+}
+.top span {
+    color: gray;
+    font-size: 14px;
+}
+.top span::first-letter {
+    text-transform: capitalize;
+}
+.itemInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.bot {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+.price {
+    font-size: 18px;
+    color: #4B5EA3;
+    font-weight: 700;
+}
+.textPrice {
+    font-size: 12px !important;
+}
+.addBut {
+    border-radius: 24px !important;
+    background-color: #4B5EA3 !important;
+    color: white !important;
+    padding: 7px 29px !important;
+    font-family: "Montserrat" !important;
+}
+.addBut:hover {
+    background-color: #42528d !important;
+}
+.addBut:disabled {
+    background-color: gray !important;
+}
+
+@media screen and (max-width: 375px) {
+    .bot span {
+        text-align: center;
+    }
+    .main {
+        padding: 8px;
+    }
+    .top a {
+        font-size: 14px;
+    }
+    .top span {
+        font-size: 12px;
+    }
+    .price {
+        font-size: 14px;
+    }
+    .top img {
+        width: 60px;
+        height: 60px;
+    }
+    .addBut {
+        font-size: 12px !important;
+        padding: 4px 16px !important;
+    }
+}

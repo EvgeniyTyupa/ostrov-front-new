@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import Breadcrumbs from '../../../Components/Common/Breadcrumbs/Breadcrumbs'
+import CartItemMobile from '../../../Components/Common/ShoppingCart/CartItemMobile/CartItemMobile'
 import CartTable from '../../../Components/Common/ShoppingCart/CartTable/CartTable'
 import MaxWidthContainer from '../../../Components/UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../../Components/UI/Container/PaddingContainer/PaddingContainer'
@@ -29,7 +30,10 @@ const useTabStyles = makeStyles((theme) => ({
             fontWeight: "600",
             fontFamily: "Montserrat",
             backgroundColor: "rgba(75, 94, 163, .7)",
-            transitionDuration: ".3s"
+            transitionDuration: ".3s",
+            "@media screen and (max-width: 375px)": {
+                fontSize: "12px"
+            }
         },
         '& .MuiTab-textColorPrimary:last-child': {
             borderTopRightRadius: "16px",
@@ -116,6 +120,32 @@ const ShoppingCart = (props) => {
                             )}
                             {currentTabIndex === 1 && (
                                 viewedItems.length > 0 ? <CartTable items={viewedItems.reverse()} cartItems={cartItems} rows={viewedRows} type="viewed" setCurrentItem={setCurrentItem}/> 
+                                : <p className={classes.empty}>{t("profile.viewed_empty")}.</p>
+                            )}
+                        </div>
+                        <div className={classes.listMobile}>
+                            {currentTabIndex === 0 && (
+                                cartItems.length > 0 ? cartItems.map(el => (
+                                    <CartItemMobile 
+                                        item={el} 
+                                        currentLanguage={currentLanguage} 
+                                        type="cart"
+                                        cartItems={cartItems}
+                                        setCurrentItem={setCurrentItem}
+                                    />
+                                ))
+                                : <p className={classes.empty}>{t("shopping_cart.empty")}.</p>
+                            )}
+                            {currentTabIndex === 1 && (
+                                viewedItems.length > 0 ? viewedItems.reverse().map(el => (
+                                    <CartItemMobile 
+                                        item={el} 
+                                        currentLanguage={currentLanguage} 
+                                        type="viewed"
+                                        cartItems={cartItems}
+                                        setCurrentItem={setCurrentItem}
+                                    />
+                                )) 
                                 : <p className={classes.empty}>{t("profile.viewed_empty")}.</p>
                             )}
                         </div>

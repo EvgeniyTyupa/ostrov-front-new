@@ -8,19 +8,23 @@ import classes from './Burger.module.css'
 import { useState } from 'react';
 import { Button } from '@mui/material';
 import { connect } from 'react-redux';
-import { FiUser } from 'react-icons/fi';
 import { RiFileListFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
 import { setCurrentLanguage, setIsOpenLogin } from '../../../../Redux/commonReducer';
 import { PHONE_NUMBER } from '../../../../Utils/constants';
 import { Divider } from '@mui/material';
+import { logout } from '../../../../Redux/userReducer';
+import { MdLogout } from 'react-icons/md';
 
 const Burger = (props) => {
     const {
         currentLanguage,
         setCurrentLanguage,
         isAuth,
-        setIsOpenLogin
+        setIsOpenLogin,
+        setIsOpenMobileCatalog,
+        logout,
+        siteInfo
     } = props
 
     const { t, i18n } = useTranslation()
@@ -71,27 +75,35 @@ const Burger = (props) => {
                 </div>
                 <div className={classes.phoneContainer}>
                     <p>Телефон: </p>
-                    <a href={`tel:${PHONE_NUMBER}`}>{PHONE_NUMBER}</a>
+                    <div className={classes.phones}>
+                        {siteInfo && siteInfo[0].phones.map(el => (
+                            <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`}>{el}</a>
+                        ))}
+                    </div>
                 </div>
                 <div className={classes.links}>
-                    <Button className={classes.catalogBut}>
+                    <Button className={classes.catalogBut} onClick={() => setIsOpenMobileCatalog(true)}>
                         <RiFileListFill/>
                         <p className={classes.catalogHeader}>КАТАЛОГ</p>
                     </Button>
                     {!isAuth && <p onClick={handleOpenLogin}>{t("auth.login")}</p>}
                     {!isAuth && <NavLink onClick={handleOpen} to="/sign_up" className={(navData) => (navData.isActive ? classes.active : '')}>{t("auth.register")}</NavLink>}
                     {isAuth && <NavLink onClick={handleOpen} to="/profile" className={(navData) => (navData.isActive ? classes.active : '')}>{t("auth.profile")}</NavLink>}
-                    <NavLink to="/#brands">{t("navigation.brands")}</NavLink>
-                    <NavLink to="/actions">{t("navigation.actions")}</NavLink>
-                    <NavLink to="/#selector">{t("navigation.byAge")}</NavLink>
-                    <NavLink to="/#best">{t("navigation.best")}</NavLink>
-                    <NavLink to="/blog">{t("navigation.blog")}</NavLink>
-                    <NavLink to="/#news">{t("navigation.news")}</NavLink>
+                    <NavLink onClick={handleOpen} to="/#brands">{t("navigation.brands")}</NavLink>
+                    <NavLink onClick={handleOpen} to="/actions">{t("navigation.actions")}</NavLink>
+                    <NavLink onClick={handleOpen} to="/#selector">{t("navigation.byAge")}</NavLink>
+                    <NavLink onClick={handleOpen} to="/#best">{t("navigation.best")}</NavLink>
+                    <NavLink onClick={handleOpen} to="/blog">{t("navigation.blog")}</NavLink>
+                    <NavLink onClick={handleOpen} to="/#news">{t("navigation.news")}</NavLink>
                 </div>
                 <Divider className={classes.divider}/>
                 <div className={classes.footLinks}>
                     <NavLink to="/contacts">{t("navigation.contact")}</NavLink>
                     <NavLink to="/delivery_and_shipping">{t("navigation.delivery")}</NavLink>
+                    <Button onClick={logout} className={classes.exit}>
+                        <MdLogout/>
+                        <p style={{ marginLeft: "8px" }} className={classes.menuItem}>{t("auth.logout")}</p>
+                    </Button>
                 </div>
             </Drawer>
         </div>
@@ -100,10 +112,12 @@ const Burger = (props) => {
 
 let mapStateToProps = (state) => ({
     currentLanguage: state.common.currentLanguage,
-    isAuth: state.user.isAuth
+    isAuth: state.user.isAuth,
+    siteInfo: state.common.siteInfo
 })
 
 export default connect(mapStateToProps, {
     setCurrentLanguage,
-    setIsOpenLogin
+    setIsOpenLogin,
+    logout
 })(Burger)

@@ -15,10 +15,28 @@
     padding: 30px;
     border-top-left-radius: 8px; 
     box-sizing: border-box;
-    height: 87vh;
+    height: calc(100vh - 110px)
 }
 .title {
     border-bottom: 1px solid rgba(128, 128, 128, .1);
     padding-bottom: 25px;
     color: #4B5EA3;
+}
+
+@media screen and (max-width: 1440px) {
+    .content {
+        height: calc(100vh - 110px);
+    }
+}
+
+@media screen and (max-width: 1170px) {
+    .content {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .content {
+        padding: 15px;
+    }
 }

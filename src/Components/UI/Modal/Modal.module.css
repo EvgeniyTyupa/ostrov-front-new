@@ -48,3 +48,18 @@
 .body::-webkit-scrollbar-thumb:hover {
     opacity: 0;
 }
+
+
+@media screen and (max-width: 1170px) {
+    .main {
+        width: 80%;
+    }
+}
+
+
+@media screen and (max-width: 568px) {
+    .main {
+        width: 95%;
+        padding: 15px;
+    }
+}

@@ -1,4 +1,4 @@
-import { newPostApi } from "../Api/api"
+import { newPostApi, siteInfoApi } from "../Api/api"
 
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
 const SET_SERVER_RESPONSE = 'SET_SERVER_RESPONSE'
@@ -12,6 +12,7 @@ const SET_NP_WAREHOUSES = 'SET_NP_WAREHOUSES'
 const SET_IS_REGISTER_DONE = 'SET_IS_REGISTER_DONE'
 const SET_SERVER_MESSAGE = 'SET_SERVER_MESSAGE'
 const SET_IS_OPEN_FORGOT_PASS_MODAL = 'SET_IS_OPEN_FORGOT_PASS_MODAL'
+const SET_SITE_INFO = 'SET_SITE_INFO'
 
 let initialState = {
     isFetching: false,
@@ -25,7 +26,8 @@ let initialState = {
     searchingCities: [],
     npWarehouses: [],
     isRegisterDone: false,
-    isOpenForgotPassModal: false
+    isOpenForgotPassModal: false,
+    siteInfo: null
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -65,6 +67,9 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_IS_OPEN_FORGOT_PASS_MODAL: {
             return { ...state, isOpenForgotPassModal: action.isOpenForgotPassModal }
+        }
+        case SET_SITE_INFO: {
+            return { ...state, siteInfo: action.siteInfo }
         }
         default: 
             return state
@@ -107,6 +112,9 @@ export const setServerMessage = (serverMessage) => ({
 export const setIsOpenForgotPassModal = (isOpenForgotPassModal) => ({
     type: SET_IS_OPEN_FORGOT_PASS_MODAL, isOpenForgotPassModal
 })
+export const setSiteInfo = (siteInfo) => ({
+    type: SET_SITE_INFO, siteInfo
+})
 
 export const getCities = (searchValue) => async (dispatch) => {
     dispatch(setIsFetching(true))
@@ -123,6 +131,25 @@ export const getWarehouses = (city, number) => async (dispatch) => {
     try {
         let response = await newPostApi.getWarehouses(city, number)
         dispatch([setNpWarehouses(response.data), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const getSiteInfo = () => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await siteInfoApi.getInfo()
+        dispatch([setSiteInfo(response.info), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+export const updateSiteInfo = (id, data) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await siteInfoApi.updateInfo(id, data)
+        dispatch([setSiteInfo([response.info]), setServerResponse("Сохранено"), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

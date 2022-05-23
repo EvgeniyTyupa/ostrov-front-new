@@ -27,6 +27,7 @@ import TransitionRoutes from './Components/Animation/TransitionRoutes';
 import Preloader from './Components/Common/Preloader/Preloader';
 import { getMainCategoriesWithChildren } from './Redux/categoryReducer';
 import NotActivatedModal from './Components/Modals/NotActivatedModal/NotActivatedModal';
+import { getSiteInfo } from './Redux/commonReducer';
 
 const App = (props) => {
   const { 
@@ -52,7 +53,8 @@ const App = (props) => {
     setIsBlocked,
     getMainCategoriesWithChildren,
     notActivated,
-    setNotActivated
+    setNotActivated,
+    getSiteInfo
   } = props
 
   const { actionDiscount, gift } = useCheckActionConditions(cartItems, totalSumCart, totalCountCart)
@@ -134,6 +136,7 @@ const App = (props) => {
 
 
   useEffect(() => {
+    getSiteInfo()
     getMainCategoriesWithChildren()
   }, [])
 
@@ -192,5 +195,6 @@ export default connect(mapStateToProps, {
   setGift,
   setIsBlocked,
   getMainCategoriesWithChildren,
-  setNotActivated
+  setNotActivated,
+  getSiteInfo
 })(App);

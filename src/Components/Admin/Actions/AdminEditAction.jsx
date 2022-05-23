@@ -39,7 +39,7 @@ const AdminEditAction = (props) => {
     const [kindOfAction, setKindOfAction] = useState(item.kind_of_action)
     const [actionCondition, setActionCondition] = useState(ACTION_KONDITIONS[2].value)
 
-    const [isHavingGift, setIsHavingGift] = useState(item.gift ? true : false)
+    const [isHavingGift, setIsHavingGift] = useState(item.gift.length > 0 ? true : false)
 
     const [actionTypeName, setActionTypeName] = useState(
         (item.brands_id && item.brands_id.length > 0) ? "brands_id" :
@@ -102,6 +102,13 @@ const AdminEditAction = (props) => {
             })
         }
     }, [item])
+
+    useEffect(() => {
+        setValue('brands_id', item.brands_id)
+        setValue('categories_id', item.categories_id)
+        setValue('tags_id', item.tags_id)
+        setValue('gift', item.gift)
+    }, [categories, brands, tags, items])
 
     useEffect(() => {
         if(kindOfAction === KIND_OF_ACTION[0].value) {
@@ -352,8 +359,6 @@ const AdminEditAction = (props) => {
                         rules={{ required: "Обязательное поле!" }}
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <>
-                            
-                                {console.log('value',value)}
                                 <MultiAdminSearch
                                     value={value}
                                     onChange={onChange}
