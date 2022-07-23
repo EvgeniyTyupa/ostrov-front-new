@@ -154,7 +154,7 @@ const App = (props) => {
 
   return (
     <Router>
-      <HttpsRedirect>
+      {/* <HttpsRedirect> */}
         <ScrollToTop>
           <ScrollToHash>
             <div className='main'>
@@ -175,7 +175,7 @@ const App = (props) => {
             </div>
           </ScrollToHash>
         </ScrollToTop>
-      </HttpsRedirect>
+      {/* </HttpsRedirect> */}
     </Router>
   )
 }
