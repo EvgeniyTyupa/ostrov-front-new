@@ -60,7 +60,7 @@ const Contacts = (props) => {
                         </div>
                         <div className={classes.social}>
                             <h4>{t("contact.social")}</h4>
-                            <a href='https://instagram.com/ostrovok_detstva_zp' target={"_blank"} rel="noopener noreferrer">
+                            <a href='https://www.instagram.com/ostrovokdetstva_zp_reserv' target={"_blank"} rel="noopener noreferrer">
                                 <BsInstagram/>
                             </a>
                         </div>

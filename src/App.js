@@ -28,6 +28,7 @@ import Preloader from './Components/Common/Preloader/Preloader';
 import { getMainCategoriesWithChildren } from './Redux/categoryReducer';
 import NotActivatedModal from './Components/Modals/NotActivatedModal/NotActivatedModal';
 import { getSiteInfo } from './Redux/commonReducer';
+import { setPaymentUrl } from './Redux/ordersReducer';
 
 const App = (props) => {
   const { 
@@ -43,7 +44,6 @@ const App = (props) => {
     totalCountCart,
     setCartItems,
     viewedItems,
-    setViewedItems,
     getViewedItems,
     getCartItems,
     setActionDiscount,
@@ -54,7 +54,9 @@ const App = (props) => {
     getMainCategoriesWithChildren,
     notActivated,
     setNotActivated,
-    getSiteInfo
+    getSiteInfo,
+    paymentUrl,
+    setPaymentUrl
   } = props
 
   const { actionDiscount, gift } = useCheckActionConditions(cartItems, totalSumCart, totalCountCart)
@@ -134,6 +136,16 @@ const App = (props) => {
     }
   }, [localStorage.usertoken, isAuth])
 
+  useEffect(() => {
+    if(paymentUrl) {
+      console.log(paymentUrl)
+      Object.assign(document.createElement('a'), {
+        target: '_blank',
+        href: paymentUrl,
+      }).click();
+      // setPaymentUrl(null)
+    }
+  }, [paymentUrl])
 
   useEffect(() => {
     getSiteInfo()
@@ -180,7 +192,8 @@ let mapStateToProps = (state) => ({
   viewedItems: state.items.viewedItems,
   isBlocked: state.user.isBlocked,
   serverMessage: state.common.serverMessage,
-  notActivated: state.user.notActivated
+  notActivated: state.user.notActivated,
+  paymentUrl: state.orders.paymentUrl
 })
 
 export default connect(mapStateToProps, {
@@ -196,5 +209,6 @@ export default connect(mapStateToProps, {
   setIsBlocked,
   getMainCategoriesWithChildren,
   setNotActivated,
-  getSiteInfo
+  getSiteInfo,
+  setPaymentUrl
 })(App);

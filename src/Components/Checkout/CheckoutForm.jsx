@@ -146,11 +146,9 @@ const CheckoutForm = (props) => {
 
         data.gift = orderGift
 
-        console.log(data)
+        // console.log(data)
 
-        if(data.payment_type === "receive"){
-            createOrderWithMailPost(data)
-        }
+        createOrderWithMailPost(data)
     }
 
     useEffect(() => {

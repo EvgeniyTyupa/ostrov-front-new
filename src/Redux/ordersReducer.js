@@ -6,13 +6,15 @@ const SET_NEW_ORDER = 'SET_NEW_ORDER'
 const SET_TOTAL_ORDERS = 'SET_TOTAL_ORDERS'
 const SET_ORDER_DONE = 'SET_ORDER_DONE'
 const SET_NEW_TOTAL = 'SET_NEW_TOTAL'
+const SET_PAYMENT_URL = 'SET_PAYMENT_URL'
 
 let initialState = {
     orders: [],
     newOrder: null,
     total: 0,
     newTotal: 0,
-    orderDone: false
+    orderDone: false,
+    paymentUrl: null
 }
 
 const ordersReducer = (state = initialState, action) => {
@@ -31,6 +33,9 @@ const ordersReducer = (state = initialState, action) => {
         }
         case SET_NEW_TOTAL: {
             return { ...state, newTotal: action.newTotal }
+        }
+        case SET_PAYMENT_URL: {
+            return { ...state, paymentUrl: action.paymentUrl }
         }
         default: 
             return state
@@ -51,6 +56,9 @@ export const setOrderDone = (orderDone) => ({
 })
 export const setNewTotal = (newTotal) => ({
     type: SET_NEW_TOTAL, newTotal
+})
+export const setPaymentUrl = (paymentUrl) => ({
+    type: SET_PAYMENT_URL, paymentUrl
 })
 
 export const getOrders = (pageNumber, pageSize, searchBy, from, searchingValue, filterStatuses) => async (dispatch) => {
@@ -99,7 +107,12 @@ export const createOrderWithMailPost = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await ordersApi.createOrder(data)
-        dispatch([setServerMessage(response.message), setOrderDone(true), setIsFetching(false)])
+        console.log(response)
+        if(data.payment_type === 'receive') {
+            dispatch([setServerMessage(response.message), setOrderDone(true), setIsFetching(false)])
+        }else {
+            dispatch([setPaymentUrl(response.paymentUrl), setIsFetching(false)])
+        }
     }catch(err) {
         dispatch(setIsFetching(false))
     }
