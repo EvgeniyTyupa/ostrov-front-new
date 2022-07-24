@@ -71,7 +71,8 @@ const Search = (props) => {
         currentLanguage,
         total,
         className,
-        handleOpen
+        handleOpen,
+        setShowPhones
     } = props
 
     const { handleSubmit, control, reset, setValue } = useForm()
@@ -89,6 +90,9 @@ const Search = (props) => {
     const [isShowDropdown, setIsShowDropdown] = useState(false)
 
     const handleIsShowDropdown = () => {
+        if(setShowPhones) {
+            setShowPhones(!isShowDropdown)
+        }
         setIsShowDropdown(!isShowDropdown)
     }
 

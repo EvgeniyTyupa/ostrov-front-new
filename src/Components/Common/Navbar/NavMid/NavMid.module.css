@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 11;
+    z-index: 21;
 }
 .container {
     display: flex;
@@ -36,10 +36,24 @@
 .phoneNumber:hover {
     text-decoration: underline;
 }
-.phones {
+.deskPhones {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+.phones {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+}
+
+@media screen and (max-width: 1200px) {
+    .deskPhones {
+        display: none;
+    }
+    .phones {
+        display: flex;
+    } 
 }
 
 @media screen and (max-width: 1170px) {
@@ -48,6 +62,7 @@
         align-items: center;
         width: fit-content;
     }
+   
     .content {
         width: 100%;
     }
