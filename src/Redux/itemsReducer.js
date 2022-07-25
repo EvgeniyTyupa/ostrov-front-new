@@ -64,10 +64,10 @@ export const setViewedItems = (viewedItems) => ({
     type: SET_VIEWED_ITEMS, viewedItems
 })
 
-export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue) => async (dispatch) => {
+export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue, isActive) => async (dispatch) => {
     dispatch(setIsFetching(true));
     try{
-        let items = await itemsApi.getItems(pageNumber, pageSize, searchBy, from, searchingValue)
+        let items = await itemsApi.getItems(pageNumber, pageSize, searchBy, from, searchingValue, isActive)
         dispatch([setItemsData(items.items), setTotalData(items.total), setIsFetching(false)])
     }catch(err){
         dispatch(setIsFetching(false));
@@ -170,8 +170,10 @@ export const deleteItem = (itemId) => async (dispatch) => {
     try {
         let response = await itemsApi.deleteItem(itemId)
         dispatch([setServerResponse(response.message), setIsFetching(false)])
+        return true
     }catch(err) {
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+        return false
     }
 }
 

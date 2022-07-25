@@ -68,15 +68,17 @@ const AdminCategoriesContainer = (props) => {
     }
 
     const handleDeleteCategory = (categoryId) => {
-        deleteCategory(categoryId).then(() => {
-            const newCategories = [...categories]
-            newCategories.forEach((item, index) => {
-                if(item._id === categoryId) {
-                    newCategories.splice(index, 1)
-                }
-            })
-            setOpenRemove(false)
-            setCategoriesData(newCategories)
+        deleteCategory(categoryId).then((status) => {
+            if(status) {
+                const newCategories = [...categories]
+                newCategories.forEach((item, index) => {
+                    if(item._id === categoryId) {
+                        newCategories.splice(index, 1)
+                    }
+                })
+                setOpenRemove(false)
+                setCategoriesData(newCategories)
+            }
         })
     }
 

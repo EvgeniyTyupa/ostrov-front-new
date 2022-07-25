@@ -67,15 +67,17 @@ const AdminBrandsContainer = (props) => {
     }
 
     const handleDelete = (brandId) => {
-        deleteBrand(brandId).then(() => {
-            const newBrands = [...brands]
-            newBrands.forEach((item, index) => {
-                if(item._id === brandId){
-                    newBrands.splice(index, 1)
-                }
-            })
-            setOpenRemove(false)
-            setBrandsData(newBrands)
+        deleteBrand(brandId).then((status) => {
+            if(status) {
+                const newBrands = [...brands]
+                newBrands.forEach((item, index) => {
+                    if(item._id === brandId){
+                        newBrands.splice(index, 1)
+                    }
+                })
+                setOpenRemove(false)
+                setBrandsData(newBrands)
+            }
         })
     }
 

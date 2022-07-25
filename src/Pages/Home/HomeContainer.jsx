@@ -44,7 +44,7 @@ const HomeContainer = (props) => {
     useEffect(() => {
         getViewOnMainPosts()
         getActions(1, 100, "", "", "", true)
-        getItems(1, 15, "rating", -1, "")
+        getItems(1, 15, "rating", -1, "", true)
         getNews(1, 8, "", "", "")
         getBrands(1, 400, "", "", "")
         getHgTags()

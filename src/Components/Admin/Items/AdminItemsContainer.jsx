@@ -73,15 +73,17 @@ const AdminItemsContainer = (props) => {
     }
 
     const handleDeleteItem = (itemId) => {
-        deleteItem(itemId).then(() => {
-            const newItems = [...items]
-            newItems.forEach((item, index) => {
-                if(item._id === itemId) {
-                    newItems.splice(index, 1)
-                }
-            })
-            setOpenRemove(false)
-            setItemsData(newItems)
+        deleteItem(itemId).then((status) => {
+            if(status) {
+                const newItems = [...items]
+                newItems.forEach((item, index) => {
+                    if(item._id === itemId) {
+                        newItems.splice(index, 1)
+                    }
+                })
+                setOpenRemove(false)
+                setItemsData(newItems)
+            }
         })
     }
 
@@ -102,7 +104,7 @@ const AdminItemsContainer = (props) => {
     }, [newItem])
 
     useEffect(() => {
-        getItems(pageNumber + 1, pageSize, "", "", "")
+        getItems(pageNumber + 1, pageSize, "", "", "", false)
         getBrands(pageNumber + 1, 500, "", "", "")
         getAllCategories(pageNumber + 1, 500, "", "", "")
         getTags(pageNumber + 1, 500, "", "", "")

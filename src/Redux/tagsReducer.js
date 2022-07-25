@@ -98,8 +98,10 @@ export const deleteTag = (tagId) => async (dispatch) => {
     try {
         let response = await tagApi.deleteTag(tagId)
         dispatch([setServerResponse(response.message), setIsFetching(false)])
+        return true
     }catch(err) {
-        dispatch(setIsFetching(false))
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+        return false
     }
 }
 export const getHgTags = () => async (dispatch) => {

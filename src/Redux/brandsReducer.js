@@ -86,8 +86,10 @@ export const deleteBrand = (brandId) => async (dispatch) => {
     try {
         let response = await brandApi.deleteBrand(brandId)
         dispatch([setServerResponse(response.message), setIsFetching(false)])
+        return true
     }catch(err) {
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+        return false
     }
 }
 

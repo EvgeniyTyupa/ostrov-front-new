@@ -56,7 +56,6 @@ const FootTop = (props) => {
     const material = useStyles()
 
     const onSubmit = (data) => {
-        console.log(data)
         reset({
             email: ""
         })

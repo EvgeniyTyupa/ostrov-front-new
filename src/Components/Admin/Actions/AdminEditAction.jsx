@@ -62,7 +62,6 @@ const AdminEditAction = (props) => {
 
         data.start = new Date(data.start)
         data.end = new Date(data.end)
-        console.log(data)
 
         editAction(item._id, data)
     }

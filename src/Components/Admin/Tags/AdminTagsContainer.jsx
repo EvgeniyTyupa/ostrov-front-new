@@ -62,15 +62,17 @@ const AdminTagsContainer = (props) => {
     }
 
     const handleDelete = (tagId) => {
-        deleteTag(tagId).then(() => {
-            const newTags = [...tags]
-            newTags.forEach((item, index) => {
-                if(item._id === tagId) {
-                    newTags.splice(index, 1)
-                }
-            }) 
-            setOpenRemove(false)
-            setTagsData(newTags)
+        deleteTag(tagId).then((status) => {
+            if(status) {
+                const newTags = [...tags]
+                newTags.forEach((item, index) => {
+                    if(item._id === tagId) {
+                        newTags.splice(index, 1)
+                    }
+                }) 
+                setOpenRemove(false)
+                setTagsData(newTags)
+            }
         })
     }
 

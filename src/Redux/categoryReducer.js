@@ -156,8 +156,10 @@ export const deleteCategory = (categoryId) => async (dispatch) => {
     try {
         let response = await categoryApi.deleteCategory(categoryId)
         dispatch(setServerResponse(response.message))
+        return true
     } catch(err) {
         dispatch(setServerError(err.response.data.message))
+        return false
     } finally {
         dispatch(setIsFetching(false))
     }
