@@ -5,7 +5,7 @@ import { useState } from 'react';
 import classes from './TableTh.module.css'
 
 const TableTh = (props) => {
-    const { text, searchByValue, onSort, pageNumber, pageSize, searchValue, filter = false, align = 'left' } = props
+    const { text, searchByValue, onSort, pageNumber, pageSize, searchValue, filter = false, align = 'left', padding } = props
 
     const [isAsc, setIsAsc] = useState(true)
 
@@ -18,7 +18,7 @@ const TableTh = (props) => {
     }
 
     return (
-        <TableCell onClick={handleFrom} className={classes.main} align={align}>
+        <TableCell onClick={handleFrom} className={classes.main} align={align} padding={padding}>
             {text && (isAsc ? <AiOutlineArrowDown/> : <AiOutlineArrowUp/>)}
             <span className={classes.text}>{text}</span>
         </TableCell>

@@ -1,3 +1,15 @@
+.main {
+    display: flex;
+    align-items: center;
+}
+.row {
+    flex-direction: row;
+    gap: 8px;
+}
+.column {
+    flex-direction: column;
+    gap: 5px;
+}
 .main button {
     padding: 8px !important;
     border-radius: 50% !important;
@@ -8,7 +20,6 @@
 .editBut {
     background-color: #4B5EA3 !important;
     color: white !important;
-    margin-right: 5px !important;
 }
 .editBut:hover {
     background-color: #3d53a3 !important;
@@ -16,23 +27,20 @@
 .delBut {
     background-color: #DD6450 !important;
     color: white !important;
-    margin-left: 5px !important;
 }
 .delBut:hover {
     background-color: #d44d35 !important;
 }
 
 @media screen and (max-width: 568px) {
-    .main {
-        display: flex;
+    .row {
         flex-direction: column;
-        align-items: center;
+        gap: 5px;
     }
     .editBut {
         margin-right: 0 !important;
     }
     .delBut {
         margin-left: 0 !important;
-        margin-top: 4px !important;
     }
 }

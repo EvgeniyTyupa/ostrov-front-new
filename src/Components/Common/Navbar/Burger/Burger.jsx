@@ -69,8 +69,8 @@ const Burger = (props) => {
                         <AiOutlineClose/>
                     </IconButton>
                     <div className={classes.langContainer}>
-                        <Button onClick={() => handleLanguage("ru")} className={currentLanguage === "ru" ? classes.activeLang : ""}>РУС</Button>
-                        <Button onClick={() => handleLanguage("ua")} className={currentLanguage === "ua" ? classes.activeLang : ""} >УКР</Button>
+                        {/* <Button onClick={() => handleLanguage("ru")} className={currentLanguage === "ru" ? classes.activeLang : ""}>РУС</Button>
+                        <Button onClick={() => handleLanguage("ua")} className={currentLanguage === "ua" ? classes.activeLang : ""} >УКР</Button> */}
                     </div>
                 </div>
                 <div className={classes.phoneContainer}>

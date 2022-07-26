@@ -11,6 +11,8 @@ import ServerResponse from '../../UI/ServerResponse/ServerResponse';
 import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
 import { priceParser } from '../../../Utils/priceParser';
 import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
+import CustomCheckbox from '../../UI/Form/Checkbox';
+import MultipleChangeModal from './MultipleChangeModal/MultipleChangeModal';
 
 const AdminItems = (props) => {
     const { 
@@ -38,9 +40,19 @@ const AdminItems = (props) => {
         currentItem,
         openRemove,
         handleRemove,
+        setItemActive,
+        handleSelected,
+        selectedItems,
+        handleOpenMultiple,
+        isOpenMultipleModal
     } = props
 
     const rows = [
+        {
+            key: "check",
+            text: "",
+            searchValue: ""
+        },
         {
             key: "one",
             text: "",
@@ -75,6 +87,11 @@ const AdminItems = (props) => {
             key: 'count',
             text: "Наявность",
             searchByValue: "count"
+        },
+        {
+            key: "is_active",
+            text: "Активный",
+            searchValue: "is_active"
         },
         {
             key: 'last',
@@ -114,10 +131,20 @@ const AdminItems = (props) => {
                     onClose={handleRemove}
                 />
             }
+            {isOpenMultipleModal && 
+                <MultipleChangeModal
+                    onClose={handleOpenMultiple}
+                    selectedItems={selectedItems}
+                    pageNumber={pageNumber}
+                    pageSize={pageSize}
+                    searchGlobalValue={searchValue}
+                />
+            }
             <div className={classes.header}>
                 <h2>Товары</h2>
                 <div className={classes.topController}>
                     <AdminSearch onSearch={getItems} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
+                    <Button onClick={handleOpenMultiple} className={classes.multiButt} disabled={selectedItems.length < 1}>Мультизамена</Button>
                     <Button onClick={handleAddModal} className={classes.addBut}>Добавить +</Button>
                 </div>
             </div>
@@ -126,12 +153,29 @@ const AdminItems = (props) => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                {rows.map(item => <TableTh text={item.text} onSort={getItems} searchByValue={item.searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize} key={item.key}/>)}
+                                {rows.map((item, index) => (
+                                    <TableTh 
+                                        text={item.text} 
+                                        onSort={getItems} 
+                                        searchByValue={item.searchByValue} 
+                                        searchValue={searchValue} 
+                                        pageNumber={pageNumber} 
+                                        pageSize={pageSize} 
+                                        key={item.key} 
+                                        align={index === 0 ? 'center' : 'left'} 
+                                        padding={index === 0 ? 0 : "inherit"}
+                                    />
+                                ))}
                             </TableRow>
                         </TableHead>
                         <TableBody >
                             {items.map(item => (
                                 <TableRow key={item._id}>
+                                    <TableCell width={"50px"} align={"center"} className={classes.checkCell}>
+                                        <CustomCheckbox 
+                                            onChange={() => handleSelected(item._id)}
+                                        />
+                                    </TableCell>
                                     <TableCell width={70}>
                                         <img src={item.images[0]} alt="image" className={classes.imgPreview}/>
                                     </TableCell>
@@ -141,11 +185,18 @@ const AdminItems = (props) => {
                                     <TableCell>{item.brand && item.brand.name}</TableCell>
                                     <TableCell>{item.category && item.category.name}</TableCell>
                                     <TableCell align='center'>{item.count > 0 ? (item.count + " шт.") : "Нет в наличии"}</TableCell>
-                                    <TableCell width={90} align="right">
+                                    <TableCell align='center'>
+                                        <CustomCheckbox 
+                                            checked={item.is_active} 
+                                            onChange={() => setItemActive(item._id)}
+                                        />
+                                    </TableCell>
+                                    <TableCell width={50} align="right">
                                        <AdminControllButtons 
                                             item={item} 
                                             onRemove={handleRemove}
                                             onEdit={handleEdit}
+                                            direction="column"
                                         />
                                     </TableCell>
                                 </TableRow>

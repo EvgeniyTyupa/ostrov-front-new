@@ -25,6 +25,7 @@ const CustomCheckbox = (props) => {
 
     return (
         <FormControlLabel
+            style={{ margin: 0 }}
             control={
                 <Checkbox 
                     checked={checked}

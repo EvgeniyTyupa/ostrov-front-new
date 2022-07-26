@@ -165,6 +165,28 @@ export const updateItem = (itemId, data) => async (dispatch) => {
     }
 }
 
+export const setItemActive = (itemId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await itemsApi.setItemActive(itemId)
+        dispatch([setNewItem(response.item), setServerResponse(response.message), setIsFetching(false)])
+    }catch(err) {
+        dispatch(setIsFetching(false))
+    }
+}
+
+export const multipleChange = (items, type, value, action) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await itemsApi.multipleChange(items, type, value, action)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
+        return true
+    }catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+        return false
+    }
+}
+
 export const deleteItem = (itemId) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {

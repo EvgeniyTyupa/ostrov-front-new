@@ -32,12 +32,15 @@
 .tableContainer thead th:hover {
     text-decoration: underline;
 }
-.addBut {
+.addBut, .multiButt {
     background-color: #4B5EA3 !important;
     color: white !important;
     border-radius: 4px !important;
     padding: 0 10px !important;
     height: 55px;
+}
+.multiButt:disabled {
+    background-color: gray !important;
 }
 .topController {
     display: flex;
@@ -73,6 +76,9 @@
 .table {
     display: flex;
     flex-direction: column;
+}
+.checkCell {
+    padding: 0 !important;
 }
 
 

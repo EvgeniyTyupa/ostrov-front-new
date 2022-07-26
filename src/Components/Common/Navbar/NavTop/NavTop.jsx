@@ -21,7 +21,7 @@ const NavTop = (props) => {
         <PaddingContainer className={classes.main}>
             <MaxWidthContainer className={classes.container}>
                 <div className={classes.side}>
-                    <Button 
+                    {/* <Button 
                         className={cx(classes.langBut, currentLanguage === "ru" ? classes.activeLang : undefined)} 
                         onClick={() => handleLanguage("ru")}
                     >
@@ -32,7 +32,7 @@ const NavTop = (props) => {
                         onClick={() => handleLanguage("ua")}
                     >
                         УКР
-                    </Button>
+                    </Button> */}
                 </div>
                 <div className={classes.side}>
                     <NavLink to="/contacts">{t("navigation.contact")}</NavLink>

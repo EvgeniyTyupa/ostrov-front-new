@@ -3,9 +3,10 @@ import classes from './AdminControllButtons.module.css'
 import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { AiFillEye } from 'react-icons/ai';
 import { IconButton } from '@mui/material'
+import { cx } from '../../../../../Utils/classnames';
 
 const AdminControllButtons = (props) => {
-    const { onEdit, onRemove, onView, item, type = "edit" } = props
+    const { onEdit, onRemove, onView, item, type = "edit", direction = "row" } = props
 
     const handleEdit = () => {
         onEdit(item)
@@ -20,7 +21,7 @@ const AdminControllButtons = (props) => {
     }
 
     return (
-        <div className={classes.main}>
+        <div className={cx(classes.main, direction === 'row' ? classes.row : classes.column)}>
             {type === "edit" ? 
                 <>
                     <IconButton className={classes.editBut} onClick={handleEdit}>

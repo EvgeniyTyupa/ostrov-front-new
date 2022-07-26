@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 import { getBrands } from '../../../Redux/brandsReducer';
 import { getAllCategories } from '../../../Redux/categoryReducer';
-import { createItem, deleteItem, getItems, setItemsData, setNewItem, updateItem } from '../../../Redux/itemsReducer';
+import { createItem, deleteItem, getItems, setItemActive, setItemsData, setNewItem, updateItem } from '../../../Redux/itemsReducer';
 import { getTags } from '../../../Redux/tagsReducer';
 import Preloader from '../../Common/Preloader/Preloader';
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
@@ -27,7 +27,8 @@ const AdminItemsContainer = (props) => {
         serverError,
         serverResponse,
         setItemsData,
-        newItem
+        newItem,
+        setItemActive
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -40,6 +41,29 @@ const AdminItemsContainer = (props) => {
     const [openRemove, setOpenRemove] = useState(false)
 
     const [currentItem, setCurrentItem] = useState(null)
+
+    const [selectedItems, setSelectedItems] = useState([])
+
+    const [isOpenMultipleModal, setIsOpenMultipleModal] = useState(false)
+
+    const handleOpenMultiple = () => {
+        setIsOpenMultipleModal(!isOpenMultipleModal)
+    }
+
+    const handleSelected = (item) => {
+        const newSelectedItems = [...selectedItems]
+        let isExist = false
+        newSelectedItems.forEach((el, index) => {
+            if(el === item) {
+                newSelectedItems.splice(index, 1)
+                isExist = true
+            }
+        })
+        if(!isExist) {
+            newSelectedItems.push(item)
+        }
+        setSelectedItems(newSelectedItems)
+    }
 
     const handleEdit = (item) => {
         setCurrentItem(item)
@@ -145,6 +169,11 @@ const AdminItemsContainer = (props) => {
                 serverResponse={serverResponse}
                 serverError={serverError}
                 updateItem={updateItem}
+                setItemActive={setItemActive}
+                handleSelected={handleSelected}
+                selectedItems={selectedItems}
+                handleOpenMultiple={handleOpenMultiple}
+                isOpenMultipleModal={isOpenMultipleModal}
             />
         </AdminLayout>
     )
@@ -171,5 +200,6 @@ export default connect(mapStateToProps, {
     deleteItem,
     updateItem,
     setItemsData,
-    setNewItem
+    setNewItem,
+    setItemActive
 })(AdminItemsContainer)

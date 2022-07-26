@@ -2,7 +2,6 @@ import { AnimatePresence } from 'framer-motion'
 import React from 'react'
 import { useEffect } from 'react'
 import { lazy } from 'react'
-import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useCustomSearchParams } from '../../Hooks/useCustomSearchParams'
@@ -49,22 +48,10 @@ const Settings = lazy(() => import("../../Components/Profile/Settings/Settings")
 const NotFound = lazy(() => import("../../Pages/NotFound/NofFound"))
 
 const TransitionRoutes = (props) => {
-    const { currentLanguage, setCurrentLanguage } = props
-
-    const { t, i18n } = useTranslation()
+    const { currentLanguage } = props
 
     const location = useLocation()
     const navigate = useNavigate()
-
-    const search = useLocation().search
-    const lang = new URLSearchParams(search).get('lang')
-
-    useEffect(() => {
-        if(lang === "ru" || lang === "ua"){
-            i18n.changeLanguage(lang)
-            setCurrentLanguage(lang)
-        }
-    }, [])
 
     const [searchParams, setSearch] = useCustomSearchParams()
 
@@ -80,16 +67,8 @@ const TransitionRoutes = (props) => {
             });
             
             Object.keys(searchParams).map(function(key, index) {
-                if(key != "lang"){
-                    query += index === 0 ? `?${key}=${searchParams[key]}` : `&${key}=${searchParams[key]}`
-                }
+                query += index === 0 ? `?${key}=${searchParams[key]}` : `&${key}=${searchParams[key]}`
             });
-    
-            if(query.length > 0) {
-                query += `&lang=${currentLanguage}`
-            }else {
-                query += `?lang=${currentLanguage}`
-            }
     
             
             if(!isEmpty){

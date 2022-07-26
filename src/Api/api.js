@@ -227,6 +227,14 @@ export const itemsApi = {
         })
         .then(resposne => resposne.data);
     },
+    setItemActive(itemId) {
+        return instance.patch(`/item/active/${itemId}`)
+        .then(response => response.data)
+    },
+    multipleChange(items, type, value, action) {
+        return instance.patch(`/item/change/multiple`, { items, type, value, action })
+        .then(response => response.data)
+    },
     deleteItem(itemId) {
         return instance.delete(`/item/${itemId}`)
         .then(response => response.data)
