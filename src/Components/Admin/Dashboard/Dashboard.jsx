@@ -100,7 +100,7 @@ const Dashboard = (props) => {
                                         <label>{index + 1}.</label>
                                         <img src={el.item.images[0]} alt="image"/>
                                         <div>
-                                            <h3>{el.item.name}</h3>
+                                            <h3>{el.item.name_ua}</h3>
                                             <div className={classes.buyCount}>
                                                 <p>{el.count} шт.</p>
                                             </div>
@@ -118,11 +118,11 @@ const Dashboard = (props) => {
                             </div>
                             <div className={classes.item}>
                                 <p className={classes.titleLabel}>Самая популярная категория</p>
-                                <h3>{stats.topCategory ? stats.topCategory.category.name : "Данные отсутствуют."}</h3>
+                                <h3>{stats.topCategory ? stats.topCategory.category.name_ua : "Данные отсутствуют."}</h3>
                             </div>
                             <div className={classes.item}>
                                 <p className={classes.titleLabel}>Самая популярная тематика</p>
-                                <h3>{stats.topTag ? stats.topTag.tag.name : "Данные отсутствуют."}</h3>
+                                <h3>{stats.topTag ? stats.topTag.tag.name_ua : "Данные отсутствуют."}</h3>
                             </div>
                         </div>
                     </div>

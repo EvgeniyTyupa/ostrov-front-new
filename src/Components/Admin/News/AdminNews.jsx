@@ -40,7 +40,7 @@ const AdminNews = (props) => {
         {
             key: 'name',
             text: "Название",
-            searchByValue: "title"
+            searchByValue: "title_ua"
         },
         {
             key: "viewOnMain",
@@ -100,7 +100,7 @@ const AdminNews = (props) => {
                         <TableBody>
                             {news.map(item => (
                                 <TableRow key={item._id}>
-                                    <TableCell>{item.title}</TableCell>
+                                    <TableCell>{item.title_ua}</TableCell>
                                     <TableCell>
                                         <CustomCheckbox checked={item.viewOnMain} 
                                             onChange={

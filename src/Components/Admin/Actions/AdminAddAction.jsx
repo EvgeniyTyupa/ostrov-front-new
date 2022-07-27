@@ -71,9 +71,7 @@ const AdminAddAction = (props) => {
 
     useEffect(() => {
         reset({
-            title: "",
             title_ua: "",
-            descrption: "",
             description_ua: "",
             image: [],
             image_mobile: [],
@@ -135,22 +133,6 @@ const AdminAddAction = (props) => {
                 <Field className={classes.row}>
                     <Field>
                         <Controller
-                            name="title"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    error={error}
-                                    label="Название"  
-                                />
-                            )}
-                        />
-                    </Field>
-                    <Field>
-                        <Controller
                             name="title_ua"
                             control={control}
                             defaultValue=""
@@ -165,22 +147,6 @@ const AdminAddAction = (props) => {
                             )}
                         />
                     </Field>
-                </Field>
-                <Field>
-                    <Controller
-                        name="description"
-                        control={control}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                label="Описание"
-                                multiline={true}
-                                rows={6}
-                            />
-                        )}
-                    />
                 </Field>
                 <Field>
                     <Controller

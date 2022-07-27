@@ -38,7 +38,7 @@ const Home = (props) => {
             <MaxWidthContainer>
                 <Helmet 
                     htmlAttributes={{"lang": "ua", "amp": undefined}}
-                    title={`${t("siteName")} | ${currentLanguage === "ru" ? "Главная" : "Головна"}`}
+                    title={`${t("siteName")} | ${"Головна"}`}
                     meta={[{"name": "description", "content": t("siteDescription")}]}
                 />
                 <AnimatedBlock 

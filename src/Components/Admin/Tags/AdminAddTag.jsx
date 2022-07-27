@@ -15,7 +15,6 @@ const AdminAddTag = (props) => {
         addTag(data)
 
         reset({
-            name: "",
             name_ua: ""
         })
     }
@@ -23,22 +22,6 @@ const AdminAddTag = (props) => {
     return (
         <Modal title="Новый тег" onClose={onClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
-                <Field className={classes.row}>
-                    <Controller
-                        name="name"
-                        control={control}
-                        defaultValue=""
-                        rules={{ required: "Обязательное поле!" }}
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                error={error}
-                                label="Название"  
-                            />
-                        )}
-                    />
-                </Field>
                 <Field>
                     <Controller
                         name="name_ua"

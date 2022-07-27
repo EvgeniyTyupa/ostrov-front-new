@@ -21,7 +21,6 @@ const AdminAddCategory = (props) => {
         addCategory(data)
 
         reset({
-            name: "",
             name_ua: "",
             p_id: null
         })
@@ -35,22 +34,6 @@ const AdminAddCategory = (props) => {
         <Modal title="Новая категория" onClose={onClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
                 <Field className={classes.row}>
-                    <Field>
-                        <Controller
-                            name="name"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    error={error}
-                                    label="Название"  
-                                />
-                            )}
-                        />
-                    </Field>
                     <Field>
                         <Controller
                             name="name_ua"

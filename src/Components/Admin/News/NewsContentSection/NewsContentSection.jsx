@@ -15,26 +15,6 @@ const NewsContentSection = (props) => {
             <h4>Секция {index + 1}</h4>
             <Field className={classes.row}>
                 <Controller
-                    name={`paragraphs.${index}.value`}
-                    control={control}
-                    defaultValue=""
-                    rules={{ required: "Обязательное поле!" }}
-                    render={({ field: { onChange, value }, fieldState: { error } }) => (
-                        <>
-                            <AdminInput
-                                onChange={onChange}
-                                multiline={true}
-                                rows={6}
-                                value={value}
-                                error={error}
-                                label="Текст"  
-                            />
-                        </>
-                    )}
-                />
-            </Field>
-            <Field className={classes.row}>
-                <Controller
                     name={`paragraphs_ua.${index}.value`}
                     control={control}
                     defaultValue=""

@@ -45,16 +45,16 @@ const Item = (props) => {
         siteInfo
     } = props
 
-    let currentItemName = currentLanguage === "ru" ? item.name : item.name_ua
+    let currentItemName = item.name_ua
     
     let breadcrumbsItems = categoriesWithParents.map(el => {
         return {
             href: `/catalog?pageNumber=1&pageSize=25&searchBy=category&from=asc&searchValue=${el._id}`,
-            title: currentLanguage === "ru" ? el.name : el.name_ua
+            title: el.name_ua
         }
     })
 
-    const description = currentLanguage === "ru" ? item.description : item.description_ua
+    const description = item.description_ua
 
     const rating = item.rating * 20
 
@@ -62,11 +62,13 @@ const Item = (props) => {
 
     const descriptionRef = useRef(null)
 
+    console.log(item)
+
     return (
         <AnimatedBlock className={classes.mainContainer}>
             <Helmet 
                 htmlAttributes={{"lang": "ua", "amp": undefined}}
-                title={`${t("siteName")} | ${currentLanguage === "ru" ? item.name : item.name_ua}`}
+                title={`${t("siteName")} | ${item.name_ua}`}
                 meta={[{"name": "description", "content": t("siteDescription")}]}
             />
             {modalValue != null && <PaymentGuaranteeModal modalValue={modalValue} onClose={() => setModalValue(null)}/>}
@@ -164,7 +166,7 @@ const Item = (props) => {
                                     {(currentImage && currentImage.includes("https://www.youtube.com/embed")) ?
                                         <iframe src={`${currentImage}?disablekb=1`} allow="fullscreen" frameborder="0" className={classes.currentVideo}></iframe>
                                         :
-                                        <img src={currentImage} alt={item.name} className={classes.currentImage}/>
+                                        <img src={currentImage} alt={item.name_ua} className={classes.currentImage}/>
                                     }
                                 </motion.div>
                             </AnimatePresence>
@@ -231,7 +233,7 @@ const Item = (props) => {
                                 <p key={el}>{el}</p>
                             )) : <p>{t("items.emptyDesc")}</p>}
                         </div>
-                        {(!isFullDesc && item.description.length > 150) && <div className={classes.hidingBlock}></div>}
+                        {(!isFullDesc && item.description_ua.length > 150) && <div className={classes.hidingBlock}></div>}
                         {(descriptionRef && descriptionRef.current) &&
                             (description.length > 0 && descriptionRef.current.clientHeight > 80) && <button onClick={handleFullText}>
                                 {isFullDesc ? t("items.hide") : t("items.details")}
@@ -241,30 +243,30 @@ const Item = (props) => {
                     <div className={classes.rightDescription}>
                         <h4>ХАРАКТЕРИСТИКИ</h4>
                         <div className={classes.infoContainer}>
-                            {item.country &&
+                            {item.country_ua &&
                                 <div className={classes.infoPoint}>
                                     <p>{t("items.info.country")}</p>
-                                    <p>{currentLanguage === "ru" ? item.country : item.country_ua}</p>
+                                    <p>{item.country_ua}</p>
                                 </div>
                             }
                             <div className={classes.infoPoint}>
                                 <p>{t("items.info.age")}</p>
                                 <p>
-                                    {item.min_age} - {item.max_age} {currentLanguage === "ru" ? "лет" : "роки"}
+                                    {item.min_age} - {item.max_age} {"роки"}
                                 </p>
                             </div>
                             <div className={classes.infoPoint}>
                                 <p>{t("items.info.gender")}</p>
                                 <p>
-                                    {item.gender === "all" && (currentLanguage === "ru" ? "Для всех" : "Для всіх")}
-                                    {item.gender === "male" && (currentLanguage === "ru" ? "Для мальчиков" : "Для хлопчиків")}
-                                    {item.gender === "female" && (currentLanguage === "ru" ? "Для девочек" : "Для дівчаток")}
+                                    {item.gender === "all" && "Для всіх"}
+                                    {item.gender === "male" && "Для хлопчиків"}
+                                    {item.gender === "female" && "Для дівчаток"}
                                 </p>
                             </div>
                             {item.material && 
                                 <div className={classes.infoPoint}>
                                     <p>{t("items.info.material")}</p>
-                                    <p>{currentLanguage === "ru" ? item.material : item.material_ua}</p>
+                                    <p>{item.material_ua}</p>
                                 </div>
                             }
                             {item.size && 

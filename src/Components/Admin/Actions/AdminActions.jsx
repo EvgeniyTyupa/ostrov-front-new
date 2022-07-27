@@ -79,7 +79,7 @@ const AdminActions = (props) => {
         {
             key: "title",
             text: "Заголовок",
-            searchByValue: "title"
+            searchByValue: "title_ua"
         },
         {
             key: "start",

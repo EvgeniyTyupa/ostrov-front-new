@@ -26,13 +26,11 @@ const AdminEditForm = (props) => {
 
     useEffect(() => {
         reset({
-            name: item.name || "",
             name_ua: item.name_ua || "",
             articule: item.articule || "",
             code: item.code || "",
             price: item.price || "",
             cost_price: item.cost_price || "",
-            description: item.description || "",
             description_ua: item.description_ua || "",
             images: item.images || [],
             video_link: item.video_link || "",
@@ -64,25 +62,9 @@ const AdminEditForm = (props) => {
     }
 
     return (
-        <Modal title={`Редактировать ${item.name}`} onClose={handleClose}>
+        <Modal title={`Редактировать ${item.name_ua}`} onClose={handleClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
                 <Field className={classes.row}>
-                    <Field>
-                        <Controller
-                            name="name"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    error={error}
-                                    label="Название"  
-                                />
-                            )}
-                        />
-                    </Field>
                     <Field>
                         <Controller
                             name="name_ua"
@@ -178,22 +160,6 @@ const AdminEditForm = (props) => {
                 </Field>
                 <Field>
                     <Controller
-                        name="description"
-                        control={control}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                label="Описание"
-                                multiline={true}
-                                rows={6}
-                            />
-                        )}
-                    />
-                </Field>
-                <Field>
-                    <Controller
                         name="description_ua"
                         control={control}
                         defaultValue=""
@@ -261,20 +227,6 @@ const AdminEditForm = (props) => {
                 <Field className={classes.row}>
                     <Field>
                         <Controller
-                            name="country"
-                            control={control}
-                            defaultValue=""
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    label="Страна производитель"  
-                                />
-                            )}
-                        />
-                    </Field>
-                    <Field>
-                        <Controller
                             name="country_ua"
                             control={control}
                             defaultValue=""
@@ -333,19 +285,6 @@ const AdminEditForm = (props) => {
                     />
                 </Field>
                 <Field className={classes.row}>
-                    <Controller
-                        name="material"
-                        control={control}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                error={error}
-                                label="Материал"
-                            />
-                        )}
-                    />
                     <Controller
                         name="material_ua"
                         control={control}

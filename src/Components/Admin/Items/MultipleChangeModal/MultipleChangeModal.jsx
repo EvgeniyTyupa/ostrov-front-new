@@ -50,7 +50,8 @@ const MultipleChangeModal = (props) => {
         pageNumber,
         pageSize,
         searchGlobalValue,
-        getItems
+        getItems,
+        setSelectedItems
     } = props
 
     const [type, setType] = useState("brand")
@@ -69,6 +70,7 @@ const MultipleChangeModal = (props) => {
             multipleChange(selectedItems, type, value._id, action).then((status) => {
                 if(status) {
                     getItems(pageNumber + 1, pageSize, "", "", searchGlobalValue, false)
+                    setSelectedItems([])
                 }
             })
         }
@@ -143,7 +145,7 @@ const MultipleChangeModal = (props) => {
                             type === "tag" && tags
                         }
                         value={value}
-                        getOptionLabel={option => option.name}
+                        getOptionLabel={option => option.name_ua ? option.name_ua : option.name}
                         onChange={(e, newValue) => setValue(newValue)}
                         onClose={e => setSearchValue("")}
                         filterSelectedOptions

@@ -33,7 +33,7 @@ const CustomAutocomplete = (props) => {
             disablePortal
             options={items}
             value={value}
-            getOptionLabel={option => option.name}
+            getOptionLabel={option => option.name_ua ? option.name_ua : option.name}
             onChange={(event, newValue) => {
                 setValue(name, newValue)
             }}

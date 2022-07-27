@@ -135,10 +135,12 @@ const AdminOrderInfo = (props) => {
                         <p>{priceParser(order.total)} грн.</p>
                     </div>
                 </Field>
-                <Field className={classes.row}>
-                    <label>Доставка:</label>
-                    <p>{order.delivery_price ? order.delivery_price : "Бесплатно."}</p>
-                </Field>
+                {order.delivery_price === 0 && (
+                    <Field className={classes.row}>
+                        <label>Доставка:</label>
+                        <p>{"Бесплатно."}</p>
+                    </Field>
+                )}
                 <Field className={classes.row}>
                     <label>Скидка:</label>
                     <p>{order.discount.toString().includes('%') ? order.discount : order.discount + "%"}</p>

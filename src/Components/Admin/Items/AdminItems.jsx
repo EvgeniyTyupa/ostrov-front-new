@@ -44,7 +44,8 @@ const AdminItems = (props) => {
         handleSelected,
         selectedItems,
         handleOpenMultiple,
-        isOpenMultipleModal
+        isOpenMultipleModal,
+        setSelectedItems
     } = props
 
     const rows = [
@@ -138,6 +139,7 @@ const AdminItems = (props) => {
                     pageNumber={pageNumber}
                     pageSize={pageSize}
                     searchGlobalValue={searchValue}
+                    setSelectedItems={setSelectedItems}
                 />
             }
             <div className={classes.header}>
@@ -179,11 +181,11 @@ const AdminItems = (props) => {
                                     <TableCell width={70}>
                                         <img src={item.images[0]} alt="image" className={classes.imgPreview}/>
                                     </TableCell>
-                                    <TableCell width={"12%"}>{item.name}</TableCell>
+                                    <TableCell width={"12%"}>{item.name_ua}</TableCell>
                                     <TableCell align='center'>{item.code}</TableCell>
                                     <TableCell>{priceParser(item.price)} грн.</TableCell>
                                     <TableCell>{item.brand && item.brand.name}</TableCell>
-                                    <TableCell>{item.category && item.category.name}</TableCell>
+                                    <TableCell>{item.category && item.category.name_ua}</TableCell>
                                     <TableCell align='center'>{item.count > 0 ? (item.count + " шт.") : "Нет в наличии"}</TableCell>
                                     <TableCell align='center'>
                                         <CustomCheckbox 

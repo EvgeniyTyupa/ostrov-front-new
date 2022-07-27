@@ -81,9 +81,7 @@ const AdminEditAction = (props) => {
     useEffect(() => {
         if(item){
             reset({
-                title: item.title || "",
                 title_ua: item.title_ua || "",
-                description: item.description || "",
                 description_ua: item.description_ua || "",
                 image: [item.image] || [],
                 image_mobile: [item.image_mobile] || [],
@@ -162,22 +160,6 @@ const AdminEditAction = (props) => {
                 <Field className={classes.row}>
                     <Field>
                         <Controller
-                            name="title"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    error={error}
-                                    label="Название"  
-                                />
-                            )}
-                        />
-                    </Field>
-                    <Field>
-                        <Controller
                             name="title_ua"
                             control={control}
                             defaultValue=""
@@ -192,22 +174,6 @@ const AdminEditAction = (props) => {
                             )}
                         />
                     </Field>
-                </Field>
-                <Field>
-                    <Controller
-                        name="description"
-                        control={control}
-                        defaultValue=""
-                        render={({ field: { onChange, value }, fieldState: { error } }) => (
-                            <AdminInput
-                                onChange={onChange}
-                                value={value}
-                                label="Описание"
-                                multiline={true}
-                                rows={6}
-                            />
-                        )}
-                    />
                 </Field>
                 <Field>
                     <Controller

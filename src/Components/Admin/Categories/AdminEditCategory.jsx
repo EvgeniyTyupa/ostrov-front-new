@@ -33,7 +33,6 @@ const AdminEditCategory = (props) => {
     useEffect(() => {
         if(allCategories){
             reset({
-                name: item.name || "",
                 name_ua: item.name_ua || "",
                 p_id: allCategories.find((elem) => elem._id == item.p_id) || 0
             })
@@ -41,25 +40,9 @@ const AdminEditCategory = (props) => {
     }, [allCategories])
 
     return (
-        <Modal title={`Редактировать ${item.name}`} onClose={handleClose}>
+        <Modal title={`Редактировать ${item.name_ua}`} onClose={handleClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
                 <Field className={classes.row}>
-                    <Field>
-                        <Controller
-                            name="name"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    error={error}
-                                    label="Название"  
-                                />
-                            )}
-                        />
-                    </Field>
                     <Field>
                         <Controller
                             name="name_ua"

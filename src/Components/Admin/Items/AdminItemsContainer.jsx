@@ -174,6 +174,7 @@ const AdminItemsContainer = (props) => {
                 selectedItems={selectedItems}
                 handleOpenMultiple={handleOpenMultiple}
                 isOpenMultipleModal={isOpenMultipleModal}
+                setSelectedItems={setSelectedItems}
             />
         </AdminLayout>
     )

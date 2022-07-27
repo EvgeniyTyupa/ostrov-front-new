@@ -31,7 +31,7 @@ const CategoriesList = (props) => {
                         onMouseEnter={() => handleHover(item)}
                         onClick={() => onClick(item._id)}
                     >
-                        {currentLanguage === "ru" ? item.name : item.name_ua}
+                        {item.name_ua}
                     </li>
                 ))}
             </ul>

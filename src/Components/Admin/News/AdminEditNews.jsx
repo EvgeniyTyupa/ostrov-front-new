@@ -23,12 +23,6 @@ const AdminEditNews = (props) => {
     const newsChemasImg = [news_schema_1, news_schema_2]
 
     const {
-        fields: paragraphsFields,
-        append: paragraphsAppend,
-        remove: paragraphsRemove
-    } = useFieldArray({ control, name: "paragraphs" });
-
-    const {
         fields: paragraphsUaFields,
         append: paragraphsUaAppend,
         remove: paragraphsUaRemove
@@ -41,10 +35,8 @@ const AdminEditNews = (props) => {
     } = useFieldArray({ control, name: "images" });
 
     const onSubmit = (data) => {
-        data.paragraphs = data.paragraphs.map(el => el.value)
         data.paragraphs_ua = data.paragraphs_ua.map(el => el.value)
         data.images = data.images.map(el => el.value[0])
-        data.title = data.title.trim()
         data.title_ua = data.title_ua.trim()
 
         onEdit(item._id, data)
@@ -55,14 +47,12 @@ const AdminEditNews = (props) => {
     }
 
     const addSection = () => {
-        paragraphsAppend({ value: "" })
         paragraphsUaAppend({ value: ""  })
         imagesAppend({ value: null })
     }
 
     const removeSection = (index) => {
-        if(paragraphsFields.length > 1) {
-            paragraphsRemove(index)
+        if(paragraphsUaFields.length > 1) {
             paragraphsUaRemove(index)
             imagesRemove(index)
         }
@@ -74,11 +64,7 @@ const AdminEditNews = (props) => {
 
     useEffect(() => {
         reset({
-            title: item.title || "",
             title_ua: item.title_ua || "",
-            paragraphs: item.paragraphs.map((el, index) => (
-                { id: index, value: el }
-            )),
             paragraphs_ua: item.paragraphs_ua.map((el, index) => (
                 { id: index, value: el }
             )),
@@ -89,25 +75,9 @@ const AdminEditNews = (props) => {
     }, [])
 
     return (
-        <Modal title={`Редактировать ${item.title}`} onClose={handleClose}>
+        <Modal title={`Редактировать ${item.title_ua}`} onClose={handleClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>
                 <Field className={classes.row}>
-                    <Field>
-                        <Controller
-                            name="title"
-                            control={control}
-                            defaultValue=""
-                            rules={{ required: "Обязательное поле!" }}
-                            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                                <AdminInput
-                                    onChange={onChange}
-                                    value={value}
-                                    error={error}
-                                    label="Заголовок"  
-                                />
-                            )}
-                        />
-                    </Field>
                     <Field>
                         <Controller
                             name="title_ua"
@@ -137,7 +107,7 @@ const AdminEditNews = (props) => {
                     </div>
                     <img src={newsChemasImg[newsTypeIndex - 1]} alt="schema" className={classes.newsSchema}/>
                 </Field>
-                {paragraphsFields.map((el, index) => (
+                {paragraphsUaFields.map((el, index) => (
                     <NewsContentSection control={control} key={el.id} index={index} onRemove={removeSection}/>
                 ))}
                 <div className={classes.addRowContainer}>

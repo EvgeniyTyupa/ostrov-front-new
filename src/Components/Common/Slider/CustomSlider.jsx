@@ -75,7 +75,7 @@ const CustomSlider = (props) => {
                 breakpoint: 1170,
                 settings: {
                   slidesToShow: 4,
-                  slidesToScroll: 1,
+                  slidesToScroll: 1
                 }
             },
             {

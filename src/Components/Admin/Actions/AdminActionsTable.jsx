@@ -36,7 +36,7 @@ const AdminActionsTable = (props) => {
                     <TableBody>
                         {actions.map(item => (
                             <TableRow key={item._id}>
-                                <TableCell>{item.title}</TableCell>
+                                <TableCell>{item.title_ua}</TableCell>
                                 <TableCell>{moment(item.start).format('DD/MM/YYYY')}</TableCell>
                                 <TableCell>{moment(item.end).format('DD/MM/YYYY')}</TableCell>
                                 <TableCell width={"15%"}>

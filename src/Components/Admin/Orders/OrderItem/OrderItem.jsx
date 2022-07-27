@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom'
 import classes from './OrderItem.module.css'
 
 const OrderItem = (props) => {
-    const { item, currentLanguage } = props
+    const { item } = props
 
-    let itemName = currentLanguage === "ru" ? item.item.name : item.item.name_ua
+    let itemName = item.item.name_ua
     
     return (
         <div className={classes.main}>

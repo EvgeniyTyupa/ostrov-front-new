@@ -42,7 +42,7 @@ const AdminTags = (props) => {
         {
             key: 'name',
             text: "Название",
-            searchByValue: "name"
+            searchByValue: "name_ua"
         },
         {
             key: 'is_hg',
@@ -53,7 +53,7 @@ const AdminTags = (props) => {
             key: 'last',
             text: "",
             searchByValue: ""
-        },
+        }
     ]
 
     return (
@@ -99,7 +99,7 @@ const AdminTags = (props) => {
                         <TableBody>
                             {tags.map(item => (
                                 <TableRow key={item._id}>
-                                    <TableCell width="50%">{item.name}</TableCell>
+                                    <TableCell width="50%">{item.name_ua}</TableCell>
                                     <TableCell>
                                         <CustomCheckbox checked={item.is_hg} 
                                             disabled={(!item.is_hg && totalIsHg === 5)}

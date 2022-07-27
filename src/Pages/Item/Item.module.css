@@ -42,6 +42,9 @@
     width: 110px;
     height: 456px;
 }
+.slider div {
+    height: fit-content !important;
+}
 .smallVideoContainer {
     width: 109px !important;
     height: 103px;

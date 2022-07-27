@@ -42,7 +42,7 @@ const AdminCategories = (props) => {
         {
             key: 'name',
             text: 'Название',
-            searchByValue: "name"
+            searchByValue: "name_ua"
         },
         {
             key: 'last',
@@ -98,7 +98,7 @@ const AdminCategories = (props) => {
                         <TableBody>
                             {categories.map(item => (
                                 <TableRow key={item._id}>
-                                    <TableCell>{item.name}</TableCell>
+                                    <TableCell>{item.name_ua}</TableCell>
                                     <TableCell width={120}>
                                         <AdminControllButtons 
                                             item={item} 
