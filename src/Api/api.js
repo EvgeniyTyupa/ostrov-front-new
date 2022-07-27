@@ -1,7 +1,7 @@
 import * as axios from "axios";
 import i18next from "i18next";
 
-const baseURL = 'https://ostrivdytynstva.com/api';
+const baseURL = 'https://api.ostrivdytynstva.com/api';
 // const baseURL = 'http://localhost:3002/api';
 
 const newPostKey = '4cee2b513b6adbf0ba793123964eb2cc'
