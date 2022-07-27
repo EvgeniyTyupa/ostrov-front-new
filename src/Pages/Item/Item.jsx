@@ -41,7 +41,8 @@ const Item = (props) => {
         addToCart,
         setModalValue,
         modalValue,
-        viewedItems
+        viewedItems,
+        siteInfo
     } = props
 
     let currentItemName = currentLanguage === "ru" ? item.name : item.name_ua
@@ -201,7 +202,7 @@ const Item = (props) => {
                                 <div className={classes.deliveryPoints}>
                                     <div className={classes.deliveryPoint}>
                                         <h4>{t("items.delivery.type1.label")}</h4>
-                                        <p>{t("items.delivery.type1.value")}</p>
+                                        <p>{t("items.delivery.type1.value")} {siteInfo && siteInfo[0].courier_delivery} грн. {t("items.delivery.type2.value")}</p>
                                     </div>
                                     <div className={classes.deliveryPoint}>
                                         <h4>{t("items.delivery.type2.label")}</h4>
@@ -209,7 +210,7 @@ const Item = (props) => {
                                     </div>
                                     <div className={classes.deliveryPoint}>
                                         <h4>{t("items.delivery.type3.label")}</h4>
-                                        <p>{t("items.delivery.type3.value")}</p>
+                                        <p>{t("items.delivery.type3.value")} {siteInfo && siteInfo[0].office_delivery} грн. {t("items.delivery.type2.value")}</p>
                                     </div>
                                 </div>
                             </div>

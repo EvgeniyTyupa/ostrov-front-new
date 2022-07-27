@@ -37,7 +37,8 @@ const Checkout = (props) => {
         checkPromocode,
         currentPromocode,
         receivePromocodeStatus,
-        currentLanguage
+        currentLanguage,
+        siteInfo
     } = props
 
     const { t } = useTranslation()
@@ -57,23 +58,23 @@ const Checkout = (props) => {
                 if(actionDiscount.toString().includes("%")) {
                     setTotalDiscount(((Number(actionDiscount.replace("%", '')) + Number(currentPromocode.discount.replace("%", '')) + userDiscount) + "%"))
                 }else {
-                    setTotalDiscount(Math.ceil((((deliveryPrice + totalSum) / 100 * (userDiscount + Number(currentPromocode.discount.replace("%", '')))) + Number(actionDiscount))))
+                    setTotalDiscount(Math.ceil((((totalSum) / 100 * (userDiscount + Number(currentPromocode.discount.replace("%", '')))) + Number(actionDiscount))))
                 }
             }else {
                 if(actionDiscount.toString().includes("%")) {
-                    setTotalDiscount(Number(actionDiscount.replace("%", '')) + userDiscount + (Number(currentPromocode.discount) / (totalSum + deliveryPrice) * 100) + "%")
+                    setTotalDiscount(Number(actionDiscount.replace("%", '')) + userDiscount + (Number(currentPromocode.discount) / (totalSum) * 100) + "%")
                 }else {
-                    setTotalDiscount(Math.ceil((((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount) + Number(currentPromocode.discount))))
+                    setTotalDiscount(Math.ceil((((totalSum) / 100 * userDiscount) + Number(actionDiscount) + Number(currentPromocode.discount))))
                 }
             }
         }else {
             if(actionDiscount.toString().includes("%")) {
                 setTotalDiscount(((Number(actionDiscount.replace("%", '')) + userDiscount) + "%"))
             }else {
-                setTotalDiscount(Math.ceil((((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount))))
+                setTotalDiscount(Math.ceil((((totalSum) / 100 * userDiscount) + Number(actionDiscount))))
             }
         }
-    }, [currentPromocode, actionDiscount, userDiscount, deliveryPrice, totalSum])
+    }, [currentPromocode, actionDiscount, userDiscount, totalSum])
 
     return (
         <PaddingContainer className={classes.container}>
@@ -129,10 +130,12 @@ const Checkout = (props) => {
                                 <span>{t("shopping_cart.onSum")}:</span>
                                 <p>{priceParser(totalSum)} <span>грн.</span></p>
                             </div>
-                            <div className={classes.fieldCard}>
-                                <span>{t("shopping_cart.delivery")}:</span>
-                                <p>{priceParser(deliveryPrice)} <span>грн.</span></p>
-                            </div>
+                            {deliveryPrice === 0 && (
+                                <div className={classes.fieldCard}>
+                                    <span>{t("shopping_cart.delivery")}:</span>
+                                    <p><span>Безкоштовно</span></p>
+                                </div>
+                            )}
                             <div className={classes.fieldCard}>
                                 <span>{t("shopping_cart.discount")}:</span>
                                 <p>{priceParser(actionDiscount)} {!actionDiscount.toString().includes("%") && <span>грн.</span>}</p>
@@ -146,8 +149,7 @@ const Checkout = (props) => {
                                 <span>{t("shopping_cart.total")}:</span>
                                     <p>{priceParser(
                                         discountParser(
-                                            deliveryPrice + totalSum, 
-                                            totalDiscount
+                                            totalSum, totalDiscount
                                         )
                                     )} 
                                     <span> грн.</span>

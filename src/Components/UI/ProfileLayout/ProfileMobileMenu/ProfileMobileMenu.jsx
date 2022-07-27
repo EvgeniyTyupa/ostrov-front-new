@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { Divider } from '@mui/material'
 
 const ProfileMobileMenu = (props) => {
-    const { logout } = props
+    const { logout, user } = props
 
     const { t } = useTranslation()
 
@@ -57,6 +57,16 @@ const ProfileMobileMenu = (props) => {
                             {el.text}
                         </NavLink>
                     ))}
+                    {user && user.adminLevel > 0 && (
+                        <NavLink 
+                            className={({isActive}) => (isActive ? classes.active : '')} 
+                            to={'/admin'}
+                            end
+                            target={"_blank"}
+                        >
+                            Адмін. Панель
+                        </NavLink>
+                    )}
                     <Divider className={classes.divider}/>
                     <Button className={classes.exit} onClick={() => logout()}>{t("auth.logout")}</Button>
                 </div>

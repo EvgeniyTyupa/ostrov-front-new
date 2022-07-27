@@ -151,6 +151,7 @@ const AdminEditForm = (props) => {
                                     value={value}
                                     error={error}
                                     label="Цена"  
+                                    regex="number"
                                     startAdornment={true}
                                     startAdornmentIcon={<FaDollarSign/>}
                                 />
@@ -166,6 +167,7 @@ const AdminEditForm = (props) => {
                                 <AdminInput
                                     onChange={onChange}
                                     value={value}
+                                    regex="number"
                                     label="Себестоимость"  
                                     startAdornment={true}
                                     startAdornmentIcon={<FaDollarSign/>}
@@ -383,6 +385,7 @@ const AdminEditForm = (props) => {
                                 onChange={onChange}
                                 value={value}
                                 error={error}
+                                regex="number"
                                 label="Кол-во на складе"
                                 startAdornment={true}
                                 startAdornmentIcon={<GrStorage/>}

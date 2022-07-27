@@ -17,6 +17,8 @@
     font-size: 16px;
     line-height: 20px;
     color: #37395C;
+    text-align: center;
+    text-transform: uppercase;
 }
 .button {
     margin-top: 21px !important;
@@ -70,6 +72,11 @@
 @media screen and (max-width: 568px) {
     .girl, .boy {
         display: none;
+    }
+    .info {
+        text-align: center;
+        padding: 0 15px;
+        box-sizing: border-box;
     }
 }
 

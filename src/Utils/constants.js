@@ -67,7 +67,7 @@ export const ACTION_KONDITIONS = [
 export const OFFICE_MAIL_BARRIER = 500
 export const COURIER_BARRIER = 1000
 
-export const OFFICE_MAIL_DELIVERY_PRICE = 50
-export const COURIER_DELIVERY_PRICE = 50
+export const OFFICE_MAIL_DELIVERY_PRICE = 1
+export const COURIER_DELIVERY_PRICE = 1
 
 export const PHONE_NUMBER = "0(50)-979-00-88"

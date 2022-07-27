@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { Badge, IconButton, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { MdFiberNew } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import AdminBurger from './AdminBurger/AdminBurger';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -31,7 +31,9 @@ const AdminNav = (props) => {
 
     return (
         <div className={classes.main}>
-            <img src={logo} alt="logo" className={classes.logo}/>
+            <NavLink to={"/"} target="_blank">
+                <img src={logo} alt="logo" className={classes.logo}/>
+            </NavLink>
             <div className={classes.side}>
                 <Tooltip title={newOrdersCount ? "Новые заказы" : "Пока что нет новых заказов"}>
                     <IconButton onClick={onOrdersClick}>

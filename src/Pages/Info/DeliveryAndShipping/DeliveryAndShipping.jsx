@@ -15,6 +15,8 @@ import { IconButton } from '@mui/material';
 import { AiOutlinePlus } from 'react-icons/ai'
 
 const DeliveryAndShipping = (props) => {
+    const { siteInfo } = props
+
     const { t } = useTranslation();
 
     const [openOne, setOpenOne] = useState(false)
@@ -41,10 +43,8 @@ const DeliveryAndShipping = (props) => {
                                 </p>
                             </div>
                             <div className={classes.deliveryPrice}>
-                                <p>{t("delivery.3")} <strong>{t("delivery.newPost")}</strong> {t("delivery.3_1")}</p>
-                                <p>{t("delivery.3")} <strong>{t("delivery.newPost")}</strong> {t("delivery.4")}</p>
-                                <p>{t("delivery.5")} <strong>{t("delivery.newPost")}</strong> {t("delivery.5_1")}</p>
-                                <p>{t("delivery.5")} <strong>{t("delivery.newPost")}</strong> {t("delivery.5_2")}</p>
+                                <p>{t("delivery.3")} <strong>{t("delivery.newPost")}</strong> {t("delivery.4")} {siteInfo && siteInfo[0].office_delivery} грн. <strong>{t("delivery.4_1")}</strong></p>
+                                <p>{t("delivery.5")} <strong>{t("delivery.newPost")}</strong> {t("delivery.5_2")} {siteInfo && siteInfo[0].courier_delivery} грн. <strong>{t("delivery.5_3")}</strong></p>
                             </div>
                             <div className={classes.types}>
                                 <h2>{t("delivery.6")}</h2>
@@ -131,7 +131,7 @@ const DeliveryAndShipping = (props) => {
                         <div className={classes.rightSide}>
                             <div className={classes.rightSideContainer}>
                                 <h3>{t("delivery.30")}</h3>
-                                <p>{t("delivery.31")} <a href="tel:+380509790088">0 (50) 979 00 88</a> {t("delivery.32")}</p>
+                                <p>{t("delivery.31")} {siteInfo && <a href={`tel:${siteInfo[0].phones[0].replace(/[^a-zA-Z0-9 ]/g, '')}`}>{siteInfo[0].phones[0]}</a>} {t("delivery.32")}</p>
                             </div>
                         </div>
                     </div>
@@ -142,7 +142,8 @@ const DeliveryAndShipping = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    currentLanguage: state.common.currentLanguage
+    currentLanguage: state.common.currentLanguage,
+    siteInfo: state.common.siteInfo  
 })
 
 export default connect(mapStateToProps, {})(DeliveryAndShipping);

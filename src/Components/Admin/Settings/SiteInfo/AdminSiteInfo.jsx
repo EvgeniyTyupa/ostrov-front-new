@@ -3,14 +3,14 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
-import { getSiteInfo, updateSiteInfo } from '../../../../Redux/commonReducer'
+import { updateSiteInfo } from '../../../../Redux/commonReducer'
 import Preloader from '../../../Common/Preloader/Preloader'
 import classes from './AdminSiteInfo.module.css'
 import SiteInfoSection from './SiteInfoSection/SiteInfoSection'
 import { AiOutlinePlus } from 'react-icons/ai';
 
 const AdminSiteInfo = (props) => {
-    const { updateSiteInfo, getSiteInfo, siteInfo, isFetching } = props
+    const { updateSiteInfo, siteInfo, isFetching } = props
 
     const { handleSubmit, control, reset } = useForm()
 
@@ -36,10 +36,6 @@ const AdminSiteInfo = (props) => {
     }
 
     useEffect(() => {
-        getSiteInfo()
-    }, [])
-
-    useEffect(() => {
         if(siteInfo) {
             reset({
                 phones: siteInfo[0].phones.map((el, index) => (
@@ -50,25 +46,29 @@ const AdminSiteInfo = (props) => {
     }, [siteInfo])
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className={classes.main}>
-            {isFetching && <Preloader/>}
-            <div className={classes.header}>
-                <h4>Телефоны</h4>
-                <Button onClick={addSection}>
-                    <AiOutlinePlus/>
-                    <span>Добавить</span>
+        <>
+            {phonesFields.length > 0 &&
+            <form onSubmit={handleSubmit(onSubmit)} className={classes.main}>
+                {isFetching && <Preloader/>}
+                <div className={classes.header}>
+                    <h4>Телефоны</h4>
+                    <Button onClick={addSection}>
+                        <AiOutlinePlus/>
+                        <span>Добавить</span>
+                    </Button>
+                </div>
+                {phonesFields.map((el, index) => (
+                    <SiteInfoSection control={control} key={el.id} index={index} onRemove={removeSection}/>
+                ))}
+                <Button 
+                    className={classes.submitBut} 
+                    type="submit"
+                >
+                    Сохранить
                 </Button>
-            </div>
-            {phonesFields.map((el, index) => (
-                <SiteInfoSection control={control} key={el.id} index={index} onRemove={removeSection}/>
-            ))}
-            <Button 
-                className={classes.submitBut} 
-                type="submit"
-            >
-                Сохранить
-            </Button>
-        </form>
+            </form>
+            }
+        </>
     )
 }
 
@@ -78,6 +78,5 @@ let mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    updateSiteInfo,
-    getSiteInfo
+    updateSiteInfo
 })(AdminSiteInfo)

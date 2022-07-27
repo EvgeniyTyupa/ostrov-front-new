@@ -8,7 +8,6 @@ import { getComments } from '../../Redux/commentsReducer'
 import { getItem, getSame, setViewedItems } from '../../Redux/itemsReducer'
 import { updateProfile } from '../../Redux/userReducer'
 import { discountParser } from '../../Utils/discountParser'
-import { setViewedItemsToLC } from '../../Utils/setViewedItemsToLC'
 import NotFound from '../NotFound/NofFound'
 import Item from './Item'
 
@@ -33,7 +32,8 @@ const ItemContainer = (props) => {
         cartItems,
         setAddToCartResult,
         setViewedItems,
-        viewedItems
+        viewedItems,
+        siteInfo
     } = props
 
     const { name } = useParams()
@@ -220,6 +220,7 @@ const ItemContainer = (props) => {
                         modalValue={modalValue}
                         setModalValue={setModalValue}
                         viewedItems={viewedItems}
+                        siteInfo={siteInfo}
                     />}
                 </>
             }
@@ -239,7 +240,8 @@ let mapStateToProps = (state) => ({
     isAuth: state.user.isAuth,
     user: state.user.user,
     cartItems: state.cart.items,
-    viewedItems: state.items.viewedItems
+    viewedItems: state.items.viewedItems,
+    siteInfo: state.common.siteInfo
 })
 
 export default connect(mapStateToProps, {

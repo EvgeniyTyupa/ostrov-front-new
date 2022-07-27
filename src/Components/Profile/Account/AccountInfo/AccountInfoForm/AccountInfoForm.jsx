@@ -27,6 +27,7 @@ const AccountInfoForm = (props) => {
     const { handleSubmit, control, reset, setValue } = useForm()
 
     const [currentCity, setCurrentCity] = useState(user.city || null)
+    const [currentOffice, setCurrentOffice] = useState(user.warehouse || null)
 
     const onSubmit = (data) => {
         data.phone = data.phone ? "+380" + data.phone : ''
@@ -165,6 +166,7 @@ const AccountInfoForm = (props) => {
                             disabled={currentCity ? false : true}
                             onSearch={getWarehouses}
                             city={currentCity}
+                            setCurrentValue={setCurrentOffice}
                             placeholder={t("profile.account.form.number")}
                         />
                     )}

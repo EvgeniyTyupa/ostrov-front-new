@@ -13,7 +13,7 @@ import classes from './ProfileLayout.module.css'
 import ProfileMobileMenu from './ProfileMobileMenu/ProfileMobileMenu'
 
 const ProfileLayout = (props) => {
-    const { children, title, logout } = props
+    const { children, title, logout, user } = props
 
     const { t } = useTranslation()
 
@@ -44,13 +44,23 @@ const ProfileLayout = (props) => {
                             {el.text}
                         </NavLink>
                     ))}
+                    {user && user.adminLevel > 0 && (
+                         <NavLink 
+                            className={({isActive}) => (isActive ? classes.active : '')} 
+                            to={'/admin'}
+                            end
+                            target={"_blank"}
+                        >
+                            Адмін. Панель
+                        </NavLink>
+                    )}
                 </AnimatedBlock>
                 <div className={classes.content}>
                     <div className={classes.header}>
                         <h4>{title}</h4>
                         <Button className={classes.exit} onClick={() => logout()}>{t("auth.logout")}</Button>
                         <div className={classes.mobileMenu}>
-                            <ProfileMobileMenu logout={logout}/>
+                            <ProfileMobileMenu logout={logout} user={user}/>
                         </div>
                     </div>
                     {children}
@@ -60,6 +70,10 @@ const ProfileLayout = (props) => {
     )
 }
 
-export default connect(null, {
+let mapStateToProps = (state) => ({
+    user: state.user.user
+})
+
+export default connect(mapStateToProps, {
     logout
 })(ProfileLayout)

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
-import { setServerError } from '../../../Redux/commonReducer'
+import { getSiteInfo, setServerError } from '../../../Redux/commonReducer'
 import { changePassword } from '../../../Redux/userReducer'
 import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock'
 import Preloader from '../../Common/Preloader/Preloader'
@@ -18,6 +18,7 @@ import { Tabs } from '@mui/material'
 import { Tab } from '@mui/material'
 import { useState } from 'react'
 import AdminSiteInfo from './SiteInfo/AdminSiteInfo'
+import AdminDelivery from './Delivery/AdminDelivery'
 
 const useTabStyles = makeStyles((theme) => ({
     root: {
@@ -49,7 +50,8 @@ const AdminSettings = (props) => {
         setServerError,
         serverResponse,
         changePassword,
-        user
+        user,
+        getSiteInfo
     } = props
 
     const { handleSubmit, control, watch, reset } = useForm()
@@ -79,6 +81,7 @@ const AdminSettings = (props) => {
     }, [serverResponse])
 
     useEffect(() => {
+        getSiteInfo()
         return () => setServerError(null)
     }, [])
 
@@ -98,6 +101,7 @@ const AdminSettings = (props) => {
                     >
                         <Tab value={0} label="Пароль"/>
                         <Tab value={1} label="Информация"/>
+                        <Tab value={2} label="Доставка"/>
                     </Tabs>
                     <div className={classes.tabContent}>
                         {currentTab === 0 && (
@@ -186,6 +190,9 @@ const AdminSettings = (props) => {
                         {currentTab === 1 && (
                             <AdminSiteInfo/>
                         )}
+                        {currentTab === 2 && (
+                            <AdminDelivery/>
+                        )}
                     </div>
                 </div>
             </AnimatedBlock>
@@ -202,5 +209,6 @@ let mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     changePassword,
-    setServerError
+    setServerError,
+    getSiteInfo
 })(AdminSettings)

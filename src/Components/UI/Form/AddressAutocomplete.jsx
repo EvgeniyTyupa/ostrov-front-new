@@ -77,13 +77,14 @@ const AddressAutocomplete = (props) => {
             getOptionLabel={option => option.Present ? option.Present : option.Description}
             onChange={(e, newValue) => {
                 setValue(name, newValue)
-                if(name === "city"){
-                    setCurrentValue(newValue)
+                if(name === 'city') {
+                    setValue('warehouse', null)
                 }
+                setCurrentValue(newValue)
             }}
-            onClose={e => setSearchValue("")}
+            // onClose={e => setSearchValue("")}
             filterSelectedOptions
-            limitTags={150}
+            limitTags={250}
             isOptionEqualToValue={(option, value) => option.Present ? (option.Present === value.Preset) : (option.MainDescription === value.MainDescription)}
             style={{ width: "100%" }}
             defaultValue={defaultValue}

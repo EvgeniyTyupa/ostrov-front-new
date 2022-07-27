@@ -145,6 +145,7 @@ const AdminAddForm = (props) => {
                                     value={value}
                                     error={error}
                                     label="Цена"  
+                                    regex="number"
                                     startAdornment={true}
                                     startAdornmentIcon={<FaDollarSign/>}
                                 />
@@ -161,6 +162,7 @@ const AdminAddForm = (props) => {
                                     onChange={onChange}
                                     value={value}
                                     label="Себестоимость"  
+                                    regex="number"
                                     startAdornment={true}
                                     startAdornmentIcon={<FaDollarSign/>}
                                 />
@@ -377,6 +379,7 @@ const AdminAddForm = (props) => {
                                 onChange={onChange}
                                 value={value}
                                 error={error}
+                                regex="number"
                                 label="Кол-во на складе"
                                 startAdornment={true}
                                 startAdornmentIcon={<GrStorage/>}

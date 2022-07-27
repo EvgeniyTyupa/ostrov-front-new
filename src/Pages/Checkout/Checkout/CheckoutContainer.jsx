@@ -25,7 +25,8 @@ const CheckoutContainer = (props) => {
         currentPromocode,
         receivePromocodeStatus,
         setReceivePromocodeStatus,
-        currentLanguage
+        currentLanguage,
+        siteInfo
     } = props
 
     const navigate = useNavigate()
@@ -95,6 +96,7 @@ const CheckoutContainer = (props) => {
                 currentPromocode={currentPromocode}
                 receivePromocodeStatus={receivePromocodeStatus}
                 currentLanguage={currentLanguage}
+                siteInfo={siteInfo}
             />
         </>
     )
@@ -113,7 +115,8 @@ let mapStateToProps = (state) => ({
     serverMessage: state.common.serverMessage,
     currentPromocode: state.promocodes.currentPromocode,
     receivePromocodeStatus: state.promocodes.receivePromocodeStatus,
-    currentLanguage: state.common.currentLanguage
+    currentLanguage: state.common.currentLanguage,
+    siteInfo: state.common.siteInfo
 })
 
 export default connect(mapStateToProps, {

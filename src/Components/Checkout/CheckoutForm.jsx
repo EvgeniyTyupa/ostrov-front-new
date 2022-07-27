@@ -33,7 +33,8 @@ const CheckoutForm = (props) => {
         userDiscount,
         deliveryPrice,
         createOrderWithMailPost,
-        currentPromocode
+        currentPromocode,
+        siteInfo
     } = props
 
     const { handleSubmit, reset, control, setValue } = useForm()
@@ -72,35 +73,34 @@ const CheckoutForm = (props) => {
         
         data.discount = actionDiscount.toString().includes("%") ? 
             (Number(actionDiscount.replace("%", '')) + userDiscount + "%") 
-            : ((((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)) / (totalSum + deliveryPrice) * 100)
+            : ((((totalSum) / 100 * userDiscount) + Number(actionDiscount)) / (totalSum) * 100)
         
             data.total = totalSum
-        data.delivery_price = deliveryPrice
 
         data.finaly_sum = actionDiscount.toString().includes("%") ?  
-            Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount))) :
-            Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)))
+            Math.ceil((Number(data.total)) - ((Number(data.total)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount))) :
+            Math.ceil((Number(data.total)) - (((totalSum) / 100 * userDiscount) + Number(actionDiscount)))
 
 
         if(currentPromocode) {
             if(currentPromocode.discount.toString().includes("%")){
                 if(actionDiscount.toString().includes("%")) {
-                    data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount + Number(currentPromocode.discount.replace("%", ''))))))
+                    data.finaly_sum = Math.ceil((Number(data.total)) - (((Number(data.total)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount + Number(currentPromocode.discount.replace("%", ''))))))
                 }else {
-                    data.finaly_sum = Math.ceil((deliveryPrice + totalSum) - (((deliveryPrice + totalSum) / 100 * (userDiscount + Number(currentPromocode.discount.replace("%", '')))) + Number(actionDiscount)))
+                    data.finaly_sum = Math.ceil((totalSum) - (((totalSum) / 100 * (userDiscount + Number(currentPromocode.discount.replace("%", '')))) + Number(actionDiscount)))
                 }
             }else {
                 if(actionDiscount.toString().includes("%")) {
-                    data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount + (Number(currentPromocode.discount) / (totalSum + deliveryPrice) * 100))))
+                    data.finaly_sum = Math.ceil((Number(data.total)) - ((Number(data.total)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount + (Number(currentPromocode.discount) / (totalSum) * 100))))
                 }else {
-                    data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount) + Number(currentPromocode.discount)))
+                    data.finaly_sum = Math.ceil((Number(data.total)) - (((totalSum) / 100 * userDiscount) + Number(actionDiscount) + Number(currentPromocode.discount)))
                 }
             }
         }else {
             if(actionDiscount.toString().includes("%")) {
-                data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - ((Number(data.total) + Number(data.delivery_price)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount)))
+                data.finaly_sum = Math.ceil((Number(data.total)) - ((Number(data.total)) / 100 * (Number(actionDiscount.replace("%", '')) + userDiscount)))
             }else {
-                data.finaly_sum = Math.ceil((Number(data.total) + Number(data.delivery_price)) - (((deliveryPrice + totalSum) / 100 * userDiscount) + Number(actionDiscount)))
+                data.finaly_sum = Math.ceil((Number(data.total)) - (((totalSum) / 100 * userDiscount) + Number(actionDiscount)))
             }
         }
 
@@ -147,6 +147,8 @@ const CheckoutForm = (props) => {
         data.gift = orderGift
 
         // console.log(data)
+
+        data.delivery_price = deliveryPrice === 0 ? 0 : 1
 
         createOrderWithMailPost(data)
     }
@@ -203,21 +205,23 @@ const CheckoutForm = (props) => {
     }, [currentCity])
 
     useEffect(() => {
-        if(deliveryType === "courier"){
-            if(totalSum >= COURIER_BARRIER) {
-                setDeliveryPrice(0)
-            }else{
-                setDeliveryPrice(COURIER_DELIVERY_PRICE)
+        if(siteInfo) {
+            if(deliveryType === "courier"){
+                if(totalSum >= siteInfo[0].office_delivery) {
+                    setDeliveryPrice(0)
+                }else{
+                    setDeliveryPrice(COURIER_DELIVERY_PRICE)
+                }
+            }
+            if(deliveryType === "mailOffice"){
+                if(totalSum >= siteInfo[0].courier_delivery) {
+                    setDeliveryPrice(0)
+                }else{
+                    setDeliveryPrice(OFFICE_MAIL_DELIVERY_PRICE)
+                }
             }
         }
-        if(deliveryType === "mailOffice"){
-            if(totalSum >= OFFICE_MAIL_BARRIER) {
-                setDeliveryPrice(0)
-            }else{
-                setDeliveryPrice(OFFICE_MAIL_DELIVERY_PRICE)
-            }
-        }
-    }, [deliveryType, totalSum])
+    }, [deliveryType, totalSum, siteInfo])
 
     return (
         <div className={classes.main}>
@@ -588,7 +592,8 @@ let mapStateToProps = (state) => ({
     cities: state.common.searchingCities,
     npWarehouses: state.common.npWarehouses,
     isAuth: state.user.isAuth,
-    totalSum: state.cart.totalSum
+    totalSum: state.cart.totalSum,
+    siteInfo: state.common.siteInfo
 })
 
 export default connect(mapStateToProps,{

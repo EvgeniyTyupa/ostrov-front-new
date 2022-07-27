@@ -1,0 +1,37 @@
+.main {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.main h4 {
+    color: #37395C;
+    font-size: 14px;
+}
+.submitBut {
+    background-color: #4B5EA3 !important;
+    color: white !important;
+    text-transform: initial !important;
+    font-weight: 700 !important;
+    height: 53px !important;
+    font-size: 16px !important;
+    font-family: 'Montserrat' !important;
+    width: 100%;
+}
+.submitBut:hover {
+    background-color: #42528d !important;
+}
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.header button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #4B5EA3 !important;
+}
