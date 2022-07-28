@@ -7,6 +7,9 @@ import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
+import Aos from 'aos'
+import 'aos/dist/aos.css'
+
 const NotFound = () => {
     const { t } = useTranslation()
 
@@ -18,9 +21,9 @@ const NotFound = () => {
                     title={`${t("siteName")} | ${t("notFound.title")}`}
                     meta={[{"name": "description", "content": t("siteDescription")}]}
                 />
-               <h4>{t("notFound.title")}...</h4>
+               <h4 data-aos="fade-down" data-aos-duration="500">{t("notFound.title")}...</h4>
                <NavLink to="/">{t("notFound.link")}</NavLink>
-               <img src={not_found} alt="not found"/>
+               <img src={not_found} alt="not found" data-aos="zoom-in" data-aos-duration="700"/>
            </MaxWidthContainer>
        </PaddingContainer>
     )

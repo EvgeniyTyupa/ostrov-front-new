@@ -155,7 +155,7 @@ const App = (props) => {
   return (
     <Router>
       {/* <HttpsRedirect> */}
-        <ScrollToTop>
+        {/* <ScrollToTop> */}
           <ScrollToHash>
             <div className='main'>
               <Navbar/>
@@ -164,9 +164,11 @@ const App = (props) => {
               {addToCartResult && <ShoppingCartResult/>}
               {isBlocked && <SomeInfoModal text={serverMessage} onClose={() => setIsBlocked(false)}/>}
               {notActivated && <NotActivatedModal onClose={() => setNotActivated(false)}/>}
-              <Suspense fallback={<Preloader/>}>
-                <TransitionRoutes/>
-              </Suspense>
+              <main className='body'>
+                <Suspense fallback={<Preloader/>}>
+                  <TransitionRoutes/>
+                </Suspense>
+              </main>
               <StarOne/>
               <StarTwo/>
               <div className='footer'>
@@ -174,7 +176,7 @@ const App = (props) => {
               </div>
             </div>
           </ScrollToHash>
-        </ScrollToTop>
+        {/* </ScrollToTop> */}
       {/* </HttpsRedirect> */}
     </Router>
   )

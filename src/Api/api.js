@@ -272,8 +272,7 @@ export const brandApi = {
         }
         return instance.patch(`/brand/${brandId}`, newFormData, {
             headers:{
-                'Content-Type' : 'multipart/form-data',
-                'Authorization' : `Bearer ${localStorage.usertoken}`
+                'Content-Type' : 'multipart/form-data'
             }
         })
         .then(resposne => resposne.data);

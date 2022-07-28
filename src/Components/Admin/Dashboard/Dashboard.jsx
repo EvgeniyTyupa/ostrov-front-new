@@ -4,7 +4,6 @@ import classes from './Dashboard.module.css'
 import Chart from 'react-apexcharts'
 import { cx } from '../../../Utils/classnames'
 import { MdOutlineAttachMoney } from 'react-icons/md';
-import { GiTrophyCup } from 'react-icons/gi';
 import { HiUsers } from 'react-icons/hi';
 import { priceParser } from '../../../Utils/priceParser'
 import CustomSelect from '../../UI/Form/Select'

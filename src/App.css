@@ -7,6 +7,9 @@
     flex-direction: column;
     position: relative;
 }
+.body {
+    min-height: calc(100vh - 280px);
+}
 .footer {
     margin-top: auto;
 }
