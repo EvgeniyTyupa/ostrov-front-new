@@ -1,12 +1,13 @@
-import react from 'react'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { useFooterNavigation } from '../../../../Hooks/useFooterNavigation'
-import { PHONE_NUMBER } from '../../../../Utils/constants'
 import MaxWidthContainer from '../../../UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../../UI/Container/PaddingContainer/PaddingContainer'
 import classes from './FootBot.module.css'
+
+import visa from '../../../../Assets/visa.png'
+import mastercard from '../../../../Assets/mastercard.svg'
 
 const FootBot = (props) => {
     const { siteInfo } = props
@@ -42,8 +43,14 @@ const FootBot = (props) => {
                     </div>
                 </div>
                 <div className={classes.bot}>
-                    <NavLink to="/rules">{t("navigation.footer.rules")}</NavLink>
-                    <NavLink to="/confidentiality">{t("navigation.footer.conf")}</NavLink>
+                    <div className={classes.botLinks}>
+                        <NavLink to="/rules">{t("navigation.footer.rules")}</NavLink>
+                        <NavLink to="/confidentiality">{t("navigation.footer.conf")}</NavLink>
+                    </div>
+                    <div className={classes.logos}>
+                        <img src={visa} alt="visa"/>
+                        <img src={mastercard} alt="mastercard"/>
+                    </div>
                 </div>
             </MaxWidthContainer>
         </PaddingContainer>

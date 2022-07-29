@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { setAddToCartResult, setCartItems } from '../../Redux/cartReducer'
 import { getCategoriesWithParents } from '../../Redux/categoryReducer'
-import { getComments } from '../../Redux/commentsReducer'
+import { getComments, setEmptyCommentsData } from '../../Redux/commentsReducer'
 import { getItem, getSame, setViewedItems } from '../../Redux/itemsReducer'
 import { updateProfile } from '../../Redux/userReducer'
 import { discountParser } from '../../Utils/discountParser'
@@ -24,7 +24,6 @@ const ItemContainer = (props) => {
         getComments,
         comments,
         totalComments,
-        newComment,
         isAuth,
         user,
         updateProfile,
@@ -33,7 +32,8 @@ const ItemContainer = (props) => {
         setAddToCartResult,
         setViewedItems,
         viewedItems,
-        siteInfo
+        siteInfo,
+        setEmptyCommentsData
     } = props
 
     const { name } = useParams()
@@ -41,7 +41,7 @@ const ItemContainer = (props) => {
     const [currentImage, setCurrentImage] = useState(null)
     const [isFullDesc, setIsFullDesc] = useState(false)
 
-    const [pageSize, setPageSize] = useState(20)
+    const [pageSize, setPageSize] = useState(5)
     const [pageNumber, setPageNumber] = useState(0)
 
     const [discount, setDiscount] = useState(null)
@@ -56,13 +56,12 @@ const ItemContainer = (props) => {
         setIsOpenNeedAuthModal(!isOpenNeedAuthModal)
     }
 
-    const handleChangePage = (page) => {
-        setPageNumber(page)
+    const handleChangePage = () => {
+        setPageNumber(pageNumber + 1)
     }
 
-    const handlePageSize = (event) => {
-        setPageSize(event.target.value)
-        setPageNumber(0)
+    const handlePageSize = () => {
+        setPageSize(pageSize + pageSize)
     }
 
     const addToCart = () => {
@@ -127,6 +126,7 @@ const ItemContainer = (props) => {
     }
 
     useEffect(() => {
+        setEmptyCommentsData([])
         getItem(name)
     }, [name])
 
@@ -171,7 +171,6 @@ const ItemContainer = (props) => {
         }
         if(currentItem) {
             setCurrentImage(currentItem.images[0])
-            getComments(currentItem._id, pageNumber + 1, pageSize)
         }
         if(currentItem) {
             let newViewedItems = [...viewedItems]
@@ -194,35 +193,48 @@ const ItemContainer = (props) => {
         }
     }, [currentItem])
 
+    useEffect(() => {
+        return () => setEmptyCommentsData([])
+    }, [])
+
+    useEffect(() => {
+        if(currentItem) {
+            getComments(currentItem._id, pageNumber + 1, pageSize)
+        }
+    }, [currentItem, pageSize])
+
+    if(!currentItem && !isFetching) {
+        return <NotFound/>
+    }
+
     return (
         <>
-            {isFetching ? <Preloader/> :
-                <>
-                    {!currentItem ? <NotFound/> :
-                    <Item 
-                        item={currentItem}
-                        currentLanguage={currentLanguage}
-                        categoriesWithParents={categoriesWithParents}
-                        currentImage={currentImage}
-                        setCurrentImage={setCurrentImage}
-                        isFullDesc={isFullDesc}
-                        handleFullText={handleFullText}
-                        sameItems={sameItems}
-                        comments={comments}
-                        totalComments={totalComments}
-                        discount={discount}
-                        handleLike={handleLike}
-                        user={user}
-                        isLiked={isLiked}
-                        isOpenNeedAuthModal={isOpenNeedAuthModal}
-                        handleOpenAuthModal={handleOpenAuthModal}
-                        addToCart={addToCart}
-                        modalValue={modalValue}
-                        setModalValue={setModalValue}
-                        viewedItems={viewedItems}
-                        siteInfo={siteInfo}
-                    />}
-                </>
+            {isFetching && <Preloader/>}
+            {currentItem &&
+                <Item 
+                    item={currentItem}
+                    currentLanguage={currentLanguage}
+                    categoriesWithParents={categoriesWithParents}
+                    currentImage={currentImage}
+                    setCurrentImage={setCurrentImage}
+                    isFullDesc={isFullDesc}
+                    handleFullText={handleFullText}
+                    sameItems={sameItems}
+                    comments={comments}
+                    totalComments={totalComments}
+                    discount={discount}
+                    handleLike={handleLike}
+                    user={user}
+                    isLiked={isLiked}
+                    isOpenNeedAuthModal={isOpenNeedAuthModal}
+                    handleOpenAuthModal={handleOpenAuthModal}
+                    addToCart={addToCart}
+                    modalValue={modalValue}
+                    setModalValue={setModalValue}
+                    viewedItems={viewedItems}
+                    siteInfo={siteInfo}
+                    handlePageSize={handlePageSize}
+                />
             }
         </>
     )
@@ -252,5 +264,6 @@ export default connect(mapStateToProps, {
     updateProfile,
     setCartItems,
     setAddToCartResult,
-    setViewedItems
+    setViewedItems,
+    setEmptyCommentsData
 })(ItemContainer)

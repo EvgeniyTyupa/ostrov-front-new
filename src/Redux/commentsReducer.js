@@ -2,6 +2,7 @@ import { reviewsApi } from "../Api/api"
 import { setIsFetching } from "./commonReducer"
 
 const SET_COMMENTS_DATA = 'SET_COMMENTS_DATA'
+const SET_EMPTY_COMMENTS_DATA = 'SET_EMPTY_COMMENTS_DATA'
 const SET_NEW_COMMENT = 'SET_NEW_COMMENT'
 const SET_TOTAL_COMMENTS = 'SET_TOTAL_COMMENTS'
 
@@ -15,6 +16,9 @@ const commentsReducer = (state = initialState, action) => {
     switch(action.type) {
         case SET_COMMENTS_DATA: {
             return { ...state, comments: action.comments }
+        }
+        case SET_EMPTY_COMMENTS_DATA: {
+            return { ...state, comments: []}
         }
         case SET_NEW_COMMENT: {
             return { ...state, newComment: action.newComment }
@@ -36,6 +40,9 @@ export const setNewComment = (newComment) => ({
 export const setTotalComments = (total) => ({
     type: SET_TOTAL_COMMENTS, total
 })
+export const setEmptyCommentsData = () => ({
+    type: SET_EMPTY_COMMENTS_DATA
+})
 
 export const getComments = (itemId, pageNumber, pageSize) => async (dispatch) => {
     dispatch(setIsFetching(true))
@@ -49,10 +56,12 @@ export const getComments = (itemId, pageNumber, pageSize) => async (dispatch) =>
 export const addComment = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        let response = await reviewsApi.addReview(data)
-        dispatch([setNewComment(response.comment), getComments(data.item_id, 1, 25)])
+        await reviewsApi.addReview(data)
+        dispatch([setIsFetching(false)])
+        return true
     }catch(err){
         dispatch(setIsFetching(false))
+        return false
     }
 }
 

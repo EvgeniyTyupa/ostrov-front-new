@@ -92,7 +92,6 @@ const AdminBrandsContainer = (props) => {
                 }
             })
             newBrands.splice(pushIndex, 0, newBrand)
-            console.log(newBrands, newBrand)
             setBrandsData(newBrands)
             setNewBrand(null)
         }

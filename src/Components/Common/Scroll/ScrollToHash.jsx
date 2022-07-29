@@ -12,7 +12,7 @@ const ScrollToHash = ({ isFetching, children }) => {
             behavior: "smooth",
             top: element ? element.offsetTop : 0
         })}, 100);
-    }, [location, isFetching]);
+    }, [location]);
 
     return children;
 }

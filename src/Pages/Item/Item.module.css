@@ -372,6 +372,21 @@
 .sliderHorizontal {
     display: none;
 }
+.loadMoreButt {
+    background-color: #E86589 !important;
+    border-radius: 36px !important;
+    color: white !important;
+    font-family: 'Montserrat' !important;
+    font-weight: 700 !important;
+    margin: 0 auto;
+    padding: 10px 38px !important;
+    margin-bottom: 40px !important;
+    width: fit-content;
+    margin:  auto !important;
+}
+.loadMoreButt:hover {
+    background-color: #d85a7c !important;
+}
 
 @media screen and (max-width: 1170px) {
     .deliveryPoints {

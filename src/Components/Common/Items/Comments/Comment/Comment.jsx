@@ -15,7 +15,7 @@ const Comment = (props) => {
                     <p>{item.user_id.first_name ? item.user_id.first_name : item.user_id.email}</p>
                     <Rating size={"22px"} allowHalfIcon readonly ratingValue={rating}/>
                 </div>
-                <p className={classes.date}>{moment(item.created_at).format('DD/MM/YYYY')}</p>
+                <p className={classes.date}>{moment(item.created_at).format('DD/MM/YYYY H:mm')}</p>
             </div>
             <div className={classes.textContainer}>
                 {item.text.split("\n").map(el => (

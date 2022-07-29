@@ -42,7 +42,8 @@ const Item = (props) => {
         setModalValue,
         modalValue,
         viewedItems,
-        siteInfo
+        siteInfo,
+        handlePageSize
     } = props
 
     let currentItemName = item.name_ua
@@ -61,8 +62,6 @@ const Item = (props) => {
     let price = priceParser(item.price)
 
     const descriptionRef = useRef(null)
-
-    console.log(item)
 
     return (
         <AnimatedBlock className={classes.mainContainer}>
@@ -315,6 +314,9 @@ const Item = (props) => {
                                 <div className={classes.emptyReview}>
                                    <p>{t("items.reviews.empty")}</p> 
                                 </div>
+                            }
+                            {totalComments > comments.length && 
+                                <Button className={classes.loadMoreButt} onClick={handlePageSize}>Більше відгуків</Button>
                             }
                         </div>
                     </div>

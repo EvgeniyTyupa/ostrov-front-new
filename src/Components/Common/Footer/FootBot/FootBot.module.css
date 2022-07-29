@@ -12,6 +12,7 @@
 .top {
     display: flex;
     padding: 40px 0px;
+    padding-bottom: 20px;
     box-sizing: border-box;
     justify-content: space-between;
 }
@@ -51,22 +52,34 @@
 .bot {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+.botLinks {
+    display: flex;
+    align-items: center;
     gap: 26px;
     margin-top: auto;
     padding-bottom: 10px;
     box-sizing: border-box;
 }
-.bot a {
+.botLinks a {
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
     color: white;
     text-decoration: none;
 }
-.bot a:hover {
+.botLinks a:hover {
     text-decoration: underline;
 }
-
+.logos {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+}
+.logos img {
+    width: 60px;
+}
 
 @media screen and (max-width: 1170px) {
     .main {
@@ -107,6 +120,10 @@
         gap: 24px;
     }
     .bot {
+        flex-direction: column;
+        padding-bottom: 25px;
+    }
+    .botLinks {
         flex-direction: column;
         padding-bottom: 25px;
     }

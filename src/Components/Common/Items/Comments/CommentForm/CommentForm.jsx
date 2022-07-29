@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { Rating } from 'react-simple-star-rating'
-import { addComment } from '../../../../../Redux/commentsReducer'
+import { addComment, getComments } from '../../../../../Redux/commentsReducer'
 import { setIsOpenLogin } from '../../../../../Redux/commonReducer'
 import AdminInput from '../../../../UI/Form/AdminInput'
 import Modal from '../../../../UI/Modal/Modal'
@@ -16,7 +16,8 @@ const CommentForm = (props) => {
         user,
         currentItem,
         addComment,
-        setIsOpenLogin
+        setIsOpenLogin,
+        getComments,
     } = props
 
     const { t } = useTranslation()
@@ -56,7 +57,12 @@ const CommentForm = (props) => {
         data.user_id = user._id
         data.item_id = currentItem._id
 
-        addComment(data)
+        addComment(data).then((response) => {
+            if(response) {
+                getComments(currentItem._id, 1, 5)
+            }
+        })
+        setIsOpen(false)
     }
 
     useEffect(() => {
@@ -123,5 +129,6 @@ let mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     addComment,
-    setIsOpenLogin
+    setIsOpenLogin,
+    getComments
 })(CommentForm)

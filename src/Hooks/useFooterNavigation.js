@@ -44,27 +44,27 @@ export const useFooterNavigation = () => {
                     title: t("navigation.footer.contact"),
                     href: "/contacts"
                 },
-                {
-                    title: t("navigation.footer.faq"),
-                    href: "/FAQ"
-                },
+                // {
+                //     title: t("navigation.footer.faq"),
+                //     href: "/FAQ"
+                // },
             ]
         },
         {
             title: t("navigation.footer.infoTitle"),
             items: [
-                {
-                    title: t("navigation.footer.gift"),
-                    href: "/gift_scertificates"
-                },
+                // {
+                //     title: t("navigation.footer.gift"),
+                //     href: "/gift_scertificates"
+                // },
                 {
                     title: t("navigation.footer.blog"),
                     href: "/blog"
                 },
-                {
-                    title: t("navigation.footer.loyal"),
-                    href: "/loyalty_program"
-                },
+                // {
+                //     title: t("navigation.footer.loyal"),
+                //     href: "/loyalty_program"
+                // },
             ]
         },
     ]
