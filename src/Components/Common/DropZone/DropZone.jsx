@@ -34,7 +34,7 @@ const DropZone = (props) => {
             reader.addEventListener('load', () => {
                 let fileObj = {
                     id: file.name + new Date().getTime(),
-                    name: new Date().getTime() + "." + newFileName[1],
+                    name: file.name,
                     type: file.type,
                     size: file.size,
                     src: reader.result
