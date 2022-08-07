@@ -59,7 +59,7 @@ const MultiAdminSearch = (props) => {
             disablePortal
             options={items}
             value={value}
-            getOptionLabel={option => option.name}
+            getOptionLabel={option => option.name_ua ? option.name_ua : option.name}
             onChange={(e, newValue) => {
                 setValue(name, newValue)
             }}

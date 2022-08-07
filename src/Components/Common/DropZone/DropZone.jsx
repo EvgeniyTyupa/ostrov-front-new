@@ -3,6 +3,11 @@ import { cx } from '../../../Utils/classnames'
 import classes from './DropZone.module.css'
 import PreviewImage from './PreviewImage/PreviewImage'
 import { AiOutlineCloudUpload } from 'react-icons/ai';
+import axios from 'axios'
+import { baseURL } from '../../../Api/api'
+import { decode } from 'base64-arraybuffer'
+import { setIsFetching } from '../../../Redux/commonReducer'
+import { connect } from 'react-redux'
 
 const DropZone = (props) => {
     const { 
@@ -11,7 +16,8 @@ const DropZone = (props) => {
         title = "Изображения",
         initialFiles = [],
         error,
-        id = 0
+        id = 0,
+        setIsFetching
     } = props
 
     const [images, setImages] = useState([])
@@ -139,21 +145,44 @@ const DropZone = (props) => {
 
         async function imgToFiles() {
             let newFiles = []
-            
-            initialFiles.forEach((img, index) => {
-                if(typeof img === "string"){
-                    let splited = img.split(".")
-                    let fileName = img.split('/')
-                    urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
-                    .then(function(file){
-                        newFiles.push(file)
-                        if(index === initialFiles.length - 1) {
-                            handleFiles(newFiles)
-                        }
-                    })
-                }
 
-            })
+            if(typeof initialFiles[0] === "string") {
+                setIsFetching(true)
+                let buffs = await axios.post(`${baseURL}/info/buffs`, { images: initialFiles })
+                .then(response => response.data.buffs)
+                // console.log(decode(buffs[0].blob))
+                buffs.forEach((el, index) => {
+                    let file = new File([decode(el.blob)], el.name, { type: el.type, lastModified: el.lastModified })
+                    newFiles.push(file)
+                    if(index === initialFiles.length - 1) {
+                        handleFiles(newFiles)
+                    }
+                })
+                setIsFetching(false)
+                // urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
+                // .then(function(file){
+                //     newFiles.push(file)
+                //     if(index === initialFiles.length - 1) {
+                //         handleFiles(newFiles)
+                //     }
+                // })
+            }
+
+            // initialFiles.forEach((img, index) => {
+            //     if(typeof img === "string"){
+            //         let splited = img.split(".")
+            //         let fileName = img.split('/')
+            //         urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
+            //         .then(function(file){
+            //             console.log(file)
+            //             newFiles.push(file)
+            //             if(index === initialFiles.length - 1) {
+            //                 handleFiles(newFiles)
+            //             }
+            //         })
+            //     }
+
+            // })
         }
         
         if(initialFiles.length > 0) {
@@ -204,4 +233,6 @@ const DropZone = (props) => {
     )
 }
 
-export default DropZone
+export default connect(null, {
+    setIsFetching
+})(DropZone)
