@@ -5,9 +5,26 @@
     background-color: #9DC8CF;
     padding: 17px 1%;
     box-sizing: border-box;
-
-
+    overflow-y: auto;
 }
+
+.main::-webkit-scrollbar {
+    width: 4px;
+    opacity: 0;
+  }
+  
+  /* Track */
+.main::-webkit-scrollbar-track {
+    background: transparent; 
+    opacity: 0;
+}
+   
+  /* Handle */
+.main::-webkit-scrollbar-thumb {
+    background-color: #4B5EA3;
+    border-radius: 0px;
+}
+
 .childs {
     position: absolute;
     max-width: 50vw;

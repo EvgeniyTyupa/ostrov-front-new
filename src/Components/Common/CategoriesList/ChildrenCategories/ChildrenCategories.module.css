@@ -7,7 +7,7 @@
     gap: 50px;
 }
 .listContainer {
-    width: 150px
+    max-width: 300px
 }
 .listContainer ul {
     list-style-type: none;
