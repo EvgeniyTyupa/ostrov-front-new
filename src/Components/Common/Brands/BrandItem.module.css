@@ -1,5 +1,6 @@
 .main {
     width: 220px;
+    height: 220px;
     cursor: pointer;
     /* margin-right: 15px; */
     object-fit: cover;
@@ -12,7 +13,8 @@
 @media screen and (max-width: 1170px) {
     
     .main {
-        width: 160px
+        width: 160px;
+        height: 160px;
     }
 }
 
