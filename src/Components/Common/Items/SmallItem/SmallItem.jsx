@@ -47,10 +47,12 @@ const SmallItem = (props) => {
 
     return (
         <div className={cx(classes.main, className)}  onClick={handleClick}>
-            {isNew && <Baige type="new"/>}
-            {(item.action && !item.action.from_items_count && !item.action.from_sum_in_bill) 
-                && <Baige type="discount" value={item.action.discount}/>
-            }
+            <div className={classes.baiges}>
+                {isNew && <Baige type="new"/>}
+                {(item.action && !item.action.from_items_count && !item.action.from_sum_in_bill) 
+                    && <Baige type="discount" value={item.action.discount}/>
+                }
+            </div>
             <img src={item.images[0]} alt="image" className={classes.image}/>
             <div className={classes.info}>
                 <div className={classes.left}>

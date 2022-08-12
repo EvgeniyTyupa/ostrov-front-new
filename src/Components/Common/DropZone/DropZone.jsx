@@ -148,17 +148,22 @@ const DropZone = (props) => {
 
             if(typeof initialFiles[0] === "string") {
                 setIsFetching(true)
-                let buffs = await axios.post(`${baseURL}/info/buffs`, { images: initialFiles })
-                .then(response => response.data.buffs)
-                // console.log(decode(buffs[0].blob))
-                buffs.forEach((el, index) => {
-                    let file = new File([decode(el.blob)], el.name, { type: el.type, lastModified: el.lastModified })
-                    newFiles.push(file)
-                    if(index === initialFiles.length - 1) {
-                        handleFiles(newFiles)
-                    }
-                })
-                setIsFetching(false)
+                try {
+                    let buffs = await axios.post(`${baseURL}/info/buffs`, { images: initialFiles })
+                    .then(response => response.data.buffs)
+                    // console.log(decode(buffs[0].blob))
+                    buffs.forEach((el, index) => {
+                        let file = new File([decode(el.blob)], el.name, { type: el.type, lastModified: el.lastModified })
+                        newFiles.push(file)
+                        if(index === initialFiles.length - 1) {
+                            handleFiles(newFiles)
+                        }
+                    })
+                    setIsFetching(false)
+                }catch(err) {
+                    setIsFetching(false)
+                }
+                
                 // urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
                 // .then(function(file){
                 //     newFiles.push(file)

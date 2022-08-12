@@ -85,6 +85,15 @@
     background-color: #9DC8CF !important;
     color: white !important;
 }
+.baiges {
+    position: absolute;
+    right: -15px;
+    top: 25px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 
 @media screen and (max-width: 1170px) {
     .main {
