@@ -62,6 +62,16 @@
     font-size: 14px;
 }
 
+.block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.block li {
+    margin: 12px 0;
+}
+
 @media screen and (max-width: 768px) {
     .content {
         flex-direction: column;
