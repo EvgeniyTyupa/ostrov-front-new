@@ -98,7 +98,7 @@ const AdminBrands = (props) => {
                             {brands.map(item => (
                                 <TableRow key={item._id}>
                                     <TableCell>
-                                        <img src={item.image} alt="image" className={classes.imgPreview}/>
+                                        <img src={item.image} alt="image" className={classes.imgPreview} referrerpolicy="no-referrer"/>
                                     </TableCell>
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell width={120}>

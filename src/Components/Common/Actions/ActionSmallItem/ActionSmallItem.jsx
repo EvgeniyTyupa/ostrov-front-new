@@ -19,7 +19,7 @@ const ActionSmallItem = (props) => {
 
     return (
         <div className={classes.main}>
-            <img src={action.image} alt="action" onClick={onClick}/>
+            <img src={action.image} alt="action" onClick={onClick} referrerpolicy="no-referrer"/>
             <span>{start} - {end}</span>
             <p onClick={onClick}>{title}</p>
         </div>

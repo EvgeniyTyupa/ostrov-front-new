@@ -87,6 +87,7 @@ const Item = (props) => {
                                             alt="item image" 
                                             className={cx(classes.smallImage, el === currentImage ? classes.activeImg : undefined)}
                                             onClick={() => setCurrentImage(el)}
+                                            referrerpolicy="no-referrer"
                                         />
                                     ))}
                                     {item.video_link &&
@@ -138,6 +139,7 @@ const Item = (props) => {
                                             alt="item image" 
                                             className={cx(classes.smallImage, el === currentImage ? classes.activeImg : undefined)}
                                             onClick={() => setCurrentImage(el)}
+                                            referrerpolicy="no-referrer"
                                         />
                                     ))}
                                     {item.video_link &&
@@ -165,7 +167,7 @@ const Item = (props) => {
                                     {(currentImage && currentImage.includes("https://www.youtube.com/embed")) ?
                                         <iframe src={`${currentImage}?disablekb=1`} allow="fullscreen" frameborder="0" className={classes.currentVideo}></iframe>
                                         :
-                                        <img src={currentImage} alt={item.name_ua} className={classes.currentImage}/>
+                                        <img src={currentImage} alt={item.name_ua} className={classes.currentImage} referrerpolicy="no-referrer"/>
                                     }
                                 </motion.div>
                             </AnimatePresence>

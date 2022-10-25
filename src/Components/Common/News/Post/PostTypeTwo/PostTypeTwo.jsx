@@ -20,7 +20,7 @@ const PostTypeTwo = (props) => {
             {post.images.map((el, index) => (
                 <div className={cx(classes.block, index / 2 === 0 ? "" : classes.notEven)}>
                     <div className={classes.imageBlock}>
-                        <img src={el} alt="image"/>
+                        <img src={el} alt="image" referrerpolicy="no-referrer"/>
                     </div>
                     <div className={classes.blockText}>
                         {currentLanguage === "ru" &&

@@ -53,7 +53,7 @@ const SmallItem = (props) => {
                     && <Baige type="discount" value={item.action.discount}/>
                 }
             </div>
-            <img src={item.images[0]} alt="image" className={classes.image}/>
+            <img src={item.images[0]} alt="image" className={classes.image} referrerpolicy="no-referrer"/>
             <div className={classes.info}>
                 <div className={classes.left}>
                     <p>{

@@ -17,6 +17,7 @@ const BrandItem = (props) => {
             alt={item.name}
             className={classes.main}
             onClick={onClick}
+            referrerpolicy="no-referrer"
         />
     )
 }

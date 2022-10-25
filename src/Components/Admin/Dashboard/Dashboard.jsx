@@ -97,7 +97,7 @@ const Dashboard = (props) => {
                                 {stats.topItems.length > 0 ? stats.topItems.map((el, index) => (
                                     <div className={cx(classes.popularItem, index === 0 ? classes.topItem : "")}>
                                         <label>{index + 1}.</label>
-                                        <img src={el.item.images[0]} alt="image"/>
+                                        <img src={el.item.images[0]} alt="image" referrerpolicy="no-referrer"/>
                                         <div>
                                             <h3>{el.item.name_ua}</h3>
                                             <div className={classes.buyCount}>

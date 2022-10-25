@@ -24,6 +24,7 @@ const MainSlide = (props) => {
             alt="title img"
             className={classes.main}
             onClick={onClick}
+            referrerpolicy="no-referrer"
         />
     )
 }

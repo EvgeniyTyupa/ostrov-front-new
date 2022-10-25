@@ -179,7 +179,7 @@ const AdminItems = (props) => {
                                         />
                                     </TableCell>
                                     <TableCell width={70}>
-                                        <img src={item.images[0]} alt="image" className={classes.imgPreview}/>
+                                        <img src={item.images[0]} alt="image" className={classes.imgPreview} referrerpolicy="no-referrer"/>
                                     </TableCell>
                                     <TableCell width={"12%"}>{item.name_ua}</TableCell>
                                     <TableCell align='center'>{item.code}</TableCell>
