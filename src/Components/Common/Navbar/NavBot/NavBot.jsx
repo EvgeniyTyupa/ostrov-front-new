@@ -78,7 +78,7 @@ const NavBot = (props) => {
                             <AiOutlineClose/>
                         </IconButton>
                     </div>
-                    <CategoriesListMobile categories={categories}/>
+                    <CategoriesListMobile categories={categories} handleMobileOpen={handleMobileOpen}/>
                 </Drawer>
                 <div className={classes.links}>
                     <NavLink to="/#brands">{t("navigation.brands")}</NavLink>

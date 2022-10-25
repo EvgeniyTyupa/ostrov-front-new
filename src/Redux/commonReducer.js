@@ -13,6 +13,7 @@ const SET_IS_REGISTER_DONE = 'SET_IS_REGISTER_DONE'
 const SET_SERVER_MESSAGE = 'SET_SERVER_MESSAGE'
 const SET_IS_OPEN_FORGOT_PASS_MODAL = 'SET_IS_OPEN_FORGOT_PASS_MODAL'
 const SET_SITE_INFO = 'SET_SITE_INFO'
+const SET_IS_OPEN_BURGER = 'SET_IS_OPEN_BURGER'
 
 let initialState = {
     isFetching: false,
@@ -27,7 +28,8 @@ let initialState = {
     npWarehouses: [],
     isRegisterDone: false,
     isOpenForgotPassModal: false,
-    siteInfo: null
+    siteInfo: null,
+    isOpenBurger: false
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -70,6 +72,9 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_SITE_INFO: {
             return { ...state, siteInfo: action.siteInfo }
+        }
+        case SET_IS_OPEN_BURGER: {
+            return { ...state, isOpenBurger: action.isOpenBurger }
         }
         default: 
             return state
@@ -114,6 +119,9 @@ export const setIsOpenForgotPassModal = (isOpenForgotPassModal) => ({
 })
 export const setSiteInfo = (siteInfo) => ({
     type: SET_SITE_INFO, siteInfo
+})
+export const setIsOpenBurger = (isOpenBurger) => ({
+    type: SET_IS_OPEN_BURGER, isOpenBurger
 })
 
 export const getCities = (searchValue) => async (dispatch) => {

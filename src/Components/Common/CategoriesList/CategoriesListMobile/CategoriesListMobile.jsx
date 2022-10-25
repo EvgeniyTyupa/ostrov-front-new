@@ -6,9 +6,10 @@ import classes from './CategoriesListMobile.module.css'
 import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 import { useState } from 'react'
 import { Button } from '@mui/material'
+import { setIsOpenBurger } from '../../../../Redux/commonReducer'
 
 const CategoriesListMobile = (props) => {
-    const { currentLanguage, categories } = props
+    const { currentLanguage, categories, handleMobileOpen, setIsOpenBurger } = props
 
     const [children, setChildren] = useState(null)
 
@@ -16,6 +17,8 @@ const CategoriesListMobile = (props) => {
 
     const onCategoryClick = (categoryId) => {
         navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=category&from=asc&searchValue=${categoryId}`)
+        handleMobileOpen()
+        setIsOpenBurger(false)
     }
 
     const onBackClick = () => {
@@ -74,4 +77,6 @@ let mapStateToProps = (state) => ({
     currentLanguage: state.common.currentLanguage
 })
 
-export default connect(mapStateToProps, {})(CategoriesListMobile)
+export default connect(mapStateToProps, {
+    setIsOpenBurger
+})(CategoriesListMobile)

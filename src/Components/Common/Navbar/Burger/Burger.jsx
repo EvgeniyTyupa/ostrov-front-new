@@ -5,15 +5,14 @@ import { NavLink } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai';
 import { HiMenu } from 'react-icons/hi';
 import classes from './Burger.module.css'
-import { useState } from 'react';
 import { Button } from '@mui/material';
 import { connect } from 'react-redux';
 import { RiFileListFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
 import { setCurrentLanguage, setIsOpenLogin } from '../../../../Redux/commonReducer';
-import { PHONE_NUMBER } from '../../../../Utils/constants';
 import { Divider } from '@mui/material';
 import { logout } from '../../../../Redux/userReducer';
+import { setIsOpenBurger } from '../../../../Redux/commonReducer'
 import { MdLogout } from 'react-icons/md';
 
 const Burger = (props) => {
@@ -24,12 +23,12 @@ const Burger = (props) => {
         setIsOpenLogin,
         setIsOpenMobileCatalog,
         logout,
-        siteInfo
+        siteInfo,
+        isOpenBurger,
+        setIsOpenBurger
     } = props
 
     const { t, i18n } = useTranslation()
-
-    const [isOpen, setIsOpen] = useState(false)
 
     const handleLanguage = (lang) => {
         i18n.changeLanguage(lang)
@@ -37,7 +36,7 @@ const Burger = (props) => {
     }
 
     const handleOpen = () => {
-        setIsOpen(!isOpen)
+        setIsOpenBurger(!isOpenBurger)
     }
 
     const handleOpenLogin = () => {
@@ -57,7 +56,7 @@ const Burger = (props) => {
             </div>
             <Drawer 
                 anchor={anchor} 
-                open={isOpen} 
+                open={isOpenBurger} 
                 onClose={handleOpen}
                 classes={{ root: classes.root, paper: classes.paper }}
             >
@@ -113,11 +112,13 @@ const Burger = (props) => {
 let mapStateToProps = (state) => ({
     currentLanguage: state.common.currentLanguage,
     isAuth: state.user.isAuth,
-    siteInfo: state.common.siteInfo
+    siteInfo: state.common.siteInfo,
+    isOpenBurger: state.common.isOpenBurger
 })
 
 export default connect(mapStateToProps, {
     setCurrentLanguage,
     setIsOpenLogin,
-    logout
+    logout,
+    setIsOpenBurger
 })(Burger)
