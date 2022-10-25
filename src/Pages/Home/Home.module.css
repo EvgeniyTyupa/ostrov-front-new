@@ -65,6 +65,8 @@
     padding: 0 30px;
     box-sizing: border-box;
     margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
 }
 .about h4 {
     font-weight: 700;
@@ -78,6 +80,20 @@
     left: -100px;
     bottom: 170px;
     position: absolute;
+}
+.aboutText {
+    background-color: rgba(232, 101, 137, 1);
+    width: 100%;
+    padding: 4rem;
+    box-sizing: border-box;
+    border-radius: 18px;
+    color: white;
+}
+.aboutText h4 {
+    color: white;
+}
+.aboutText ul li {
+    margin-bottom: 10px;
 }
 
 @media screen and (max-width: 1170px) {

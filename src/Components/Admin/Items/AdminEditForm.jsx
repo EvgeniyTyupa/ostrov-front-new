@@ -70,7 +70,16 @@ const AdminEditForm = (props) => {
                             name="name_ua"
                             control={control}
                             defaultValue=""
-                            rules={{ required: "Обязательное поле!" }}
+                            rules={{ 
+                                required: {
+                                    value: true,
+                                    message: "Обязательное поле!"
+                                },
+                                pattern: {
+                                    value: /^[а-яієїґА-ЯІЄЇҐa-zA-Z0-9!:;'"@#$№%&*)(--+=.,_ \^]+$/,
+                                    message: "Нельзя использовать эти символы в названии товара <,>,?,~,/"
+                                }
+                            }}
                             render={({ field: { onChange, value }, fieldState: { error } }) => (
                                 <AdminInput
                                     onChange={onChange}

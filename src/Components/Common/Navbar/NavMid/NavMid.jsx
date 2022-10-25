@@ -32,12 +32,12 @@ const NavMid = (props) => {
                     <Search className={classes.desktop} setShowPhones={setShowPhones}/>
                     <div className={classes.deskPhones}>
                         {siteInfo && siteInfo[0].phones.map(el => (
-                            <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`} className={classes.phoneNumber}>{el}</a>
+                            <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`} className={classes.phoneNumber} key={el}>{el}</a>
                         ))}
                     </div>
                     {!showPhones && <div className={classes.phones}>
                         {siteInfo && siteInfo[0].phones.map(el => (
-                            <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`} className={classes.phoneNumber}>{el}</a>
+                            <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`} className={classes.phoneNumber} key={el}>{el}</a>
                         ))}
                     </div>}
                     <BadgePanel isAuth={isAuth} user={user} totalItemsCart={totalItemsCart} setIsOpenMobileCatalog={setIsOpenMobileCatalog} isOpenMobileCatalog={isOpenMobileCatalog}/>

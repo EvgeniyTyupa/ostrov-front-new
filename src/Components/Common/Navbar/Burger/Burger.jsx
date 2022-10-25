@@ -77,7 +77,7 @@ const Burger = (props) => {
                     <p>Телефон: </p>
                     <div className={classes.phones}>
                         {siteInfo && siteInfo[0].phones.map(el => (
-                            <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`}>{el}</a>
+                            <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`} key={el}>{el}</a>
                         ))}
                     </div>
                 </div>

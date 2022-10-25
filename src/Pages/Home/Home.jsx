@@ -134,8 +134,33 @@ const Home = (props) => {
                         </div>
                     </div>
                     <div className={classes.about} id="about_us">
-                        <h4>{t("about.title")}</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus urna nunc, scelerisque sed mi eu, fermentum placerat nulla. Vivamus at facilisis turpis. Sed vulputate tincidunt neque vitae faucibus. Donec rhoncus justo odio, eu hendrerit metus gravida id. Maecenas fermentum, lacus ut sollicitudin sodales, orci eros dignissim lectus, in condimentum sem elit ac leo. Donec at massa id ex malesuada porttitor finibus ut urna. Morbi gravida quis est in maximus. Ut in fermentum eros, eget lobortis orci. Donec id sodales elit. Integer sodales dapibus leo sed ultrices. Cras imperdiet lectus est, non lobortis sem vestibulum id.</p>
+                        <div className={classes.aboutText}>
+                            <h4>{t("about.title")}</h4>
+                            <p>
+                                Давайте познайомимось поближче!
+                                <br/><br/>
+                                Мене звати Олена, мати двох дорослих дітей та співзасновник Острівка.
+                                <br/><br/>
+                                Історія цього магазину починається з 2017 року, коли Інстаграм бізнес тільки набирав обертів. Мене вдохновила ідея створити щось своє, свій бізнес у якому я можу бути корисною людям. Сама я у той час працювала бухгалетором на заводі, у якому будувала свою кар’єру з 2002 року, але як ви вже зрозуміли я обрала шлях за метою.
+                                <br/><br/>
+                                Більше про історію, команду та другі цікаві історії ви можете почитати у наших новинах.
+                                <br/><br/>
+                                Тепер більше конкретики:
+                                <br/><br/>
+                                Острівок у цифрах
+                            </p> 
+                            <ul>
+                                <li>5 років досвіду у пошуці найкрутезніших іграшок;</li>
+                                <li>25 дитячих конкурсів біля магазину;</li>
+                                <li>&gt;1500 задоволенних клієнтів;</li>
+                                <li>&gt;7000 відправленних іграшок;</li>
+                                <li>50 розіграшей подарунків;</li>
+                                <li>10 людей у команді;</li>
+                            </ul>
+                            <p>Обираючи Острівок ви автоматично допомагаєте нашій державі тому, що ми вправно платимо податки та офіційно працюємо.</p>
+                            <br/><br/>
+                            <p>Долучайтесь до нашого ком’юніті та кайфуйте від найкрутезніших іграшок!</p>
+                        </div>
                     </div>
                 </AnimatedBlock>
             </MaxWidthContainer>

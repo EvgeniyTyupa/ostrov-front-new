@@ -92,7 +92,7 @@ const DropdownMenu = (props) => {
                 {items.length > 0 &&
                     <div className={cx(classes.items, (brands.length === 0 && tags.length === 0 && categories.length === 0) ? classes.onlyItems : undefined)}>
                         <h5>{t("catalog.search.items")}</h5>
-                        {items.map((el, index) => <DropdownMenuItem item={el} currentLanguage={currentLanguage} isLast={index === items.length - 1}/>)}
+                        {items.map((el, index) => <DropdownMenuItem key={el._id} item={el} currentLanguage={currentLanguage} isLast={index === items.length - 1}/>)}
                     </div>    
                 }
             </div>

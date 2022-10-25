@@ -32,7 +32,7 @@ const FootBot = (props) => {
                         <div className={classes.navBlock}>
                             <h4>{t("navigation.contact")}</h4>
                             {siteInfo && siteInfo[0].phones.map(el => (
-                                <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`}>{el}</a>
+                                <a href={`tel:${el.replace(/[^a-zA-Z0-9 ]/g, '')}`} key={el}>{el}</a>
                             ))}
                         </div>
                         <div className={classes.navBlock}>

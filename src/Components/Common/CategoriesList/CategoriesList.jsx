@@ -28,6 +28,7 @@ const CategoriesList = (props) => {
             <ul className={classes.mainList}>
                 {categories.map(item => (
                     <li 
+                        key={item._id}
                         onMouseEnter={() => handleHover(item)}
                         onClick={() => onClick(item._id)}
                     >

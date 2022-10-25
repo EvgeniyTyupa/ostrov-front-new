@@ -114,7 +114,7 @@ const FilterCatalog = (props) => {
                 <FilterBlock title={t("catalog.filter.category")}>
                     <div className={classes.content}>
                         {categories.map(el => (
-                            <p onClick={() => onClickCategory(el)}>{currentLanguage === "ru" ? el.name : el.name_ua}</p>
+                            <p onClick={() => onClickCategory(el)} key={el.name_ua}>{currentLanguage === "ru" ? el.name : el.name_ua}</p>
                         ))}
                     </div>
                 </FilterBlock>}
@@ -126,6 +126,7 @@ const FilterCatalog = (props) => {
                                     label={el.text}
                                     onChange={() => handleAge(el.value)}
                                     checked={ageRange.find(item => item[0] === el.value[0] && item[1] === el.value[1]) ? true : false}
+                                    key={index}
                                 />
                             )
                         ))}
@@ -138,6 +139,7 @@ const FilterCatalog = (props) => {
                                 label={el.text}
                                 checked={gender.find(item => item === el.value)}
                                 onChange={() => handleGender(el.value)}
+                                key={el.value}
                             />
                         ))}
                     </div>

@@ -274,6 +274,10 @@ const Item = (props) => {
                                     <p>{item.size}см</p>
                                 </div>
                             }
+                            <div className={classes.infoPoint}>
+                                <p>Артикул</p>
+                                <p>{item.articule}</p>
+                            </div>
                         </div>
                     </div>
                 </MaxWidthContainer>
