@@ -27,8 +27,6 @@ const AdminEditBrand = (props) => {
         })
     }, [])
 
-    console.log(item)
-
     return (
         <Modal title={`Редактировать ${item.name}`} onClose={handleClose}>
             <form className={classes.main} onSubmit={handleSubmit(onSubmit)}>

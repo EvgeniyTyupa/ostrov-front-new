@@ -18,16 +18,11 @@ const PostTypeTwo = (props) => {
                 </div>
             </div>
             {post.images.map((el, index) => (
-                <div className={cx(classes.block, index / 2 === 0 ? "" : classes.notEven)}>
+                <div className={cx(classes.block, index % 2 === 0 ? "" : classes.notEven)}>
                     <div className={classes.imageBlock}>
                         <img src={el} alt="image" referrerpolicy="no-referrer"/>
                     </div>
                     <div className={classes.blockText}>
-                        {currentLanguage === "ru" &&
-                            post.paragraphs[index].split("\n").map(item => (
-                                <p className={classes.text}>{item}</p>
-                            ))
-                        }
                         {currentLanguage === "ua" &&
                             post.paragraphs_ua[index].split("\n").map(item => (
                                 <p className={classes.text}>{item}</p>

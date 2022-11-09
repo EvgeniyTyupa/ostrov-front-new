@@ -360,9 +360,15 @@ export const newsApi = {
         for(const [key, value] of Object.entries(data)){
             if(key === "images") {
                 value.forEach(i => {
-                    newFormData.append("images[]", i)
+                    newFormData.append("images", i)
                 })
-            } else if(key === "paragraphs") {
+            }
+            else if (key === "title_image") {
+                value.forEach(i => {
+                    newFormData.append("title_image", i)
+                })
+            } 
+            else if(key === "paragraphs") {
                 value.forEach(i => {
                     newFormData.append("paragraphs", i)
                 })  

@@ -3,11 +3,6 @@ import { cx } from '../../../Utils/classnames'
 import classes from './DropZone.module.css'
 import PreviewImage from './PreviewImage/PreviewImage'
 import { AiOutlineCloudUpload } from 'react-icons/ai';
-import axios from 'axios'
-import { baseURL } from '../../../Api/api'
-import { decode } from 'base64-arraybuffer'
-import { setIsFetching } from '../../../Redux/commonReducer'
-import { connect } from 'react-redux'
 
 const DropZone = (props) => {
     const { 
@@ -16,8 +11,7 @@ const DropZone = (props) => {
         title = "Изображения",
         initialFiles = [],
         error,
-        id = 0,
-        setIsFetching
+        id = 0
     } = props
 
     const [images, setImages] = useState([])
@@ -30,17 +24,27 @@ const DropZone = (props) => {
         handleFiles(files)
     }
 
+    function getFilenameAndExtension(pathfilename){
+        var filenameextension = pathfilename.replace(/^.*[\\\/]/, '');
+        var filename = filenameextension.substring(0, filenameextension.lastIndexOf('.'));
+        var ext = filenameextension.split('.').pop();
+        
+        return [filename, ext];
+    }
+
     const handleFiles = (files) => {
         let imagesArr = []
         for(let file of files) {
             let reader = new FileReader()
             reader.readAsDataURL(file)
-            const newFileName = file.name.split('.')
+            const newFileName = getFilenameAndExtension(file.name.includes("_cutpart_") ? file.name.split("_cutpart_")[1] : file.name)
+
+            console.log(file.name.split("_cutpart_"))
 
             reader.addEventListener('load', () => {
                 let fileObj = {
-                    id: file.name + new Date().getTime(),
-                    name: file.name,
+                    id: newFileName[0] + new Date().getTime(),
+                    name: new Date().getTime() + "_cutpart_" + newFileName[0] + "." + newFileName[1],
                     type: file.type,
                     size: file.size,
                     src: reader.result
@@ -145,49 +149,21 @@ const DropZone = (props) => {
 
         async function imgToFiles() {
             let newFiles = []
-
-            if(typeof initialFiles[0] === "string") {
-                setIsFetching(true)
-                try {
-                    let buffs = await axios.post(`${baseURL}/info/buffs`, { images: initialFiles })
-                    .then(response => response.data.buffs)
-                    // console.log(decode(buffs[0].blob))
-                    buffs.forEach((el, index) => {
-                        let file = new File([decode(el.blob)], el.name, { type: el.type, lastModified: el.lastModified })
+            
+            initialFiles.forEach((img, index) => {
+                if(typeof img === "string"){
+                    let splited = img.split(".")
+                    let fileName = img.split('/')
+                    urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
+                    .then(function(file){
                         newFiles.push(file)
                         if(index === initialFiles.length - 1) {
                             handleFiles(newFiles)
                         }
                     })
-                    setIsFetching(false)
-                }catch(err) {
-                    setIsFetching(false)
                 }
-                
-                // urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
-                // .then(function(file){
-                //     newFiles.push(file)
-                //     if(index === initialFiles.length - 1) {
-                //         handleFiles(newFiles)
-                //     }
-                // })
-            }
 
-            // initialFiles.forEach((img, index) => {
-            //     if(typeof img === "string"){
-            //         let splited = img.split(".")
-            //         let fileName = img.split('/')
-            //         urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
-            //         .then(function(file){
-            //             console.log(file)
-            //             newFiles.push(file)
-            //             if(index === initialFiles.length - 1) {
-            //                 handleFiles(newFiles)
-            //             }
-            //         })
-            //     }
-
-            // })
+            })
         }
         
         if(initialFiles.length > 0) {
@@ -238,6 +214,4 @@ const DropZone = (props) => {
     )
 }
 
-export default connect(null, {
-    setIsFetching
-})(DropZone)
+export default DropZone

@@ -13,6 +13,7 @@ import news_schema_2 from '../../../Assets/Admin/news_schema_2.jpg'
 import NewsContentSection from './NewsContentSection/NewsContentSection'
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { cx } from '../../../Utils/classnames'
+import DropZone from '../../Common/DropZone/DropZone'
 
 const AdminEditNews = (props) => {
     const { onClose, item, onEdit } = props
@@ -65,6 +66,7 @@ const AdminEditNews = (props) => {
     useEffect(() => {
         reset({
             title_ua: item.title_ua || "",
+            title_image: [item.title_image] || [],
             paragraphs_ua: item.paragraphs_ua.map((el, index) => (
                 { id: index, value: el }
             )),
@@ -95,6 +97,23 @@ const AdminEditNews = (props) => {
                         />
                     </Field>
                 </Field>
+                <div>
+                    <Controller
+                        name="title_image"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <>
+                                <DropZone
+                                    onChange={onChange}
+                                    initialFiles={value}
+                                    title="Обложка"
+                                    error={error}
+                                />
+                            </>
+                        )}
+                    />
+                </div>
                 <Field className={cx(classes.row, classes.template)}>
                     <div style={{ width: "calc(50% - 13px)" }}>
                         <CustomSelect

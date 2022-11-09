@@ -23,6 +23,7 @@
 .block {
     width: 100%;
     display: flex;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 30px;
 }
@@ -43,6 +44,7 @@
 .imageBlock img {
     width: 100%;
     object-fit: cover;
+    border-radius: 12px;
 }
 .blockText {
     width: 50%;
@@ -50,10 +52,15 @@
     flex-direction: column;
     justify-content: center;
     gap: 5px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-sizing: border-box;
+    background-color: rgba(232, 101, 137, 1);
 }
 .text {
-    font-size: 14px;
-    color: #37395C;
+    font-size: 16px;
+    font-weight: 500;
+    color: white !important;
 }
 .text::first-letter {
     text-transform: capitalize;

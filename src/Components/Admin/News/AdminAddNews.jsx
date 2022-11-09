@@ -12,6 +12,7 @@ import news_schema_2 from '../../../Assets/Admin/news_schema_2.jpg'
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import NewsContentSection from './NewsContentSection/NewsContentSection'
 import { cx } from '../../../Utils/classnames'
+import DropZone from '../../Common/DropZone/DropZone'
 
 const AdminAddNews = (props) => {
     const { onClose, createNews } = props
@@ -62,6 +63,7 @@ const AdminAddNews = (props) => {
         reset({
             title_ua: "",
             type: newsTypeIndex,
+            title_image: [],
             paragraphs_ua: [{ id: 1, value: "" }],
             images: [{ id: 1, value: null }]
         })
@@ -88,6 +90,25 @@ const AdminAddNews = (props) => {
                         />
                     </Field>
                 </Field>
+                <div>
+                    <Controller
+                        name="title_image"
+                        control={control}
+                        // rules={{ required: "Обязательное поле!" }}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <>
+                                <DropZone
+                                    onChange={onChange}
+                                    initialFiles={value}
+                                    title="Обложка"
+                                    error={error}
+                                    id={-1}
+                                />
+                            </>
+                        )}
+                    />
+                </div>
                 <Field className={cx(classes.row, classes.template)}>
                     <div style={{ width: "calc(50% - 13px)" }}>
                         <CustomSelect

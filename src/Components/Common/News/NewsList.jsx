@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import CustomSlider from '../Slider/CustomSlider'
 import NewsSmallItem from './NewsSmallItem/NewsSmallItem'
+import { cx } from '../../../Utils/classnames'
 
 const NewsList = (props) => {
     const { items, href, title, slidesToShow = 5 } = props
@@ -14,9 +15,9 @@ const NewsList = (props) => {
         <div className={classes.main}>
             <div className={classes.header}>
                 <h4>{title}</h4>
-                <NavLink to={href}>{t("news.all")}</NavLink>
+                {(href && items.length >= 5 ) && <NavLink to={href}>{t("news.all")}</NavLink>}
             </div>
-            <div className={classes.slider}>
+            <div className={cx(classes.slider, items.length < 5 ? classes.notFull : "")}>
                 <CustomSlider 
                     slidesToShow={slidesToShow}
                     responsive={[
@@ -50,7 +51,7 @@ const NewsList = (props) => {
                         }
                     ]}
                 >
-                    {items.map(el => <NewsSmallItem key={el._id} item={el} className={classes.item}/>)}
+                  {items.map(el => <NewsSmallItem key={el._id} item={el} className={classes.item}/>)}
                 </CustomSlider>
             </div>
         </div>
