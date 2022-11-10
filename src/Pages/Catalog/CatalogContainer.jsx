@@ -104,7 +104,7 @@ const CatalogContainer = (props) => {
         } else if(searchBy === "selector") {
             selectItems(pageNumber, pageSize, filter, from, searchValue === "none" ? "" : searchValue, priceRange, ageRange, gender)
         } else {
-            getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter, priceRange, ageRange, gender)
+            getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter, priceRange, ageRange, gender, selectedTags)
         }
     }
 
@@ -187,7 +187,7 @@ const CatalogContainer = (props) => {
 
     useEffect(() => {
        applyFilter()
-    }, [searchBy, searchValue, from, pageSize, pageNumber, filter, ageRange, gender])
+    }, [searchBy, searchValue, from, pageSize, pageNumber, filter, ageRange, gender, selectedTags])
 
     useEffect(() => {
         return () => {

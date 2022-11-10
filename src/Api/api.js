@@ -1,8 +1,8 @@
 import * as axios from "axios";
 import i18next from "i18next";
 
-export const baseURL = 'https://api.ostrivdytynstva.com/api';
-// export const baseURL = 'http://localhost:3002/api';
+// export const baseURL = 'https://api.ostrivdytynstva.com/api';
+export const baseURL = 'http://localhost:3002/api';
 
 const newPostKey = '4cee2b513b6adbf0ba793123964eb2cc'
 
@@ -133,10 +133,12 @@ export const itemsApi = {
         return instance.post('/item/same', { tagsId, itemId })
         .then(response => response.data)
     },
-    getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue, filter, priceRange, ageRange, gender){
+    getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchingValue, filter, priceRange, ageRange, gender, tags){
         let parsedGender = gender.join(',')
         let min_price = priceRange[0]
         let max_price = priceRange[1]
+
+        let stringTags = tags.join(',')
 
         let newAges = [...ageRange]
         let min_age = []
@@ -146,7 +148,7 @@ export const itemsApi = {
            max_age.push(el[1])
         })
        
-        return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filter}&gender=${parsedGender}&min_price=${min_price}&max_price=${max_price}&min_age=${min_age.join(',')}&max_age=${max_age.join(',')}`)
+        return instance.get(`/item/kind/by_kind?limit=${pageSize}&count=${pageNumber}&search_by=${searchBy}&from=${from}&searchingValue=${searchingValue}&filter=${filter}&gender=${parsedGender}&min_price=${min_price}&max_price=${max_price}&min_age=${min_age.join(',')}&max_age=${max_age.join(',')}&tags=${stringTags}`)
         .then(response => response.data)
     },
     globalSearch(pageNumber, pageSize, searchBy, from, searchValue, filter, priceRange, ageRange, gender) {       
