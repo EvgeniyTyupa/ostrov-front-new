@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { getByBrandCategoryTag, globalSearchCatalog, selectItems, setItemsData } from '../../Redux/itemsReducer'
-import { getTag } from '../../Redux/tagsReducer'
+import { getTag, getTags } from '../../Redux/tagsReducer'
 import Catalog from './Catalog'
 import { setCurrentFilterItem } from '../../Redux/commonReducer'
 import { getCategoriesWithParents, getFilterChildrenCategories, setFilterCategories } from '../../Redux/categoryReducer'
@@ -28,7 +28,10 @@ const CatalogContainer = (props) => {
         setItemsData,
         getFilterChildrenCategories,
         filterCategories,
-        setFilterCategories
+        setFilterCategories,
+        maxPrice,
+        getTags,
+        tags
     } = props
 
     const navigate = useNavigate()
@@ -48,8 +51,9 @@ const CatalogContainer = (props) => {
     const [searchValue, setSearchValue] = useState("")
 
     const [ageRange, setAgeRange] = useState([[0, 17]])
-    const [priceRange, setPriceRange] = useState([0, 100000])
+    const [priceRange, setPriceRange] = useState([0, maxPrice])
     const [gender, setGender] = useState([])
+    const [selectedTags, setSelectedTags] = useState([])
 
     const [activeBreadcrumb, setActiveBreadcrumb] = useState("")
     const [breadcrumbsItems, setBreadcrumbsItems] = useState(null)
@@ -57,6 +61,23 @@ const CatalogContainer = (props) => {
     const handlePageSize = (event) => {
         setPageSize(event.target.value)
         setPageNumber(1)
+    }
+
+    const handleSelectedTags = (value) => {
+        const newSelectedTags = [...selectedTags]
+        let isExist = false
+
+        newSelectedTags.forEach((el, index) => {
+            if(el === value) {
+                newSelectedTags.splice(index, 1)
+                isExist = true
+            }
+        })
+
+        if(!isExist) {
+            newSelectedTags.push(value)
+        }
+        setSelectedTags(newSelectedTags)
     }
 
     const handleFilter = (e) => {
@@ -175,6 +196,14 @@ const CatalogContainer = (props) => {
             setFilterCategories([])
         }
     }, [])
+    
+    useEffect(() => {
+        setPriceRange([0, maxPrice])
+    }, [maxPrice])
+
+    useEffect(() => {
+        getTags(1, 10000, "", "", "")
+    }, [])
 
     return (
         <>
@@ -199,6 +228,9 @@ const CatalogContainer = (props) => {
                     setGender={setGender}
                     applyFilter={applyFilter}
                     currentLanguage={currentLanguage}
+                    tags={tags}
+                    selectedTags={selectedTags}
+                    handleSelectedTags={handleSelectedTags}
                 />
             
         </>
@@ -212,7 +244,9 @@ let mapStateToProps = (state) => ({
     currentFilterItem: state.common.currentFilterItem,
     categoriesWithParents: state.categories.categoriesWithParents,
     total: state.items.total,
-    filterCategories: state.categories.filterCategories
+    filterCategories: state.categories.filterCategories,
+    maxPrice: state.common.maxPrice,
+    tags: state.tags.tags
 })
 
 export default connect(mapStateToProps, {
@@ -226,5 +260,6 @@ export default connect(mapStateToProps, {
     selectItems,
     setItemsData,
     getFilterChildrenCategories,
-    setFilterCategories
+    setFilterCategories,
+    getTags
 })(CatalogContainer)

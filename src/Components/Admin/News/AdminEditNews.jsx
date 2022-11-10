@@ -67,6 +67,7 @@ const AdminEditNews = (props) => {
         reset({
             title_ua: item.title_ua || "",
             title_image: [item.title_image] || [],
+            title_image_mobile: [item.title_image_mobile] || [],
             paragraphs_ua: item.paragraphs_ua.map((el, index) => (
                 { id: index, value: el }
             )),
@@ -107,8 +108,27 @@ const AdminEditNews = (props) => {
                                 <DropZone
                                     onChange={onChange}
                                     initialFiles={value}
-                                    title="Обложка"
+                                    title="Обложка (1060x500px)"
                                     error={error}
+                                    id={-1}
+                                />
+                            </>
+                        )}
+                    />
+                </div>
+                <div>
+                    <Controller
+                        name="title_image_mobile"
+                        control={control}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <>
+                                <DropZone
+                                    onChange={onChange}
+                                    initialFiles={value}
+                                    title="Обложка (для моб. устройств)"
+                                    error={error}
+                                    id={-2}
                                 />
                             </>
                         )}

@@ -123,7 +123,7 @@ const CustomSlider = (props) => {
 
     return(
         <div className={classes.main}>
-            <Slider {...settings}>
+            <Slider {...settings} adaptiveHeight={true}>
                 {children}
             </Slider>
         </div>

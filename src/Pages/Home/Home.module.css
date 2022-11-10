@@ -115,6 +115,14 @@
     .selector {
         margin-top: 66px;
     }
+    .aboutText {
+        background-color: rgba(232, 101, 137, 1);
+        width: 100%;
+        padding: 2rem 1rem;
+        box-sizing: border-box;
+        border-radius: 18px;
+        color: white;
+    }
 }
 
 @media screen and (max-width: 568px) {
@@ -141,6 +149,9 @@
     }
     .brands {
         margin-top: 50px;
+    }
+    .actionSlider > div > div > div > div {
+        height: 92vh !important;
     }
 }
 

@@ -25,7 +25,11 @@ const FilterCatalog = (props) => {
         gender,
         setGender,
         applyFilter,
-        itemsLength
+        itemsLength,
+        maxPrice,
+        tags,
+        selectedTags,
+        handleSelectedTags
     } = props
 
     const { t } = useTranslation()
@@ -144,12 +148,24 @@ const FilterCatalog = (props) => {
                         ))}
                     </div>
                 </FilterBlock>
+                <FilterBlock title="Тематика">
+                    <div className={cx(classes.content, classes.tags)}>
+                        {tags.map(el => (
+                            <CustomCheckbox 
+                                label={el.name_ua}
+                                checked={selectedTags.find(item => item === el._id)}
+                                onChange={() => handleSelectedTags(el._id)}
+                                key={el._id}
+                            />
+                        ))}
+                    </div>
+                </FilterBlock>
                 <FilterBlock title={t("catalog.filter.price")}>
                     <div className={classes.range}>
                         <CustomPrettoSlider
                             value={priceRange}
                             onChange={handlePriceRange}
-                            max={100000}
+                            max={maxPrice}
                         />
                     </div>
                     <div className={classes.priceFields}>
@@ -179,7 +195,8 @@ const FilterCatalog = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-    currentLanguage: state.common.currentLanguage
+    currentLanguage: state.common.currentLanguage,
+    maxPrice: state.common.maxPrice
 })
 
 export default connect(mapStateToProps, {

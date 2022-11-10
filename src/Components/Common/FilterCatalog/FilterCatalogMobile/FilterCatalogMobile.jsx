@@ -2,11 +2,9 @@ import { Button } from '@mui/material'
 import React from 'react'
 import classes from './FilterCatalogMobile.module.css'
 import { FaFilter } from "react-icons/fa"
-import { AiOutlineClose } from "react-icons/ai"
 import { useTranslation } from 'react-i18next'
 import { Drawer } from '@mui/material'
 import { useState } from 'react'
-import { IconButton } from '@mui/material'
 import FilterCatalog from '../FilterCatalog'
 
 const FilterCatalogMobile = (props) => {
@@ -19,7 +17,10 @@ const FilterCatalogMobile = (props) => {
         gender,
         setGender,
         applyFilter,
-        itemsLength
+        itemsLength,
+        tags,
+        selectedTags,
+        handleSelectedTags
     } = props
 
     const { t } = useTranslation()
@@ -64,6 +65,9 @@ const FilterCatalogMobile = (props) => {
                     setGender={setGender}
                     applyFilter={applyFilter}
                     itemsLength={itemsLength}
+                    tags={tags}
+                    selectedTags={selectedTags}
+                    handleSelectedTags={handleSelectedTags}
                 />
             </Drawer>
         </div>

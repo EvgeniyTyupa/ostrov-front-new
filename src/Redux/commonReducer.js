@@ -14,6 +14,7 @@ const SET_SERVER_MESSAGE = 'SET_SERVER_MESSAGE'
 const SET_IS_OPEN_FORGOT_PASS_MODAL = 'SET_IS_OPEN_FORGOT_PASS_MODAL'
 const SET_SITE_INFO = 'SET_SITE_INFO'
 const SET_IS_OPEN_BURGER = 'SET_IS_OPEN_BURGER'
+const SET_MAX_PRICE = 'SET_MAX_PRICE' 
 
 let initialState = {
     isFetching: false,
@@ -29,6 +30,7 @@ let initialState = {
     isRegisterDone: false,
     isOpenForgotPassModal: false,
     siteInfo: null,
+    maxPrice: 0,
     isOpenBurger: false
 }
 
@@ -75,6 +77,9 @@ const commonReducer = (state = initialState, action) => {
         }
         case SET_IS_OPEN_BURGER: {
             return { ...state, isOpenBurger: action.isOpenBurger }
+        }
+        case SET_MAX_PRICE: {
+            return { ...state, maxPrice: action.maxPrice }
         }
         default: 
             return state
@@ -123,6 +128,9 @@ export const setSiteInfo = (siteInfo) => ({
 export const setIsOpenBurger = (isOpenBurger) => ({
     type: SET_IS_OPEN_BURGER, isOpenBurger
 })
+export const setMaxPrice = (maxPrice) => ({
+    type: SET_MAX_PRICE, maxPrice
+})
 
 export const getCities = (searchValue) => async (dispatch) => {
     dispatch(setIsFetching(true))
@@ -148,7 +156,7 @@ export const getSiteInfo = () => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await siteInfoApi.getInfo()
-        dispatch([setSiteInfo(response.info), setIsFetching(false)])
+        dispatch([setSiteInfo(response.info), setMaxPrice(response.maxPrice), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
     }

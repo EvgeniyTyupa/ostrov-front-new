@@ -27,6 +27,7 @@ const Home = (props) => {
         hgTags,
         tags,
         currentLanguage,
+        maxPrice
     } = props
 
     const { t } = useTranslation()
@@ -51,7 +52,7 @@ const Home = (props) => {
                             <CategoriesList categories={categories}/>
                         </div>
                         <div className={classes.actionSlider}>
-                            <CustomSlider 
+                            <CustomSlider
                                 type="action"
                                 responsive={[
                                     {
@@ -85,7 +86,7 @@ const Home = (props) => {
                         <HgTags tags={hgTags}/>
                     </div>
                     <div className={classes.selector} id="selector">
-                        <ToySelector tags={tags} currentLanguage={currentLanguage}/>
+                        <ToySelector tags={tags} currentLanguage={currentLanguage} maxPrice={maxPrice}/>
                     </div>
                     <div className={classes.insta}>
                         <InstaBlock/>

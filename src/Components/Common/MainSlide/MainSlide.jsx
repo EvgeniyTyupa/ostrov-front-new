@@ -20,7 +20,7 @@ const MainSlide = (props) => {
 
     return(
         <img 
-            src={item.image ? (width <= 568 ? item.image_mobile : item.image) : (item.title_image ? item.title_image : item.images[0])} 
+            src={item.image ? (width <= 568 ? item.image_mobile : item.image) : (item.title_image ? (width <= 568 ? item.title_image_mobile : item.title_image) : item.images[0])} 
             alt="title img"
             className={classes.main}
             onClick={onClick}

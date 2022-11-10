@@ -34,7 +34,10 @@ const Catalog = (props) => {
         gender,
         setGender,
         applyFilter,
-        currentLanguage
+        currentLanguage,
+        tags,
+        selectedTags,
+        handleSelectedTags
     } = props
 
     const { t } = useTranslation()
@@ -71,6 +74,9 @@ const Catalog = (props) => {
                         setGender={setGender}
                         applyFilter={applyFilter}
                         itemsLength={items.length}
+                        tags={tags}
+                        selectedTags={selectedTags}
+                        handleSelectedTags={handleSelectedTags}
                     />
                 </div>
                 <AnimatedBlock className={classes.itemsContainer}>
@@ -85,6 +91,9 @@ const Catalog = (props) => {
                             setGender={setGender}
                             applyFilter={applyFilter}
                             itemsLength={items.length}
+                            tags={tags}
+                            selectedTags={selectedTags}
+                            handleSelectedTags={handleSelectedTags}
                         />
                     </div>
                     <div className={classes.wrapper}>

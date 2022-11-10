@@ -64,6 +64,7 @@ const AdminAddNews = (props) => {
             title_ua: "",
             type: newsTypeIndex,
             title_image: [],
+            title_image_mobile: [],
             paragraphs_ua: [{ id: 1, value: "" }],
             images: [{ id: 1, value: null }]
         })
@@ -94,16 +95,35 @@ const AdminAddNews = (props) => {
                     <Controller
                         name="title_image"
                         control={control}
-                        // rules={{ required: "Обязательное поле!" }}
+                        rules={{ required: "Обязательное поле!" }}
                         defaultValue=""
                         render={({ field: { onChange, value }, fieldState: { error } }) => (
                             <>
                                 <DropZone
                                     onChange={onChange}
                                     initialFiles={value}
-                                    title="Обложка"
+                                    title="Обложка (1060x500px)"
                                     error={error}
                                     id={-1}
+                                />
+                            </>
+                        )}
+                    />
+                </div>
+                <div>
+                    <Controller
+                        name="title_image_mobile"
+                        control={control}
+                        rules={{ required: "Обязательное поле!" }}
+                        defaultValue=""
+                        render={({ field: { onChange, value }, fieldState: { error } }) => (
+                            <>
+                                <DropZone
+                                    onChange={onChange}
+                                    initialFiles={value}
+                                    title="Обложка (для моб. устройств)"
+                                    error={error}
+                                    id={-2}
                                 />
                             </>
                         )}

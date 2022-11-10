@@ -12,7 +12,7 @@ import Home from './Home'
 
 const HomeContainer = (props) => {
     const {
-        categories,
+        maxPrice,
         isFetching,
         getActions,
         actions,
@@ -24,7 +24,6 @@ const HomeContainer = (props) => {
         news,
         getBrands,
         brands,
-        getMainCategoriesWithChildren,
         mainCategoriesWithChildren,
         getTags,
         tags,
@@ -66,6 +65,7 @@ const HomeContainer = (props) => {
                     currentLanguage={currentLanguage}
                     viewOnMainPosts={viewOnMainPosts}
                     slides={shuffleSlides}
+                    maxPrice={maxPrice}
                 />
             
         </>
@@ -83,7 +83,8 @@ let mapStateToProps = (state) => ({
     news: state.news.news,
     brands: state.brands.brands,
     viewOnMainPosts: state.news.viewOnMainPosts,
-    mainCategoriesWithChildren: state.categories.mainCategoriesWithChildren
+    mainCategoriesWithChildren: state.categories.mainCategoriesWithChildren,
+    maxPrice: state.common.maxPrice
 })
 
 export default connect(mapStateToProps, {

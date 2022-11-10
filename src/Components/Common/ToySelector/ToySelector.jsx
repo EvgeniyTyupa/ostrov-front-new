@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ToySelector = (props) => {
-    const { tags, currentLanguage } = props
+    const { tags, currentLanguage, maxPrice } = props
 
     const { handleSubmit, reset, control, setValue } = useForm()
 
@@ -53,7 +53,7 @@ const ToySelector = (props) => {
 
     const navigate = useNavigate()
 
-    const [priceRange, setPriceRange] = useState([0, 30000])
+    const [priceRange, setPriceRange] = useState([0, maxPrice])
     const [ageRange, setAgeRange] = useState([0, 0])
 
     const ages = useChildAge()
@@ -88,12 +88,13 @@ const ToySelector = (props) => {
     useEffect(() => {
         reset({
             minPrice: 0,
-            maxPrice: 30000,
+            maxPrice: maxPrice ? maxPrice : 10000,
             minAge: 0,
             maxAge: 0,
             tag: nonTag
         })
-    }, [])
+        setPriceRange([0, maxPrice])
+    }, [maxPrice])
 
     return (
         <div className={classes.main}>
@@ -142,7 +143,7 @@ const ToySelector = (props) => {
                         <CustomPrettoSlider
                             value={priceRange}
                             onChange={handlePriceRange}
-                            max={30000}
+                            max={maxPrice}
                         />
                     </div>
                     <h4 className={classes.blockTitle}>{t("selector.age")}</h4>
