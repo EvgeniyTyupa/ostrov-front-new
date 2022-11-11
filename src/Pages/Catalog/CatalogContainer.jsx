@@ -50,6 +50,8 @@ const CatalogContainer = (props) => {
 
     const [searchValue, setSearchValue] = useState("")
 
+    const [filteredTags, setFilteredTags] = useState(tags)
+
     const [ageRange, setAgeRange] = useState([[0, 17]])
     const [priceRange, setPriceRange] = useState([0, maxPrice])
     const [gender, setGender] = useState([])
@@ -62,6 +64,28 @@ const CatalogContainer = (props) => {
         setPageSize(event.target.value)
         setPageNumber(1)
     }
+
+    const sortSelected = (tags) => {
+        const newPaginated = [...tags]
+    
+        newPaginated.sort(el => {
+          let isExist = false
+    
+          selectedTags.forEach(tag => {
+            if (tag === el._id) {
+              isExist = true
+            }
+          })
+    
+          if (isExist) {
+            return -1
+          } else {
+            return 1
+          }
+        })
+    
+        setFilteredTags(newPaginated)
+      }
 
     const handleSelectedTags = (value) => {
         const newSelectedTags = [...selectedTags]
@@ -77,6 +101,8 @@ const CatalogContainer = (props) => {
         if(!isExist) {
             newSelectedTags.push(value)
         }
+
+        
         setSelectedTags(newSelectedTags)
     }
 
@@ -104,7 +130,9 @@ const CatalogContainer = (props) => {
         } else if(searchBy === "selector") {
             selectItems(pageNumber, pageSize, filter, from, searchValue === "none" ? "" : searchValue, priceRange, ageRange, gender)
         } else {
-            getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter, priceRange, ageRange, gender, selectedTags)
+            if(maxPrice !== 0 && priceRange[1] != 0) {
+                getByBrandCategoryTag(pageNumber, pageSize, searchBy, from, searchValue, filter.includes("price") ? "price" : filter, priceRange, ageRange, gender, selectedTags)
+            }
         }
     }
 
@@ -139,7 +167,7 @@ const CatalogContainer = (props) => {
         }else {
             navigate(`/catalog?pageNumber=${pageNumber}&pageSize=${pageSize}&searchBy=selector&from=${from}&minAge=${ageRange[0][0]}&maxAge=${ageRange[0][1]}&minPrice=${priceRange[0]}&maxPrice=${priceRange[1]}&tag=${searchValue === "none" ? "" : searchValue}`)
         }
-    }, [searchValue, searchBy, pageNumber, pageSize, from, filter])
+    }, [searchValue, searchBy, pageNumber, pageSize, from, filter, maxPrice])
 
     useEffect(() => {
         if(currentFilterItem){
@@ -174,7 +202,18 @@ const CatalogContainer = (props) => {
         if(searchParams.get('searchBy')) setSearchBy(searchParams.get('searchBy'))
         if(searchParams.get('from')) setFrom(searchParams.get('from'))
         if(searchParams.get('searchValue')) setSearchValue(searchParams.get('searchValue'))
-        if(searchParams.get('tag')) setSearchValue(searchParams.get('tag'))
+        if(searchParams.get('tag')) {
+            let isExist = false
+            selectedTags.forEach(el => {
+                if(el === searchParams.get('tag')) {
+                    isExist = true
+                }
+            })
+            if(!isExist) {
+                selectedTags.push(searchParams.get('tag'))
+            }
+            setSearchValue(searchParams.get('tag'))
+        }
         if(searchParams.get('minAge')) setAgeRange([[Number(searchParams.get('minAge')), Number(searchParams.get('maxAge'))]])
         if(searchParams.get('maxAge')) setAgeRange([[Number(searchParams.get('minAge')), Number(searchParams.get('maxAge'))]])
         if(searchParams.get('minPrice')) setPriceRange([searchParams.get('minPrice'), searchParams.get('minPrice')])
@@ -186,8 +225,14 @@ const CatalogContainer = (props) => {
     }, [searchParams])
 
     useEffect(() => {
-       applyFilter()
-    }, [searchBy, searchValue, from, pageSize, pageNumber, filter, ageRange, gender, selectedTags])
+        if(maxPrice !== 0) {
+            applyFilter()
+        }
+    }, [searchBy, searchValue, from, pageSize, pageNumber, filter, ageRange, gender, selectedTags, priceRange, maxPrice])
+
+    useEffect(() => {
+        setPriceRange([0, maxPrice])
+    }, [maxPrice])
 
     useEffect(() => {
         return () => {
@@ -196,14 +241,14 @@ const CatalogContainer = (props) => {
             setFilterCategories([])
         }
     }, [])
-    
-    useEffect(() => {
-        setPriceRange([0, maxPrice])
-    }, [maxPrice])
 
     useEffect(() => {
         getTags(1, 10000, "", "", "")
     }, [])
+
+    useEffect(() => {
+        sortSelected(tags)
+    }, [selectedTags])
 
     return (
         <>
@@ -228,7 +273,7 @@ const CatalogContainer = (props) => {
                     setGender={setGender}
                     applyFilter={applyFilter}
                     currentLanguage={currentLanguage}
-                    tags={tags}
+                    tags={filteredTags}
                     selectedTags={selectedTags}
                     handleSelectedTags={handleSelectedTags}
                 />
