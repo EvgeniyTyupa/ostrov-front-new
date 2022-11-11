@@ -1,0 +1,27 @@
+.main {
+    width: 100%;
+}
+.main label {
+    font-size: 12px;
+    opacity: .45;
+    font-family: "Montserrat";
+    font-weight: 400;
+    line-height: 1.4375em;
+    letter-spacing: 0.00938em;
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 4px;
+}
+.editor {
+    background-color: transparent !important;
+    font-family: 'Roboto' !important;
+    border: 1px solid rgb(75, 94, 163, .3) !important;
+    border-radius: 0 !important;
+    color: black !important
+}
+.editor:hover {
+    border: 1px solid rgba(75, 94, 163, .6) !important
+}
+.editor:active, .editor:focus { 
+    border: 2px solid rgb(75, 94, 163, 1) !important
+}

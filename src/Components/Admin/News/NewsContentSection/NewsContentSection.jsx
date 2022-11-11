@@ -6,6 +6,7 @@ import classes from './NewsContentSection.module.css'
 import { AiOutlineMinus } from 'react-icons/ai';
 import { Button } from '@mui/material'
 import Field from '../../../UI/Form/Field/Field'
+import CustomMarkdown from '../../../UI/Form/Markdown/CustomMarkdown'
 
 const NewsContentSection = (props) => {
     const { control, index, onRemove } = props
@@ -13,8 +14,20 @@ const NewsContentSection = (props) => {
     return (
         <div className={classes.main}>
             <h4>Секция {index + 1}</h4>
-            <Field className={classes.row}>
-                <Controller
+            <Controller
+                name={`paragraphs_ua.${index}.value`}
+                control={control}
+                defaultValue=""
+                rules={{ required: "Обязательное поле!" }}
+                render={({ field: { onChange, value }, fieldState: { error } }) => (
+                    <CustomMarkdown
+                        value={value}
+                        onChange={onChange}
+                        label={"Текст"}
+                    />
+                )}
+            />
+                {/* <Controller
                     name={`paragraphs_ua.${index}.value`}
                     control={control}
                     defaultValue=""
@@ -29,8 +42,7 @@ const NewsContentSection = (props) => {
                             label="Текст (УКР)"  
                         />
                     )}
-                />
-            </Field>
+                /> */}
             <div className={classes.imgContainer}>
                 <Controller
                     name={`images.${index}.value`}

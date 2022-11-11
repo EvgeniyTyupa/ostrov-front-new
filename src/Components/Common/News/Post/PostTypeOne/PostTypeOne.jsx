@@ -4,6 +4,7 @@ import { BsCalendar } from 'react-icons/bs';
 import moment from 'moment'
 import { cx } from '../../../../../Utils/classnames'
 import AnimatedBlock from '../../../../Animation/AnimatedBlock/AnimatedBlock';
+import MDEditor from '@uiw/react-md-editor';
 
 const PostTypeOne = (props) => {
     const { post, currentLanguage } = props
@@ -23,16 +24,15 @@ const PostTypeOne = (props) => {
                         <img src={el} alt="image" referrerpolicy="no-referrer"/>
                     </div>
                     <div className={classes.blockText}>
-                        {currentLanguage === "ru" &&
-                            post.paragraphs[index].split("\n").map(item => (
-                                <p className={classes.text}>{item}</p>
-                            ))
-                        }
-                        {currentLanguage === "ua" &&
-                            post.paragraphs_ua[index].split("\n").map(item => (
-                                <p className={classes.text}>{item}</p>
-                            ))
-                        }
+                        <MDEditor.Markdown
+                            source={post.paragraphs_ua[index]}
+                            style={{
+                                whiteSpace: 'pre-wrap', 
+                                background: 'transparent', 
+                                color: "white", 
+                                fontFamily: "Montserrat",
+                            }}
+                        />
                     </div>
                 </div>
             ))}

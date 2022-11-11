@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 30px;
     z-index: 5;
 }
@@ -22,7 +23,7 @@
     font-weight: 700;
 }
 .block {
-    width: 100%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -41,7 +42,7 @@
 .imageBlock img {
     width: 100%;
     object-fit: cover;
-    max-height: 450px;
+    max-height: 550px;
 }
 .blockText {
     width: 100%;
@@ -49,10 +50,14 @@
     flex-direction: column;
     justify-content: center;
     gap: 5px;
+    padding: 2rem;
+    border-radius: 12px;
+    box-sizing: border-box;
+    background-color: rgba(232, 101, 137, 1);
 }
 .text {
-    font-size: 14px;
-    color: #37395C;
+    font-size: 16px;
+    color: white !important;
 }
 .text::first-letter {
     text-transform: capitalize;
