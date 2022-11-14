@@ -129,9 +129,9 @@ const AdminItemsContainer = (props) => {
 
     useEffect(() => {
         getItems(pageNumber + 1, pageSize, "", "", "", false)
-        getBrands(pageNumber + 1, 500, "", "", "")
-        getAllCategories(pageNumber + 1, 500, "", "", "")
-        getTags(pageNumber + 1, 500, "", "", "")
+        getBrands(1, 1000, "", "", "")
+        getAllCategories(1, 1000, "", "", "")
+        getTags(1, 1000, "", "", "")
     }, [newItem, pageSize, pageNumber])
 
     useEffect(() => {
