@@ -40,7 +40,7 @@
     border-bottom-right-radius: 25px;
     box-shadow: 4px 0 8px -3px black;
     overflow: auto;
-    max-height: 50vh;
+    max-height: 484px;
 }
 .mainList {
     position: relative;

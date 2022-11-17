@@ -39,8 +39,6 @@ const DropZone = (props) => {
             reader.readAsDataURL(file)
             const newFileName = getFilenameAndExtension(file.name.includes("_cutpart_") ? file.name.split("_cutpart_")[1] : file.name)
 
-            console.log(file.name.split("_cutpart_"))
-
             reader.addEventListener('load', () => {
                 let fileObj = {
                     id: newFileName[0] + new Date().getTime(),
@@ -149,21 +147,21 @@ const DropZone = (props) => {
 
         async function imgToFiles() {
             let newFiles = []
-            
-            initialFiles.forEach((img, index) => {
+            let index = 0;
+            for await (let img of initialFiles) {
                 if(typeof img === "string"){
+                    index++
                     let splited = img.split(".")
                     let fileName = img.split('/')
                     urltoFile(img, fileName[fileName.length - 1], splited[splited.length - 1])
                     .then(function(file){
                         newFiles.push(file)
-                        if(index === initialFiles.length - 1) {
+                        if(index === initialFiles.length) {
                             handleFiles(newFiles)
                         }
                     })
                 }
-
-            })
+            }
         }
         
         if(initialFiles.length > 0) {
