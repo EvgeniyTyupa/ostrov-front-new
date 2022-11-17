@@ -168,7 +168,7 @@ const AdminOrders = (props) => {
                                         }
                                     </TableCell>
                                     <TableCell>
-                                        {moment(item.created_at).format("DD/MM/YYYY hh:mm:ss")}
+                                        {moment(item.created_at).format("DD/MM/YYYY HH:mm:ss")}
                                     </TableCell>
                                     <TableCell width={60}>
                                         <AdminControllButtons 
