@@ -20,6 +20,9 @@
 .block li {
     margin: 12px 0;
 }
+.subBlock p {
+    margin: 10px 0;
+}
 
 @media screen and (max-width: 1170px){
     .main{
@@ -27,17 +30,23 @@
         padding-left: 50px;
         padding-right: 50px;
     }
+    .block {
+        margin-top: 1rem;
+    }
 }
 
 @media screen and (max-width: 468px){
-    .main{
+    .main {
         padding-left: 15px;
         padding-right: 15px;
         width: 100%;
         box-sizing: border-box;
     }
-    .main h1{
+    .main h1 {
         text-align: center;
         font-size: 1.4rem;
+    }
+    .main ol {
+        padding: 8px;
     }
 }
