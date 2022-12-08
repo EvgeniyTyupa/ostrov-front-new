@@ -26,9 +26,8 @@ const SmallItem = (props) => {
     const rating = item.rating * 20
 
     const handleClick = () => {
-        let itemName = currentLanguage === "ru" ? item.name : item.name_ua
 
-        navigate(`/item/${itemName}`)
+        navigate(`/item/${item.url_code}`)
     }
 
     let price = priceParser(item.price)
