@@ -15,9 +15,7 @@ const DropdownMenuItem = (props) => {
     let price = priceParser(item.price)
 
     const onClick = () => {
-        let itemName = currentLanguage === "ru" ? item.name : item.name_ua
-
-        navigate(`/item/${itemName}`)
+        navigate(`/item/${item.url_code}`)
     }
 
     useEffect(() => {
