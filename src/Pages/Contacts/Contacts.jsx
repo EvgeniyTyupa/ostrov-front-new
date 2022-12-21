@@ -32,9 +32,9 @@ const Contacts = (props) => {
                             ))}
                         </div>
                         <div className={classes.email}>
-                                    <h4>Email</h4>
-                                    <a href="mailto:ostrovokdetstvazp1@gmail.com">ostrovokdetstvazp1@gmail.com</a>
-                                </div>
+                            <h4>Email</h4>
+                            <a href="mailto:ostrovokdetstvazp1@gmail.com">ostrovokdetstvazp1@gmail.com</a>
+                        </div>
                     </div>
                     <div className={classes.info}>
                         <div className={classes.infoBlock}>
