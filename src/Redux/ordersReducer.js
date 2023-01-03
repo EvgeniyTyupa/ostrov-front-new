@@ -1,4 +1,5 @@
 import { ordersApi } from "../Api/api"
+import { setCartEmpty } from "./cartReducer"
 import { setIsFetching, setServerMessage } from "./commonReducer"
 
 const SET_ORDERS_DATA = 'SET_ORDERS_DATA'
@@ -107,9 +108,8 @@ export const createOrderWithMailPost = (data) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
         let response = await ordersApi.createOrder(data)
-        console.log(response)
         if(data.payment_type === 'receive') {
-            dispatch([setServerMessage(response.message), setOrderDone(true), setIsFetching(false)])
+            dispatch([setServerMessage(response.message), setOrderDone(true), setCartEmpty(), setIsFetching(false)])
         }else {
             dispatch([setPaymentUrl(response.paymentUrl), setIsFetching(false)])
         }
