@@ -6,7 +6,7 @@ import { priceParser } from '../../../../../../../Utils/priceParser'
 import classes from './DropdownMenuItem.module.css'
 
 const DropdownMenuItem = (props) => {
-    const { item, currentLanguage, isLast } = props
+    const { item, currentLanguage, isLast, handleOpen } = props
 
     const navigate = useNavigate()
 
@@ -16,6 +16,9 @@ const DropdownMenuItem = (props) => {
 
     const onClick = () => {
         navigate(`/item/${item.url_code}`)
+        if (handleOpen) {
+            handleOpen()
+        }
     }
 
     useEffect(() => {

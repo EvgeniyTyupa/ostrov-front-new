@@ -110,6 +110,7 @@ export const createOrderWithMailPost = (data) => async (dispatch) => {
         let response = await ordersApi.createOrder(data)
         if(data.payment_type === 'receive') {
             dispatch([setServerMessage(response.message), setOrderDone(true), setCartEmpty(), setIsFetching(false)])
+            localStorage.shopping_cart = null
         }else {
             dispatch([setPaymentUrl(response.paymentUrl), setIsFetching(false)])
         }

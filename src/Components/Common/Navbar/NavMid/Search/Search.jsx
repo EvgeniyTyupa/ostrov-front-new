@@ -90,10 +90,12 @@ const Search = (props) => {
     const [isShowDropdown, setIsShowDropdown] = useState(false)
 
     const handleIsShowDropdown = () => {
-        if(setShowPhones) {
-            setShowPhones(!isShowDropdown)
-        }
-        setIsShowDropdown(!isShowDropdown)
+        setTimeout(() => {
+            if(setShowPhones) {
+                setShowPhones(!isShowDropdown)
+            }
+            setIsShowDropdown(!isShowDropdown)
+        }, 100);
     }
 
     const onSubmit = (data) => {
@@ -160,6 +162,7 @@ const Search = (props) => {
                 currentLanguage={currentLanguage}
                 total={total}
                 searchValue={searchValue}
+                handleOpen={handleOpen}
             />
         </div>
     )
