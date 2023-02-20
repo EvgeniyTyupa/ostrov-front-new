@@ -111,7 +111,7 @@ const CartTable = (props) => {
                                     }}
                                 >
                                     <NavLink 
-                                        to={`/item/${currentLanguage === "ru" ? item.item.name : item.item.name_ua}`}
+                                        to={`/item/${item.item.url_code}`}
                                     >
                                         {currentLanguage === "ru" ? item.item.name : item.item.name_ua}
                                     </NavLink>

@@ -12,7 +12,7 @@ const OrderItem = (props) => {
         <div className={classes.main}>
             <img src={item.item.images[0]} alt="image"/>
             <div className={classes.info}>
-                <NavLink to={`/item/${itemName}`} target="_blank">{itemName}</NavLink>
+                <NavLink to={`/item/${item.item.url_code}`} target="_blank">{itemName}</NavLink>
                 <span>Код: {item.item.code}</span>
                 <span>Кол-во: {item.count} шт.</span>
             </div>
