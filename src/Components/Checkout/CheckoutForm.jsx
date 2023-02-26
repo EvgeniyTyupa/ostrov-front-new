@@ -514,7 +514,7 @@ const CheckoutForm = (props) => {
                                         </IconButton>
                                     </Tooltip>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <CustomRadio
                                         label={t("checkout.paymentCreditCard.text")}
                                         labelAlign="end"
@@ -531,7 +531,7 @@ const CheckoutForm = (props) => {
                                             <BsFillQuestionCircleFill/>
                                         </IconButton>
                                     </Tooltip>
-                                </div>
+                                </div> */}
                             </RadioGroup>
                         )}
                     />         
