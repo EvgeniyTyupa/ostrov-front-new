@@ -39,7 +39,8 @@ const AdminUsers = (props) => {
         addAdmin,
         removeAdmin,
         isOpenRemove,
-        handleRemove
+        handleRemove,
+        updateAdmin
     } = props
 
     const rows = [
@@ -67,8 +68,13 @@ const AdminUsers = (props) => {
             key: "last",
             text: "",
             searchByValue: ""
+        },
+        {
+            text: "Администратор",
         }
     ]
+
+    console.log(users)
 
     return (
         <AnimatedBlock className={classes.main}>
@@ -110,6 +116,7 @@ const AdminUsers = (props) => {
                                 <TableTh text={rows[1].text} onSort={getUsers} searchByValue={rows[1].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>
                                 <TableTh text={rows[2].text} onSort={getUsers} searchByValue={rows[2].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>
                                 {!onlyAdmins && <TableTh text={rows[3].text} onSort={getUsers} searchByValue={rows[3].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>}
+                                <TableTh text={rows[5].text}/>
                                 <TableTh text={rows[4].text} onSort={getUsers} searchByValue={rows[4].searchByValue} searchValue={searchValue} pageNumber={pageNumber} pageSize={pageSize}/>                                
                             </TableRow>
                         </TableHead>
@@ -120,6 +127,13 @@ const AdminUsers = (props) => {
                                     <TableCell>{item.email}</TableCell>
                                     <TableCell>{item.phone ? item.phone : "———————"}</TableCell>
                                     {!onlyAdmins && <TableCell>{item.money_spend ? priceParser(item.money_spend) : 0} грн.</TableCell>}
+                                    <TableCell align='center'>
+                                        <CustomCheckbox checked={item.adminLevel} 
+                                            onChange={
+                                                () => updateAdmin(item._id)
+                                            }
+                                        />
+                                    </TableCell>
                                     <TableCell width={120}>
                                         <AdminControllButtons 
                                             item={item} 

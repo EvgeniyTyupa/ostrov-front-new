@@ -113,6 +113,10 @@ export const userApi = {
     removeAdmin(adminId) {
         return instance.delete(`/user/${adminId}`)
         .then(response => response.data)
+    },
+    updateAdmin(userId) {
+        return instance.patch(`/user/grant/${userId}`)
+        .then(response => response.data)
     }
 }
 

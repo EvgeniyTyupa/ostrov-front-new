@@ -304,6 +304,18 @@ export const removeAdmin = (adminId) => async (dispatch) => {
     }
 }
 
+export const updateAdmin = (userId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await userApi.updateAdmin(userId)
+        dispatch([setServerResponse(response.message), setIsFetching(false)])
+        return true
+    } catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+        return false
+    }
+}
+
 export const sendActivationMail = (email) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {

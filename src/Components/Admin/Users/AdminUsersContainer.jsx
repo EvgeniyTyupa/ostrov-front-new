@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { useSearchParams } from 'react-router-dom'
-import { addAdmin, getAdmins, getUser, getUsers, removeAdmin, setNewUser, setUsersData, updateSomeUser } from '../../../Redux/userReducer'
+import { addAdmin, getAdmins, getUser, getUsers, removeAdmin, setNewUser, setUsersData, updateAdmin, updateSomeUser } from '../../../Redux/userReducer'
 import Preloader from '../../Common/Preloader/Preloader'
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
 import AdminUsers from './AdminUsers'
@@ -22,7 +22,8 @@ const AdminUsersContainer = (props) => {
         addAdmin,
         removeAdmin,
         serverError,
-        serverResponse
+        serverResponse,
+        updateAdmin
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -89,6 +90,18 @@ const AdminUsersContainer = (props) => {
         await updateSomeUser(userId, data)
     }
 
+    const updateAdminHandler = (userId) => {
+        updateAdmin(userId).then(res => {
+            if (res) {
+                if (onlyAdmins) {
+                    getAdmins()
+                } else {
+                    getUsers(pageNumber + 1, pageSize, "", "", "")
+                }
+            }
+        })
+    }
+
     useEffect(() => {
         if(newUser) {
             const newUsers = [...users]
@@ -120,6 +133,7 @@ const AdminUsersContainer = (props) => {
         return () => setUsersData([])
     }, [])
 
+
     return (
         <AdminLayout>
             {isFetching && <Preloader/>}
@@ -148,6 +162,7 @@ const AdminUsersContainer = (props) => {
                 handleRemove={handleRemove}
                 serverError={serverError}
                 serverResponse={serverResponse}
+                updateAdmin={updateAdminHandler}
             />
         </AdminLayout>
     )
@@ -171,5 +186,6 @@ export default connect(mapStateToProps, {
     getAdmins,
     getUser,
     addAdmin,
-    removeAdmin
+    removeAdmin,
+    updateAdmin
 })(AdminUsersContainer)
