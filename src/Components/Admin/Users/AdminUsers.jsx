@@ -129,6 +129,7 @@ const AdminUsers = (props) => {
                                     {!onlyAdmins && <TableCell>{item.money_spend ? priceParser(item.money_spend) : 0} грн.</TableCell>}
                                     <TableCell align='center'>
                                         <CustomCheckbox checked={item.adminLevel} 
+                                            disabled={admin.adminLevel < 2}
                                             onChange={
                                                 () => updateAdmin(item._id)
                                             }
