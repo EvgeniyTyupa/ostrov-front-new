@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { connect } from 'react-redux';
+import { host } from '../../../Api/api';
 import { getBrands } from '../../../Redux/brandsReducer';
 import { getAllCategories } from '../../../Redux/categoryReducer';
+import { getItemsXml } from '../../../Redux/commonReducer';
 import { createItem, deleteItem, getItems, setItemActive, setItemsData, setNewItem, updateItem } from '../../../Redux/itemsReducer';
 import { getTags } from '../../../Redux/tagsReducer';
 import Preloader from '../../Common/Preloader/Preloader';
@@ -28,7 +30,8 @@ const AdminItemsContainer = (props) => {
         serverResponse,
         setItemsData,
         newItem,
-        setItemActive
+        setItemActive,
+        getItemsXml
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -111,6 +114,18 @@ const AdminItemsContainer = (props) => {
         })
     }
 
+    const getItemsXmlHandler = () => {
+        getItemsXml().then(response => {
+            if (response) {
+                let a = document.createElement("a")
+                a.href = `${host}/public/product_feed.zip`
+                a.download = "product_feed.zip"
+                a.target = "_blank"
+                a.click()
+            }
+        })
+    }
+
     useEffect(() => {
         if(newItem){
             const newItems = [...items]
@@ -175,6 +190,7 @@ const AdminItemsContainer = (props) => {
                 handleOpenMultiple={handleOpenMultiple}
                 isOpenMultipleModal={isOpenMultipleModal}
                 setSelectedItems={setSelectedItems}
+                getItemsXml={getItemsXmlHandler}
             />
         </AdminLayout>
     )
@@ -202,5 +218,6 @@ export default connect(mapStateToProps, {
     updateItem,
     setItemsData,
     setNewItem,
-    setItemActive
+    setItemActive,
+    getItemsXml
 })(AdminItemsContainer)

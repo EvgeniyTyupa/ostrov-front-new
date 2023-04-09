@@ -1,8 +1,10 @@
 import * as axios from "axios";
 import i18next from "i18next";
 
-export const baseURL = 'https://api.ostrivdytynstva.com/api';
-// export const baseURL = 'http://localhost:3002/api';
+export const host = 'https://api.ostrivdytynstva.com'
+// export const host = 'http://localhost:3002'
+
+export const baseURL = `${host}/api`;
 
 const newPostKey = '4cee2b513b6adbf0ba793123964eb2cc'
 
@@ -659,8 +661,12 @@ export const siteInfoApi = {
         return instance.get('/info')
         .then(response => response.data)
     },
+    getItemsXml() {
+        return instance.get('info/xml')
+        .then(response => response.data)
+    },
     updateInfo(id, data) {
         return instance.patch(`/info/${id}`, data)
         .then(response => response.data)
-    } 
+    },
 }

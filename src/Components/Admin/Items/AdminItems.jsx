@@ -45,7 +45,8 @@ const AdminItems = (props) => {
         selectedItems,
         handleOpenMultiple,
         isOpenMultipleModal,
-        setSelectedItems
+        setSelectedItems,
+        getItemsXml
     } = props
 
     const rows = [
@@ -145,6 +146,7 @@ const AdminItems = (props) => {
             <div className={classes.header}>
                 <h2>Товары</h2>
                 <div className={classes.topController}>
+                    <Button className={classes.xmlButt} onClick={getItemsXml}>Выгрузить XML файл с товарами</Button>
                     <AdminSearch onSearch={getItems} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
                     <Button onClick={handleOpenMultiple} className={classes.multiButt} disabled={selectedItems.length < 1}>Мультизамена</Button>
                     <Button onClick={handleAddModal} className={classes.addBut}>Добавить +</Button>

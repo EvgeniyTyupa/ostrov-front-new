@@ -171,4 +171,16 @@ export const updateSiteInfo = (id, data) => async (dispatch) => {
     }
 }
 
+export const getItemsXml = () => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        await siteInfoApi.getItemsXml()
+        dispatch([setServerResponse("Success!"), setIsFetching(false)])
+        return true
+    } catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+        return false
+    }
+}
+
 export default commonReducer

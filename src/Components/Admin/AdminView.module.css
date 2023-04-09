@@ -80,7 +80,10 @@
 .checkCell {
     padding: 0 !important;
 }
-
+.xmlButt {
+    text-transform: initial !important;
+    font-size: 14px !important;
+}
 
 @media screen and (max-width: 568px) {
     .header {
