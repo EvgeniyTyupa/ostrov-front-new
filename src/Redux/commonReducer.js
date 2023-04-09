@@ -1,4 +1,5 @@
 import { newPostApi, siteInfoApi } from "../Api/api"
+import { setItemsWithEmptyDescription } from "./itemsReducer"
 
 const SET_IS_FETCHING = 'SET_IS_FETCHING'
 const SET_SERVER_RESPONSE = 'SET_SERVER_RESPONSE'
@@ -171,12 +172,16 @@ export const updateSiteInfo = (id, data) => async (dispatch) => {
     }
 }
 
-export const getItemsXml = () => async (dispatch) => {
+export const getItemsXml = (skipEmpty, categoryId) => async (dispatch) => {
     dispatch(setIsFetching(true))
     try {
-        await siteInfoApi.getItemsXml()
-        dispatch([setServerResponse("Success!"), setIsFetching(false)])
-        return true
+        let response = await siteInfoApi.getItemsXml(skipEmpty, categoryId)
+        if (response.items) {
+            dispatch([setItemsWithEmptyDescription(response.items), setIsFetching(false)])
+        } else {
+            dispatch([setServerResponse("Success!"), setIsFetching(false)])
+            return true
+        }
     } catch(err) {
         dispatch([setServerError(err.response.data.message), setIsFetching(false)])
         return false

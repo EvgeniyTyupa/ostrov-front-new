@@ -1,25 +1,37 @@
-import React, { useState } from 'react'
-import classes from '../AdminView.module.css'
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
-import AdminControllButtons from '../../UI/Admin/Table/ControlButtons/AdminControllButtons';
-import AdminSearch from '../../UI/Admin/Table/Search/AdminSearch';
-import AdminAddForm from './AdminAddForm';
-import TableTh from '../../UI/Admin/Table/TableTh/TableTh';
-import AdminDeleteModal from '../../UI/Admin/AdminDeleteModal/AdminDeleteModal'
-import AdminEditForm from './AdminEditForm';
-import ServerResponse from '../../UI/ServerResponse/ServerResponse';
-import EmptyData from '../../UI/Admin/EmpyData/EmptyData';
-import { priceParser } from '../../../Utils/priceParser';
-import AnimatedBlock from '../../Animation/AnimatedBlock/AnimatedBlock';
-import CustomCheckbox from '../../UI/Form/Checkbox';
-import MultipleChangeModal from './MultipleChangeModal/MultipleChangeModal';
+import React, { useState } from "react"
+import classes from "../AdminView.module.css"
+import {
+    Button,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow
+} from "@mui/material"
+import AdminControllButtons from "../../UI/Admin/Table/ControlButtons/AdminControllButtons"
+import AdminSearch from "../../UI/Admin/Table/Search/AdminSearch"
+import AdminAddForm from "./AdminAddForm"
+import TableTh from "../../UI/Admin/Table/TableTh/TableTh"
+import AdminDeleteModal from "../../UI/Admin/AdminDeleteModal/AdminDeleteModal"
+import AdminEditForm from "./AdminEditForm"
+import ServerResponse from "../../UI/ServerResponse/ServerResponse"
+import EmptyData from "../../UI/Admin/EmpyData/EmptyData"
+import { priceParser } from "../../../Utils/priceParser"
+import AnimatedBlock from "../../Animation/AnimatedBlock/AnimatedBlock"
+import CustomCheckbox from "../../UI/Form/Checkbox"
+import MultipleChangeModal from "./MultipleChangeModal/MultipleChangeModal"
+import EmptyDescriptionItemsModal from "./EmptyDescriptionItemsModal/EmptyDescriptionItemsModal"
+import ChooseCategoryForXmlModal from "./ChooseCategoryForXmlModal/ChooseCategoryForXmlModal"
 
 const AdminItems = (props) => {
-    const { 
-        items, 
-        total, 
-        brands, 
-        categories, 
+    const {
+        items,
+        total,
+        brands,
+        categories,
         tags,
         pageSize,
         pageNumber,
@@ -46,7 +58,11 @@ const AdminItems = (props) => {
         handleOpenMultiple,
         isOpenMultipleModal,
         setSelectedItems,
-        getItemsXml
+        getItemsXml,
+        itemsWithEmptyDescription,
+        isOpenCategoryXml,
+        handleOpenCategoryXml,
+        setCategoryIdForXml
     } = props
 
     const rows = [
@@ -61,32 +77,32 @@ const AdminItems = (props) => {
             searchByValue: ""
         },
         {
-            key: 'name',
+            key: "name",
             text: "Название",
             searchByValue: "name"
         },
         {
-            key: 'code',
+            key: "code",
             text: "Код",
             searchByValue: "code"
         },
         {
-            key: 'price',
+            key: "price",
             text: "Цена",
             searchByValue: "price"
         },
         {
-            key: 'brand',
+            key: "brand",
             text: "Бренд",
             searchByValue: "brand"
         },
         {
-            key: 'category',
+            key: "category",
             text: "Категория",
             searchByValue: "category"
         },
         {
-            key: 'count',
+            key: "count",
             text: "Наявность",
             searchByValue: "count"
         },
@@ -96,25 +112,38 @@ const AdminItems = (props) => {
             searchValue: "is_active"
         },
         {
-            key: 'last',
+            key: "last",
             text: "",
             searchByValue: ""
-        },
+        }
     ]
 
     return (
         <AnimatedBlock className={classes.main}>
-            {(serverError || serverResponse) && <ServerResponse/> }
-            {isOpenAddModal && 
-                <AdminAddForm 
-                    onClose={handleAddModal} 
-                    brands={brands} 
-                    categories={categories} 
+            {(serverError || serverResponse) && <ServerResponse />}
+            {itemsWithEmptyDescription.length > 0 && (
+                <EmptyDescriptionItemsModal
+                    getItemsXml={getItemsXml}
+                    onEditItemClick={handleEdit}
+                />
+            )}
+            {isOpenCategoryXml && (
+                <ChooseCategoryForXmlModal
+                    onClose={handleOpenCategoryXml}
+                    getItemsXml={getItemsXml}
+                    setCategoryIdForXml={setCategoryIdForXml}
+                />
+            )}
+            {isOpenAddModal && (
+                <AdminAddForm
+                    onClose={handleAddModal}
+                    brands={brands}
+                    categories={categories}
                     tags={tags}
                     createItem={createItem}
                 />
-            }
-            {openEdit && 
+            )}
+            {openEdit && (
                 <AdminEditForm
                     onClose={handleEdit}
                     onEdit={handleEdit}
@@ -124,16 +153,16 @@ const AdminItems = (props) => {
                     tags={tags}
                     item={currentItem}
                 />
-            }
-            {openRemove && 
-                <AdminDeleteModal 
-                    onRemove={handleRemove} 
-                    item={currentItem} 
+            )}
+            {openRemove && (
+                <AdminDeleteModal
+                    onRemove={handleRemove}
+                    item={currentItem}
                     deleteItem={deleteItem}
                     onClose={handleRemove}
                 />
-            }
-            {isOpenMultipleModal && 
+            )}
+            {isOpenMultipleModal && (
                 <MultipleChangeModal
                     onClose={handleOpenMultiple}
                     selectedItems={selectedItems}
@@ -142,62 +171,110 @@ const AdminItems = (props) => {
                     searchGlobalValue={searchValue}
                     setSelectedItems={setSelectedItems}
                 />
-            }
+            )}
             <div className={classes.header}>
                 <h2>Товары</h2>
                 <div className={classes.topController}>
-                    <Button className={classes.xmlButt} onClick={getItemsXml}>Выгрузить XML файл с товарами</Button>
-                    <AdminSearch onSearch={getItems} pageSize={pageSize} setSearchValue={setSearchValue} searchValue={searchValue}/>
-                    <Button onClick={handleOpenMultiple} className={classes.multiButt} disabled={selectedItems.length < 1}>Мультизамена</Button>
-                    <Button onClick={handleAddModal} className={classes.addBut}>Добавить +</Button>
+                    <Button
+                        className={classes.xmlButt}
+                        onClick={handleOpenCategoryXml}
+                    >
+                        Выгрузить XML файл с товарами
+                    </Button>
+                    <AdminSearch
+                        onSearch={getItems}
+                        pageSize={pageSize}
+                        setSearchValue={setSearchValue}
+                        searchValue={searchValue}
+                    />
+                    <Button
+                        onClick={handleOpenMultiple}
+                        className={classes.multiButt}
+                        disabled={selectedItems.length < 1}
+                    >
+                        Мультизамена
+                    </Button>
+                    <Button onClick={handleAddModal} className={classes.addBut}>
+                        Добавить +
+                    </Button>
                 </div>
             </div>
             <div className={classes.table}>
-                <TableContainer component={Paper} className={classes.tableContainer}>
+                <TableContainer
+                    component={Paper}
+                    className={classes.tableContainer}
+                >
                     <Table>
                         <TableHead>
                             <TableRow>
                                 {rows.map((item, index) => (
-                                    <TableTh 
-                                        text={item.text} 
-                                        onSort={getItems} 
-                                        searchByValue={item.searchByValue} 
-                                        searchValue={searchValue} 
-                                        pageNumber={pageNumber} 
-                                        pageSize={pageSize} 
-                                        key={item.key} 
-                                        align={index === 0 ? 'center' : 'left'} 
+                                    <TableTh
+                                        text={item.text}
+                                        onSort={getItems}
+                                        searchByValue={item.searchByValue}
+                                        searchValue={searchValue}
+                                        pageNumber={pageNumber}
+                                        pageSize={pageSize}
+                                        key={item.key}
+                                        align={index === 0 ? "center" : "left"}
                                         padding={index === 0 ? 0 : "inherit"}
                                     />
                                 ))}
                             </TableRow>
                         </TableHead>
-                        <TableBody >
-                            {items.map(item => (
+                        <TableBody>
+                            {items.map((item) => (
                                 <TableRow key={item._id}>
-                                    <TableCell width={"50px"} align={"center"} className={classes.checkCell}>
-                                        <CustomCheckbox 
-                                            onChange={() => handleSelected(item._id)}
+                                    <TableCell
+                                        width={"50px"}
+                                        align={"center"}
+                                        className={classes.checkCell}
+                                    >
+                                        <CustomCheckbox
+                                            onChange={() =>
+                                                handleSelected(item._id)
+                                            }
                                         />
                                     </TableCell>
                                     <TableCell width={70}>
-                                        <img src={item.images[0]} alt="image" className={classes.imgPreview} referrerpolicy="no-referrer"/>
+                                        <img
+                                            src={item.images[0]}
+                                            alt="image"
+                                            className={classes.imgPreview}
+                                            referrerpolicy="no-referrer"
+                                        />
                                     </TableCell>
-                                    <TableCell width={"12%"}>{item.name_ua}</TableCell>
-                                    <TableCell align='center'>{item.code}</TableCell>
-                                    <TableCell>{priceParser(item.price)} грн.</TableCell>
-                                    <TableCell>{item.brand && item.brand.name}</TableCell>
-                                    <TableCell>{item.category && item.category.name_ua}</TableCell>
-                                    <TableCell align='center'>{item.count > 0 ? (item.count + " шт.") : "Нет в наличии"}</TableCell>
-                                    <TableCell align='center'>
-                                        <CustomCheckbox 
-                                            checked={item.is_active} 
-                                            onChange={() => setItemActive(item._id)}
+                                    <TableCell width={"12%"}>
+                                        {item.name_ua}
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        {item.code}
+                                    </TableCell>
+                                    <TableCell>
+                                        {priceParser(item.price)} грн.
+                                    </TableCell>
+                                    <TableCell>
+                                        {item.brand && item.brand.name}
+                                    </TableCell>
+                                    <TableCell>
+                                        {item.category && item.category.name_ua}
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        {item.count > 0
+                                            ? item.count + " шт."
+                                            : "Нет в наличии"}
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <CustomCheckbox
+                                            checked={item.is_active}
+                                            onChange={() =>
+                                                setItemActive(item._id)
+                                            }
                                         />
                                     </TableCell>
                                     <TableCell width={50} align="right">
-                                       <AdminControllButtons 
-                                            item={item} 
+                                        <AdminControllButtons
+                                            item={item}
                                             onRemove={handleRemove}
                                             onEdit={handleEdit}
                                             direction="column"
@@ -208,7 +285,7 @@ const AdminItems = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
-                {items.length === 0 && <EmptyData/>}
+                {items.length === 0 && <EmptyData />}
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 20, 50]}
                     component={"div"}

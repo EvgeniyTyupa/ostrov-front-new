@@ -10,6 +10,7 @@ const SET_NEW_ITEM = 'SET_NEW_ITEM'
 const SET_CURRENT_ITEM = 'SET_CURRENT_ITEM'
 const SET_SEARCHING_ITEMS = 'SET_SEARCHING_ITEMS'
 const SET_VIEWED_ITEMS = 'SET_VIEWED_ITEMS'
+const SET_ITEMS_WITH_EMPTY_DESCRIPTION = 'SET_ITEMS_WITH_EMPTY_DESCRIPTION'
 
 let initialState = {
     items: [],
@@ -17,7 +18,8 @@ let initialState = {
     newItem: null,
     total: 0,
     currentItem: null,
-    viewedItems: []
+    viewedItems: [],
+    itemsWithEmptyDescription: []
 }
 
 const itemsReducer = (state = initialState, action) => {
@@ -39,6 +41,9 @@ const itemsReducer = (state = initialState, action) => {
         }
         case SET_VIEWED_ITEMS: {
             return { ...state, viewedItems: action.viewedItems }
+        }
+        case SET_ITEMS_WITH_EMPTY_DESCRIPTION: {
+            return { ...state, itemsWithEmptyDescription: action.itemsWithEmptyDescription }
         }
         default:
             return state
@@ -62,6 +67,9 @@ export const setSearchingItems = (searchingItems) => ({
 })
 export const setViewedItems = (viewedItems) => ({
     type: SET_VIEWED_ITEMS, viewedItems
+})
+export const setItemsWithEmptyDescription = (itemsWithEmptyDescription) => ({
+    type: SET_ITEMS_WITH_EMPTY_DESCRIPTION, itemsWithEmptyDescription
 })
 
 export const getItems = (pageNumber, pageSize, searchBy, from, searchingValue, isActive) => async (dispatch) => {

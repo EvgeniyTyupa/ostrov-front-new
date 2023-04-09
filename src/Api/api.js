@@ -661,8 +661,8 @@ export const siteInfoApi = {
         return instance.get('/info')
         .then(response => response.data)
     },
-    getItemsXml() {
-        return instance.get('info/xml')
+    getItemsXml(skipEmpty, categoryId) {
+        return instance.get(`info/xml?skipEmpty=${skipEmpty}&categoryId=${categoryId}`)
         .then(response => response.data)
     },
     updateInfo(id, data) {

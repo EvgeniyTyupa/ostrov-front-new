@@ -5,7 +5,7 @@ import { host } from '../../../Api/api';
 import { getBrands } from '../../../Redux/brandsReducer';
 import { getAllCategories } from '../../../Redux/categoryReducer';
 import { getItemsXml } from '../../../Redux/commonReducer';
-import { createItem, deleteItem, getItems, setItemActive, setItemsData, setNewItem, updateItem } from '../../../Redux/itemsReducer';
+import { createItem, deleteItem, getItems, setItemActive, setItemsData, setItemsWithEmptyDescription, setNewItem, updateItem } from '../../../Redux/itemsReducer';
 import { getTags } from '../../../Redux/tagsReducer';
 import Preloader from '../../Common/Preloader/Preloader';
 import AdminLayout from '../../UI/Admin/AdminLayout/AdminLayout'
@@ -31,7 +31,9 @@ const AdminItemsContainer = (props) => {
         setItemsData,
         newItem,
         setItemActive,
-        getItemsXml
+        getItemsXml,
+        itemsWithEmptyDescription,
+        setItemsWithEmptyDescription
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -42,6 +44,9 @@ const AdminItemsContainer = (props) => {
     const [isOpenAddModal, setIsOpenAddModal] = useState(false)
     const [openEdit, setOpenEdit] = useState(false)
     const [openRemove, setOpenRemove] = useState(false)
+
+    const [isOpenCategoryXml, setIsOpenCategoryXml] = useState(false)
+    const [categoryIdForXml, setCategoryIdForXml] = useState("all")
 
     const [currentItem, setCurrentItem] = useState(null)
 
@@ -82,6 +87,10 @@ const AdminItemsContainer = (props) => {
         setIsOpenAddModal(!isOpenAddModal)
     }
 
+    const handleOpenCategoryXml = () => {
+        setIsOpenCategoryXml(!isOpenCategoryXml)
+    }
+
     const handleChangePage = (event, page) => {
         setPageNumber(page)
     }
@@ -114,14 +123,15 @@ const AdminItemsContainer = (props) => {
         })
     }
 
-    const getItemsXmlHandler = () => {
-        getItemsXml().then(response => {
+    const getItemsXmlHandler = (skipEmpty) => {
+        getItemsXml(skipEmpty, categoryIdForXml).then(response => {
             if (response) {
                 let a = document.createElement("a")
                 a.href = `${host}/public/product_feed.zip`
                 a.download = "product_feed.zip"
                 a.target = "_blank"
                 a.click()
+                setItemsWithEmptyDescription([])
             }
         })
     }
@@ -138,6 +148,17 @@ const AdminItemsContainer = (props) => {
             })
             newItems.splice(pushIndex, 0, newItem)
             setItemsData(newItems)
+
+            if (itemsWithEmptyDescription.length > 0) {
+                const newEmptyItems = [...itemsWithEmptyDescription]
+                newEmptyItems.forEach((item, index) => {
+                    if(item._id === newItem._id) {
+                        newEmptyItems.splice(index, 1)
+                    }
+                })
+                setItemsWithEmptyDescription(newEmptyItems)
+            }
+
             setNewItem(null)
         }
     }, [newItem])
@@ -191,6 +212,10 @@ const AdminItemsContainer = (props) => {
                 isOpenMultipleModal={isOpenMultipleModal}
                 setSelectedItems={setSelectedItems}
                 getItemsXml={getItemsXmlHandler}
+                itemsWithEmptyDescription={itemsWithEmptyDescription}
+                isOpenCategoryXml={isOpenCategoryXml}
+                handleOpenCategoryXml={handleOpenCategoryXml}
+                setCategoryIdForXml={setCategoryIdForXml}
             />
         </AdminLayout>
     )
@@ -205,7 +230,8 @@ let mapStateToProps = (state) => ({
     tags: state.tags.tags,
     serverResponse: state.common.serverResponse,
     serverError: state.common.serverError,
-    newItem: state.items.newItem
+    newItem: state.items.newItem,
+    itemsWithEmptyDescription: state.items.itemsWithEmptyDescription
 })
 
 export default connect(mapStateToProps, {
@@ -219,5 +245,6 @@ export default connect(mapStateToProps, {
     setItemsData,
     setNewItem,
     setItemActive,
-    getItemsXml
+    getItemsXml,
+    setItemsWithEmptyDescription
 })(AdminItemsContainer)

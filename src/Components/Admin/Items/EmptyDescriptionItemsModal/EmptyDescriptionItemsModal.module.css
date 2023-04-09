@@ -1,0 +1,29 @@
+.main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.main p {
+    color: black;
+}
+.header {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.skipButt {
+    margin-top: 2rem !important;
+    background-color: tomato !important;
+    color: white !important;
+}
+.values {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.values button {
+    text-transform: initial !important;
+}
