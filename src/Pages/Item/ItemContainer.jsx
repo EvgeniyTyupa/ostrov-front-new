@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
+import { useLocation } from 'react-router'
 import { useParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { setAddToCartResult, setCartItems } from '../../Redux/cartReducer'
@@ -37,6 +38,8 @@ const ItemContainer = (props) => {
     } = props
 
     const { name } = useParams()
+
+    const location = useLocation()
 
     const [currentImage, setCurrentImage] = useState(null)
     const [isFullDesc, setIsFullDesc] = useState(false)
@@ -202,6 +205,20 @@ const ItemContainer = (props) => {
             getComments(currentItem._id, pageNumber + 1, pageSize)
         }
     }, [currentItem, pageSize])
+
+    // Facebook Pixel code to track product views
+    useEffect(() => {
+        if (currentItem && categoriesWithParents && categoriesWithParents.length > 0) {
+            window.fbq("track", "ViewContent", {
+                content_name: currentItem.name_ua,
+                content_type: "product",
+                content_ids: [currentItem.url_code],
+                content_category: categoriesWithParents[categoriesWithParents.length - 1].name_ua,
+                value: currentItem.price,
+                currency: "UAH",
+            });
+        }
+      }, [location, currentItem, categoriesWithParents.length]);
 
     if(!currentItem && !isFetching) {
         return <NotFound/>
