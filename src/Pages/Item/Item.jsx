@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import { Helmet } from 'react-helmet'
 import CustomSlider from '../../Components/Common/Slider/CustomSlider'
+import useWindowDimensions from '../../Hooks/useWindowDimension'
 
 const Item = (props) => {
     const {
@@ -45,6 +46,8 @@ const Item = (props) => {
         siteInfo,
         handlePageSize
     } = props
+
+    const { width } = useWindowDimensions()
 
     let currentItemName = item.name_ua
     
@@ -91,10 +94,10 @@ const Item = (props) => {
                                         />
                                     ))}
                                     {item.video_link &&
-                                        <div className={classes.smallVideoContainer} onClick={() => setCurrentImage(item.video_link)}>
+                                        <label className={classes.smallVideoContainer} onClick={() => setCurrentImage(item.video_link)}>
                                             <div className={classes.videoShield}/>
                                             <iframe src={`${item.video_link}?disablekb=1`} frameborder="0"></iframe>
-                                        </div>
+                                        </label>
                                     }
                                 </CustomVerticalSlider>
                             </div>

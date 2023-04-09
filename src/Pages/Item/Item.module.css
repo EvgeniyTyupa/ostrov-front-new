@@ -47,7 +47,7 @@
 }
 .smallVideoContainer {
     width: 109px !important;
-    height: 103px;
+    height: 103px !important; 
     position: relative;
     display: flex;
     flex-direction: column;
@@ -59,11 +59,15 @@
 .smallVideoContainer:hover {
     border: 1px solid #4B5EA2;
 }
+.smallVideoContainer div {
+    width: 110px !important;
+    height: 103px !important;
+}
 .videoShield {
     z-index: 1;
-    width: 100%;
-    height: 100%;
-    position: relative;
+    width: 110px !important;
+    height: 103px !important;
+    position: absolute;
     transition-duration: .3s;
 }
 .smallVideoContainer iframe {
@@ -432,16 +436,20 @@
         margin-left: 0px;
     }
     .smallVideoContainer {
-        width: 70px !important;
-        height: 70px;
+        width: 65px !important;
+        height: 65px !important;
+    }
+    .smallVideoContainer div {
+        width: 65px !important;
+        height: 65px !important;
     }
     .smallVideoContainer iframe {
-        width: 70px !important;
-        height: 70px;
+        width: 65px !important;
+        height: 65px;
     }
     .smallImage {
-        width: 70px !important;
-        height: 70px;
+        width: 65px !important;
+        height: 65px;
     }
     .slider {
         width: 70px;
