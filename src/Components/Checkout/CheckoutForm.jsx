@@ -34,7 +34,9 @@ const CheckoutForm = (props) => {
         deliveryPrice,
         createOrderWithMailPost,
         currentPromocode,
-        siteInfo
+        siteInfo,
+        totalCount,
+        cartItems
     } = props
 
     const { handleSubmit, reset, control, setValue } = useForm()
@@ -151,6 +153,25 @@ const CheckoutForm = (props) => {
         data.delivery_price = deliveryPrice === 0 ? 0 : 1
 
         createOrderWithMailPost(data)
+
+        const contentIds = []
+        items.forEach(el => {
+            contentIds.push(el.item.url_code)
+        })
+
+        const contentNames = []
+        items.forEach(el => {
+            contentNames.push(el.item.name_ua)
+        })
+
+        window.fbq('track', 'Purchase', {
+            content_ids: contentIds,
+            content_names: contentNames,
+            content_type: 'product',
+            value: data.finaly_sum,
+            num_items: totalCount,
+            currency: "UAH"
+        });
     }
 
     useEffect(() => {
@@ -593,7 +614,9 @@ let mapStateToProps = (state) => ({
     npWarehouses: state.common.npWarehouses,
     isAuth: state.user.isAuth,
     totalSum: state.cart.totalSum,
-    siteInfo: state.common.siteInfo
+    siteInfo: state.common.siteInfo,
+    totalCount: state.cart.totalCount,
+    cartItems: state.cart.items,
 })
 
 export default connect(mapStateToProps,{

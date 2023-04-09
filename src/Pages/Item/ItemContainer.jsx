@@ -89,6 +89,16 @@ const ItemContainer = (props) => {
                 count: 1
             })
         }
+
+        window.fbq("track", "AddToCart", {
+            content_name: currentItem.name_ua,
+            content_type: "product",
+            content_ids: [currentItem.url_code],
+            content_category: categoriesWithParents[categoriesWithParents.length - 1].name_ua,
+            value: currentItem.price,
+            currency: "UAH",
+        });
+
         setCartItems(newItems)
         setAddToCartResult(newItems[currentItemIndex ? currentItemIndex : newItems.length - 1])
     }

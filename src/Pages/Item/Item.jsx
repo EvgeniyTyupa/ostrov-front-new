@@ -19,7 +19,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedBlock from '../../Components/Animation/AnimatedBlock/AnimatedBlock'
 import { Helmet } from 'react-helmet'
 import CustomSlider from '../../Components/Common/Slider/CustomSlider'
-import useWindowDimensions from '../../Hooks/useWindowDimension'
 
 const Item = (props) => {
     const {
@@ -46,8 +45,6 @@ const Item = (props) => {
         siteInfo,
         handlePageSize
     } = props
-
-    const { width } = useWindowDimensions()
 
     let currentItemName = item.name_ua
     

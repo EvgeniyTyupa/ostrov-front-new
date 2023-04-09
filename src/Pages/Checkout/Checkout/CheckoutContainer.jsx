@@ -74,6 +74,31 @@ const CheckoutContainer = (props) => {
         }
     }, [user])
 
+    useEffect(() => {
+        if (cartItems && totalSum) {
+            const contentIds = []
+            cartItems.forEach(el => {
+                contentIds.push(el.item._id)
+            })
+
+            // Create an array of product names
+            const contentNames = []
+            cartItems.forEach(el => {
+                contentNames.push(el.item.name_ua)
+            })
+
+            // Call the fbq('track') function to track the 'InitiateCheckout' event with multiple items
+            window.fbq('track', 'InitiateCheckout', {
+                content_ids: contentIds,
+                content_names: contentNames,
+                num_items: totalCount,
+                content_type: 'product',
+                value: totalSum,
+                currency: "UAH"
+            });
+        }
+    }, [cartItems, totalSum, totalCount])
+
     return (
         <>
             {isFetching && <Preloader/>}
