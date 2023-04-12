@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import { logout, me, setIsAuth } from '../../Redux/userReducer';
+import { logout, me } from '../../Redux/userReducer';
 import Preloader from './Preloader/Preloader';
 
 const AdminRoute = ({ isAuth, user, isStartData, me, isFetching, logout, ...rest }) => {
@@ -17,7 +17,7 @@ const AdminRoute = ({ isAuth, user, isStartData, me, isFetching, logout, ...rest
     }, [user])
 
     return (isFetching && !user) ? <Preloader/> :
-    (isAuth && user && user.adminLevel > 0 ) ? <Outlet/> : <Navigate to="/admin_login" />
+    (isAuth && user && user.adminLevel > 0 ) ? <Outlet/> : <Navigate to="/config_toys_login" />
 }
 
 let mapStateToProps = (state) => ({

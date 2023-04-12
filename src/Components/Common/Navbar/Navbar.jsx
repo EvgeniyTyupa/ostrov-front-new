@@ -42,7 +42,7 @@ const Navbar = (props) => {
 
     return (
         <>
-            {(!pathname.includes("admin") && !pathname.includes("/sign_up")) &&
+            {(!pathname.includes("config_toys") && !pathname.includes("/sign_up")) &&
             <div className={cx(classes.main, scrollPosition > 60 ? classes.sticky : "")}>
                 <NavTop currentLanguage={currentLanguage} setCurrentLanguage={setCurrentLanguage}/>
                 <NavMid isAuth={isAuth} user={user} totalItemsCart={totalItemsCart} setIsOpenMobileCatalog={setIsOpenMobileCatalog} isOpenMobileCatalog={isOpenMobileCatalog} siteInfo={siteInfo}/>

@@ -9,7 +9,7 @@ const Footer = (props) => {
 
     return (
         <>
-            {(!pathname.includes("admin") && !pathname.includes("/sign_up")) &&
+            {(!pathname.includes("config_toys") && !pathname.includes("/sign_up")) &&
                 <div className={classes.main}>
                     <FootTop/>
                     <FootBot/>

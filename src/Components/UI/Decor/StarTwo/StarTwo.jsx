@@ -8,7 +8,7 @@ const StarTwo = (props) => {
 
     return (
         <>
-            {(!pathname.includes("admin") && !pathname.includes("/sign_up")) &&
+            {(!pathname.includes("config_toys") && !pathname.includes("/sign_up")) &&
             <img src={star2} alt="star" className={classes.main}/>}
         </>
     )

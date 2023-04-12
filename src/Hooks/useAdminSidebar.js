@@ -9,52 +9,52 @@ export const useAdminSidebar = () => {
         {
             title: "Главная",
             icon: <MdDashboard/>,
-            href: "/admin"
+            href: "/config_toys"
         },
         {
             title: "Товары",
             icon: <IoGameController/>,
-            href: "/admin/items"
+            href: "/config_toys/items"
         },
         {
             title: "Категории",
             icon: <MdCategory/>,
-            href: "/admin/categories"
+            href: "/config_toys/categories"
         },
         {
             title: "Бренды",
             icon: <MdBrandingWatermark/>,
-            href: "/admin/brands"
+            href: "/config_toys/brands"
         },
         {
             title: "Теги",
             icon: <FaTags/>,
-            href: "/admin/tags"
+            href: "/config_toys/tags"
         },
         {
             title: "Новости",
             icon: <FaNewspaper/>,
-            href: "/admin/posts"
+            href: "/config_toys/posts"
         },
         {
             title: "Акции",
             icon: <MdEvent/>,
-            href: "/admin/actions"
+            href: "/config_toys/actions"
         },
         {
             title: "Пользователи",
             icon: <HiUsers/>,
-            href: "/admin/users"
+            href: "/config_toys/users"
         },
         {
             title: "Заказы",
             icon: <FaMoneyBillAlt/>,
-            href: "/admin/orders"
+            href: "/config_toys/orders"
         },
         {
             title: "Настройки",
             icon: <IoMdSettings/>,
-            href: "/admin/settings"
+            href: "/config_toys/settings"
         },
     ]
 

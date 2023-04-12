@@ -108,9 +108,9 @@ const TransitionRoutes = (props) => {
                     <Route exact path="settings" element={<Settings/>}/>
                 </Route>
 
-                <Route path="/admin_login" element={<AdminLogin />} />
+                <Route path="/config_toys_login" element={<AdminLogin />} />
 
-                <Route path="admin" element={<AdminRoute/>}>
+                <Route path="config_toys" element={<AdminRoute/>}>
                     <Route path="" element={<DashboardContainer/>} />
                     <Route path="items" element={<AdminItemsContainer/>} />
                     <Route path="tags" element={<AdminTagsContainer/>} />

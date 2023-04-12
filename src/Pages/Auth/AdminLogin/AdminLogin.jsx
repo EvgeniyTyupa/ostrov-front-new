@@ -43,7 +43,7 @@ const AdminLogin = (props) => {
     }
 
     useEffect(() => {
-        localStorage.usertoken && navigate('/admin')
+        localStorage.usertoken && navigate('/config_toys')
     }, [isAuth])
 
     return (
