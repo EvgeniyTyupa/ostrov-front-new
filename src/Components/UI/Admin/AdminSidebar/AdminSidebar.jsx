@@ -24,7 +24,7 @@ const AdminSidebar = (props) => {
 
     const handleLogout = () => {
         logout()
-        navigate('/admin_login')
+        navigate('/config_toys_login')
     }
 
     return (

@@ -47,7 +47,7 @@ const ProfileLayout = (props) => {
                     {user && user.adminLevel > 0 && (
                          <NavLink 
                             className={({isActive}) => (isActive ? classes.active : '')} 
-                            to={'/admin'}
+                            to={'/config_toys'}
                             end
                             target={"_blank"}
                         >
