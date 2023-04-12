@@ -12,7 +12,6 @@ import classes from './Style.module.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminInput from '../UI/Form/AdminInput'
 import { login } from '../../Redux/userReducer'
-import { NavLink } from 'react-router-dom'
 import { Button } from '@mui/material'
 
 const LoginModal = (props) => {

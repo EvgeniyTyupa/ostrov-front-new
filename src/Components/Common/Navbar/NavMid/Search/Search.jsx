@@ -75,7 +75,7 @@ const Search = (props) => {
         setShowPhones
     } = props
 
-    const { handleSubmit, control, reset, setValue } = useForm()
+    const { handleSubmit, control, setValue } = useForm()
 
     const [searchValue, setSearchValue] = useState("")
 

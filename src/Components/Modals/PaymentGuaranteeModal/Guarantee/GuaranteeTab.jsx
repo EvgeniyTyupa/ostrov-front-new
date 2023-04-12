@@ -6,8 +6,7 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 import { NavLink } from 'react-router-dom';
 
-const GuaranteeTab = (props) => {
-    const [checkedOne, setCheckedOne] = useState(false);
+const GuaranteeTab = () => {
     const [checkedTwo, setCheckedTwo] = useState(false);
 
     useEffect(() => {

@@ -1,12 +1,8 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { NavLink } from 'react-router-dom'
 import classes from './AuthWindow.module.css'
 
 const AuthWindow = (props) => {
-    const { title, children, type = "login" } = props
-    
-    const { t } = useTranslation()
+    const { title, children } = props
 
     return (
         <div className={classes.main}>

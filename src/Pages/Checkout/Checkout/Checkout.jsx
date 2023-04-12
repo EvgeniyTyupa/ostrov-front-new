@@ -37,8 +37,7 @@ const Checkout = (props) => {
         checkPromocode,
         currentPromocode,
         receivePromocodeStatus,
-        currentLanguage,
-        siteInfo
+        currentLanguage
     } = props
 
     const { t } = useTranslation()

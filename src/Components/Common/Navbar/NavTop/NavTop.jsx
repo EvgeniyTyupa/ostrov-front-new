@@ -1,21 +1,12 @@
-import { Button } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import { cx } from '../../../../Utils/classnames'
 import MaxWidthContainer from '../../../UI/Container/MaxWidthContainer/MaxWidthContainer'
 import PaddingContainer from '../../../UI/Container/PaddingContainer/PaddingContainer'
 import classes from './NavTop.module.css'
 
-const NavTop = (props) => {
-    const { currentLanguage, setCurrentLanguage } = props
-
-    const { t, i18n } = useTranslation()
-
-    const handleLanguage = (lang) => {
-        i18n.changeLanguage(lang)
-        setCurrentLanguage(lang)
-    }
+const NavTop = () => {
+    const { t } = useTranslation()
 
     return (
         <PaddingContainer className={classes.main}>

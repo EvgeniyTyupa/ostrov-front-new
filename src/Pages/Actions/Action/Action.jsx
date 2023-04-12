@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useTranslation } from 'react-i18next'
 import AnimatedBlock from '../../../Components/Animation/AnimatedBlock/AnimatedBlock'

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useCheckActionConditions } from '../../../Hooks/useCheckActionConditions'
 import { setCartItems, setDeliveryPrice } from '../../../Redux/cartReducer'
-import { OFFICE_MAIL_DELIVERY_PRICE } from '../../../Utils/constants'
 import ShoppingCart from './ShoppingCart'
 
 const ShoppingCartContainer = (props) => {
@@ -13,7 +11,6 @@ const ShoppingCartContainer = (props) => {
         setCartItems,
         viewedItems,
         deliveryPrice,
-        setDeliveryPrice,
         actionDiscount,
         gift,
         user,

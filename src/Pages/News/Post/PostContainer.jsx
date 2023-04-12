@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Preloader from '../../../Components/Common/Preloader/Preloader'
 import { getPost, setCurrentPost } from '../../../Redux/newsReducer'
-import NotFound from '../../NotFound/NofFound'
 import Post from './Post'
 
 const PostContainer = (props) => {

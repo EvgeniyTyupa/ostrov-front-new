@@ -13,9 +13,7 @@ const AccountMenu = (props) => {
     const { 
         isAuth, 
         setIsOpenLogin, 
-        setIsOpenRegister, 
-        logout, 
-        user 
+        logout,
     } = props
 
     const { t } = useTranslation()

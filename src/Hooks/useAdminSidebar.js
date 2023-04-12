@@ -1,5 +1,5 @@
-import { MdDashboard, MdCategory, MdBrandingWatermark, MdEvent, MdToys } from 'react-icons/md';
-import { FaShoppingBag, FaTags, FaNewspaper, FaMoneyBillAlt } from 'react-icons/fa';
+import { MdDashboard, MdCategory, MdBrandingWatermark, MdEvent } from 'react-icons/md';
+import { FaTags, FaNewspaper, FaMoneyBillAlt } from 'react-icons/fa';
 import { HiUsers } from 'react-icons/hi';
 import { IoGameController } from 'react-icons/io5';
 import { IoMdSettings } from 'react-icons/io';

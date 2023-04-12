@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { cx } from '../../../../../Utils/classnames'
 import classes from './Baige.module.css'
 
@@ -8,8 +7,6 @@ const Baige = (props) => {
         type = "new",
         value
     } = props
-
-    const { t } = useTranslation()
 
     return (
         <div className={cx(classes.main, type === "new" ? classes.new : '')}>

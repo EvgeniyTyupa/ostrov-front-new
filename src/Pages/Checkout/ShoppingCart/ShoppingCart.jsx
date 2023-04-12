@@ -57,7 +57,6 @@ const ShoppingCart = (props) => {
         totalCount,
         totalSum,
         cartItems,
-        deliveryPrice,
         setCurrentItem,
         viewedItems,
         actionDiscount,

@@ -7,9 +7,6 @@ import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
-import Aos from 'aos'
-import 'aos/dist/aos.css'
-
 const NotFound = () => {
     const { t } = useTranslation()
 

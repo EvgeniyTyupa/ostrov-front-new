@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import Slider from 'react-slick'
 import classes from './CustomVerticalSlider.module.css'
 import { FiArrowDown, FiArrowUp } from 'react-icons/fi';

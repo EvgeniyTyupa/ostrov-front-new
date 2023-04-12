@@ -1,4 +1,3 @@
-import { Button } from '@mui/material'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
@@ -7,7 +6,7 @@ import ProfileLayout from '../../UI/ProfileLayout/ProfileLayout'
 import classes from './Account.module.css'
 import AccountInfo from './AccountInfo/AccountInfo'
 
-const Account = (props) => {
+const Account = () => {
     const { t } = useTranslation()
 
     return (

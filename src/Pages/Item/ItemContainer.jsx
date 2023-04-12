@@ -45,7 +45,7 @@ const ItemContainer = (props) => {
     const [isFullDesc, setIsFullDesc] = useState(false)
 
     const [pageSize, setPageSize] = useState(5)
-    const [pageNumber, setPageNumber] = useState(0)
+    const [pageNumber] = useState(0)
 
     const [discount, setDiscount] = useState(null)
 
@@ -57,10 +57,6 @@ const ItemContainer = (props) => {
 
     const handleOpenAuthModal = () => {
         setIsOpenNeedAuthModal(!isOpenNeedAuthModal)
-    }
-
-    const handleChangePage = () => {
-        setPageNumber(pageNumber + 1)
     }
 
     const handlePageSize = () => {

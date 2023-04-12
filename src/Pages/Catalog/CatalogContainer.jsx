@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Preloader from '../../Components/Common/Preloader/Preloader'
 import { getByBrandCategoryTag, globalSearchCatalog, selectItems, setItemsData } from '../../Redux/itemsReducer'
 import { getTag, getTags } from '../../Redux/tagsReducer'

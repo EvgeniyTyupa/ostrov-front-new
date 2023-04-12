@@ -1,6 +1,5 @@
 import './App.css';
 import { BrowserRouter as Router } from "react-router-dom";
-import HttpsRedirect from 'react-https-redirect';
 
 import Navbar from './Components/Common/Navbar/Navbar';
 import Footer from './Components/Common/Footer/Footer';
@@ -19,7 +18,6 @@ import ShoppingCartResult from './Components/Common/ShoppingCart/ShoppingCartRes
 import { getCartItems, setActionDiscount, setCartItems, setGift, setTotalCount, setTotalSum } from './Redux/cartReducer';
 import { discountParser } from './Utils/discountParser';
 import { getViewedItems, setViewedItems } from './Redux/itemsReducer';
-import ScrollToTop from './Components/Common/Scroll/ScrollToTop';
 import ScrollToHash from './Components/Common/Scroll/ScrollToHash';
 import { useCheckActionConditions } from './Hooks/useCheckActionConditions';
 import SomeInfoModal from './Components/Modals/SomeInfoModal/SomeInfoModal';
@@ -56,7 +54,6 @@ const App = (props) => {
     setNotActivated,
     getSiteInfo,
     paymentUrl,
-    setPaymentUrl
   } = props
 
   const { actionDiscount, gift } = useCheckActionConditions(cartItems, totalSumCart, totalCountCart)
@@ -154,30 +151,26 @@ const App = (props) => {
 
   return (
     <Router>
-      {/* <HttpsRedirect> */}
-        {/* <ScrollToTop> */}
-          <ScrollToHash>
-            <div className='main'>
-              <Navbar/>
-              {isOpenLogin && <LoginModal/>}
-              {isOpenForgotPassModal && <ForgotPassModal/>}
-              {addToCartResult && <ShoppingCartResult/>}
-              {isBlocked && <SomeInfoModal text={serverMessage} onClose={() => setIsBlocked(false)}/>}
-              {notActivated && <NotActivatedModal onClose={() => setNotActivated(false)}/>}
-              <main className='body'>
-                <Suspense fallback={<Preloader/>}>
-                  <TransitionRoutes/>
-                </Suspense>
-              </main>
-              <StarOne/>
-              <StarTwo/>
-              <div className='footer'>
-                <Footer/>
-              </div>
-            </div>
-          </ScrollToHash>
-        {/* </ScrollToTop> */}
-      {/* </HttpsRedirect> */}
+      <ScrollToHash>
+        <div className='main'>
+          <Navbar/>
+          {isOpenLogin && <LoginModal/>}
+          {isOpenForgotPassModal && <ForgotPassModal/>}
+          {addToCartResult && <ShoppingCartResult/>}
+          {isBlocked && <SomeInfoModal text={serverMessage} onClose={() => setIsBlocked(false)}/>}
+          {notActivated && <NotActivatedModal onClose={() => setNotActivated(false)}/>}
+          <main className='body'>
+            <Suspense fallback={<Preloader/>}>
+              <TransitionRoutes/>
+            </Suspense>
+          </main>
+          <StarOne/>
+          <StarTwo/>
+          <div className='footer'>
+            <Footer/>
+          </div>
+        </div>
+      </ScrollToHash>
     </Router>
   )
 }

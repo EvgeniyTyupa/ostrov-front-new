@@ -14,7 +14,6 @@ import { forgotPass } from '../../Redux/userReducer'
 
 const ForgotPassModal = (props) => {
     const { 
-        isFetching,
         setIsOpenForgotPassModal,
         serverError,
         forgotPass,

@@ -5,19 +5,19 @@ import { lazy } from 'react'
 import { connect } from 'react-redux'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useCustomSearchParams } from '../../Hooks/useCustomSearchParams'
-import AdminLogin from '../../Pages/Auth/AdminLogin/AdminLogin'
 import { setCurrentLanguage } from '../../Redux/commonReducer'
-import AdminActionsContainer from '../Admin/Actions/AdminActionsContainer'
-import AdminBrandsContainer from '../Admin/Brands/AdminBrandsContainer'
-import AdminCategoriesContainer from '../Admin/Categories/AdminCategoriesContainer'
-import DashboardContainer from '../Admin/Dashboard/DashboardContainer'
-import AdminItemsContainer from '../Admin/Items/AdminItemsContainer'
-import AdminNewsContainer from '../Admin/News/AdminNewsContainer'
-import AdminOrdersContainer from '../Admin/Orders/AdminOrdersContainer'
-import AdminSettings from '../Admin/Settings/AdminSettings'
-import AdminTagsContainer from '../Admin/Tags/AdminTagsContainer'
-import AdminUsersContainer from '../Admin/Users/AdminUsersContainer'
-import AdminRoute from '../Common/AdminRoute'
+const AdminLogin = lazy(() => import("../../Pages/Auth/AdminLogin/AdminLogin"))
+const AdminActionsContainer = lazy(() => import("../Admin/Actions/AdminActionsContainer"))
+const AdminBrandsContainer = lazy(() => import("../Admin/Brands/AdminBrandsContainer"))
+const AdminCategoriesContainer = lazy(() => import("../Admin/Categories/AdminCategoriesContainer"))
+const DashboardContainer = lazy(() => import("../Admin/Dashboard/DashboardContainer"))
+const AdminItemsContainer = lazy(() => import("../Admin/Items/AdminItemsContainer"))
+const AdminNewsContainer = lazy(() => import("../Admin/News/AdminNewsContainer"))
+const AdminOrdersContainer = lazy(() => import("../Admin/Orders/AdminOrdersContainer"))
+const AdminSettings = lazy(() => import("../Admin/Settings/AdminSettings"))
+const AdminTagsContainer = lazy(() => import("../Admin/Tags/AdminTagsContainer"))
+const AdminUsersContainer = lazy(() => import("../Admin/Users/AdminUsersContainer"))
+const AdminRoute = lazy(() => import("../Common/AdminRoute"))
 
 const Signup = lazy(() => import("../../Pages/Auth/Signup/Signup"))
 const ActivateContainer = lazy(() => import("../../Pages/Auth/Activate/ActivateContainer"))
@@ -53,7 +53,7 @@ const TransitionRoutes = (props) => {
     const location = useLocation()
     const navigate = useNavigate()
 
-    const [searchParams, setSearch] = useCustomSearchParams()
+    const [searchParams] = useCustomSearchParams()
 
     useEffect(() => {
         if(!location.pathname.includes("admin")) {

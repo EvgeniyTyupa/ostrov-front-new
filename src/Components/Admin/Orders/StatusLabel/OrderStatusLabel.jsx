@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useOrderStatuses } from '../../../../Hooks/useOrderStatuses'
-import { cx } from '../../../../Utils/classnames'
 import classes from './OrderStatusLabel.module.css'
 
 const OrderStatusLabel = (props) => {

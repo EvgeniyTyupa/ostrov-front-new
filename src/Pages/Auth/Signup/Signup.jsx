@@ -25,7 +25,6 @@ const Signup = (props) => {
         isFetching, 
         register, 
         serverError, 
-        isRegisterDone, 
         setIsRegisterDone,
         setServerError,
         serverMessage,

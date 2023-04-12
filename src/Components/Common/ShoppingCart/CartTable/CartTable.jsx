@@ -7,11 +7,10 @@ import { NavLink } from 'react-router-dom'
 import { discountParser } from '../../../../Utils/discountParser'
 import { priceParser } from '../../../../Utils/priceParser'
 import AnimatedBlock from '../../../Animation/AnimatedBlock/AnimatedBlock'
-import AnimateFade from '../../../Animation/AnimateFade/AnimateFade'
 import ItemCounter from '../../../UI/ItemCounter/ItemCounter'
 import classes from './CartTable.module.css'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root:{
         padding: "0 20px",
         '& th, & td': {
