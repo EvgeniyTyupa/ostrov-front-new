@@ -188,4 +188,20 @@ export const getItemsXml = (skipEmpty, categoryId) => async (dispatch) => {
     }
 }
 
+export const getItemsExcel = (skipEmpty, categoryId) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        let response = await siteInfoApi.getItemsExcel(skipEmpty, categoryId)
+        if (response.items) {
+            dispatch([setItemsWithEmptyDescription(response.items), setIsFetching(false)])
+        } else {
+            dispatch([setServerResponse("Success!"), setIsFetching(false)])
+            return true
+        }
+    } catch(err) {
+        dispatch([setServerError(err.response.data.message), setIsFetching(false)])
+        return false
+    }
+}
+
 export default commonReducer

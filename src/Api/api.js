@@ -665,6 +665,10 @@ export const siteInfoApi = {
         return instance.get(`info/xml?skipEmpty=${skipEmpty}&categoryId=${categoryId}`)
         .then(response => response.data)
     },
+    getItemsExcel(skipEmpty, categoryId) {
+        return instance.get(`/info/excel?skipEmpty=${skipEmpty}&categoryId=${categoryId}`)
+        .then(response => response.data)
+    },
     updateInfo(id, data) {
         return instance.patch(`/info/${id}`, data)
         .then(response => response.data)

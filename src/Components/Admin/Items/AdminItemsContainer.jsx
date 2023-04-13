@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { host } from '../../../Api/api';
 import { getBrands } from '../../../Redux/brandsReducer';
 import { getAllCategories } from '../../../Redux/categoryReducer';
-import { getItemsXml } from '../../../Redux/commonReducer';
+import { getItemsExcel, getItemsXml } from '../../../Redux/commonReducer';
 import { createItem, deleteItem, getItems, setItemActive, setItemsData, setItemsWithEmptyDescription, setNewItem, updateItem } from '../../../Redux/itemsReducer';
 import { getTags } from '../../../Redux/tagsReducer';
 import Preloader from '../../Common/Preloader/Preloader';
@@ -33,7 +33,8 @@ const AdminItemsContainer = (props) => {
         setItemActive,
         getItemsXml,
         itemsWithEmptyDescription,
-        setItemsWithEmptyDescription
+        setItemsWithEmptyDescription,
+        getItemsExcel
     } = props
 
     const [pageSize, setPageSize] = useState(20)
@@ -45,8 +46,9 @@ const AdminItemsContainer = (props) => {
     const [openEdit, setOpenEdit] = useState(false)
     const [openRemove, setOpenRemove] = useState(false)
 
-    const [isOpenCategoryXml, setIsOpenCategoryXml] = useState(false)
+    const [isOpenCategoryUpload, setIsOpenCategoryUpload] = useState(false)
     const [categoryIdForXml, setCategoryIdForXml] = useState("all")
+    const [uploadType, setUploadType] = useState("")
 
     const [currentItem, setCurrentItem] = useState(null)
 
@@ -87,8 +89,9 @@ const AdminItemsContainer = (props) => {
         setIsOpenAddModal(!isOpenAddModal)
     }
 
-    const handleOpenCategoryXml = () => {
-        setIsOpenCategoryXml(!isOpenCategoryXml)
+    const handleOpenCategoryUpload = (uploadType) => {
+        setIsOpenCategoryUpload(!isOpenCategoryUpload)
+        setUploadType(uploadType)
     }
 
     const handleChangePage = (event, page) => {
@@ -124,16 +127,29 @@ const AdminItemsContainer = (props) => {
     }
 
     const getItemsXmlHandler = (skipEmpty) => {
-        getItemsXml(skipEmpty, categoryIdForXml).then(response => {
-            if (response) {
-                let a = document.createElement("a")
-                a.href = `${host}/public/product_feed.zip`
-                a.download = "product_feed.zip"
-                a.target = "_blank"
-                a.click()
-                setItemsWithEmptyDescription([])
-            }
-        })
+        if (uploadType === "XML") {
+            getItemsXml(skipEmpty, categoryIdForXml).then(response => {
+                if (response) {
+                    let a = document.createElement("a")
+                    a.href = `${host}/public/product_feed.zip`
+                    a.download = "product_feed.zip"
+                    a.target = "_blank"
+                    a.click()
+                    setItemsWithEmptyDescription([])
+                }
+            })
+        } else {
+            getItemsExcel(skipEmpty, categoryIdForXml).then(response => {
+                if (response) {
+                    let a = document.createElement("a")
+                    a.href = `${host}/public/products.xlsx`
+                    a.download = "products.xlsx"
+                    a.target = "_blank"
+                    a.click()
+                    setItemsWithEmptyDescription([])
+                }
+            })
+        }
     }
 
     useEffect(() => {
@@ -213,9 +229,10 @@ const AdminItemsContainer = (props) => {
                 setSelectedItems={setSelectedItems}
                 getItemsXml={getItemsXmlHandler}
                 itemsWithEmptyDescription={itemsWithEmptyDescription}
-                isOpenCategoryXml={isOpenCategoryXml}
-                handleOpenCategoryXml={handleOpenCategoryXml}
+                isOpenCategoryUpload={isOpenCategoryUpload}
+                handleOpenCategoryUpload={handleOpenCategoryUpload}
                 setCategoryIdForXml={setCategoryIdForXml}
+                uploadType={uploadType}
             />
         </AdminLayout>
     )
@@ -246,5 +263,6 @@ export default connect(mapStateToProps, {
     setNewItem,
     setItemActive,
     getItemsXml,
-    setItemsWithEmptyDescription
+    setItemsWithEmptyDescription,
+    getItemsExcel
 })(AdminItemsContainer)

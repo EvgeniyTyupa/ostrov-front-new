@@ -24,7 +24,7 @@ import AnimatedBlock from "../../Animation/AnimatedBlock/AnimatedBlock"
 import CustomCheckbox from "../../UI/Form/Checkbox"
 import MultipleChangeModal from "./MultipleChangeModal/MultipleChangeModal"
 import EmptyDescriptionItemsModal from "./EmptyDescriptionItemsModal/EmptyDescriptionItemsModal"
-import ChooseCategoryForXmlModal from "./ChooseCategoryForXmlModal/ChooseCategoryForXmlModal"
+import ChooseCategoryForUploadModal from "./ChooseCategoryForXmlModal/ChooseCategoryForUploadModal"
 
 const AdminItems = (props) => {
     const {
@@ -60,9 +60,10 @@ const AdminItems = (props) => {
         setSelectedItems,
         getItemsXml,
         itemsWithEmptyDescription,
-        isOpenCategoryXml,
-        handleOpenCategoryXml,
-        setCategoryIdForXml
+        isOpenCategoryUpload,
+        handleOpenCategoryUpload,
+        setCategoryIdForXml,
+        uploadType
     } = props
 
     const rows = [
@@ -125,12 +126,14 @@ const AdminItems = (props) => {
                 <EmptyDescriptionItemsModal
                     getItemsXml={getItemsXml}
                     onEditItemClick={handleEdit}
+                    uploadType={uploadType}
                 />
             )}
-            {isOpenCategoryXml && (
-                <ChooseCategoryForXmlModal
-                    onClose={handleOpenCategoryXml}
+            {isOpenCategoryUpload && (
+                <ChooseCategoryForUploadModal
+                    onClose={handleOpenCategoryUpload}
                     getItemsXml={getItemsXml}
+                    uploadType={uploadType}
                     setCategoryIdForXml={setCategoryIdForXml}
                 />
             )}
@@ -177,9 +180,15 @@ const AdminItems = (props) => {
                 <div className={classes.topController}>
                     <Button
                         className={classes.xmlButt}
-                        onClick={handleOpenCategoryXml}
+                        onClick={() => handleOpenCategoryUpload("XML")}
                     >
-                        Выгрузить XML файл с товарами
+                        XML файл
+                    </Button>
+                    <Button
+                        className={classes.xmlButt}
+                        onClick={() => handleOpenCategoryUpload("EXCEL")}
+                    >
+                        EXCEL файл
                     </Button>
                     <AdminSearch
                         onSearch={getItems}

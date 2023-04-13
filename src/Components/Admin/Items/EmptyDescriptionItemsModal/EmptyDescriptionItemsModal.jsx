@@ -9,7 +9,8 @@ const EmptyDescriptionItemsModal = (props) => {
         itemsWithEmptyDescription,
         setItemsWithEmptyDescription,
         getItemsXml,
-        onEditItemClick
+        onEditItemClick,
+        uploadType
     } = props
 
     const handleClose = () => {
@@ -17,7 +18,7 @@ const EmptyDescriptionItemsModal = (props) => {
     }
 
     return (
-        <Modal title="XML Каталог" onClose={handleClose}>
+        <Modal title={`${uploadType} Каталог`} onClose={handleClose}>
             <div className={classes.main}>
                 <div className={classes.header}>
                     <p>
@@ -27,7 +28,7 @@ const EmptyDescriptionItemsModal = (props) => {
                     </p>
                     <p>
                         <strong>Внимание:</strong> товары, у которых нет
-                        описания - не попадут в каталог XML.
+                        описания - не попадут в каталог {uploadType}.
                     </p>
                 </div>
                 <Button
