@@ -222,6 +222,7 @@ const AdminEditForm = (props) => {
                     name="brand"
                     control={control}
                     defaultValue=""
+                    rules={{ required: "Обязательное поле!" }}
                     render={({ field: { onChange, value }, fieldState: { error } }) => (
                         <CustomAutocomplete
                             value={value}
@@ -230,6 +231,7 @@ const AdminEditForm = (props) => {
                             label="Бренд"
                             setValue={setValue}
                             name={"brand"}
+                            error={error}
                         />
                     )}
                 />
