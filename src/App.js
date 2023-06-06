@@ -137,10 +137,8 @@ const App = (props) => {
     if(paymentUrl) {
       console.log(paymentUrl)
       Object.assign(document.createElement('a'), {
-        target: '_blank',
         href: paymentUrl,
       }).click();
-      // setPaymentUrl(null)
     }
   }, [paymentUrl])
 

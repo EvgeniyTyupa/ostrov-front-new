@@ -4,11 +4,12 @@ import { connect } from "react-redux"
 import { useParams } from "react-router"
 import { useNavigate } from "react-router-dom"
 import Preloader from "../../Components/Common/Preloader/Preloader"
+import { setCartEmpty } from "../../Redux/cartReducer"
 import { checkPaymentHash } from "../../Redux/ordersReducer"
 import Thankyou from "./Thankyou"
 
 const ThankyouContainer = (props) => {
-    const { isFetching, checkPaymentHash } = props
+    const { isFetching, checkPaymentHash, setCartEmpty } = props
 
     const { paymentHash } = useParams()
     const navigate = useNavigate()
@@ -30,6 +31,9 @@ const ThankyouContainer = (props) => {
     useEffect(() => {
         if (isChecked && !checkResult) {
             navigate("/")
+        } else if(isChecked && checkResult) {
+            setCartEmpty()
+            localStorage.shopping_cart = null
         }
     }, [isChecked, checkResult])
 
@@ -48,5 +52,6 @@ let mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
-    checkPaymentHash
+    checkPaymentHash,
+    setCartEmpty
 })(ThankyouContainer)
