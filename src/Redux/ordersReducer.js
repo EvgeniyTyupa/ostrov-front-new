@@ -112,7 +112,7 @@ export const createOrderWithMailPost = (data) => async (dispatch) => {
             dispatch([setServerMessage(response.message), setOrderDone(true), setCartEmpty(), setIsFetching(false)])
             localStorage.shopping_cart = null
         }else {
-            dispatch([setPaymentUrl(response.paymentUrl), setIsFetching(false)])
+            dispatch([setPaymentUrl(response.paymentUrl.checkout_url), setIsFetching(false)])
         }
     }catch(err) {
         dispatch(setIsFetching(false))
@@ -126,6 +126,18 @@ export const updateOrder = (orderId, data) => async (dispatch) => {
         dispatch([setNewOrder(response.order), setIsFetching(false)])
     }catch(err) {
         dispatch(setIsFetching(false))
+    }
+}
+
+export const checkPaymentHash = (paymentHash) => async (dispatch) => {
+    dispatch(setIsFetching(true))
+    try {
+        await ordersApi.checkPaymentHash(paymentHash)
+        dispatch([setIsFetching(false)])
+        return true
+    } catch (err) {
+        dispatch(setIsFetching(false))
+        return false
     }
 }
 

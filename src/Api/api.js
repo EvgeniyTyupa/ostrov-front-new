@@ -623,6 +623,10 @@ export const ordersApi = {
     updateOrder(orderId, data) {
         return instance.patch(`/order/${orderId}`, data)
         .then(response => response.data)
+    },
+    checkPaymentHash(paymentHash) {
+        return instance.get(`/order/checkPayment/${paymentHash}`)
+        .then(response => response.data)
     }
 }
 

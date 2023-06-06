@@ -5,6 +5,7 @@ import { lazy } from 'react'
 import { connect } from 'react-redux'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { useCustomSearchParams } from '../../Hooks/useCustomSearchParams'
+import ThankyouContainer from '../../Pages/Thankyou/ThankyouContainer'
 import { setCurrentLanguage } from '../../Redux/commonReducer'
 const AdminLogin = lazy(() => import("../../Pages/Auth/AdminLogin/AdminLogin"))
 const AdminActionsContainer = lazy(() => import("../Admin/Actions/AdminActionsContainer"))
@@ -99,6 +100,7 @@ const TransitionRoutes = (props) => {
 
                 <Route exact path="/shopping_cart" element={<ShoppingCartContainer/>}/>
                 <Route exact path="/checkout" element={<CheckoutContainer/>}/>
+                <Route path="/thankyou/:paymentHash" element={<ThankyouContainer/>}/>
 
                 <Route exact path="profile" element={<ProfilePage/>}>
                     <Route exact path="" element={<AccountContainer/>}/>
