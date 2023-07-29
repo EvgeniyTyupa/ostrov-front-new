@@ -180,7 +180,7 @@ const AdminItemsContainer = (props) => {
     }, [newItem])
 
     useEffect(() => {
-        getItems(pageNumber + 1, pageSize, "", "", "", false)
+        getItems(pageNumber + 1, pageSize, "", "", searchValue, false)
         getBrands(1, 1000, "", "", "")
         getAllCategories(1, 1000, "", "", "")
         getTags(1, 1000, "", "", "")
