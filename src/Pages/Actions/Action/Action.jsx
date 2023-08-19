@@ -53,7 +53,7 @@ const Action = (props) => {
                 <SmallItemsList
                     items={action.items}
                     title={t("event.items")}
-                    href={`/catalog?pageNumber=1&pageSize=25&searchBy=action&from=asc&searchValue=${action._id}`}
+                    href={`/catalog?pageNumber=1&pageSize=25&searchBy=action&from=desc&searchValue=${action._id}`}
                     slidesToShow={action.items.length > 4 ? 5 : action.items.length}
                 />
             </MaxWidthContainer>

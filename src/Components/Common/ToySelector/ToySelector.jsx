@@ -82,7 +82,7 @@ const ToySelector = (props) => {
 
     const onSubmit = (data) => {
         data.tag = data.tag._id
-        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=selector&from=asc&minAge=${data.minAge === -1 ? 0 : data.minAge}&maxAge=${data.maxAge === -1 ? 17 : data.maxAge}&minPrice=${data.minPrice}&maxPrice=${data.maxPrice}&tag=${data.tag}`)
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=selector&from=desc&minAge=${data.minAge === -1 ? 0 : data.minAge}&maxAge=${data.maxAge === -1 ? 17 : data.maxAge}&minPrice=${data.minPrice}&maxPrice=${data.maxPrice}&tag=${data.tag}`)
     }
 
     useEffect(() => {

@@ -74,7 +74,7 @@ const Home = (props) => {
                         <SmallItemsList 
                             items={items} 
                             title={t("items.itemsListTitle")} 
-                            href={`/catalog?pageNumber=1&pageSize=25&searchBy=popular&from=asc`}
+                            href={`/catalog?pageNumber=1&pageSize=25&searchBy=popular&from=desc`}
                             slidesToShow={
                                 width > 1170 ? (items.length > 4 ? 5 : items.length) :
                                 width > 767 ? (items.length > 2 ? 3 : items.length) : 

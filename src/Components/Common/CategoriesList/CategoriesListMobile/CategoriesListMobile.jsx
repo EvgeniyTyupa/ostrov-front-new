@@ -16,7 +16,7 @@ const CategoriesListMobile = (props) => {
     const navigate = useNavigate()
 
     const onCategoryClick = (categoryId) => {
-        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=category&from=asc&searchValue=${categoryId}`)
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=category&from=desc&searchValue=${categoryId}`)
         handleMobileOpen()
         setIsOpenBurger(false)
     }

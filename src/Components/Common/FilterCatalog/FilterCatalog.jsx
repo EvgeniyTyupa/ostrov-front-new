@@ -42,7 +42,7 @@ const FilterCatalog = (props) => {
     const [isSticky, setIsSticky] = useState(false)
 
     const onClickCategory = (category) => {
-        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=category&from=asc&searchValue=${category._id}`)
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=category&from=desc&searchValue=${category._id}`)
     }
 
     const handleSticky = (e) => {

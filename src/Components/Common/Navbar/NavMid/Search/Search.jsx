@@ -100,7 +100,7 @@ const Search = (props) => {
 
     const onSubmit = (data) => {
         if(data.searchValue.length > 2) {
-            navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=name&from=asc&searchValue=${data.searchValue}`)
+            navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=name&from=desc&searchValue=${data.searchValue}`)
             handleOpen()
         }
     }

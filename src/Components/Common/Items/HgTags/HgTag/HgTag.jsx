@@ -30,7 +30,7 @@ const HgTag = (props) => {
     }, [])
 
     const handleClick = () => {
-        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=tags&from=asc&searchValue=${tag._id}`)
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=tags&from=desc&searchValue=${tag._id}`)
     }
 
     return (

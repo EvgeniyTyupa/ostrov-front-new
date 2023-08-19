@@ -112,7 +112,7 @@ const DropdownMenu = (props) => {
             ) ?
                 <p className={classes.empty}>{t("catalog.empty")}...</p>
             :
-                (total > items.length && <NavLink to={`/catalog?pageNumber=1&pageSize=25&searchBy=name&from=asc&searchValue=${searchValue}`}>{t("catalog.search.more")}</NavLink>)
+                (total > items.length && <NavLink to={`/catalog?pageNumber=1&pageSize=25&searchBy=name&from=desc&searchValue=${searchValue}`}>{t("catalog.search.more")}</NavLink>)
             }
         </div>
     )

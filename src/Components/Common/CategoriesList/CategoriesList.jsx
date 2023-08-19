@@ -17,7 +17,7 @@ const CategoriesList = (props) => {
     }
 
     const onClick = (categoryId) => {
-        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=category&from=asc&searchValue=${categoryId}`)
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=category&from=desc&searchValue=${categoryId}`)
     }
 
     return (

@@ -179,7 +179,7 @@ const CatalogContainer = (props) => {
                 case "category": {
                     let breadcrumbsItems = categoriesWithParents.map((el, index) => {
                         return {
-                            href: `/catalog?pageNumber=1&pageSize=25&searchBy=category&from=asc&searchValue=${el._id}`,
+                            href: `/catalog?pageNumber=1&pageSize=25&searchBy=category&from=desc&searchValue=${el._id}`,
                             title: currentLanguage === "ru" ? el.name : el.name_ua
                         }
                     })

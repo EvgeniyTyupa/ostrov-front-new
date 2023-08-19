@@ -50,7 +50,7 @@ const Item = (props) => {
     
     let breadcrumbsItems = categoriesWithParents.map(el => {
         return {
-            href: `/catalog?pageNumber=1&pageSize=25&searchBy=category&from=asc&searchValue=${el._id}`,
+            href: `/catalog?pageNumber=1&pageSize=25&searchBy=category&from=desc&searchValue=${el._id}`,
             title: el.name_ua
         }
     })

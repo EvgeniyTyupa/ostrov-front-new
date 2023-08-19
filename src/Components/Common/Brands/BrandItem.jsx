@@ -8,7 +8,7 @@ const BrandItem = (props) => {
     const navigate = useNavigate()
 
     const onClick = () => {
-        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=brand&from=asc&searchValue=${item._id}`)
+        navigate(`/catalog?pageNumber=1&pageSize=25&searchBy=brand&from=desc&searchValue=${item._id}`)
     }
 
     return (
