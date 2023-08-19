@@ -5,8 +5,8 @@ export const useSortableFields = () => {
 
     const items = [
         {
-            text: t("catalog.sort.default"),
-            searchBy: "popular",
+            text: t("catalog.sort.new"),
+            searchBy: "created_at",
         },
         {
             text: t("catalog.sort.highPrice"),
@@ -17,8 +17,8 @@ export const useSortableFields = () => {
             searchBy: "price_low",
         },
         {
-            text: t("catalog.sort.new"),
-            searchBy: "created_at",
+            text: t("catalog.sort.default"),
+            searchBy: "popular",
         },
         {
             text: t("catalog.sort.action"),

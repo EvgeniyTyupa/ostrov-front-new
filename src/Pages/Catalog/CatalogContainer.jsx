@@ -46,7 +46,7 @@ const CatalogContainer = (props) => {
     const [searchBy, setSearchBy] = useState("")
     const [from, setFrom] = useState("")
 
-    const [filter, setFilter] = useState("popular")
+    const [filter, setFilter] = useState("created_at")
 
     const [searchValue, setSearchValue] = useState("")
 
