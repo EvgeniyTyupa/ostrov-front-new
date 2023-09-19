@@ -112,7 +112,7 @@ export const createOrderWithMailPost = (data) => async (dispatch) => {
             dispatch([setServerMessage(response.message), setOrderDone(true), setCartEmpty(), setIsFetching(false)])
             localStorage.shopping_cart = null
         }else {
-            dispatch([setPaymentUrl(response.paymentUrl.checkout_url), setIsFetching(false)])
+            dispatch([setPaymentUrl(response.paymentUrl), setIsFetching(false)])
         }
     }catch(err) {
         dispatch(setIsFetching(false))
