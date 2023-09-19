@@ -8,6 +8,9 @@ import classes from './FootBot.module.css'
 
 import visa from '../../../../Assets/visa.png'
 import mastercard from '../../../../Assets/mastercard.svg'
+import monopay from "../../../../Assets/monopay.png"
+import applepay from "../../../../Assets/applepay.png"
+import gpay from "../../../../Assets/gpay.png"
 
 const FootBot = (props) => {
     const { siteInfo } = props
@@ -48,6 +51,9 @@ const FootBot = (props) => {
                         <NavLink to="/confidentiality">{t("navigation.footer.conf")}</NavLink>
                     </div>
                     <div className={classes.logos}>
+                        <img src={monopay} alt="monopay"/>
+                        <img src={applepay} alt="applepay"/>
+                        <img src={gpay} alt="gpay"/>
                         <img src={visa} alt="visa"/>
                         <img src={mastercard} alt="mastercard"/>
                     </div>
