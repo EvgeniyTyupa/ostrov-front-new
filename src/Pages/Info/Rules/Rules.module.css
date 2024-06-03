@@ -17,11 +17,13 @@
     gap: 1rem;
     margin-bottom: 2rem;
 }
-.block li {
+.block p {
     margin: 12px 0;
+    margin-left: 1rem;
 }
-.subBlock p {
-    margin: 10px 0;
+.block span {
+    margin-left: 2rem;
+    display: block;
 }
 
 @media screen and (max-width: 1170px){
